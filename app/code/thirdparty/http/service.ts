@@ -87,11 +87,19 @@ export class HttpService {
     this.registerControllers();
 
     // Handle /en-admin/nav.json with and without trailing slash
+    // 1. Serve /build directory at /build
+    this.app.use("/build", express.static(path.join(process.cwd(), "build")));
+
+    // 2. Serve /content directory at /content (Preserving the prefix)
+    this.app.use("/content", express.static(path.join(process.cwd(), "content")));
+
+    // 3. Serve /media directory at /media
+    this.app.use("/media", express.static(path.join(process.cwd(), "media")));
+
+    // 4. Handle /en-admin/nav.json
     this.app.get(["/en-admin/nav.json", "/en-admin//nav.json"], (req, res) => {
       res.json(this.adminNav);
     });
-
-    this.app.use("/build", express.static(path.join(process.cwd(), "build")));
 
     this.app.use(
       express.static(path.join(process.cwd(), "content"), {

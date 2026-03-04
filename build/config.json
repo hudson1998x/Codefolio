@@ -40,5 +40,9 @@
         "icon": "fab fa-linkedin"
       }
     ]
+  },
+  "homepage": {
+    "module": "HomepageEditor",
+    "homepage": "/page/1"
   }
 }

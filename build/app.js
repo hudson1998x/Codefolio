@@ -1328,7 +1328,7 @@ var require_react_dom_development = __commonJS({
         return dispatcher;
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React7 = require_react(), Internals = {
+      var React8 = require_react(), Internals = {
         d: {
           f: noop,
           r: function() {
@@ -1346,7 +1346,7 @@ var require_react_dom_development = __commonJS({
         },
         p: 0,
         findDOMNode: null
-      }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React7.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+      }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
       "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
         "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
       );
@@ -2881,7 +2881,7 @@ var require_react_dom_client_development = __commonJS({
         "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
       }
       function validateOptionProps(element, props) {
-        null == props.value && ("object" === typeof props.children && null !== props.children ? React7.Children.forEach(props.children, function(child) {
+        null == props.value && ("object" === typeof props.children && null !== props.children ? React8.Children.forEach(props.children, function(child) {
           null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           ));
@@ -18513,14 +18513,14 @@ var require_react_dom_client_development = __commonJS({
         ));
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var Scheduler = require_scheduler(), React7 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+      var Scheduler = require_scheduler(), React8 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
       /* @__PURE__ */ Symbol.for("react.scope");
       var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity");
       /* @__PURE__ */ Symbol.for("react.legacy_hidden");
       /* @__PURE__ */ Symbol.for("react.tracing_marker");
       var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel");
       /* @__PURE__ */ Symbol.for("react.view_transition");
-      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React7.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -21308,7 +21308,7 @@ var require_react_dom_client_development = __commonJS({
         }
       };
       (function() {
-        var isomorphicReactPackageVersion = React7.version;
+        var isomorphicReactPackageVersion = React8.version;
         if ("19.2.4" !== isomorphicReactPackageVersion)
           throw Error(
             'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.4\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -21662,18 +21662,18 @@ var require_react_jsx_runtime_development = __commonJS({
       function isValidElement(object) {
         return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
       }
-      var React7 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React7.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+      var React8 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
         return null;
       };
-      React7 = {
+      React8 = {
         react_stack_bottom_frame: function(callStackForError) {
           return callStackForError();
         }
       };
       var specialPropKeyWarningShown;
       var didWarnAboutElementRef = {};
-      var unknownOwnerDebugStack = React7.react_stack_bottom_frame.bind(
-        React7,
+      var unknownOwnerDebugStack = React8.react_stack_bottom_frame.bind(
+        React8,
         UnknownOwner
       )();
       var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -21720,27 +21720,107 @@ var require_jsx_runtime = __commonJS({
 // app/web/index.tsx
 var import_client = __toESM(require_client());
 
-// app/web/thirdparty/router.tsx
+// app/web/thirdparty/providers/configuration.tsx
 var import_react = __toESM(require_react());
-var import_react2 = __toESM(require_react());
 var import_jsx_runtime = __toESM(require_jsx_runtime());
-var useRouter = () => {
-  const [pageContent, setPageContent] = (0, import_react2.useState)(null);
-  const [path, setPath] = (0, import_react2.useState)(window.location.pathname);
-  const loadPage = (0, import_react2.useCallback)(async (pathname) => {
-    try {
-      const normalized = pathname === "/" ? "/page.json" : `${pathname.replace(/\/$/, "")}/page.json`;
-      const res = await fetch(`/content${normalized}`);
-      if (!res.ok) {
-        throw new Error("404");
+var ConfigContext = (0, import_react.createContext)(null);
+var useConfig = () => {
+  const context = (0, import_react.useContext)(ConfigContext);
+  if (!context) {
+    throw new Error("useConfig must be used within a ConfigProvider");
+  }
+  return context;
+};
+var ConfigProvider = ({ children }) => {
+  const [config, setConfig] = (0, import_react.useState)(null);
+  (0, import_react.useEffect)(() => {
+    const loadConfig = async () => {
+      try {
+        const res = await fetch("/build/config.json?cache=" + window.__CACHE_KEY__);
+        if (!res.ok) throw new Error("Failed to load config.json");
+        const data = await res.json();
+        setConfig(data);
+      } catch (err) {
+        console.error("\u26A0\uFE0F Error loading config:", err);
       }
-      const data = await res.json();
-      setPageContent(data);
+    };
+    loadConfig();
+  }, []);
+  if (!config) return null;
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ConfigContext.Provider, { value: config, children });
+};
+function useModuleConfig(key, defaultConfig) {
+  const config = useConfig();
+  return (0, import_react.useMemo)(() => {
+    const moduleConfig = config?.[key];
+    if (!moduleConfig) {
+      return defaultConfig;
+    }
+    return {
+      ...defaultConfig,
+      ...moduleConfig
+    };
+  }, [config, key, defaultConfig]);
+}
+
+// app/web/thirdparty/router.tsx
+var import_react2 = __toESM(require_react());
+var import_react3 = __toESM(require_react());
+
+// app/web/thirdparty/configs/homepage-config/config.json
+var config_default = {
+  key: "homepage",
+  config: {
+    module: "HomepageEditor",
+    homepage: "/page/1"
+  }
+};
+
+// app/web/thirdparty/router.tsx
+var import_jsx_runtime2 = __toESM(require_jsx_runtime());
+var useRouter = () => {
+  const [pageContent, setPageContent] = (0, import_react3.useState)(null);
+  const [path, setPath] = (0, import_react3.useState)(window.location.pathname);
+  const homepage = useModuleConfig(config_default.key, config_default.config);
+  const isAdmin = window.location?.pathname?.startsWith("/en-admin/") || window.location?.pathname === "/en-admin";
+  const loadPage = (0, import_react3.useCallback)(async (pathname) => {
+    try {
+      const normalized = pathname === "/" ? homepage.homepage + (isAdmin ? "/page.json" : ".json") : `${pathname.replace(/\/$/, "")}/` + (isAdmin ? "page.json" : ".json");
+      const res = await fetch(`/content${normalized}`);
+      if (!res.ok) throw new Error("404");
+      const rawData = await res.json();
+      let processedContent;
+      if (rawData.content && typeof rawData.content === "string") {
+        try {
+          const nodes = JSON.parse(rawData.content);
+          processedContent = {
+            component: "PageRoot",
+            // Virtual wrapper for the array of nodes
+            pageTitle: rawData.pageTitle || "Untitled Page",
+            pageDescription: rawData.pageDescription || "",
+            data: {
+              title: rawData.pageTitle,
+              id: rawData.id
+            },
+            children: Array.isArray(nodes) ? nodes : [nodes]
+          };
+        } catch (e) {
+          console.error("Failed to parse stringified content field:", e);
+          throw new Error("Invalid JSON in content field");
+        }
+      } else if (Array.isArray(rawData)) {
+        processedContent = {
+          component: "PageRoot",
+          children: rawData
+        };
+      } else {
+        processedContent = rawData;
+      }
+      setPageContent(processedContent);
     } catch (err) {
-      console.warn(`Path ${pathname} not found, attempting to load 404.json`);
+      console.warn(`Path ${pathname} not found, falling back to 404.`);
       try {
         const errorRes = await fetch(`/content/404/page.json`);
-        if (!errorRes.ok) throw new Error("No 404 JSON found");
         const errorData = await errorRes.json();
         setPageContent(errorData);
       } catch {
@@ -21755,12 +21835,12 @@ var useRouter = () => {
       }
     }
   }, []);
-  (0, import_react2.useEffect)(() => {
+  (0, import_react3.useEffect)(() => {
     const onPopState = () => setPath(window.location.pathname);
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
-  (0, import_react2.useEffect)(() => {
+  (0, import_react3.useEffect)(() => {
     loadPage(path);
   }, [path, loadPage]);
   const navigate = (to) => {
@@ -21770,17 +21850,17 @@ var useRouter = () => {
   };
   return { pageContent, navigate, path };
 };
-var RouterContext = (0, import_react.createContext)(void 0);
+var RouterContext = (0, import_react2.createContext)(void 0);
 var RouterProvider = ({ children }) => {
-  const { pageContent, navigate, path } = useRouter();
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RouterContext.Provider, { value: { pageContent, navigate, path }, children });
+  const value = useRouter();
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(RouterContext.Provider, { value, children });
 };
 
 // app/web/thirdparty/components/ws-listener/index.tsx
-var import_react3 = __toESM(require_react());
-var import_jsx_runtime2 = __toESM(require_jsx_runtime());
+var import_react4 = __toESM(require_react());
+var import_jsx_runtime3 = __toESM(require_jsx_runtime());
 var WsListener = ({ children }) => {
-  (0, import_react3.useEffect)(() => {
+  (0, import_react4.useEffect)(() => {
     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
     const wsUrl = `${protocol}://${window.location.host}/ws`;
     const ws = new WebSocket(wsUrl);
@@ -21806,51 +21886,8 @@ var WsListener = ({ children }) => {
     };
     return () => ws.close();
   }, []);
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children });
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, { children });
 };
-
-// app/web/thirdparty/providers/configuration.tsx
-var import_react4 = __toESM(require_react());
-var import_jsx_runtime3 = __toESM(require_jsx_runtime());
-var ConfigContext = (0, import_react4.createContext)(null);
-var useConfig = () => {
-  const context = (0, import_react4.useContext)(ConfigContext);
-  if (!context) {
-    throw new Error("useConfig must be used within a ConfigProvider");
-  }
-  return context;
-};
-var ConfigProvider = ({ children }) => {
-  const [config, setConfig] = (0, import_react4.useState)(null);
-  (0, import_react4.useEffect)(() => {
-    const loadConfig = async () => {
-      try {
-        const res = await fetch("/build/config.json?cache=" + window.__CACHE_KEY__);
-        if (!res.ok) throw new Error("Failed to load config.json");
-        const data = await res.json();
-        setConfig(data);
-      } catch (err) {
-        console.error("\u26A0\uFE0F Error loading config:", err);
-      }
-    };
-    loadConfig();
-  }, []);
-  if (!config) return null;
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ConfigContext.Provider, { value: config, children });
-};
-function useModuleConfig(key, defaultConfig) {
-  const config = useConfig();
-  return (0, import_react4.useMemo)(() => {
-    const moduleConfig = config?.[key];
-    if (!moduleConfig) {
-      return defaultConfig;
-    }
-    return {
-      ...defaultConfig,
-      ...moduleConfig
-    };
-  }, [config, key, defaultConfig]);
-}
 
 // app/web/thirdparty/theme.tsx
 var import_jsx_runtime4 = __toESM(require_jsx_runtime());
@@ -22974,7 +23011,7 @@ var Page = () => {
 };
 
 // app/web/themes/default/header/config.json
-var config_default = {
+var config_default2 = {
   key: "header",
   config: {
     siteTitle: "My Portfolio",
@@ -22992,7 +23029,7 @@ var config_default = {
 var import_jsx_runtime14 = __toESM(require_jsx_runtime());
 var Header = () => {
   const { path } = useRouter();
-  const config = useModuleConfig(config_default.key, config_default.config);
+  const config = useModuleConfig(config_default2.key, config_default2.config);
   const isExternal = (to) => to.startsWith("http");
   return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("header", { className: "theme-header border-bottom shadow-sm", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "container d-flex justify-content-between align-items-center py-3", children: [
     /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "nav-logo h4 mb-0 fw-bold text-uppercase", children: config.siteTitle }),
@@ -23025,12 +23062,12 @@ var Header = () => {
 };
 registerComponent({
   name: "header",
-  defaults: config_default,
+  defaults: config_default2,
   component: Header
 });
 
 // app/web/themes/default/footer/config.json
-var config_default2 = {
+var config_default3 = {
   key: "footer",
   config: {
     copyrightName: "My Portfolio",
@@ -23045,7 +23082,7 @@ var config_default2 = {
 // app/web/themes/default/footer/index.tsx
 var import_jsx_runtime15 = __toESM(require_jsx_runtime());
 var Footer = () => {
-  const config = useModuleConfig(config_default2.key, config_default2.config);
+  const config = useModuleConfig(config_default3.key, config_default3.config);
   const visibleSocials = config.socials.filter((s) => s.href.trim() !== "");
   return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("footer", { className: "theme-footer border-top mt-auto py-4 bg-light", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "container", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "footer-content d-flex flex-column flex-md-row justify-content-between align-items-center", children: [
     /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("p", { className: "mb-0 text-muted", children: [
@@ -23070,7 +23107,7 @@ var Footer = () => {
 };
 registerComponent({
   name: "footer",
-  defaults: config_default2,
+  defaults: config_default3,
   component: Footer
 });
 

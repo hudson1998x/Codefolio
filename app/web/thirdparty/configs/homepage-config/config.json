@@ -1,0 +1,7 @@
+{
+  "key": "homepage",
+  "config": {
+    "module": "HomepageEditor",
+    "homepage": "/page/1"
+  }
+}
