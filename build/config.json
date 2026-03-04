@@ -42,7 +42,7 @@
     ]
   },
   "homepage": {
-    "module": "HomepageEditor",
+    "component": "HomepageEditor",
     "homepage": "/page/1"
   }
 }

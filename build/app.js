@@ -21771,7 +21771,7 @@ var import_react3 = __toESM(require_react());
 var config_default = {
   key: "homepage",
   config: {
-    module: "HomepageEditor",
+    component: "HomepageEditor",
     homepage: "/page/1"
   }
 };
