@@ -21775,20 +21775,6 @@ var RouterProvider = ({ children }) => {
   const { pageContent, navigate, path } = useRouter();
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RouterContext.Provider, { value: { pageContent, navigate, path }, children });
 };
-var useRouterContext = () => {
-  const context = (0, import_react.useContext)(RouterContext);
-  if (!context) throw new Error("useRouterContext must be used within a RouterProvider");
-  return context;
-};
-var Link = ({ to, children, className, onClick }) => {
-  const { navigate, path } = useRouterContext();
-  const handleClick = (e) => {
-    e.preventDefault();
-    if (to !== path) navigate(to);
-    if (onClick) onClick();
-  };
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: to, onClick: handleClick, className, children });
-};
 
 // app/web/thirdparty/components/ws-listener/index.tsx
 var import_react3 = __toESM(require_react());
@@ -22463,9 +22449,9 @@ var AutoContentList = ({ data }) => {
       /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("tbody", { children: results.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("td", { className: "cf-auto-list__empty", colSpan: columns.length + 1, children: "No results found." }) }) : results.map((row) => /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("tr", { className: "cf-auto-list__row", children: [
         columns.map((col) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("td", { className: "cf-auto-list__td", children: String(row[col.key] ?? "") }, col.key)),
         /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("td", { className: "cf-auto-list__td cf-auto-list__td--actions", children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
-          Link,
+          "a",
           {
-            to: resolveEditUrl(row.id),
+            href: resolveEditUrl(row.id),
             className: "cf-auto-list__btn cf-auto-list__btn--small",
             children: "Edit"
           }

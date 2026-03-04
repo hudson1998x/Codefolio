@@ -262,12 +262,12 @@ export const AutoContentList: FC<CodefolioProps<AutoListData>> = ({ data }) => {
                                     </td>
                                 ))}
                                 <td className="cf-auto-list__td cf-auto-list__td--actions">
-                                    <Link
-                                        to={resolveEditUrl(row.id)}
+                                    <a
+                                        href={resolveEditUrl(row.id)}
                                         className="cf-auto-list__btn cf-auto-list__btn--small"
                                     >
                                         Edit
-                                    </Link>
+                                    </a>
                                 </td>
                             </tr>
                         ))}

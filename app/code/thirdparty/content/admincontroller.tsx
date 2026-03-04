@@ -59,7 +59,7 @@ export abstract class AdminController<T extends Content> extends ContentControll
      * The label is derived by capitalizing the first character of the field key.
      *
      * @param f - The raw field metadata object from {@link getEntityFields}.
-     * @returns A formatted field descriptor with `key`, `label`, `type`, `required`, and `default`.
+     * @returns A formatted field descriptor with `key`, `label`, `type`, `required`, `default`, and `module`.
      */
     private formatField(f: any) {
         return {
@@ -73,6 +73,53 @@ export abstract class AdminController<T extends Content> extends ContentControll
     }
 
     /**
+     * Renders a form for creating or editing an entity instance.
+     *
+     * Each field is rendered as either a `<ui-Canvas>` (if the field has an associated
+     * module) or a `<ui-Input>`. Fields with a `module` have their `data.name` set to
+     * the field key before rendering.
+     *
+     * @param endpoint - The API endpoint the form submits to.
+     * @param method   - The HTTP method for the form submission.
+     * @param title    - The heading rendered above the form.
+     * @param fields   - The list of formatted field descriptors to render as inputs.
+     * @param submitLabel - The label shown on the submit button.
+     * @returns A {@link CanvasNode} rendering a `<ui-Section>` containing the form.
+     */
+    private renderEntityForm(
+        endpoint: string,
+        method: string,
+        title: string,
+        fields: ReturnType<typeof this.getEditableFields>,
+        submitLabel: string
+    ): CanvasNode {
+        return (
+            <ui-Section className='autoform'>
+                {title}
+                <ui-Form endpoint={endpoint} method={method}>
+                    {fields.map(field => {
+                        if (field.module) {
+                            field.module.data.name = field.key;
+                            return <ui-Canvas>{field.module}</ui-Canvas>;
+                        }
+
+                        return (
+                            <ui-Input
+                                name={field.key}
+                                label={field.label}
+                                type={field.type}
+                                required={field.required}
+                                defaultValue={field.default}
+                            />
+                        );
+                    })}
+                    <ui-Button type="submit">{submitLabel}</ui-Button>
+                </ui-Form>
+            </ui-Section>
+        );
+    }
+
+    /**
      * Renders the list/search page for this entity collection.
      * Responds to `GET /<collection>/page.json`.
      *
@@ -82,10 +129,10 @@ export abstract class AdminController<T extends Content> extends ContentControll
     @Get("page.json")
     public async listPage(): Promise<CanvasNode> {
         return (
-            <ui-AutoList 
-                apiUrl={'/api/' + this.getCollectionName()} 
+            <ui-AutoList
+                apiUrl={'/api/' + this.getCollectionName()}
                 listUrl={'/en-admin/' + this.getCollectionName()}
-                searchFields={this.getSearchableFields()} 
+                searchFields={this.getSearchableFields()}
                 columns={this.getSearchableFields()}
             />
         );
@@ -95,31 +142,19 @@ export abstract class AdminController<T extends Content> extends ContentControll
      * Renders the edit form for an existing entity by ID.
      * Responds to `GET /<collection>/:id/page.json`.
      *
-     * @param req - The incoming HTTP request.
-     * @param res - The HTTP server response.
+     * @param req       - The incoming HTTP request.
+     * @param res       - The HTTP server response.
      * @param currentId - The numeric ID of the entity to edit, extracted from the route parameter.
-     * @returns A {@link CanvasNode} rendering a `<ui-Form>` pre-populated with all
-     * editable fields, POSTing to `/api/<collection>/<currentId>`.
+     * @returns A {@link CanvasNode} rendering a form POSTing to `/api/<collection>/<currentId>`.
      */
     @Get("/:id/page.json")
     public async editPage(req: IncomingMessage, res: ServerResponse, currentId: number): Promise<CanvasNode> {
-        const fields = this.getEditableFields();
-
-        return (
-            <ui-Section className='autoform'>
-                <ui-Form action={`/api/${this.getCollectionName()}/${currentId}`} method="POST">
-                    {fields.map(field => (
-                        <ui-Input 
-                            name={field.key} 
-                            label={field.label} 
-                            type={field.type}
-                            required={field.required}
-                            defaultValue={field.default}
-                        />
-                    ))}
-                    <ui-Button type="submit">Save Changes</ui-Button>
-                </ui-Form>
-            </ui-Section>
+        return this.renderEntityForm(
+            `/api/${this.getCollectionName()}/${currentId}`,
+            "PATCH",
+            `Edit ${this.getTargetEntity().name}`,
+            this.getEditableFields(),
+            "Save Changes"
         );
     }
 
@@ -130,29 +165,19 @@ export abstract class AdminController<T extends Content> extends ContentControll
      * System-managed fields (`id`, `creator`, `updated`, `created`) are automatically
      * excluded from the form since they should not be set manually during creation.
      *
-     * @returns A {@link CanvasNode} rendering a `<ui-Form>` with all user-facing
-     * editable fields, submitting via PUT to `/api/<collection>`.
+     * @returns A {@link CanvasNode} rendering a form POSTing to `/api/<collection>`.
      */
     @Get("/add/page.json")
     public async addPage(): Promise<CanvasNode> {
         const sysFields = ["id", "creator", "updated", "created"];
         const fields = this.getEditableFields().filter(f => !sysFields.includes(f.key));
 
-        return (
-            <ui-Section className='autoform'>
-                <ui-Form action={`/api/${this.getCollectionName()}`} method="PUT">
-                    {fields.map(field => (
-                        field.module ? <ui-Canvas>{field.module}</ui-Canvas> : 
-                        <ui-Input 
-                            name={field.key} 
-                            label={field.label} 
-                            type={field.type}
-                            required={field.required}
-                        />
-                    ))}
-                    <ui-Button type="submit">Create Entity</ui-Button>
-                </ui-Form>
-            </ui-Section>
+        return this.renderEntityForm(
+            `/api/${this.getCollectionName()}`,
+            "POST",
+            `Add ${this.getTargetEntity().name}`,
+            fields,
+            `Create ${this.getTargetEntity().name}`
         );
     }
 }
