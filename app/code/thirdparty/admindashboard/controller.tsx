@@ -10,12 +10,10 @@ class AdminDashboardController
     @AdminNavItem("Dashboard", undefined, 1)
     public async homepage(): Promise<CanvasNode>
     {
-        return {
-            component: "text",
-            data: {
-                textContent: "Welcome to admin"
-            },
-            children: []
-        }
+        return (
+            <ui-Section>
+                Welcome to your admin
+            </ui-Section>
+        )
     }
 }

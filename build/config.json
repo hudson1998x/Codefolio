@@ -1,8 +1,44 @@
 {
   "footer": {
-    "copyrightName": "My Portfolio"
+    "copyrightName": "My Portfolio",
+    "socials": [
+      {
+        "label": "GitHub",
+        "href": ""
+      },
+      {
+        "label": "LinkedIn",
+        "href": ""
+      },
+      {
+        "label": "Twitter",
+        "href": ""
+      }
+    ]
   },
   "header": {
-    "siteTitle": "My Portfolio"
+    "siteTitle": "My Portfolio",
+    "links": [
+      {
+        "to": "/work",
+        "label": "Work"
+      },
+      {
+        "to": "/about",
+        "label": "About"
+      },
+      {
+        "to": "/contact",
+        "label": "Contact"
+      },
+      {
+        "to": "https://github.com",
+        "icon": "fab fa-github"
+      },
+      {
+        "to": "https://linkedin.com",
+        "icon": "fab fa-linkedin"
+      }
+    ]
   }
 }
