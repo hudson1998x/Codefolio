@@ -115,7 +115,7 @@ Codefolio is not a drag-and-drop site builder for everyone. It is a framework fo
 ## Getting started
 
 ```bash
-git clone https://github.com/your-org/codefolio
+git clone https://github.com/hudson1998x/codefolio
 cd codefolio
 npm install
 npm start
