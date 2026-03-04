@@ -1,0 +1,38 @@
+.cf-homepage-editor {
+  padding: 0.5rem 0;
+
+  &__group {
+    max-width: 480px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  &__help {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0 1.25rem 0;
+    line-height: 1.5;
+  }
+
+  &__current {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    
+    code {
+      background: #f1f5f9;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+  }
+
+  &__picker-wrapper {
+    // Ensuring the picker results don't get cut off by container padding
+    position: relative;
+    z-index: 10;
+  }
+}

@@ -21771,7 +21771,7 @@ var import_react3 = __toESM(require_react());
 var config_default = {
   key: "homepage",
   config: {
-    component: "HomepageEditor",
+    component: "Admin/Config/HomepageEditor",
     homepage: "/page/1"
   }
 };
@@ -23279,61 +23279,229 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/header/index.tsx
+var import_react16 = __toESM(require_react());
+
+// app/web/themes/@admin/components/page-picker/index.tsx
 var import_react15 = __toESM(require_react());
 var import_jsx_runtime20 = __toESM(require_jsx_runtime());
+var PageSearchPicker = ({ onSelect }) => {
+  const [query, setQuery] = (0, import_react15.useState)("");
+  const [results, setResults] = (0, import_react15.useState)([]);
+  const [searching, setSearching] = (0, import_react15.useState)(false);
+  (0, import_react15.useEffect)(() => {
+    if (query.length < 2) {
+      setResults([]);
+      return;
+    }
+    const timer = setTimeout(async () => {
+      setSearching(true);
+      try {
+        const filter = JSON.stringify({ pageTitle: query });
+        const res = await fetch(`/api/page?filter=${filter}&size=5`);
+        const json = await res.json();
+        if (json.ok) setResults(json.results);
+      } catch (err) {
+        console.error("Search failed", err);
+      } finally {
+        setSearching(false);
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [query]);
+  return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-page-picker", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-page-picker__input-wrapper", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+        "input",
+        {
+          type: "text",
+          placeholder: "Type to search pages...",
+          value: query,
+          onChange: (e) => setQuery(e.target.value),
+          className: "cf-page-picker__input"
+        }
+      ),
+      searching && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-page-picker__spinner" })
+    ] }),
+    results.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("ul", { className: "cf-page-picker__results", children: results.map((page) => /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("li", { className: "cf-page-picker__item", onClick: () => {
+      onSelect(page);
+      setQuery("");
+      setResults([]);
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "cf-page-picker__title", children: page.pageTitle }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("span", { className: "cf-page-picker__path", children: [
+        "/page/",
+        page.id
+      ] })
+    ] }, page.id)) })
+  ] });
+};
+
+// app/web/themes/@admin/components/config/header/index.tsx
+var import_jsx_runtime21 = __toESM(require_jsx_runtime());
 var HeaderConfigEditor = ({ data }) => {
   const cfgKey = "header";
+  const [isSearching, setIsSearching] = (0, import_react16.useState)(false);
   const initialLinks = data.links ? Array.isArray(data.links) ? data.links : Object.values(data.links) : [];
-  const [links, setLinks] = (0, import_react15.useState)(initialLinks);
-  const addLink = () => setLinks([...links, { to: "", label: "", icon: "" }]);
-  const removeLink = (index) => setLinks(links.filter((_, i) => i !== index));
-  return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-header-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Header" }),
-    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-header-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+  const [links, setLinks] = (0, import_react16.useState)(initialLinks);
+  const addCustomLink = () => {
+    setLinks([...links, { to: "", label: "New Link", icon: "" }]);
+  };
+  const addPageLink = (page) => {
+    setLinks([...links, {
+      to: `/page/${page.id}`,
+      label: page.pageTitle,
+      icon: ""
+    }]);
+    setIsSearching(false);
+  };
+  const removeLink = (index) => {
+    setLinks(links.filter((_, i) => i !== index));
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "cf-header-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Header" }),
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "cf-header-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
       Field,
       {
         name: `${cfgKey}[siteTitle]`,
         kind: "input",
         label: "Site Title",
         defaultValue: data.siteTitle,
+        placeholder: "My Portfolio",
         required: true
       }
     ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-header-editor__divider" }),
-    /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-header-editor__links", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-header-editor__links-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("label", { className: "cf-header-editor__label", children: "Navigation Links" }),
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("button", { type: "button", className: "cf-header-editor__add-btn", onClick: addLink, children: "+ Add Link" })
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "cf-header-editor__divider" }),
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "cf-header-editor__links", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "cf-header-editor__links-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("label", { className: "cf-header-editor__label", children: "Navigation & Social Icons" }),
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "cf-header-editor__actions", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+            "button",
+            {
+              type: "button",
+              className: "cf-header-editor__add-page-btn",
+              onClick: () => setIsSearching(!isSearching),
+              children: isSearching ? "Cancel" : "+ Add Existing Page"
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+            "button",
+            {
+              type: "button",
+              className: "cf-header-editor__add-btn",
+              onClick: addCustomLink,
+              children: "+ Custom Link"
+            }
+          )
+        ] })
       ] }),
-      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-header-editor__link-row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Field, { name: `${cfgKey}[links][${index}][to]`, kind: "input", label: "To", defaultValue: link.to }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Field, { name: `${cfgKey}[links][${index}][label]`, kind: "input", label: "Label", defaultValue: link.label }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Field, { name: `${cfgKey}[links][${index}][icon]`, kind: "input", label: "Icon", defaultValue: link.icon }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("button", { type: "button", className: "cf-header-editor__remove-btn", onClick: () => removeLink(index), children: "\xD7" })
+      isSearching && /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "cf-header-editor__search-container", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(PageSearchPicker, { onSelect: addPageLink }) }),
+      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "cf-header-editor__link-row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+          Field,
+          {
+            name: `${cfgKey}[links][${index}][to]`,
+            kind: "input",
+            label: "URL / Path",
+            defaultValue: link.to,
+            required: true
+          }
+        ) }),
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+          Field,
+          {
+            name: `${cfgKey}[links][${index}][label]`,
+            kind: "input",
+            label: "Label",
+            defaultValue: link.label || ""
+          }
+        ) }),
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+          Field,
+          {
+            name: `${cfgKey}[links][${index}][icon]`,
+            kind: "input",
+            label: "Icon Class",
+            defaultValue: link.icon || "",
+            placeholder: "fab fa-github"
+          }
+        ) }),
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+          "button",
+          {
+            type: "button",
+            className: "cf-header-editor__remove-btn",
+            onClick: () => removeLink(index),
+            children: "\xD7"
+          }
+        )
       ] }, index))
     ] })
   ] });
 };
 registerComponent({
   name: "Admin/Config/Header",
-  defaults: { component: "Admin/Config/Header", siteTitle: "", links: [] },
+  defaults: {
+    component: "Admin/Config/Header",
+    siteTitle: "My Portfolio",
+    links: []
+  },
   component: HeaderConfigEditor
 });
 
+// app/web/themes/@admin/components/config/homepage/index.tsx
+var import_react17 = __toESM(require_react());
+var import_jsx_runtime22 = __toESM(require_jsx_runtime());
+var HomepageEditor = ({ data }) => {
+  const cfgKey = "homepage";
+  const [selectedPage, setSelectedPage] = (0, import_react17.useState)(data.homepage);
+  const handlePageSelect = (page) => {
+    setSelectedPage(`/page/${page.id}`);
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "cf-homepage-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/HomepageEditor" }),
+    /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "cf-homepage-editor__group", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("label", { className: "cf-header-editor__label", children: "Default Homepage" }),
+      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("p", { className: "cf-homepage-editor__help", children: "Select the page that visitors see when they first arrive at your site." }),
+      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+        "input",
+        {
+          type: "hidden",
+          name: `${cfgKey}[homepage]`,
+          value: selectedPage
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "cf-homepage-editor__picker-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(PageSearchPicker, { onSelect: handlePageSelect }) }),
+      selectedPage && /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "cf-homepage-editor__current", children: [
+        "Currently selected: ",
+        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("code", { children: selectedPage })
+      ] })
+    ] })
+  ] });
+};
+registerComponent({
+  name: "Admin/Config/HomepageEditor",
+  defaults: {
+    component: "Admin/Config/HomepageEditor",
+    homepage: "/page/1"
+  },
+  component: HomepageEditor
+});
+
 // app/web/themes/@admin/index.tsx
-var import_jsx_runtime21 = __toESM(require_jsx_runtime());
+var import_jsx_runtime23 = __toESM(require_jsx_runtime());
 var AdminThemeWrapper = (props) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "codefolio-default-admin", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(AdminHeader, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "content", children: props.children })
+  return /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("div", { className: "codefolio-default-admin", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(AdminHeader, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("div", { className: "content", children: props.children })
   ] });
 };
 registerTheme("@admin", AdminThemeWrapper);
 
 // app/web/index.tsx
-var import_jsx_runtime22 = __toESM(require_jsx_runtime());
+var import_jsx_runtime24 = __toESM(require_jsx_runtime());
 var root = (0, import_client.createRoot)(document.getElementById("root"));
-root.render(/* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Page, {}));
+root.render(/* @__PURE__ */ (0, import_jsx_runtime24.jsx)(Page, {}));
 /*! Bundled license information:
 
 scheduler/cjs/scheduler.development.js:

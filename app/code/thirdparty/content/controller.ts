@@ -78,11 +78,18 @@ export abstract class ContentController<T extends { id?: number }> {
             }
         }
 
+        console.log({rawFilter, filterObj})
+
         const filterKeys = Object.keys(filterObj);
+        // Change your predicate logic to this:
         const predicate = filterKeys.length === 0
             ? () => true
-            : (record: Record<string, unknown>) =>
-                filterKeys.every((k) => record[k] === filterObj[k]);
+            : (record: Record<string, any>) =>
+                filterKeys.every((k) => {
+                    const recordVal = String(record[k] ?? "").toLowerCase();
+                    const filterVal = String(filterObj[k] ?? "").toLowerCase();
+                    return recordVal.includes(filterVal); // Partial match instead of ===
+                });
 
         const results = await this.service.search(predicate as (v: T) => boolean, page, size);
         res.json({ ok: true, page, size, results });

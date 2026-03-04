@@ -1,7 +1,8 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { registerComponent, CodefolioProps } from "@components/registry";
 import { Field } from '@components/input';
 import './style.scss';
+import { PageSearchPicker } from "../../page-picker";
 
 export interface HeaderLink {
     to: string;
@@ -17,53 +18,120 @@ export interface HeaderConfigData {
 
 export const HeaderConfigEditor: FC<CodefolioProps<HeaderConfigData>> = ({ data }) => {
     const cfgKey = "header";
+    const [isSearching, setIsSearching] = useState(false);
     
-    // FAILSAFE: Convert object-style links {"0": {...}} into a real array
+    // FAILSAFE: Handle potential object-transformed data from the DB
     const initialLinks: HeaderLink[] = data.links 
         ? (Array.isArray(data.links) ? data.links : Object.values(data.links)) 
         : [];
 
     const [links, setLinks] = useState<HeaderLink[]>(initialLinks);
 
-    const addLink = () => setLinks([...links, { to: "", label: "", icon: "" }]);
-    const removeLink = (index: number) => setLinks(links.filter((_, i) => i !== index));
+    const addCustomLink = () => {
+        setLinks([...links, { to: "", label: "New Link", icon: "" }]);
+    };
+
+    const addPageLink = (page: { id: number, pageTitle: string }) => {
+        setLinks([...links, { 
+            to: `/page/${page.id}`, 
+            label: page.pageTitle, 
+            icon: "" 
+        }]);
+        setIsSearching(false);
+    };
+
+    const removeLink = (index: number) => {
+        setLinks(links.filter((_, i) => i !== index));
+    };
 
     return (
         <div className="cf-header-editor">
-            {/* Component Persistence */}
+            {/* Persist the component path in the JSON config */}
             <input type="hidden" name={`${cfgKey}[component]`} value="Admin/Config/Header" />
 
+            {/* Site Title */}
             <div className="cf-header-editor__group">
                 <Field
                     name={`${cfgKey}[siteTitle]`}
                     kind="input"
                     label="Site Title"
                     defaultValue={data.siteTitle}
+                    placeholder="My Portfolio"
                     required={true}
                 />
             </div>
 
             <div className="cf-header-editor__divider" />
 
+            {/* Links List */}
             <div className="cf-header-editor__links">
                 <div className="cf-header-editor__links-header">
-                    <label className="cf-header-editor__label">Navigation Links</label>
-                    <button type="button" className="cf-header-editor__add-btn" onClick={addLink}>+ Add Link</button>
+                    <label className="cf-header-editor__label">Navigation & Social Icons</label>
+                    <div className="cf-header-editor__actions">
+                        <button 
+                            type="button" 
+                            className="cf-header-editor__add-page-btn"
+                            onClick={() => setIsSearching(!isSearching)}
+                        >
+                            {isSearching ? "Cancel" : "+ Add Existing Page"}
+                        </button>
+                        <button 
+                            type="button" 
+                            className="cf-header-editor__add-btn" 
+                            onClick={addCustomLink}
+                        >
+                            + Custom Link
+                        </button>
+                    </div>
                 </div>
+
+                {isSearching && (
+                    <div className="cf-header-editor__search-container">
+                        <PageSearchPicker onSelect={addPageLink} />
+                    </div>
+                )}
 
                 {links.map((link, index) => (
                     <div key={index} className="cf-header-editor__link-row">
-                        {/* Use empty brackets [] to force arrayization on the backend */}
+                        {/* URL Target */}
                         <div className="cf-header-editor__col">
-                            <Field name={`${cfgKey}[links][${index}][to]`} kind="input" label="To" defaultValue={link.to} />
+                            <Field
+                                name={`${cfgKey}[links][${index}][to]`}
+                                kind="input"
+                                label="URL / Path"
+                                defaultValue={link.to}
+                                required={true}
+                            />
                         </div>
+
+                        {/* Label */}
                         <div className="cf-header-editor__col">
-                            <Field name={`${cfgKey}[links][${index}][label]`} kind="input" label="Label" defaultValue={link.label} />
+                            <Field
+                                name={`${cfgKey}[links][${index}][label]`}
+                                kind="input"
+                                label="Label"
+                                defaultValue={link.label || ""}
+                            />
                         </div>
+
+                        {/* Icon Class */}
                         <div className="cf-header-editor__col">
-                            <Field name={`${cfgKey}[links][${index}][icon]`} kind="input" label="Icon" defaultValue={link.icon} />
+                            <Field
+                                name={`${cfgKey}[links][${index}][icon]`}
+                                kind="input"
+                                label="Icon Class"
+                                defaultValue={link.icon || ""}
+                                placeholder="fab fa-github"
+                            />
                         </div>
-                        <button type="button" className="cf-header-editor__remove-btn" onClick={() => removeLink(index)}>&times;</button>
+
+                        <button 
+                            type="button" 
+                            className="cf-header-editor__remove-btn" 
+                            onClick={() => removeLink(index)}
+                        >
+                            &times;
+                        </button>
                     </div>
                 ))}
             </div>
@@ -73,6 +141,10 @@ export const HeaderConfigEditor: FC<CodefolioProps<HeaderConfigData>> = ({ data 
 
 registerComponent({
     name: "Admin/Config/Header",
-    defaults: { component: "Admin/Config/Header", siteTitle: "", links: [] },
+    defaults: { 
+        component: "Admin/Config/Header",
+        siteTitle: "My Portfolio", 
+        links: [] 
+    },
     component: HeaderConfigEditor,
 });

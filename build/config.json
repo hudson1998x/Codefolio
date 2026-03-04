@@ -1,5 +1,6 @@
 {
   "footer": {
+    "component": "Admin/Config/Footer",
     "copyrightName": "My Portfolio",
     "socials": [
       {
@@ -17,32 +18,38 @@
     ]
   },
   "header": {
+    "component": "Admin/Config/Header",
     "siteTitle": "My Portfolio",
     "links": [
       {
         "to": "/work",
-        "label": "Work"
+        "label": "Work",
+        "icon": ""
       },
       {
         "to": "/about",
-        "label": "About"
+        "label": "About",
+        "icon": ""
       },
       {
         "to": "/contact",
-        "label": "Contact"
+        "label": "Contact",
+        "icon": ""
       },
       {
         "to": "https://github.com",
+        "label": "",
         "icon": "fab fa-github"
       },
       {
         "to": "https://linkedin.com",
+        "label": "",
         "icon": "fab fa-linkedin"
       }
     ]
   },
   "homepage": {
-    "component": "HomepageEditor",
+    "component": "Admin/Config/HomepageEditor",
     "homepage": "/page/1"
   }
 }
