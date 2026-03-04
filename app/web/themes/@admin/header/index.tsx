@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import './style.scss';
 import { useHotKey } from '@hooks/use-hotkey';
 import { VcsStatusBar } from '../components/vcs-status';
+import { Link } from '@router';
 
 /**
  * Shape of a single navigation entry returned by `/en-admin/nav.json`.
@@ -107,6 +108,11 @@ export const AdminHeader = () => {
    */
   const RenderNavItems = ({ items }: { items: NavConfig[] }) => (
     <ul className="nav-list">
+      <li key='static' className='nav-item-wrapper'>
+         <a href={'/'} className="nav-link">
+            &larr; Back to Website
+          </a>
+      </li>
       {items.map((item, index) => (
         <li key={index} className="nav-item-wrapper">
           <a href={item.href || '#'} className="nav-link">

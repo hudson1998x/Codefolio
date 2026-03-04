@@ -23263,13 +23263,16 @@ var AdminHeader = () => {
   }, []);
   useHotKey(["ctrl", "k"], () => searchInputRef.current?.focus());
   useHotKey(["meta", "k"], () => searchInputRef.current?.focus());
-  const RenderNavItems = ({ items }) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("ul", { className: "nav-list", children: items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("li", { className: "nav-item-wrapper", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("a", { href: item.href || "#", className: "nav-link", children: [
-      item.label,
-      item.children && item.children.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "chevron", children: "\u25BE" })
-    ] }),
-    item.children && item.children.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "nav-dropdown", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(RenderNavItems, { items: item.children }) })
-  ] }, index)) });
+  const RenderNavItems = ({ items }) => /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("ul", { className: "nav-list", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("a", { href: "/", className: "nav-link", children: "\u2190 Back to Website" }) }, "static"),
+    items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("li", { className: "nav-item-wrapper", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("a", { href: item.href || "#", className: "nav-link", children: [
+        item.label,
+        item.children && item.children.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "chevron", children: "\u25BE" })
+      ] }),
+      item.children && item.children.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "nav-dropdown", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(RenderNavItems, { items: item.children }) })
+    ] }, index))
+  ] });
   return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("header", { className: "platform-header", children: [
     /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "header-left", children: [
       /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "workspace-switcher", children: [
