@@ -1,5 +1,6 @@
 import { Entity, Field } from "@decorators/entity";
 import { Content } from "../content/content";
+import { CanvasNode } from "../frontend/types";
 
 @Entity("page")
 export class Page extends Content
@@ -21,5 +22,14 @@ export class Page extends Content
     })
     public pageDescription: string | undefined;
 
-
+    @Field({ 
+        module: { 
+            component: "CanvasEditor", 
+            data: {
+                label: 'Page Content'
+            }, 
+            children: [] 
+        } 
+    })
+    public content: CanvasNode | undefined;
 }

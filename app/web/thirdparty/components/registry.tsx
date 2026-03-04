@@ -43,6 +43,12 @@ export interface CodefolioComponent<T extends Record<string, any> = Record<strin
   defaults: T;
   /** The React component to mount when this component name is encountered in the content tree. */
   component: React.FC<CodefolioProps<T>>;
+
+  /** is this a CMS editor block? */
+  isCmsEditor?: boolean,
+
+  /** CMS component category */
+  category?: string
 }
 
 /**

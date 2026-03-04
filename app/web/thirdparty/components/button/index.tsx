@@ -121,4 +121,6 @@ registerComponent({
     className: "",
   },
   component: ButtonCanvas,
+  isCmsEditor: true,
+  category: 'Forms'
 });

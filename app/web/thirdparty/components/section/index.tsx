@@ -122,4 +122,6 @@ registerComponent({
   name:      "Section",
   defaults:  sectionDefaults,
   component: Section,
+  isCmsEditor: true,
+  category: 'Structure'
 });

@@ -100,6 +100,7 @@ export abstract class AdminController<T extends Content> extends ContentControll
                     {fields.map(field => {
                         if (field.module) {
                             field.module.data.name = field.key;
+                            field.module.data.value = (field as any).value || field.default;
                             return <ui-Canvas>{field.module}</ui-Canvas>;
                         }
 
@@ -109,7 +110,7 @@ export abstract class AdminController<T extends Content> extends ContentControll
                                 label={field.label}
                                 type={field.type}
                                 required={field.required}
-                                defaultValue={field.default}
+                                defaultValue={(field as any).value || field.default}
                             />
                         );
                     })}
@@ -149,11 +150,17 @@ export abstract class AdminController<T extends Content> extends ContentControll
      */
     @Get("/:id/page.json")
     public async editPage(req: IncomingMessage, res: ServerResponse, currentId: number): Promise<CanvasNode> {
+        const entity = await this.service.load(currentId);
+        const fields = this.getEditableFields().map(f => ({
+            ...f,
+            value: (entity as any)?.[f.key]
+        }));
+
         return this.renderEntityForm(
             `/api/${this.getCollectionName()}/${currentId}`,
             "PATCH",
             `Edit ${this.getTargetEntity().name}`,
-            this.getEditableFields(),
+            fields,
             "Save Changes"
         );
     }

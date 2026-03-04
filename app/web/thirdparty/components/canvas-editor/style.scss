@@ -1,0 +1,383 @@
+// --- 1. Variables & Mixins ---
+$bg-app: #f1f5f9;           // Light Slate
+$bg-blueprint: #f8fafc;     // Very Light Slate
+$bg-properties: #ffffff;    // Pure White
+$bg-preview: #e2e8f0;       // Muted Slate (Canvas Background)
+$island: #ffffff;
+$accent: #3b82f6;           // Bright Blue
+$accent-soft: rgba(59, 130, 246, 0.08);
+$border: #eef2f6;
+$text-main: #1e293b;
+$text-muted: #94a3b8;
+$radius-lg: 24px;
+$radius-md: 12px;
+$radius-sm: 8px;
+$shadow-island: 0 10px 40px rgba(0, 0, 0, 0.06);
+
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar { width: 6px; height: 6px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+  &::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+}
+
+// --- 2. Root Overlay & Layout ---
+.editor-overlay {
+  position: fixed;
+  inset: 0;
+  background: $bg-app;
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+  z-index: 9999;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: $text-main;
+
+  // --- 3. Library Sidebar (The Island) ---
+  .panel-island.side-nav {
+    flex: 0 0 260px;
+    background: $island;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-island;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .section-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: $text-main;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      i { color: $accent; }
+    }
+
+    .category-capsules {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid $border;
+      @include custom-scrollbar;
+
+      .capsule {
+        white-space: nowrap;
+        padding: 6px 14px;
+        border-radius: 20px;
+        border: 1px solid $border;
+        background: #fff;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: $text-muted;
+        cursor: pointer;
+        transition: 0.2s;
+        &:hover { border-color: $accent; color: $accent; }
+        &.active { background: $accent; color: white; border-color: $accent; }
+      }
+    }
+
+    .palette-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      overflow-y: auto;
+      padding-right: 4px;
+      @include custom-scrollbar;
+
+      .palette-item {
+        aspect-ratio: 1;
+        border: 1px solid $border;
+        border-radius: $radius-md;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: grab;
+        background: white;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 12px;
+
+        &:hover { 
+          border-color: $accent; 
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        &:active { cursor: grabbing; transform: scale(0.95); }
+
+        i { font-size: 1.4rem; color: #64748b; margin-bottom: 8px; }
+        span { font-size: 0.7rem; font-weight: 600; color: $text-main; text-align: center; line-height: 1.2; }
+      }
+    }
+  }
+
+  // --- 4. Central Workspace ---
+  .workspace-container {
+    flex: 1;
+    display: flex;
+    background: $island;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    box-shadow: $shadow-island;
+
+    .workspace-pane {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border-right: 1px solid $border;
+
+      .pane-label {
+        padding: 14px 20px;
+        font-size: 0.65rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        color: $text-muted;
+        background: rgba(255,255,255,0.8);
+        backdrop-filter: blur(4px);
+        border-bottom: 1px solid rgba(0,0,0,0.03);
+        letter-spacing: 0.08em;
+        position: sticky;
+        top: 0;
+        z-index: 20;
+      }
+
+      // --- 4a. Structure (Left) ---
+      &.blueprint {
+        flex: 0 0 300px;
+        background: $bg-blueprint;
+        padding: 20px;
+        overflow-y: auto;
+        @include custom-scrollbar;
+
+        .tree-content {
+          min-height: 100%;
+          display: flex;
+          flex-direction: column;
+          padding-bottom: 100px;
+        }
+
+        .root-drop-indicator {
+          margin-top: 30px;
+          padding: 40px 20px;
+          text-align: center;
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: $text-muted;
+          border: 2px dashed #e2e8f0;
+          border-radius: $radius-md;
+          transition: 0.2s;
+          &:hover { border-color: $accent; color: $accent; }
+        }
+      }
+
+      // --- 4b. Properties (Middle) ---
+      &.properties-pane {
+        flex: 0 0 340px;
+        background: $bg-properties;
+        padding: 24px;
+        overflow-y: auto;
+        @include custom-scrollbar;
+
+        .prop-controls {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          .editing-badge {
+            background: $accent-soft;
+            color: $accent;
+            padding: 12px;
+            border-radius: $radius-sm;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-align: center;
+            border: 1px solid rgba($accent, 0.1);
+          }
+
+          .field-group {
+            label {
+              display: block;
+              font-size: 0.7rem;
+              font-weight: 800;
+              color: $text-muted;
+              margin-bottom: 8px;
+              text-transform: uppercase;
+            }
+            input {
+              width: 100%;
+              padding: 12px 16px;
+              border: 1px solid $border;
+              border-radius: $radius-sm;
+              font-size: 0.9rem;
+              color: $text-main;
+              background: #fcfdfe;
+              &:focus {
+                outline: none;
+                border-color: $accent;
+                box-shadow: 0 0 0 4px rgba($accent, 0.05);
+                background: white;
+              }
+            }
+          }
+        }
+        .empty-hint {
+          margin-top: 60px;
+          text-align: center;
+          color: $text-muted;
+          font-size: 0.85rem;
+          font-style: italic;
+        }
+      }
+
+      // --- 4c. Preview (Right/Main) ---
+      &.preview {
+        flex: 1;
+        background: $bg-preview;
+        border-right: none;
+        position: relative;
+
+        .preview-frame {
+          padding: 40px;
+          height: 100%;
+          overflow-y: auto;
+          display: flex;
+          justify-content: center;
+          @include custom-scrollbar;
+
+          .canvas-wrapper {
+            width: 100%;
+            max-width: 1280px;
+            min-height: 100%;
+            background: white;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            padding: 60px;
+            position: relative;
+          }
+        }
+      }
+    }
+  }
+}
+
+// --- 5. Nested Blueprint Islands ---
+.blueprint-island {
+  position: relative;
+  background: white;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  margin-bottom: 10px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+
+  &.selected {
+    border-color: $accent;
+    box-shadow: 0 0 0 2px rgba($accent, 0.15), 0 8px 16px rgba(0,0,0,0.05);
+  }
+
+  // Before Dropzone
+  .drop-zone-edge {
+    height: 12px;
+    position: absolute;
+    top: -7px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    &.active {
+      background: $accent;
+      border-radius: 6px;
+      box-shadow: 0 0 15px $accent;
+    }
+  }
+
+  .island-header {
+    padding: 12px 16px;
+    background: #fafafa;
+    border-bottom: 1px solid $border;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .type-badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: $text-main;
+      display: flex;
+      align-items: center;
+      .drag-handle { 
+        margin-right: 12px; 
+        color: #cbd5e1; 
+        cursor: grab;
+        &:hover { color: $accent; }
+      }
+    }
+
+    .delete-trigger {
+      background: transparent;
+      border: none;
+      color: #cbd5e1;
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 4px;
+      &:hover { color: #ef4444; }
+    }
+  }
+
+  .island-body {
+    padding: 12px;
+    
+    // Deeper Nesting Shading
+    .blueprint-island {
+      margin-left: 18px;
+      margin-top: 10px;
+      background: #fdfdfd;
+      &:last-child { margin-bottom: 0; }
+    }
+
+    // Inside Dropzone
+    .drop-zone-mini {
+      height: 36px;
+      border: 2px dashed #e2e8f0;
+      border-radius: $radius-sm;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      transition: 0.2s;
+      &.active {
+        border-color: $accent;
+        background: $accent-soft;
+        color: $accent;
+        transform: scale(1.02);
+      }
+    }
+  }
+}
+
+// --- 6. Controls ---
+.close-visual {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  padding: 14px 28px;
+  background: $accent;
+  color: white;
+  border-radius: $radius-md;
+  border: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba($accent, 0.3);
+  transition: 0.2s;
+  z-index: 100;
+  &:hover {
+    background: darken($accent, 5%);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba($accent, 0.4);
+  }
+}

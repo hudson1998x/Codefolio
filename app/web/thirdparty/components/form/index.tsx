@@ -198,6 +198,8 @@ registerComponent({
     className: "",
   },
   component: Form as React.FC<any>,
+  isCmsEditor: true,
+  category: 'Forms'
 });
 
 export { Form };

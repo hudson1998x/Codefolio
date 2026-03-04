@@ -276,6 +276,468 @@
   letter-spacing: -0.01em;
 }
 
+/* app/web/thirdparty/components/canvas-editor/style.scss */
+.editor-overlay {
+  position: fixed;
+  inset: 0;
+  background: #f1f5f9;
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+  z-index: 9999;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: #1e293b;
+}
+.editor-overlay .panel-island.side-nav {
+  flex: 0 0 260px;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.editor-overlay .panel-island.side-nav .section-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.editor-overlay .panel-island.side-nav .section-title i {
+  color: #3b82f6;
+}
+.editor-overlay .panel-island.side-nav .category-capsules {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #eef2f6;
+}
+.editor-overlay .panel-island.side-nav .category-capsules::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.editor-overlay .panel-island.side-nav .category-capsules::-webkit-scrollbar-track {
+  background: transparent;
+}
+.editor-overlay .panel-island.side-nav .category-capsules::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+.editor-overlay .panel-island.side-nav .category-capsules::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.editor-overlay .panel-island.side-nav .category-capsules .capsule {
+  white-space: nowrap;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #eef2f6;
+  background: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.editor-overlay .panel-island.side-nav .category-capsules .capsule:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+.editor-overlay .panel-island.side-nav .category-capsules .capsule.active {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+.editor-overlay .panel-island.side-nav .palette-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.editor-overlay .panel-island.side-nav .palette-grid::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.editor-overlay .panel-island.side-nav .palette-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+.editor-overlay .panel-island.side-nav .palette-grid::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+.editor-overlay .panel-island.side-nav .palette-grid::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.editor-overlay .panel-island.side-nav .palette-grid .palette-item {
+  aspect-ratio: 1;
+  border: 1px solid #eef2f6;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  background: white;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 12px;
+}
+.editor-overlay .panel-island.side-nav .palette-grid .palette-item:hover {
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.editor-overlay .panel-island.side-nav .palette-grid .palette-item:active {
+  cursor: grabbing;
+  transform: scale(0.95);
+}
+.editor-overlay .panel-island.side-nav .palette-grid .palette-item i {
+  font-size: 1.4rem;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+.editor-overlay .panel-island.side-nav .palette-grid .palette-item span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: center;
+  line-height: 1.2;
+}
+.editor-overlay .workspace-container {
+  flex: 1;
+  display: flex;
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+}
+.editor-overlay .workspace-container .workspace-pane {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-right: 1px solid #eef2f6;
+}
+.editor-overlay .workspace-container .workspace-pane .pane-label {
+  padding: 14px 20px;
+  font-size: 0.65rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+  letter-spacing: 0.08em;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.editor-overlay .workspace-container .workspace-pane.blueprint {
+  flex: 0 0 300px;
+  background: #f8fafc;
+  padding: 20px;
+  overflow-y: auto;
+}
+.editor-overlay .workspace-container .workspace-pane.blueprint::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.editor-overlay .workspace-container .workspace-pane.blueprint::-webkit-scrollbar-track {
+  background: transparent;
+}
+.editor-overlay .workspace-container .workspace-pane.blueprint::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+.editor-overlay .workspace-container .workspace-pane.blueprint::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.editor-overlay .workspace-container .workspace-pane.blueprint .tree-content {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 100px;
+}
+.editor-overlay .workspace-container .workspace-pane.blueprint .root-drop-indicator {
+  margin-top: 30px;
+  padding: 40px 20px;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94a3b8;
+  border: 2px dashed #e2e8f0;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+.editor-overlay .workspace-container .workspace-pane.blueprint .root-drop-indicator:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+.editor-overlay .workspace-container .workspace-pane.properties-pane {
+  flex: 0 0 340px;
+  background: #ffffff;
+  padding: 24px;
+  overflow-y: auto;
+}
+.editor-overlay .workspace-container .workspace-pane.properties-pane::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.editor-overlay .workspace-container .workspace-pane.properties-pane::-webkit-scrollbar-track {
+  background: transparent;
+}
+.editor-overlay .workspace-container .workspace-pane.properties-pane::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+.editor-overlay .workspace-container .workspace-pane.properties-pane::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.editor-overlay .workspace-container .workspace-pane.properties-pane .prop-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.editor-overlay .workspace-container .workspace-pane.properties-pane .prop-controls .editing-badge {
+  background: rgba(59, 130, 246, 0.08);
+  color: #3b82f6;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-align: center;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+.editor-overlay .workspace-container .workspace-pane.properties-pane .prop-controls .field-group label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.editor-overlay .workspace-container .workspace-pane.properties-pane .prop-controls .field-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #eef2f6;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #1e293b;
+  background: #fcfdfe;
+}
+.editor-overlay .workspace-container .workspace-pane.properties-pane .prop-controls .field-group input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.05);
+  background: white;
+}
+.editor-overlay .workspace-container .workspace-pane.properties-pane .empty-hint {
+  margin-top: 60px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+.editor-overlay .workspace-container .workspace-pane.preview {
+  flex: 1;
+  background: #e2e8f0;
+  border-right: none;
+  position: relative;
+}
+.editor-overlay .workspace-container .workspace-pane.preview .preview-frame {
+  padding: 40px;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+}
+.editor-overlay .workspace-container .workspace-pane.preview .preview-frame::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.editor-overlay .workspace-container .workspace-pane.preview .preview-frame::-webkit-scrollbar-track {
+  background: transparent;
+}
+.editor-overlay .workspace-container .workspace-pane.preview .preview-frame::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+.editor-overlay .workspace-container .workspace-pane.preview .preview-frame::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.editor-overlay .workspace-container .workspace-pane.preview .preview-frame .canvas-wrapper {
+  width: 100%;
+  max-width: 1280px;
+  min-height: 100%;
+  background: white;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 60px;
+  position: relative;
+}
+.blueprint-island {
+  position: relative;
+  background: white;
+  border: 1px solid #eef2f6;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+.blueprint-island.selected {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15), 0 8px 16px rgba(0, 0, 0, 0.05);
+}
+.blueprint-island .drop-zone-edge {
+  height: 12px;
+  position: absolute;
+  top: -7px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+.blueprint-island .drop-zone-edge.active {
+  background: #3b82f6;
+  border-radius: 6px;
+  box-shadow: 0 0 15px #3b82f6;
+}
+.blueprint-island .island-header {
+  padding: 12px 16px;
+  background: #fafafa;
+  border-bottom: 1px solid #eef2f6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.blueprint-island .island-header .type-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+}
+.blueprint-island .island-header .type-badge .drag-handle {
+  margin-right: 12px;
+  color: #cbd5e1;
+  cursor: grab;
+}
+.blueprint-island .island-header .type-badge .drag-handle:hover {
+  color: #3b82f6;
+}
+.blueprint-island .island-header .delete-trigger {
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 4px;
+}
+.blueprint-island .island-header .delete-trigger:hover {
+  color: #ef4444;
+}
+.blueprint-island .island-body {
+  padding: 12px;
+}
+.blueprint-island .island-body .blueprint-island {
+  margin-left: 18px;
+  margin-top: 10px;
+  background: #fdfdfd;
+}
+.blueprint-island .island-body .blueprint-island:last-child {
+  margin-bottom: 0;
+}
+.blueprint-island .island-body .drop-zone-mini {
+  height: 36px;
+  border: 2px dashed #e2e8f0;
+  border-radius: 8px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+.blueprint-island .island-body .drop-zone-mini.active {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+  color: #3b82f6;
+  transform: scale(1.02);
+}
+.close-visual {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  padding: 14px 28px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+  transition: 0.2s;
+  z-index: 100;
+}
+.close-visual:hover {
+  background: rgb(34.6195121951, 114.4512195122, 244.8804878049);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+}
+
+/* app/web/thirdparty/components/text/style.scss */
+.cf-typography {
+  margin-top: 0;
+  padding: 0;
+  display: block;
+  transition:
+    color 0.2s ease,
+    font-size 0.2s ease,
+    margin-bottom 0.2s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cf-typography.weight-light {
+  font-weight: 300;
+}
+.cf-typography.weight-regular {
+  font-weight: 400;
+}
+.cf-typography.weight-medium {
+  font-weight: 500;
+}
+.cf-typography.weight-semibold {
+  font-weight: 600;
+}
+.cf-typography.weight-bold {
+  font-weight: 700;
+}
+.cf-typography.weight-black {
+  font-weight: 900;
+}
+.cf-typography[tag=span] {
+  display: inline-block;
+}
+.preview-frame .cf-typography:empty::after {
+  content: "Empty Text Block";
+  display: inline-block;
+  color: #cbd5e1;
+  border: 1px dashed #e2e8f0;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-family: sans-serif;
+  border-radius: 4px;
+}
+
 /* app/web/thirdparty/autocontent/list/style.scss */
 .cf-auto-list {
   --island-bg: #ffffff;

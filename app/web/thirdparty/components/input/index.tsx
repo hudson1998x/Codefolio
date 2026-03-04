@@ -401,4 +401,6 @@ registerComponent({
   name:      "Input",
   defaults:  fieldDefaults,
   component: FieldCanvas,
+  isCmsEditor: true,
+  category: 'Forms'
 });

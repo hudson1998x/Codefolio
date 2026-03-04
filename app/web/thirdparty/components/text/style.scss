@@ -1,0 +1,39 @@
+.cf-typography {
+  // Reset browser defaults
+  margin-top: 0;
+  padding: 0;
+  display: block; // Ensures margin-bottom works on spans if they act as blocks
+  
+  // Performance & Polish
+  transition: color 0.2s ease, font-size 0.2s ease, margin-bottom 0.2s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  // Weight Mapping
+  &.weight-light    { font-weight: 300; }
+  &.weight-regular  { font-weight: 400; }
+  &.weight-medium   { font-weight: 500; }
+  &.weight-semibold { font-weight: 600; }
+  &.weight-bold     { font-weight: 700; }
+  &.weight-black    { font-weight: 900; }
+
+  // Handle span edge case
+  &[tag="span"] {
+    display: inline-block;
+  }
+}
+
+// Visual Editor Helper: Show a subtle outline if content is literally empty
+// so the user doesn't "lose" the component in the preview
+.preview-frame {
+  .cf-typography:empty::after {
+    content: "Empty Text Block";
+    display: inline-block;
+    color: #cbd5e1;
+    border: 1px dashed #e2e8f0;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-family: sans-serif;
+    border-radius: 4px;
+  }
+}
