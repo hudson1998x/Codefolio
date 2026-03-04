@@ -430,6 +430,90 @@
   margin-bottom: 1.5rem;
   border-left: 4px solid var(--danger);
 }
+.autoform {
+  --af-bg-page: #f5f7fa;
+  --af-bg-island: #ffffff;
+  --af-radius-island: 16px;
+  --af-shadow-island: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --af-spacing: 24px;
+  --af-border: #eef0f2;
+  background-color: var(--af-bg-island);
+  border-radius: var(--af-radius-island);
+  box-shadow: var(--af-shadow-island);
+  border: 1px solid var(--af-border);
+  padding: var(--af-spacing);
+  max-width: 800px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.autoform__header {
+  margin-bottom: 8px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--af-border);
+}
+.autoform__header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1d1d1f;
+  letter-spacing: -0.02em;
+}
+.autoform__header p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #86868b;
+}
+.autoform__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.autoform__actions {
+  margin-top: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--af-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.autoform__btn {
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  border: 1px solid #d2d2d7;
+  background: #ffffff;
+  color: #1d1d1f;
+}
+.autoform__btn:hover {
+  background: #f5f5f7;
+  border-color: #86868b;
+}
+.autoform__btn--primary {
+  background: #007aff;
+  color: #ffffff;
+  border: none;
+}
+.autoform__btn--primary:hover {
+  background: #0071e3;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
+.autoform__btn--primary:disabled {
+  background: #bae0ff;
+  cursor: not-allowed;
+}
+.autoform__section-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #86868b;
+  font-weight: 700;
+  margin: 10px 0 5px;
+}
 
 /* app/web/themes/default/DefaultTheme.scss */
 .theme-default {
