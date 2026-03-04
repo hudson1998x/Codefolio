@@ -67,7 +67,8 @@ export abstract class AdminController<T extends Content> extends ContentControll
             label: f.key.charAt(0).toUpperCase() + f.key.slice(1),
             type: this.mapTypeToUi(f.type),
             required: f.required,
-            default: f.default
+            default: f.default,
+            module: f.module
         };
     }
 
@@ -141,6 +142,7 @@ export abstract class AdminController<T extends Content> extends ContentControll
             <ui-Section className='autoform'>
                 <ui-Form action={`/api/${this.getCollectionName()}`} method="PUT">
                     {fields.map(field => (
+                        field.module ? <ui-Canvas>{field.module}</ui-Canvas> : 
                         <ui-Input 
                             name={field.key} 
                             label={field.label} 
