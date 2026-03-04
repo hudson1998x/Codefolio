@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import './jsx-factory/global'
 import './vcs'
+import './pages'
 
 // =================
 // Module imports

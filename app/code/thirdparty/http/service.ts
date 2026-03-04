@@ -130,6 +130,16 @@ export class HttpService {
    * Nav hrefs are normalised by stripping the `/content` prefix and
    * `/page.json` suffix from the full route path, so that admin nav links
    * point at clean SPA routes rather than raw content file paths.
+   *
+   * URL parameters declared in the route path (e.g. `/:id`) are extracted
+   * from `req.params` in declaration order and passed as positional arguments
+   * to the handler after `req` and `res`:
+   *
+   *   handler(req, res, id, next)        // for /:id
+   *   handler(req, res, org, repo, next) // for /:org/:repo
+   *
+   * Handlers that don't declare URL params are unaffected — `next` always
+   * comes last regardless of how many (or few) params are present.
    */
   private registerControllers() {
     const controllers: any[] = Reflect.getMetadata(META.controllers, global) || [];
@@ -142,7 +152,17 @@ export class HttpService {
       const instance: any = Container.resolve(ControllerClass);
 
       const routes: { method: string; path: string; handler: string }[] =
-        Reflect.getMetadata(META.routes, ControllerClass) || [];
+        (Reflect.getMetadata(META.routes, ControllerClass) || [])
+          .slice()
+          .sort((a: { path: string }, b: { path: string }) => {
+            // Lower score = registered first = higher priority.
+            // Each ':param' segment adds 1 point so fully-literal routes
+            // always sort ahead of parameterised ones. Routes with the same
+            // param count preserve their original declaration order (stable).
+            const score = (p: string) =>
+              (p.match(/:([a-zA-Z_][a-zA-Z0-9_]*)/g) ?? []).length;
+            return score(a.path) - score(b.path);
+          });
 
       const navMetadata: any[] = Reflect.getMetadata(META.adminNav, ControllerClass) || [];
 
@@ -153,7 +173,15 @@ export class HttpService {
           fullPath,
           async (req: Request, res: Response, next: NextFunction) => {
             try {
-              const result = await instance[route.handler](req, res, next);
+              // Extract URL params in the order they appear in the path so
+              // handlers can receive them as plain positional arguments:
+              //   handler(req, res, id, next)
+              //   handler(req, res, org, repo, next)
+              const paramNames = this.extractParamNames(route.path);
+              const paramValues = paramNames.map((name) => req.params[name]);
+
+              const result = await instance[route.handler](req, res, ...paramValues, next);
+
               if (res.headersSent) return;
               if (result !== undefined) {
                 res.json(result);
@@ -190,6 +218,23 @@ export class HttpService {
     });
 
     this.adminNav = this.buildNavTree(flatNav.sort((a, b) => a.sortOrder - b.sortOrder));
+  }
+
+  /**
+   * Extracts URL parameter names from an Express route path in declaration
+   * order, so they can be passed as positional arguments to the handler.
+   *
+   * @example
+   * extractParamNames("/:org/:repo") // → ["org", "repo"]
+   * extractParamNames("/users/:id/posts/:postId") // → ["id", "postId"]
+   * extractParamNames("/static") // → []
+   *
+   * @param routePath - The route path segment as registered (e.g. `"/:id"`).
+   * @returns Ordered array of parameter name strings, without the `:` prefix.
+   */
+  private extractParamNames(routePath: string): string[] {
+    const matches = routePath.matchAll(/:([a-zA-Z_][a-zA-Z0-9_]*)/g);
+    return Array.from(matches, (m) => m[1]);
   }
 
   /**
