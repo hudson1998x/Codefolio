@@ -1,0 +1,24 @@
+.cf-form {
+  position: relative;
+  
+  &__message {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: cfSlideIn 0.3s ease-out;
+
+    &--loading { background: #3b82f6; color: white; }
+    &--success { background: #10b981; color: white; }
+    &--error   { background: #ef4444; color: white; }
+  }
+}
+
+@keyframes cfSlideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

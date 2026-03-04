@@ -21785,7 +21785,8 @@ var useRouter = () => {
   const isAdmin = window.location?.pathname?.startsWith("/en-admin/") || window.location?.pathname === "/en-admin";
   const loadPage = (0, import_react3.useCallback)(async (pathname) => {
     try {
-      const normalized = pathname === "/" ? homepage.homepage + (isAdmin ? "/page.json" : ".json") : `${pathname.replace(/\/$/, "")}/` + (isAdmin ? "page.json" : ".json");
+      let normalized = pathname === "/" ? homepage.homepage + (isAdmin ? "/page.json" : ".json") : `${pathname.replace(/\/$/, "")}/` + (isAdmin ? "page.json" : ".json");
+      normalized = normalized.replace("/.json", ".json");
       const res = await fetch(`/content${normalized}`);
       if (!res.ok) throw new Error("404");
       const rawData = await res.json();
@@ -22254,10 +22255,10 @@ var import_react7 = __toESM(require_react());
 var import_jsx_runtime9 = __toESM(require_jsx_runtime());
 var parseName = (name) => {
   const parts = [];
-  const pattern = /([^\[\]]+)/g;
+  const pattern = /([^\[\]]+)|(\[\])/g;
   let match;
   while ((match = pattern.exec(name)) !== null) {
-    parts.push(match[1]);
+    parts.push(match[0] === "[]" ? "[]" : match[0]);
   }
   return parts;
 };
@@ -22265,18 +22266,25 @@ var setDeep = (obj, path, value) => {
   let current = obj;
   for (let i = 0; i < path.length - 1; i++) {
     const key = path[i];
+    const nextKey = path[i + 1];
+    const isNextArray = nextKey === "[]" || /^\d+$/.test(nextKey);
     if (!current[key] || typeof current[key] !== "object") {
-      current[key] = {};
+      current[key] = isNextArray ? [] : {};
     }
     current = current[key];
   }
-  current[path[path.length - 1]] = value;
+  const lastKey = path[path.length - 1];
+  if (lastKey === "[]") {
+    if (Array.isArray(current)) current.push(value);
+  } else {
+    current[lastKey] = value;
+  }
 };
 var collectValues = (form) => {
   const values = {};
   const elements = form.querySelectorAll("input, select, textarea");
   elements.forEach((el) => {
-    if (!el.name) return;
+    if (!el.name || el.disabled) return;
     let value;
     if (el instanceof HTMLInputElement && el.type === "checkbox") {
       value = el.checked;
@@ -22292,14 +22300,20 @@ var collectValues = (form) => {
 var Form = ({ data, children, onValues, onSuccess, onError }) => {
   const { endpoint, method = "POST", className = "" } = data;
   const formRef = (0, import_react7.useRef)(null);
+  const [status, setStatus] = (0, import_react7.useState)({ type: "idle" });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formRef.current) return;
+    if (!formRef.current || status.type === "loading") return;
+    setStatus({ type: "loading", msg: "Saving changes..." });
     try {
       let values = collectValues(formRef.current);
       if (onValues) {
         const processed = await onValues(values);
-        if (processed === null) return;
+        if (processed === null) {
+          setStatus({ type: "idle" });
+          return;
+        }
+        ;
         values = processed;
       }
       const res = await fetch(endpoint, {
@@ -22307,35 +22321,36 @@ var Form = ({ data, children, onValues, onSuccess, onError }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values)
       });
-      if (!res.ok) {
-        throw new Error(`Request failed with status ${res.status}: ${res.statusText}`);
-      }
+      if (!res.ok) throw new Error(`Server returned ${res.status}`);
       const json = await res.json().catch(() => null);
+      setStatus({ type: "success", msg: "Update successful!" });
       formRef.current.setAttribute("data-state", "success");
       onSuccess?.(json);
+      setTimeout(() => setStatus({ type: "idle" }), 3e3);
     } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      setStatus({ type: "error", msg: error.message });
       formRef.current?.setAttribute("data-state", "error");
-      onError?.(err instanceof Error ? err : new Error(String(err)));
+      onError?.(error);
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
     "form",
     {
       ref: formRef,
-      className: `cf-form ${className}`.trim(),
+      className: `cf-form ${className} cf-form--${status.type}`.trim(),
       onSubmit: handleSubmit,
       noValidate: true,
-      children
+      children: [
+        children,
+        status.type !== "idle" && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("div", { className: `cf-form__message cf-form__message--${status.type}`, children: status.msg })
+      ]
     }
   );
 };
 registerComponent({
   name: "Form",
-  defaults: {
-    endpoint: "",
-    method: "POST",
-    className: ""
-  },
+  defaults: { endpoint: "", method: "POST", className: "" },
   component: Form,
   isCmsEditor: true,
   category: "Forms"
@@ -22924,6 +22939,7 @@ var Page = () => {
 var config_default2 = {
   key: "header",
   config: {
+    component: "Admin/Config/Header",
     siteTitle: "My Portfolio",
     links: [
       { to: "/work", label: "Work" },
@@ -22980,6 +22996,7 @@ registerComponent({
 var config_default3 = {
   key: "footer",
   config: {
+    component: "Admin/Config/Footer",
     copyrightName: "My Portfolio",
     socials: [
       { label: "GitHub", href: "" },
@@ -23220,20 +23237,103 @@ var AdminHeader = () => {
   ] });
 };
 
-// app/web/themes/@admin/index.tsx
+// app/web/themes/@admin/components/config/footer/index.tsx
+var import_react14 = __toESM(require_react());
 var import_jsx_runtime19 = __toESM(require_jsx_runtime());
+var FooterConfigEditor = ({ data }) => {
+  const cfgKey = "footer";
+  const initialSocials = data.socials ? Array.isArray(data.socials) ? data.socials : Object.values(data.socials) : [];
+  const [socials, setSocials] = (0, import_react14.useState)(initialSocials);
+  const addSocial = () => setSocials([...socials, { label: "", href: "" }]);
+  const removeSocial = (index) => setSocials(socials.filter((_, i) => i !== index));
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "cf-footer-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Footer" }),
+    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "cf-footer-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+      Field,
+      {
+        name: `${cfgKey}[copyrightName]`,
+        kind: "input",
+        label: "Copyright Name",
+        defaultValue: data.copyrightName,
+        required: true
+      }
+    ) }),
+    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "cf-footer-editor__divider" }),
+    /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "cf-footer-editor__socials", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "cf-footer-editor__socials-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("label", { className: "cf-footer-editor__label", children: "Social Media" }),
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("button", { type: "button", className: "cf-footer-editor__add-btn", onClick: addSocial, children: "+ Add Social" })
+      ] }),
+      socials.map((social, index) => /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "cf-footer-editor__social-row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Field, { name: `${cfgKey}[socials][${index}][label]`, kind: "input", label: "Platform", defaultValue: social.label }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Field, { name: `${cfgKey}[socials][${index}][href]`, kind: "input", label: "URL", defaultValue: social.href }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("button", { type: "button", className: "cf-footer-editor__remove-btn", onClick: () => removeSocial(index), children: "\xD7" })
+      ] }, index))
+    ] })
+  ] });
+};
+registerComponent({
+  name: "Admin/Config/Footer",
+  defaults: { component: "Admin/Config/Footer", copyrightName: "", socials: [] },
+  component: FooterConfigEditor
+});
+
+// app/web/themes/@admin/components/config/header/index.tsx
+var import_react15 = __toESM(require_react());
+var import_jsx_runtime20 = __toESM(require_jsx_runtime());
+var HeaderConfigEditor = ({ data }) => {
+  const cfgKey = "header";
+  const initialLinks = data.links ? Array.isArray(data.links) ? data.links : Object.values(data.links) : [];
+  const [links, setLinks] = (0, import_react15.useState)(initialLinks);
+  const addLink = () => setLinks([...links, { to: "", label: "", icon: "" }]);
+  const removeLink = (index) => setLinks(links.filter((_, i) => i !== index));
+  return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-header-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Header" }),
+    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-header-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+      Field,
+      {
+        name: `${cfgKey}[siteTitle]`,
+        kind: "input",
+        label: "Site Title",
+        defaultValue: data.siteTitle,
+        required: true
+      }
+    ) }),
+    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-header-editor__divider" }),
+    /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-header-editor__links", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-header-editor__links-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("label", { className: "cf-header-editor__label", children: "Navigation Links" }),
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("button", { type: "button", className: "cf-header-editor__add-btn", onClick: addLink, children: "+ Add Link" })
+      ] }),
+      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-header-editor__link-row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Field, { name: `${cfgKey}[links][${index}][to]`, kind: "input", label: "To", defaultValue: link.to }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Field, { name: `${cfgKey}[links][${index}][label]`, kind: "input", label: "Label", defaultValue: link.label }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Field, { name: `${cfgKey}[links][${index}][icon]`, kind: "input", label: "Icon", defaultValue: link.icon }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("button", { type: "button", className: "cf-header-editor__remove-btn", onClick: () => removeLink(index), children: "\xD7" })
+      ] }, index))
+    ] })
+  ] });
+};
+registerComponent({
+  name: "Admin/Config/Header",
+  defaults: { component: "Admin/Config/Header", siteTitle: "", links: [] },
+  component: HeaderConfigEditor
+});
+
+// app/web/themes/@admin/index.tsx
+var import_jsx_runtime21 = __toESM(require_jsx_runtime());
 var AdminThemeWrapper = (props) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "codefolio-default-admin", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(AdminHeader, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "content", children: props.children })
+  return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "codefolio-default-admin", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(AdminHeader, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "content", children: props.children })
   ] });
 };
 registerTheme("@admin", AdminThemeWrapper);
 
 // app/web/index.tsx
-var import_jsx_runtime20 = __toESM(require_jsx_runtime());
+var import_jsx_runtime22 = __toESM(require_jsx_runtime());
 var root = (0, import_client.createRoot)(document.getElementById("root"));
-root.render(/* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Page, {}));
+root.render(/* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Page, {}));
 /*! Bundled license information:
 
 scheduler/cjs/scheduler.development.js:

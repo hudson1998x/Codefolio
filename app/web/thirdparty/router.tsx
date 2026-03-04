@@ -28,10 +28,12 @@ export const useRouter = () => {
 
   const loadPage = useCallback(async (pathname: string) => {
     try {
-      const normalized =
+      let normalized =
         pathname === "/"
           ? homepage.homepage + (isAdmin ? "/page.json" : ".json")
           : `${pathname.replace(/\/$/, "")}/` + (isAdmin ? "page.json" : ".json");
+
+      normalized = normalized.replace('/.json', '.json')
 
       const res = await fetch(`/content${normalized}`);
       if (!res.ok) throw new Error("404");

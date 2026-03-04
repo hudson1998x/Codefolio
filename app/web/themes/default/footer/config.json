@@ -1,6 +1,7 @@
 {
   "key": "footer",
   "config": {
+    "component": "Admin/Config/Footer",
     "copyrightName": "My Portfolio",
     "socials": [
       { "label": "GitHub",   "href": "" },

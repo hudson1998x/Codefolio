@@ -2,6 +2,7 @@ import { registerTheme } from "app/web/thirdparty/theme";
 import { AdminHeader } from "./header";
 import { FC, PropsWithChildren } from "react";
 import './pages/config/config.scss'
+import './components/loader'
 
 /**
  * Root layout wrapper for the CodeFolio admin interface.

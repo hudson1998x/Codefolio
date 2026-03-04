@@ -1,6 +1,7 @@
 {
   "key": "header",
   "config": {
+    "component": "Admin/Config/Header",
     "siteTitle": "My Portfolio",
     "links": [
       { "to": "/work",                "label": "Work"    },

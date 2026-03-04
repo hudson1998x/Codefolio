@@ -1,0 +1,116 @@
+.cf-header-editor {
+  --accent: #2563eb;
+  --danger: #ef4444;
+  --border: #e2e8f0;
+  --text-muted: #64748b;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0.5rem 0;
+
+  &__group {
+    max-width: 480px;
+  }
+
+  &__divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0.5rem 0;
+  }
+
+  &__links-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+  }
+
+  &__label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+
+  &__link-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 40px;
+    gap: 0.75rem;
+    align-items: end;
+    padding: 1.25rem;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr 1fr;
+      
+      .cf-header-editor__remove-btn {
+        grid-column: span 2;
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+      .cf-header-editor__remove-btn { grid-column: span 1; }
+    }
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__add-btn {
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    color: var(--accent);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: #eff6ff;
+      border-color: var(--accent);
+      border-style: solid;
+    }
+  }
+
+  &__remove-btn {
+    background: #f1f5f9;
+    border: none;
+    color: var(--text-muted);
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: #fee2e2;
+      color: var(--danger);
+    }
+  }
+
+  &__empty {
+    text-align: center;
+    padding: 2rem;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+}
