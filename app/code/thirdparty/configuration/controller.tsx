@@ -33,7 +33,7 @@ export class ConfigController
                     <ui-Section>
                         <ui-Button variant="primary" type="submit">Save changes</ui-Button>
                     </ui-Section>
-                    {Object.keys(data).map((cfgKey) => {
+                    {Object.keys(data).sort((a, b) => b.localeCompare(a)).map((cfgKey) => {
                         const config = data[cfgKey];
 
                         if (config?.component) {

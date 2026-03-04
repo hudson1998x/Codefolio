@@ -1506,6 +1506,97 @@
   }
 }
 
+/* app/web/themes/@admin/components/command-search/style.scss */
+.command-search-container {
+  position: relative;
+  width: 400px;
+}
+.command-search-container .search-results-overlay {
+  position: absolute;
+  top: 45px;
+  width: 100%;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  overflow: hidden;
+}
+.command-search-container .action-prompt {
+  padding: 20px;
+  text-align: center;
+}
+.command-search-container .action-prompt p {
+  margin-bottom: 15px;
+  color: #fff;
+}
+.command-search-container .action-prompt .btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.command-search-container .action-prompt .btn-group button {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #222;
+  color: #eee;
+  cursor: pointer;
+}
+.command-search-container .action-prompt .btn-group button.primary {
+  background: #007bff;
+  border-color: #0056b3;
+}
+.command-search-container .action-prompt .btn-group button.ghost {
+  border: none;
+  background: transparent;
+  color: #888;
+}
+.command-search-container .action-prompt .btn-group button:hover {
+  opacity: 0.8;
+}
+.command-search-container .search-results-list {
+  list-style: none;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.command-search-container .search-results-list li {
+  padding: 12px 15px;
+  border-bottom: 1px solid #222;
+  cursor: pointer;
+}
+.command-search-container .search-results-list li:hover {
+  background: #222;
+}
+.command-search-container .search-results-list li .res-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.command-search-container .search-results-list li .res-info .res-label {
+  color: #fff;
+  font-size: 14px;
+}
+.command-search-container .search-results-list li .res-info .res-tag {
+  font-size: 10px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.search-highlight-flash {
+  outline: 3px solid #007bff;
+  outline-offset: 4px;
+  animation: flash-fade 2s forwards;
+}
+@keyframes flash-fade {
+  0% {
+    outline-color: rgb(0, 123, 255);
+  }
+  100% {
+    outline-color: rgba(0, 123, 255, 0);
+  }
+}
+
 /* app/web/themes/@admin/pages/config/config.scss */
 .site-config {
   background-color: #fbfbfd;
@@ -1523,7 +1614,7 @@
 }
 .site-config > .cf-section__inner {
   width: 100%;
-  max-width: 968px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
 }
@@ -1538,13 +1629,12 @@
   margin: 0;
 }
 .site-config > .cf-section__inner > .cf-section__content {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
 }
 .site-config > .cf-section__inner > .cf-section__content > .cf-section:first-child {
-  grid-column: 1/-1;
   margin-bottom: 8px;
 }
 .site-config > .cf-section__inner > .cf-section__content > .cf-section:first-child .cf-section__inner {
@@ -1552,19 +1642,23 @@
   display: flex;
   justify-content: flex-end;
 }
+.site-config > .cf-section__inner > .cf-section__content > .cf-section:not(:first-child) {
+  width: 100%;
+  display: block;
+}
 .cf-section--bg-muted {
   background: #ffffff !important;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 16px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
-  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .cf-section--bg-muted .cf-section__inner {
   padding: 32px;
 }
 .cf-section--bg-muted:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
 }
 .cf-section--bg-muted .cf-section__header {
   margin-bottom: 24px;
@@ -1583,12 +1677,15 @@
   flex-direction: column;
   gap: 20px;
 }
-@media (max-width: 850px) {
-  .site-config > .cf-section__inner > .cf-section__content {
-    grid-template-columns: 1fr;
+@media (max-width: 640px) {
+  .site-config {
+    padding: 40px 16px;
   }
-  .site-config > .cf-section__inner > .cf-section__content > .cf-section:first-child {
-    justify-content: flex-start;
+  .site-config .cf-section--bg-muted .cf-section__inner {
+    padding: 24px;
+  }
+  .site-config .site-config > .cf-section__inner > .cf-section__header .cf-section__title {
+    font-size: 28px;
   }
 }
 
