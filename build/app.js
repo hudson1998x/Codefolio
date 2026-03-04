@@ -22347,6 +22347,8 @@ var AutoContentList = ({ data }) => {
   const [error, setError] = (0, import_react8.useState)(null);
   const [page, setPage] = (0, import_react8.useState)(1);
   const [hasMore, setHasMore] = (0, import_react8.useState)(true);
+  const [selected, setSelected] = (0, import_react8.useState)(/* @__PURE__ */ new Set());
+  const [deleting, setDeleting] = (0, import_react8.useState)(false);
   const PAGE_SIZE = 20;
   const buildApiUrl = (0, import_react8.useCallback)((p) => {
     const params = new URLSearchParams();
@@ -22363,6 +22365,7 @@ var AutoContentList = ({ data }) => {
   const fetchResults = (0, import_react8.useCallback)(async (p) => {
     setLoading(true);
     setError(null);
+    setSelected(/* @__PURE__ */ new Set());
     try {
       const res = await fetch(buildApiUrl(p));
       const json = await res.json();
@@ -22388,11 +22391,46 @@ var AutoContentList = ({ data }) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
   const resolveEditUrl = (id) => editUrl.replace(":id", String(id));
+  const toggleSelect = (id) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+  const toggleSelectAll = () => {
+    const allIds = results.map((r) => r.id);
+    const allSelected2 = allIds.every((id) => selected.has(id));
+    setSelected(allSelected2 ? /* @__PURE__ */ new Set() : new Set(allIds));
+  };
+  const handleDeleteSelected = async () => {
+    if (selected.size === 0) return;
+    if (!confirm(`Delete ${selected.size} item${selected.size > 1 ? "s" : ""}? This cannot be undone.`)) return;
+    setDeleting(true);
+    setError(null);
+    try {
+      const results2 = await Promise.all(
+        [...selected].map(
+          (id) => fetch(`${apiUrl}/${id}`, { method: "DELETE" }).then((res) => ({ id, ok: res.ok }))
+        )
+      );
+      const failed = results2.filter((r) => !r.ok);
+      if (failed.length > 0) {
+        setError(`${failed.length} deletion${failed.length > 1 ? "s" : ""} failed.`);
+      }
+      fetchResults(page);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Unknown error during deletion");
+    } finally {
+      setDeleting(false);
+    }
+  };
   function toPascalCase(arg) {
     if (!arg) return arg;
     const capitalized = arg[0].toUpperCase() + arg.substring(1);
     return capitalized.replace(/([a-z0-9])([A-Z])/g, "$1 $2");
   }
+  const allSelected = results.length > 0 && results.every((r) => selected.has(r.id));
   return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "cf-auto-list", children: [
     searchFields.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("form", { className: "cf-auto-list__search", onSubmit: handleSearch, children: [
       searchFields.map((field) => /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "cf-auto-list__search-field", children: [
@@ -22439,24 +22477,60 @@ var AutoContentList = ({ data }) => {
         )
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: "cf-auto-list__toolbar", children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("a", { href: addUrl, className: "cf-auto-list__btn cf-auto-list__btn--primary", children: "+ Add new" }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "cf-auto-list__toolbar", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("a", { href: addUrl, className: "cf-auto-list__btn cf-auto-list__btn--primary", children: "+ Add new" }),
+      selected.size > 0 && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+        "button",
+        {
+          className: "cf-auto-list__btn cf-auto-list__btn--danger",
+          disabled: deleting,
+          onClick: handleDeleteSelected,
+          children: deleting ? "Deleting\u2026" : `Delete selected (${selected.size})`
+        }
+      )
+    ] }),
     error && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: "cf-auto-list__error", children: error }),
     loading ? /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: "cf-auto-list__loading", children: "Loading\u2026" }) : /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("table", { className: "cf-auto-list__table", children: [
       /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("tr", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("th", { className: "cf-auto-list__th cf-auto-list__th--select", children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+          "input",
+          {
+            type: "checkbox",
+            checked: allSelected,
+            onChange: toggleSelectAll,
+            "aria-label": "Select all rows"
+          }
+        ) }),
         columns.map((col) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("th", { className: "cf-auto-list__th", children: toPascalCase(col.label) }, col.key)),
         /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("th", { className: "cf-auto-list__th cf-auto-list__th--actions", children: "Actions" })
       ] }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("tbody", { children: results.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("td", { className: "cf-auto-list__empty", colSpan: columns.length + 1, children: "No results found." }) }) : results.map((row) => /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("tr", { className: "cf-auto-list__row", children: [
-        columns.map((col) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("td", { className: "cf-auto-list__td", children: String(row[col.key] ?? "") }, col.key)),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("td", { className: "cf-auto-list__td cf-auto-list__td--actions", children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
-          "a",
-          {
-            href: resolveEditUrl(row.id),
-            className: "cf-auto-list__btn cf-auto-list__btn--small",
-            children: "Edit"
-          }
-        ) })
-      ] }, row.id)) })
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("tbody", { children: results.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("td", { className: "cf-auto-list__empty", colSpan: columns.length + 2, children: "No results found." }) }) : results.map((row) => /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
+        "tr",
+        {
+          className: `cf-auto-list__row${selected.has(row.id) ? " cf-auto-list__row--selected" : ""}`,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("td", { className: "cf-auto-list__td cf-auto-list__td--select", children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+              "input",
+              {
+                type: "checkbox",
+                checked: selected.has(row.id),
+                onChange: () => toggleSelect(row.id),
+                "aria-label": `Select row ${row.id}`
+              }
+            ) }),
+            columns.map((col) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("td", { className: "cf-auto-list__td", children: String(row[col.key] ?? "") }, col.key)),
+            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("td", { className: "cf-auto-list__td cf-auto-list__td--actions", children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+              "a",
+              {
+                href: resolveEditUrl(row.id),
+                className: "cf-auto-list__btn cf-auto-list__btn--small",
+                children: "Edit"
+              }
+            ) })
+          ]
+        },
+        row.id
+      )) })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "cf-auto-list__pagination", children: [
       /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(

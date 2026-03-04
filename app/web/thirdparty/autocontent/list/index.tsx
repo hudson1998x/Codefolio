@@ -42,12 +42,13 @@ interface SearchState {
 
 /**
  * A fully data-driven admin list view that renders a search/filter bar,
- * a paginated results table, and add/edit navigation links — all derived
+ * a paginated results table, and add/edit/delete navigation — all derived
  * from the supplied {@link AutoListData} configuration.
  *
  * - Search and filter inputs are generated from `searchFields`.
  * - Table columns are generated from `columns`.
  * - API calls are made to `apiUrl`; UI links point to `listUrl`.
+ * - Rows can be individually or bulk-selected for deletion via `DELETE <apiUrl>/:id`.
  *
  * Registered in the component registry as `"AutoList"`.
  *
@@ -63,11 +64,17 @@ export const AutoContentList: FC<CodefolioProps<AutoListData>> = ({ data }) => {
     const [filters, setFilters] = useState<SearchState>(() =>
         Object.fromEntries(searchFields.map((f) => [f.key, ""]))
     );
-    const [results, setResults] = useState<Record<string, any>[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [error,   setError]   = useState<string | null>(null);
-    const [page,    setPage]    = useState(1);
-    const [hasMore, setHasMore] = useState(true);
+    const [results,  setResults]  = useState<Record<string, any>[]>([]);
+    const [loading,  setLoading]  = useState(false);
+    const [error,    setError]    = useState<string | null>(null);
+    const [page,     setPage]     = useState(1);
+    const [hasMore,  setHasMore]  = useState(true);
+
+    /** Set of currently selected row IDs, used for bulk delete. */
+    const [selected, setSelected] = useState<Set<string | number>>(new Set());
+
+    /** Whether a delete operation is currently in flight. */
+    const [deleting, setDeleting] = useState(false);
 
     const PAGE_SIZE = 20;
 
@@ -95,13 +102,15 @@ export const AutoContentList: FC<CodefolioProps<AutoListData>> = ({ data }) => {
 
     /**
      * Fetches a page of results from the API and updates component state.
-     * Sets `hasMore` to `false` when the returned item count is below {@link PAGE_SIZE}.
+     * Clears the current selection and sets `hasMore` to `false` when the
+     * returned item count is below {@link PAGE_SIZE}.
      *
      * @param p - The 1-based page number to fetch.
      */
     const fetchResults = useCallback(async (p: number) => {
         setLoading(true);
         setError(null);
+        setSelected(new Set());
         try {
             const res  = await fetch(buildApiUrl(p));
             const json = await res.json();
@@ -152,6 +161,58 @@ export const AutoContentList: FC<CodefolioProps<AutoListData>> = ({ data }) => {
         editUrl.replace(":id", String(id));
 
     /**
+     * Toggles the selected state of a single row by ID.
+     *
+     * @param id - The row entity ID to toggle.
+     */
+    const toggleSelect = (id: string | number) => {
+        setSelected((prev) => {
+            const next = new Set(prev);
+            next.has(id) ? next.delete(id) : next.add(id);
+            return next;
+        });
+    };
+
+    /**
+     * Toggles selection of all rows on the current page.
+     * Selects all if any are unselected; clears all if all are already selected.
+     */
+    const toggleSelectAll = () => {
+        const allIds = results.map((r) => r.id);
+        const allSelected = allIds.every((id) => selected.has(id));
+        setSelected(allSelected ? new Set() : new Set(allIds));
+    };
+
+    /**
+     * Sends `DELETE <apiUrl>/:id` for each selected entity in parallel.
+     * Prompts the user for confirmation before proceeding.
+     * Re-fetches the current page and clears selection on success.
+     */
+    const handleDeleteSelected = async () => {
+        if (selected.size === 0) return;
+        if (!confirm(`Delete ${selected.size} item${selected.size > 1 ? "s" : ""}? This cannot be undone.`)) return;
+
+        setDeleting(true);
+        setError(null);
+        try {
+            const results = await Promise.all(
+                [...selected].map((id) =>
+                    fetch(`${apiUrl}/${id}`, { method: "DELETE" }).then((res) => ({ id, ok: res.ok }))
+                )
+            );
+            const failed = results.filter((r) => !r.ok);
+            if (failed.length > 0) {
+                setError(`${failed.length} deletion${failed.length > 1 ? "s" : ""} failed.`);
+            }
+            fetchResults(page);
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : "Unknown error during deletion");
+        } finally {
+            setDeleting(false);
+        }
+    };
+
+    /**
      * Converts a camelCase or PascalCase string into a space-separated
      * human-readable label. e.g. `"createdAt"` → `"Created At"`.
      *
@@ -163,6 +224,8 @@ export const AutoContentList: FC<CodefolioProps<AutoListData>> = ({ data }) => {
         const capitalized = arg[0].toUpperCase() + arg.substring(1);
         return capitalized.replace(/([a-z0-9])([A-Z])/g, '$1 $2');
     }
+
+    const allSelected = results.length > 0 && results.every((r) => selected.has(r.id));
 
     // ── Render ───────────────────────────────────────────────────────────────
 
@@ -228,6 +291,15 @@ export const AutoContentList: FC<CodefolioProps<AutoListData>> = ({ data }) => {
                 <a href={addUrl} className="cf-auto-list__btn cf-auto-list__btn--primary">
                     + Add new
                 </a>
+                {selected.size > 0 && (
+                    <button
+                        className="cf-auto-list__btn cf-auto-list__btn--danger"
+                        disabled={deleting}
+                        onClick={handleDeleteSelected}
+                    >
+                        {deleting ? "Deleting…" : `Delete selected (${selected.size})`}
+                    </button>
+                )}
             </div>
 
             {/* Results */}
@@ -241,6 +313,14 @@ export const AutoContentList: FC<CodefolioProps<AutoListData>> = ({ data }) => {
                 <table className="cf-auto-list__table">
                     <thead>
                         <tr>
+                            <th className="cf-auto-list__th cf-auto-list__th--select">
+                                <input
+                                    type="checkbox"
+                                    checked={allSelected}
+                                    onChange={toggleSelectAll}
+                                    aria-label="Select all rows"
+                                />
+                            </th>
                             {columns.map((col) => (
                                 <th key={col.key} className="cf-auto-list__th">{toPascalCase(col.label)}</th>
                             ))}
@@ -250,12 +330,23 @@ export const AutoContentList: FC<CodefolioProps<AutoListData>> = ({ data }) => {
                     <tbody>
                         {results.length === 0 ? (
                             <tr>
-                                <td className="cf-auto-list__empty" colSpan={columns.length + 1}>
+                                <td className="cf-auto-list__empty" colSpan={columns.length + 2}>
                                     No results found.
                                 </td>
                             </tr>
                         ) : results.map((row) => (
-                            <tr key={row.id} className="cf-auto-list__row">
+                            <tr
+                                key={row.id}
+                                className={`cf-auto-list__row${selected.has(row.id) ? " cf-auto-list__row--selected" : ""}`}
+                            >
+                                <td className="cf-auto-list__td cf-auto-list__td--select">
+                                    <input
+                                        type="checkbox"
+                                        checked={selected.has(row.id)}
+                                        onChange={() => toggleSelect(row.id)}
+                                        aria-label={`Select row ${row.id}`}
+                                    />
+                                </td>
                                 {columns.map((col) => (
                                     <td key={col.key} className="cf-auto-list__td">
                                         {String(row[col.key] ?? "")}

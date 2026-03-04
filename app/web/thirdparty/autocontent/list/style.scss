@@ -1,258 +1,157 @@
 .cf-auto-list {
-  // ── Scoped Variables (Strict Light Theme) ──────────────────────────────────
-  --cf-list-bg: #ffffff;
-  --cf-list-text: #1a1a1a;
-  --cf-list-muted: #666666;
-  --cf-list-border: #dddddd;
-  --cf-list-surface: #f4f4f4;
-  --cf-list-primary: #0066cc;
-  --cf-list-primary-hover: #0052a3;
-  --cf-list-error: #d00000;
+  // Theme Variables (Scoped to component)
+  --island-bg: #ffffff;
+  --page-bg: #f4f7f9;
+  --primary: #1976d2;
+  --danger: #d32f2f;
+  --text-main: #2c3e50;
+  --text-muted: #7f8c8d;
+  --border: #e0e6ed;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
-  // ── Container ──────────────────────────────────────────────────────────────
-  box-sizing: border-box;
-  max-width: 968px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: var(--cf-list-bg);
-  color: var(--cf-list-text);
-  font-family: sans-serif;
+  background-color: var(--page-bg);
+  padding: 2rem;
+  min-height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text-main);
 
-  // Reset internal box-sizing
-  * { box-sizing: border-box; }
+  // --- The "Island" Style ---
+  &__search, 
+  &__toolbar, 
+  &__table, 
+  &__pagination {
+    background: var(--island-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+  }
 
-  // ── Search Form ────────────────────────────────────────────────────────────
+  // Search Grid
   &__search {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 24px;
-    padding: 16px;
-    background: var(--cf-list-surface);
-    border: 1px solid var(--cf-list-border);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
     align-items: flex-end;
-
-    &-field {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      flex: 1;
-      min-width: 150px;
-    }
 
     &-actions {
       display: flex;
-      gap: 8px;
+      gap: 0.75rem;
+      padding-top: 0.5rem;
     }
   }
 
   &__label {
-    font-size: 12px;
-    font-weight: bold;
-    color: var(--cf-list-muted);
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
   }
 
-  &__input,
-  &__select {
-    height: 36px;
-    padding: 0 8px;
-    border: 1px solid var(--cf-list-border);
-    background: #fff;
-    color: var(--cf-list-text);
-    font-size: 14px;
+  &__input, &__select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+    
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+      ring: 2px rgba(25, 118, 210, 0.2);
+    }
   }
 
-  // ── Toolbar ────────────────────────────────────────────────────────────────
-  &__toolbar {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 12px;
-  }
-
-  // ── Table ──────────────────────────────────────────────────────────────────
+  // Table Island
   &__table {
     width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    border: 1px solid var(--cf-list-border);
+    border-collapse: separate;
+    border-spacing: 0;
+    padding: 0; // Reset padding for table
+    overflow: hidden;
+
+    th {
+      background: #f8fafc;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .cf-auto-list__row {
+      transition: background 0.2s;
+      &:hover { background-color: #f9fbff; }
+      &--selected { background-color: #eff6ff !important; }
+    }
   }
 
-  &__th, &__td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid var(--cf-list-border);
-    font-size: 14px;
-  }
-
-  &__th {
-    background: var(--cf-list-surface);
-    color: var(--cf-list-muted);
-    font-weight: 600;
-
-    &--actions { text-align: right; }
-  }
-
-  &__td--actions { text-align: right; }
-
-  &__row:hover {
-    background-color: #fcfcfc;
-  }
-
-  // ── Buttons ────────────────────────────────────────────────────────────────
+  // Buttons
   &__btn {
     display: inline-flex;
     align-items: center;
-    padding: 8px 16px;
-    font-size: 13px;
+    justify-content: center;
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
     cursor: pointer;
-    border: 1px solid var(--cf-list-border);
-    background: #fff;
-    color: var(--cf-list-text);
-    text-decoration: none;
+    border: 1px solid var(--border);
+    background: white;
+    transition: all 0.2s;
 
-    &:hover { background: var(--cf-list-surface); }
-    &:disabled { opacity: 0.5; cursor: not-allowed; }
+    &:hover { background: #f8fafc; transform: translateY(-1px); }
+    &:active { transform: translateY(0); }
 
     &--primary {
-      background: var(--cf-list-primary);
-      color: #fff;
+      background: var(--primary);
+      color: white;
       border: none;
-      &:hover { background: var(--cf-list-primary-hover); }
+      &:hover { background: #1565c0; box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3); }
     }
 
-    &--small { padding: 4px 8px; font-size: 12px; }
+    &--danger {
+      color: var(--danger);
+      border-color: var(--danger);
+      &:hover { background: #fff5f5; }
+    }
+
+    &--small {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
   }
 
-  // ── Status & Pagination ───────────────────────────────────────────────────
-  &__error {
-    color: var(--cf-list-error);
-    font-weight: bold;
-    margin-bottom: 16px;
-  }
-
-  &__loading, &__empty {
-    padding: 40px;
-    text-align: center;
-    color: var(--cf-list-muted);
-  }
-
+  // Pagination
   &__pagination {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 16px;
+    margin-top: 2rem;
   }
 
   &__page-indicator {
-    font-size: 14px;
-    color: var(--cf-list-muted);
+    font-weight: 600;
+    color: var(--text-muted);
   }
-}
 
-// ── Shared Variables ────────────────────────────────────────────────────────
-:root {
-  --cf-bg: #ffffff;
-  --cf-text: #1a1a1a;
-  --cf-muted: #666666;
-  --cf-border: #dddddd;
-  --cf-surface: #f8f9fa;
-  --cf-primary: #0066cc;
-  --cf-primary-hover: #0052a3;
-  --cf-radius: 4px;
-}
-
-// ── AutoForm (Add/Edit Pages) ───────────────────────────────────────────────
-// Applied via <ui-Section className='autoform'>
-.autoform {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 976px; // Clamps the width
-  margin: 0 auto;   // Centers the form on the page
-  padding: 32px;
-  background-color: var(--cf-bg);
-
-  * { box-sizing: border-box; }
-
-  ui-Form {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    width: 100%;
-
-    ui-Input {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      width: 100%;
-
-      // The field label
-      label {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--cf-muted);
-        // PageTitle -> Page Title (handled by your PascalCase function, 
-        // but we ensure display here)
-        display: block; 
-      }
-
-      // The actual input element inside the web component
-      input {
-        width: 100%;
-        height: 42px;
-        padding: 0 12px;
-        font-size: 15px;
-        color: var(--cf-text);
-        background-color: #fff;
-        border: 1px solid var(--cf-border);
-        border-radius: var(--cf-radius);
-        transition: border-color 0.2s, box-shadow 0.2s;
-
-        &:focus {
-          outline: none;
-          border-color: var(--cf-primary);
-          box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
-        }
-
-        &::placeholder {
-          color: #bbb;
-        }
-      }
-    }
-
-    ui-Button {
-      margin-top: 8px;
-      
-      button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        height: 44px;
-        padding: 0 24px;
-        font-size: 14px;
-        font-weight: 600;
-        color: #fff;
-        background-color: var(--cf-primary);
-        border: none;
-        border-radius: var(--cf-radius);
-        cursor: pointer;
-        transition: background-color 0.2s;
-
-        &:hover {
-          background-color: var(--cf-primary-hover);
-        }
-
-        &:active {
-          transform: translateY(1px);
-        }
-      }
-    }
-  }
-}
-
-// ── Responsive Tweak ────────────────────────────────────────────────────────
-@media (max-width: 1024px) {
-  .autoform {
-    max-width: 95%;
-    padding: 20px;
+  &__error {
+    background: #fff5f5;
+    color: var(--danger);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--danger);
   }
 }
