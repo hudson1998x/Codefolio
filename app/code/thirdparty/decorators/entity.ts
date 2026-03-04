@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { META } from "../../metadata";
+import { CanvasNode } from "../frontend/types";
 
 /**
  * Describes the structure of a single field within an {@link Entity} schema,
@@ -14,6 +15,12 @@ export interface FieldMetadata {
   required: boolean;
   /** Fallback value used when the field is absent from the JSON payload. */
   default?: any;
+  /** marks a field as an index. */
+  searchable?: boolean;
+  /** use a custom input? */
+  module?: CanvasNode;
+  /** is this field editable? */
+  editable?: boolean
 }
 
 /**
@@ -89,7 +96,7 @@ export function Entity(name: string): ClassDecorator {
  * }
  * ```
  */
-export function Field(options: { required?: boolean; default?: any } = {}): PropertyDecorator {
+export function Field(options: { required?: boolean; default?: any, searchable?: boolean, module?: CanvasNode, editable?: boolean} = {}): PropertyDecorator {
   return (target, key) => {
     const fields: FieldMetadata[] = Reflect.getMetadata(META.fields, target.constructor) || [];
 
@@ -98,8 +105,11 @@ export function Field(options: { required?: boolean; default?: any } = {}): Prop
     fields.push({
       key: key.toString(),
       type,
-      required: options.required ?? true,
+      required: options.required ?? false,
       default: options.default,
+      searchable: options.searchable,
+      module: options.module,
+      editable: options.editable === undefined ? true : options.editable
     });
 
     Reflect.defineMetadata(META.fields, fields, target.constructor);
@@ -121,7 +131,26 @@ export function Field(options: { required?: boolean; default?: any } = {}): Prop
  * ```
  */
 export function getEntityFields(target: any): FieldMetadata[] {
-  return Reflect.getMetadata(META.fields, target) || [];
+  const allFields: FieldMetadata[] = [];
+  const visitedKeys = new Set<string>();
+
+  // Ensure we are working with the Constructor (the Class)
+  let currentTarget = typeof target === 'function' ? target : target.constructor;
+
+  while (currentTarget && currentTarget !== Object && currentTarget !== Function.prototype) {
+    // Read ONLY from this specific class level
+    const fields: FieldMetadata[] = Reflect.getOwnMetadata(META.fields, currentTarget) || [];
+
+    for (const field of fields) {
+      if (!visitedKeys.has(field.key)) {
+        allFields.push(field);
+        visitedKeys.add(field.key);
+      }
+    }
+    currentTarget = Object.getPrototypeOf(currentTarget);
+  }
+
+  return allFields;
 }
 
 /**

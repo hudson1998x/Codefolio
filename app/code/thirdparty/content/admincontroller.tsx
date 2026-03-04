@@ -1,0 +1,156 @@
+import { getEntityFields } from "@decorators/entity";
+import { Get } from "@decorators/routes";
+import { IncomingMessage, ServerResponse } from "http";
+import { CanvasNode } from "../frontend/types";
+import { Content } from "./content";
+import { ContentController } from "./controller";
+
+/**
+ * Abstract base controller that provides auto-generated admin UI pages
+ * for CRUD operations on a content entity. Extend this class to get
+ * list, edit, and add pages wired up automatically via entity field metadata.
+ *
+ * @typeParam T - The {@link Content} entity type this controller manages.
+ */
+export abstract class AdminController<T extends Content> extends ContentController<T> {
+
+    /**
+     * Maps a TypeScript constructor type to its corresponding UI input type.
+     *
+     * @param type - The field's runtime type (e.g. `Number`, `String`).
+     * @returns The UI input type string: `"number"`, `"select"`, or `"text"` as the default fallback.
+     */
+    protected mapTypeToUi(type: any): "text" | "number" | "select" {
+        if (type === Number) return "number";
+        return "text";
+    }
+
+    /**
+     * Returns the subset of entity fields that are marked as searchable,
+     * formatted for use in table/list views. The `id` field is always
+     * sorted to the front.
+     *
+     * @returns An array of formatted field descriptors filtered to searchable fields.
+     */
+    protected getSearchableFields() {
+        const entity = this.getTargetEntity();
+        return getEntityFields(entity)
+            .filter(f => f.searchable)
+            .map(f => this.formatField(f))
+            .sort((a, b) => a.key == 'id' ? -1 : 0);
+    }
+
+    /**
+     * Returns the subset of entity fields that are marked as editable,
+     * formatted for use in add/edit forms. Fields with `editable: false`
+     * are excluded; all others are included by default.
+     *
+     * @returns An array of formatted field descriptors filtered to editable fields.
+     */
+    protected getEditableFields() {
+        const entity = this.getTargetEntity();
+        return getEntityFields(entity)
+            .filter(f => f.editable !== false)
+            .map(f => this.formatField(f));
+    }
+
+    /**
+     * Normalizes a raw entity field descriptor into the shape expected by UI components.
+     * The label is derived by capitalizing the first character of the field key.
+     *
+     * @param f - The raw field metadata object from {@link getEntityFields}.
+     * @returns A formatted field descriptor with `key`, `label`, `type`, `required`, and `default`.
+     */
+    private formatField(f: any) {
+        return {
+            key: f.key,
+            label: f.key.charAt(0).toUpperCase() + f.key.slice(1),
+            type: this.mapTypeToUi(f.type),
+            required: f.required,
+            default: f.default
+        };
+    }
+
+    /**
+     * Renders the list/search page for this entity collection.
+     * Responds to `GET /<collection>/page.json`.
+     *
+     * @returns A {@link CanvasNode} rendering an `<ui-AutoList>` populated with
+     * the collection's API URL and searchable field definitions.
+     */
+    @Get("page.json")
+    public async listPage(): Promise<CanvasNode> {
+        return (
+            <ui-AutoList 
+                apiUrl={'/api/' + this.getCollectionName()} 
+                listUrl={'/en-admin/' + this.getCollectionName()}
+                searchFields={this.getSearchableFields()} 
+                columns={this.getSearchableFields()}
+            />
+        );
+    }
+
+    /**
+     * Renders the edit form for an existing entity by ID.
+     * Responds to `GET /<collection>/:id/page.json`.
+     *
+     * @param req - The incoming HTTP request.
+     * @param res - The HTTP server response.
+     * @param currentId - The numeric ID of the entity to edit, extracted from the route parameter.
+     * @returns A {@link CanvasNode} rendering a `<ui-Form>` pre-populated with all
+     * editable fields, POSTing to `/api/<collection>/<currentId>`.
+     */
+    @Get("/:id/page.json")
+    public async editPage(req: IncomingMessage, res: ServerResponse, currentId: number): Promise<CanvasNode> {
+        const fields = this.getEditableFields();
+
+        return (
+            <ui-Section className='autoform'>
+                <ui-Form action={`/api/${this.getCollectionName()}/${currentId}`} method="POST">
+                    {fields.map(field => (
+                        <ui-Input 
+                            name={field.key} 
+                            label={field.label} 
+                            type={field.type}
+                            required={field.required}
+                            defaultValue={field.default}
+                        />
+                    ))}
+                    <ui-Button type="submit">Save Changes</ui-Button>
+                </ui-Form>
+            </ui-Section>
+        );
+    }
+
+    /**
+     * Renders the creation form for a new entity instance.
+     * Responds to `GET /<collection>/add/page.json`.
+     *
+     * System-managed fields (`id`, `creator`, `updated`, `created`) are automatically
+     * excluded from the form since they should not be set manually during creation.
+     *
+     * @returns A {@link CanvasNode} rendering a `<ui-Form>` with all user-facing
+     * editable fields, submitting via PUT to `/api/<collection>`.
+     */
+    @Get("/add/page.json")
+    public async addPage(): Promise<CanvasNode> {
+        const sysFields = ["id", "creator", "updated", "created"];
+        const fields = this.getEditableFields().filter(f => !sysFields.includes(f.key));
+
+        return (
+            <ui-Section className='autoform'>
+                <ui-Form action={`/api/${this.getCollectionName()}`} method="PUT">
+                    {fields.map(field => (
+                        <ui-Input 
+                            name={field.key} 
+                            label={field.label} 
+                            type={field.type}
+                            required={field.required}
+                        />
+                    ))}
+                    <ui-Button type="submit">Create Entity</ui-Button>
+                </ui-Form>
+            </ui-Section>
+        );
+    }
+}

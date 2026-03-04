@@ -156,4 +156,11 @@ export abstract class ContentController<T extends { id?: number }> {
             res.status(404).json({ ok: false, error: msg });
         }
     }
+
+    public getCollectionName(): string
+    {
+        return this.getTargetEntity().name.toLowerCase();
+    }
+
+    public abstract getTargetEntity(): Function;
 }

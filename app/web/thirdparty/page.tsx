@@ -4,6 +4,7 @@ import { ConfigProvider } from "./providers/configuration"
 import { ThemeLoader } from './theme';
 import { Canvas } from "@components/canvas";
 import './components/loader'
+import './autocontent/loader'
 
 /**
  * `Page` is the application root — it composes the full provider stack and

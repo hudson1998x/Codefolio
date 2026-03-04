@@ -60,6 +60,11 @@ export class HttpService {
     this.writeIndexHtml();
   }
 
+  addCustomNavEntry(navItem: NavConfig)
+  {
+    this.adminNav.push(navItem);
+  }
+
   /**
    * Bootstraps the HTTP and WebSocket servers.
    *
@@ -359,8 +364,11 @@ export class HttpService {
    * immediately, before the HTTP server starts listening.
    */
   private writeIndexHtml() {
-    const filePath = path.join(process.cwd(), "index.html");
+    let filePath = path.join(process.cwd(), "index.html");
     fs.writeFileSync(filePath, this.outputHtml(), { encoding: "utf-8" });
-    console.log(`📝 index.html written with cache key ${this.cacheKey}`);
+
+    filePath = path.join(process.cwd(), "404.html");
+    fs.writeFileSync(filePath, this.outputHtml(), { encoding: "utf-8" });
+    console.log(`📝 index.html & 404.html written with cache key ${this.cacheKey}`);
   }
 }

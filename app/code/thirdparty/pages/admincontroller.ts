@@ -1,17 +1,17 @@
-import { Controller } from "@decorators/controller";
-import { ContentController } from "../content/controller";
+import { Container } from "@decorators/di-container";
+import { AdminController } from "../content/admincontroller";
 import { Page } from "./entity";
 import { PageService } from "./service";
-import { Container } from "@decorators/di-container";
+import { Controller } from "@decorators/controller";
 
 /**
- * REST API controller for the {@link Page} entity, mounted at `/api/page`.
+ * Admin controller for the {@link Page} entity, mounted at `content/en-admin/page`.
  *
- * Inherits standard CRUD route handling from {@link ContentController} and
+ * Inherits list, edit, and add page rendering from {@link AdminController} and
  * wires up the {@link PageService} as the underlying data service via DI.
  */
-@Controller("/api/page")
-export class PageController extends ContentController<Page>
+@Controller('content/en-admin/page')
+export class PageAdminController extends AdminController<Page>
 {
     /**
      * The service instance used for all data operations on {@link Page} entities.

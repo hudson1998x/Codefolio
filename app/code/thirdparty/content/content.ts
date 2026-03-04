@@ -1,3 +1,5 @@
+import { Field } from "@decorators/entity";
+
 /**
  * Abstract base class for all Codefolio content entities.
  *
@@ -30,6 +32,7 @@ export abstract class Content {
    * {@link ContentService} on creation. `undefined` until the content
    * has been saved for the first time.
    */
+  @Field({ searchable: true, editable: false })
   public id: number | undefined;
 
   /**
@@ -37,17 +40,20 @@ export abstract class Content {
    * this content item. `undefined` until the content has been saved
    * for the first time.
    */
+  @Field({ searchable: true, editable: false })
   public creator: string | undefined;
 
   /**
    * The timestamp at which this content item was first saved.
    * `undefined` until the content has been saved for the first time.
    */
+  @Field({ editable: false })
   public created: Date | undefined;
 
   /**
    * The timestamp at which this content item was most recently modified.
    * Updated by {@link ContentService} on every successful save.
    */
+  @Field({ editable: false })
   public updated: Date | undefined;
 }

@@ -3,6 +3,9 @@ import * as fsp from "fs/promises";
 import * as path from "path";
 import * as readline from "readline";
 import { publish } from "@events";
+import { Container } from "@decorators/di-container";
+import { HttpService } from "../http/service";
+import { toEntityLabel } from "./utils";
 
 const CONTENT_ROOT = path.resolve("content");
 
@@ -75,6 +78,13 @@ export abstract class ContentService<T extends { id?: number }> {
         }
 
         console.log(`📁 Collection ready: content/${this.getCollectionName()}`);
+
+        const httpService: HttpService = Container.resolve(HttpService);
+
+        httpService.addCustomNavEntry({
+            label: toEntityLabel(this.getCollectionName()),
+            href: '/en-admin/' + this.getCollectionName() + '/',
+        });
     }
 
     // ── Low-level helpers ────────────────────────────────────────────────────
