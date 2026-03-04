@@ -1,0 +1,13 @@
+{
+  "key": "header",
+  "config": {
+    "siteTitle": "My Portfolio",
+    "links": [
+      { "to": "/work",                "label": "Work"    },
+      { "to": "/about",               "label": "About"   },
+      { "to": "/contact",             "label": "Contact" },
+      { "to": "https://github.com",   "icon": "fab fa-github"   },
+      { "to": "https://linkedin.com", "icon": "fab fa-linkedin" }
+    ]
+  }
+}

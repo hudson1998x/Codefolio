@@ -1,0 +1,11 @@
+{
+  "key": "footer",
+  "config": {
+    "copyrightName": "My Portfolio",
+    "socials": [
+      { "label": "GitHub",   "href": "" },
+      { "label": "LinkedIn", "href": "" },
+      { "label": "Twitter",  "href": "" }
+    ]
+  }
+}

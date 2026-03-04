@@ -1,0 +1,68 @@
+===========================================
+  YOUR FRONTEND FILES GO HERE
+===========================================
+
+This directory is yours. Anything you place
+here will never be touched by a Codefolio
+update.
+
+-------------------------------------------
+  WHY THE SEPARATION?
+-------------------------------------------
+
+Codefolio separates your frontend from the
+framework renderer for three reasons:
+
+  1. SAFE UPDATES
+     Pulling a new version of Codefolio will
+     never overwrite, merge, or delete
+     your components, styles, or assets.
+
+  2. CLEAR OWNERSHIP
+     Your components are yours. The renderer
+     is ours. No ambiguity, no conflicts.
+
+  3. PORTABILITY
+     Your TSX components and stylesheets are
+     plain React and CSS — no proprietary
+     syntax to unpick if you ever move on.
+
+-------------------------------------------
+  WHAT BELONGS HERE?
+-------------------------------------------
+
+  - Your components (TSX)
+  - Your stylesheets (CSS / SCSS)
+  - Static assets (fonts, images, icons)
+  - Component defaults & prop definitions
+  - Anything visual you've built for your site
+
+-------------------------------------------
+  WHAT DOESN'T BELONG HERE?
+-------------------------------------------
+
+  - The renderer        (that's ours)
+  - The router          (that's ours)
+  - build output        (managed by esbuild)
+  - node_modules        (managed by npm)
+
+-------------------------------------------
+  HOW COMPONENTS WORK
+-------------------------------------------
+
+Every component you register here becomes
+available in the page editor palette.
+
+Export a defaults object alongside your
+render function and Codefolio handles the
+rest — prop panels, scaffolding, and config
+are all derived from your defaults
+automatically.
+
+  defaults  →  prop panel fields
+  defaults  →  new page scaffolding
+  defaults  →  useModuleConfig fallback
+
+No extra configuration needed.
+
+===========================================

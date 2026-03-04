@@ -1,0 +1,121 @@
+.cf-vcs {
+  // --- Midnight Tokens ---
+  --vcs-bg: rgba(28, 28, 30, 0.85);
+  --vcs-border: rgba(255, 255, 255, 0.1);
+  --vcs-text-main: #f5f5f7;
+  --vcs-text-muted: #86868b;
+  --vcs-accent: #0a84ff;
+  --vcs-success: #32d74b;
+  --vcs-warning: #ffd60a;
+  --vcs-error: #ff453a;
+  
+  // Layout
+  display: inline-flex;
+  align-items: center;
+  padding: 0 8px;
+  gap: 8px;
+  height: 28px; // Lowered from 36px
+  background: var(--vcs-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--vcs-border);
+  border-radius: 6px;
+  color: var(--vcs-text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Mono", monospace;
+  font-size: 11px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  user-select: none;
+
+  // Status Glow
+  &::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--vcs-success);
+    box-shadow: 0 0 6px var(--vcs-success);
+    flex-shrink: 0;
+  }
+
+  &--dirty::before {
+    background: var(--vcs-warning);
+    box-shadow: 0 0 6px var(--vcs-warning);
+  }
+
+  &--error::before {
+    background: var(--vcs-error);
+    box-shadow: 0 0 6px var(--vcs-error);
+  }
+
+  &__section {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 4px;
+    
+    &:not(:last-child) {
+      border-right: 1px solid var(--vcs-border);
+      padding-right: 8px;
+    }
+  }
+
+  &__branch {
+    font-weight: 700;
+    color: var(--vcs-text-main);
+    &-icon { color: var(--vcs-text-muted); opacity: 0.7; }
+  }
+
+  &__sync {
+    color: var(--vcs-accent);
+    letter-spacing: -0.5px;
+  }
+
+  &__changes {
+    color: var(--vcs-warning);
+    font-weight: 700;
+  }
+
+  &__commit {
+    max-width: 160px; // Prevent horizontal blowout
+    overflow: hidden;
+    
+    &-hash {
+      color: var(--vcs-accent);
+      margin-right: 6px;
+    }
+
+    &-message {
+      color: var(--vcs-text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &__refresh {
+    all: unset;
+    cursor: pointer;
+    color: var(--vcs-text-muted);
+    font-size: 14px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s, transform 0.3s;
+
+    &:hover {
+      color: var(--vcs-text-main);
+      transform: rotate(180deg);
+    }
+  }
+
+  &__spinner {
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--vcs-accent);
+    border-radius: 50%;
+    animation: vcs-spin 0.6s linear infinite;
+  }
+}
+
+@keyframes vcs-spin { to { transform: rotate(360deg); } }

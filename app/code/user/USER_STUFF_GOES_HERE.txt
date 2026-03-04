@@ -1,0 +1,49 @@
+===========================================
+  YOUR FILES GO HERE
+===========================================
+
+This directory is yours. Anything you place
+here will never be touched by a Codefolio
+update.
+
+-------------------------------------------
+  WHY THE SEPARATION?
+-------------------------------------------
+
+Codefolio separates userland from framework
+code for three reasons:
+
+  1. SAFE UPDATES
+     Pulling a new version of Codefolio will
+     never overwrite, merge, or delete
+     anything in this directory.
+
+  2. CLEAR OWNERSHIP
+     Anything in here is yours. Anything
+     outside is ours. No ambiguity.
+
+  3. PORTABILITY
+     If you ever migrate away from Codefolio,
+     your content, modules, and customisations
+     are already cleanly isolated — just take
+     this directory with you.
+
+-------------------------------------------
+  WHAT BELONGS HERE?
+-------------------------------------------
+
+  - Custom controllers & admin pages
+  - Your content entities
+  - Site-specific services
+  - Component overrides
+  - Anything you've built on top of Codefolio
+
+-------------------------------------------
+  WHAT DOESN'T BELONG HERE?
+-------------------------------------------
+
+  - Framework internals  (leave those alone)
+  - node_modules         (managed by npm)
+  - build output         (managed by esbuild)
+
+===========================================

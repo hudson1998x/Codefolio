@@ -1,0 +1,39 @@
+// Header styling for the Default Theme
+.theme-header {
+  background-color: var(--bs-body-bg);
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+
+  .nav-logo {
+    letter-spacing: 1px;
+    color: var(--bs-primary);
+  }
+
+  .nav-tabs {
+    // Requirement: Ensure tabs/container are displayed even if empty
+    display: flex !important;
+    min-width: 200px; 
+    min-height: 45px;
+    align-items: flex-end;
+
+    .nav-link {
+      color: var(--bs-secondary);
+      font-weight: 500;
+      transition: color 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
+      border-radius: 0;
+      background: transparent;
+
+      &:hover {
+        color: var(--bs-dark);
+        border-bottom: 2px solid var(--bs-gray-400);
+      }
+
+      &.active {
+        color: var(--bs-primary) !important;
+        background-color: transparent !important;
+        border-bottom: 2px solid var(--bs-primary) !important;
+      }
+    }
+  }
+}

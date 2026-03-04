@@ -1,0 +1,29 @@
+// Footer styling for the Default Theme
+.theme-footer {
+  background-color: var(--bs-light);
+  width: 100%;
+
+  .footer-content {
+    // Ensuring the container respects your tab visibility preference 
+    // by maintaining height even if links were removed.
+    min-height: 50px; 
+  }
+
+  .footer-socials {
+    a {
+      font-size: 0.9rem;
+      transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+      display: inline-block;
+
+      &:hover {
+        color: var(--bs-primary) !important;
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  p {
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+  }
+}

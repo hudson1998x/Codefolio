@@ -1,0 +1,122 @@
+.cf-btn {
+  // ─── Design Tokens ───
+  --cf-btn-font: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+  --cf-btn-radius: 10px;
+  --cf-btn-transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --cf-accent: #007aff;
+  --cf-danger: #ff3b30;
+  
+  // ─── Base Styles ───
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--cf-btn-font);
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--cf-btn-transition);
+  user-select: none;
+  white-space: nowrap;
+  outline: none;
+  gap: 8px;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.15);
+  }
+
+  // ─── Variants ───
+  
+  &--primary {
+    background: var(--cf-accent);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.12);
+
+    &:hover {
+      background: #0063cf;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+    }
+
+    &:active {
+      transform: translateY(0);
+      background: #0056b3;
+    }
+  }
+
+  &--secondary {
+    background: #ffffff;
+    border-color: #d2d2d7;
+    color: #1d1d1f;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+
+    &:hover {
+      background: #f5f5f7;
+      border-color: #86868b;
+    }
+    
+    &:active { background: #ebebed; }
+  }
+
+  &--danger {
+    background: #fff1f0;
+    border-color: #ffa39e;
+    color: var(--cf-danger);
+
+    &:hover {
+      background: var(--cf-danger);
+      color: #ffffff;
+      border-color: var(--cf-danger);
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: #86868b;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.04);
+      color: #1d1d1f;
+    }
+  }
+
+  &--link {
+    background: transparent;
+    color: var(--cf-accent);
+    padding: 0 !important;
+    height: auto !important;
+    min-width: 0 !important;
+
+    &:hover {
+      text-decoration: underline;
+      color: #0056b3;
+    }
+  }
+
+  // ─── Sizes ───
+
+  &--sm {
+    height: 32px;
+    padding: 0 12px;
+    font-size: 13px;
+    --cf-btn-radius: 8px;
+  }
+
+  &--md {
+    height: 42px;
+    padding: 0 20px;
+    font-size: 14px;
+  }
+
+  &--lg {
+    height: 52px;
+    padding: 0 28px;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+  }
+}

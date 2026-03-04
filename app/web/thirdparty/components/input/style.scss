@@ -1,0 +1,168 @@
+.cf-field {
+  // ─── Design Tokens ───
+  --cf-font: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+  --cf-bg-input: #ffffff;
+  --cf-bg-dropdown: rgba(255, 255, 255, 0.85);
+  --cf-accent: #007aff; // SF Pro Blue
+  --cf-text-main: #1d1d1f;
+  --cf-text-label: #86868b;
+  --cf-border: #d2d2d7;
+  --cf-border-hover: #86868b;
+  --cf-shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --cf-shadow-focus: 0 0 0 4px rgba(0, 122, 255, 0.15);
+  --cf-error: #ff3b30;
+  --cf-radius: 10px; // Modern, slightly rounded
+  --cf-blur: 12px;
+
+  // ─── Base Reset ───
+  all: initial; // Total isolation
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  font-family: var(--cf-font);
+  box-sizing: border-box;
+
+  * { box-sizing: border-box; font-family: inherit; }
+
+  // ─── Label & Error ───
+  .cf-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cf-text-label);
+    padding-left: 2px;
+  }
+
+  .cf-error {
+    font-size: 12px;
+    color: var(--cf-error);
+    margin-top: 2px;
+    font-weight: 500;
+  }
+
+  // ─── Shared Input Primitives ───
+  .cf-input, .cf-select__trigger {
+    appearance: none;
+    width: 100%;
+    background: var(--cf-bg-input);
+    border: 1px solid var(--cf-border);
+    border-radius: var(--cf-radius);
+    color: var(--cf-text-main);
+    font-size: 15px;
+    padding: 12px 14px;
+    box-shadow: var(--cf-shadow-soft);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+
+    &:hover:not(:disabled) {
+      border-color: var(--cf-border-hover);
+    }
+
+    &:focus-within:not(:disabled) {
+      border-color: var(--cf-accent);
+      box-shadow: var(--cf-shadow-focus);
+    }
+
+    &--error {
+      border-color: var(--cf-error);
+      &:focus-within { box-shadow: 0 0 0 4px rgba(255, 59, 48, 0.15); }
+    }
+  }
+
+  textarea.cf-textarea {
+    min-height: 110px;
+    line-height: 1.6;
+    resize: vertical;
+  }
+
+  // ─── Searchable Select (Search UI) ───
+  .cf-select {
+    position: relative;
+    cursor: default;
+
+    &__trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    &__chevron {
+      color: var(--cf-text-label);
+      font-size: 11px;
+      transition: transform 0.2s ease;
+    }
+
+    &--open .cf-select__chevron { transform: rotate(180deg); }
+
+    // Dropdown Panel (Glassmorphism)
+    &__dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      background: var(--cf-bg-dropdown);
+      backdrop-filter: blur(var(--cf-blur));
+      -webkit-backdrop-filter: blur(var(--cf-blur));
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--cf-radius);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      z-index: 9999;
+      overflow: hidden;
+      transform-origin: top;
+      animation: cf-pop-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    &__search {
+      padding: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+      &-input {
+        width: 100%;
+        border: none;
+        background: rgba(0, 0, 0, 0.04);
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        outline: none;
+        color: var(--cf-text-main);
+
+        &::placeholder { color: var(--cf-text-label); }
+      }
+    }
+
+    &__options {
+      list-style: none;
+      margin: 0;
+      padding: 6px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    &__option {
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--cf-text-main);
+      margin-bottom: 2px;
+      transition: background 0.1s ease;
+
+      &--focused {
+        background: rgba(0, 0, 0, 0.04);
+      }
+
+      &--selected {
+        background: var(--cf-accent);
+        color: white;
+        font-weight: 500;
+      }
+    }
+  }
+
+  // ─── Animations ───
+  @keyframes cf-pop-in {
+    from { opacity: 0; transform: scale(0.98) translateY(-4px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+}

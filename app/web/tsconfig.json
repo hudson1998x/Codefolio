@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM"],
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "baseUrl": "../../",
+    "paths": {
+      "@router": ["app/web/thirdparty/router.tsx"],
+      "@hooks/*": ["app/web/thirdparty/hooks/*"],
+      "@components/*": ["app/web/thirdparty/components/*"],
+      "@config": ["app/web/thirdparty/providers/configuration.tsx"]
+    }
+  },
+  "include": ["./**/*.tsx", "./**/*.ts"],
+  "exclude": ["../../node_modules", "../../dist", "../../code/**/*.ts", "../../code/**/*.tsx"]
+}

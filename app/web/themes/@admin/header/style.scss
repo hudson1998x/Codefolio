@@ -1,0 +1,196 @@
+// --- OLED Dark Palette ---
+$black: #000000;
+$near-black: #0a0a0a;
+$border: #1a1a1a;
+$border-bright: #262626;
+$text-primary: #ededed;
+$text-secondary: #a1a1a1;
+$text-dim: #666666;
+$accent-blue: #0072f5;
+
+.platform-header {
+  height: 52px; // Slightly slimmer for a tighter, pro look
+  background: $black;
+  border-bottom: 1px solid $border;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  color: $text-primary;
+  font-family: 'Inter', system-ui, sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  // --- Left Side ---
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    .workspace-switcher {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover { background: #111; }
+
+      .logo-box {
+        width: 22px;
+        height: 22px;
+        background: $text-primary;
+        color: $black;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .label-group {
+        display: flex;
+        flex-direction: column;
+        .title { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
+        .status { font-size: 10px; color: $text-dim; text-transform: uppercase; letter-spacing: 0.05em; }
+      }
+    }
+
+    .dynamic-nav {
+      .nav-list {
+        display: flex;
+        gap: 2px;
+        list-style: none;
+        margin: 0; padding: 0;
+      }
+
+      .nav-link {
+        font-size: 13px;
+        color: $text-secondary;
+        padding: 6px 10px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: 0.2s;
+        &:hover { color: white; background: #111; }
+      }
+
+      .nav-skeleton {
+        width: 120px;
+        height: 14px;
+        background: #111;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  // --- Center (Search) ---
+  .header-center {
+    .command-search {
+      background: $near-black;
+      border: 1px solid $border;
+      height: 32px;
+      width: 280px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      gap: 8px;
+
+      &:focus-within { border-color: $border-bright; background: #0f0f0f; }
+
+      .search-icon { color: $text-dim; font-size: 14px; }
+      input {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: white;
+        font-size: 12px;
+        width: 100%;
+        &::placeholder { color: $text-dim; }
+      }
+
+      kbd {
+        font-size: 9px;
+        background: #1a1a1a;
+        color: $text-dim;
+        padding: 2px 5px;
+        border-radius: 3px;
+        border: 1px solid $border;
+      }
+    }
+  }
+
+  // --- Right Side ---
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .system-indicators {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      color: $text-secondary;
+
+      .save-status {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        &::before {
+          content: '';
+          width: 5px;
+          height: 5px;
+          background: #333;
+          border-radius: 50%;
+        }
+        &.is-saving {
+          color: $accent-blue;
+          &::before { background: $accent-blue; animation: pulse 1s infinite; }
+        }
+      }
+
+      .git-ref {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: $text-dim;
+        font-family: 'JetBrains Mono', monospace;
+        background: #0d0d0d;
+        padding: 2px 8px;
+        border-radius: 4px;
+        border: 1px solid $border;
+      }
+    }
+
+    .deploy-btn {
+      background: white;
+      color: black;
+      border: none;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: 0.2s;
+      &:hover { background: #ccc; }
+    }
+
+    .profile-pill img {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid $border;
+      cursor: pointer;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}

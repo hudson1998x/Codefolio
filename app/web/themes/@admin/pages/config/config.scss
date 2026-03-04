@@ -1,0 +1,109 @@
+// ─────────────────────────────────────────────
+// Page Layout & Centering
+// ─────────────────────────────────────────────
+.site-config {
+  background-color: #fbfbfd;
+  min-height: 100vh;
+  padding: 60px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+
+  > .cf-section__inner {
+    width: 100%;
+    max-width: 968px;
+    display: flex;
+    flex-direction: column;
+
+    // 1. The Main "Site Settings" Header
+    > .cf-section__header {
+      margin-bottom: 32px;
+      
+      .cf-section__title {
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: -0.022em;
+        color: #1d1d1f;
+        margin: 0;
+      }
+    }
+
+    // 2. The Content Grid
+    > .cf-section__content {
+      display: grid;
+      // Defines two columns, but we will override the first child (button section)
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 32px;
+      align-items: start;
+
+      // 3. FULL WIDTH BUTTON SECTION
+      // This targets the first section inside the content (the one with the button)
+      > .cf-section:first-child {
+        grid-column: 1 / -1; // Force to span all columns
+        margin-bottom: 8px;
+        
+        .cf-section__inner {
+          padding: 0; // Remove card padding for the button bar
+          display: flex;
+          justify-content: flex-end; // Align button to the right
+        }
+      }
+    }
+  }
+}
+
+// ─────────────────────────────────────────────
+// Card Styling (footer, header, etc.)
+// ─────────────────────────────────────────────
+.cf-section--bg-muted {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+
+  .cf-section__inner {
+    padding: 32px;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  // Card Header (Small Uppercase Labels)
+  .cf-section__header {
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 12px;
+
+    .cf-section__title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #86868b;
+    }
+  }
+
+  // Field Spacing inside cards
+  .cf-section__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+// ─────────────────────────────────────────────
+// Responsive Adjustments
+// ─────────────────────────────────────────────
+@media (max-width: 850px) {
+  .site-config > .cf-section__inner > .cf-section__content {
+    grid-template-columns: 1fr; // Single column on smaller screens
+    
+    > .cf-section:first-child {
+      justify-content: flex-start; // Center or left-align button on mobile
+    }
+  }
+}

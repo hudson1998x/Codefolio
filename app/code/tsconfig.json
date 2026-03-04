@@ -1,0 +1,30 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2020"],
+    "outDir": "./dist",
+    "rootDir": "./",
+    "jsx": "react",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "types": [],
+    "skipLibCheck": true,
+    "noUnusedLocals": false,
+    "baseUrl": "../../",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@decorators/*":   ["app/code/thirdparty/decorators/*"],
+      "@events":         ["app/code/thirdparty/eventing/events.ts"],
+      "@services/*":     ["app/code/services/*"],
+      "@controllers/*":  ["app/code/controllers/*"],
+      "@utils/*":        ["app/code/utils/*"]
+    }
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.tsx",
+    "./jsx-factory/react-shim.d.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}
