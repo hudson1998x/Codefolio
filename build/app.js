@@ -21790,9 +21790,18 @@ var config_default = {
 
 // app/web/thirdparty/router.tsx
 var import_jsx_runtime2 = __toESM(require_jsx_runtime());
+var getCleanPath = () => {
+  const pathname = window.location.pathname;
+  if (window.location.hostname.endsWith("github.io")) {
+    const repo = pathname.split("/")[1];
+    const stripped = pathname.replace(`/${repo}`, "");
+    return stripped || "/";
+  }
+  return pathname;
+};
 var useRouter = () => {
   const [pageContent, setPageContent] = (0, import_react3.useState)(null);
-  const [path, setPath] = (0, import_react3.useState)(window.location.pathname);
+  const [path, setPath] = (0, import_react3.useState)(getCleanPath());
   const homepage = useModuleConfig(config_default.key, config_default.config);
   const isAdmin = window.location?.pathname?.startsWith("/en-admin/") || window.location?.pathname === "/en-admin";
   const loadPage = (0, import_react3.useCallback)(async (pathname) => {
@@ -21808,7 +21817,6 @@ var useRouter = () => {
           const nodes = JSON.parse(rawData.content);
           processedContent = {
             component: "PageRoot",
-            // Virtual wrapper for the array of nodes
             pageTitle: rawData.pageTitle || "Untitled Page",
             pageDescription: rawData.pageDescription || "",
             data: {
@@ -21849,7 +21857,7 @@ var useRouter = () => {
     }
   }, []);
   (0, import_react3.useEffect)(() => {
-    const onPopState = () => setPath(window.location.pathname);
+    const onPopState = () => setPath(getCleanPath());
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
@@ -21858,7 +21866,12 @@ var useRouter = () => {
   }, [path, loadPage]);
   const navigate = (to) => {
     if (to === path) return;
-    window.history.pushState(null, "", to);
+    let final = to;
+    if (window.location.hostname.endsWith("github.io")) {
+      const repo = window.location.pathname.split("/")[1];
+      final = `/${repo}${to}`;
+    }
+    window.history.pushState(null, "", final);
     setPath(to);
   };
   return { pageContent, navigate, path };

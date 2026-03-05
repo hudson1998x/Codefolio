@@ -2,7 +2,7 @@ import { useConfig, useModuleConfig } from '@config';
 import React, { createContext, useContext, ReactNode, PropsWithChildren, FC } from 'react';
 import { useEffect, useState, useCallback } from 'react';
 import homepageconfig from './configs/homepage-config/config.json'
-import { fetchContent } from './utils/fetch-content';
+import { fetchContent } from './utils/fetch-content'
 
 /**
  * Unified Page Content Interface
@@ -18,14 +18,40 @@ export interface PageContent {
 }
 
 /**
+ * Returns the pathname with the GitHub Pages repository prefix stripped.
+ *
+ * Example:
+ * https://user.github.io/repo/about -> /about
+ *
+ * This ensures the router behaves the same in:
+ * - Local development
+ * - Root-domain deployments
+ * - GitHub Pages subdirectory hosting
+ */
+const getCleanPath = (): string => {
+  const pathname = window.location.pathname;
+
+  if (window.location.hostname.endsWith("github.io")) {
+    const repo = pathname.split("/")[1];
+    const stripped = pathname.replace(`/${repo}`, "");
+    return stripped || "/";
+  }
+
+  return pathname;
+};
+
+/**
  * The Router Hook
  * Fetches and normalizes data from /content/*.json
  */
 export const useRouter = () => {
   const [pageContent, setPageContent] = useState<PageContent | null>(null);
-  const [path, setPath] = useState(window.location.pathname);
+  const [path, setPath] = useState(getCleanPath());
   const homepage = useModuleConfig(homepageconfig.key, homepageconfig.config)
-  const isAdmin = window.location?.pathname?.startsWith('/en-admin/') || window.location?.pathname === '/en-admin'
+
+  const isAdmin =
+    window.location?.pathname?.startsWith('/en-admin/') ||
+    window.location?.pathname === '/en-admin'
 
   const loadPage = useCallback(async (pathname: string) => {
     try {
@@ -52,12 +78,12 @@ export const useRouter = () => {
         try {
           const nodes = JSON.parse(rawData.content);
           processedContent = {
-            component: "PageRoot", // Virtual wrapper for the array of nodes
+            component: "PageRoot",
             pageTitle: rawData.pageTitle || "Untitled Page",
             pageDescription: rawData.pageDescription || "",
-            data: { 
-                title: rawData.pageTitle, 
-                id: rawData.id 
+            data: {
+              title: rawData.pageTitle,
+              id: rawData.id
             },
             children: Array.isArray(nodes) ? nodes : [nodes]
           };
@@ -65,7 +91,8 @@ export const useRouter = () => {
           console.error("Failed to parse stringified content field:", e);
           throw new Error("Invalid JSON in content field");
         }
-      } 
+      }
+
       // Case B: Top-level Array (Old CMS structure)
       else if (Array.isArray(rawData)) {
         processedContent = {
@@ -73,6 +100,7 @@ export const useRouter = () => {
           children: rawData
         };
       }
+
       // Case C: Already a single PageContent object
       else {
         processedContent = rawData;
@@ -82,12 +110,12 @@ export const useRouter = () => {
 
     } catch (err) {
       console.warn(`Path ${pathname} not found, falling back to 404.`);
+
       try {
         const errorRes = await fetchContent(`/content/404/page.json`);
         const errorData = await errorRes.json();
         setPageContent(errorData);
       } catch {
-        // Hard-coded last resort
         setPageContent({
           component: "ErrorPage",
           data: {
@@ -101,7 +129,12 @@ export const useRouter = () => {
   }, []);
 
   useEffect(() => {
-    const onPopState = () => setPath(window.location.pathname);
+    /**
+     * Handles browser navigation (back/forward buttons)
+     * while ensuring the GitHub Pages prefix is removed.
+     */
+    const onPopState = () => setPath(getCleanPath());
+
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
@@ -110,9 +143,23 @@ export const useRouter = () => {
     loadPage(path);
   }, [path, loadPage]);
 
+  /**
+   * Navigates to a new route within the SPA.
+   *
+   * Automatically re-applies the GitHub Pages repository prefix
+   * to the browser URL while keeping the internal router path clean.
+   */
   const navigate = (to: string) => {
     if (to === path) return;
-    window.history.pushState(null, '', to);
+
+    let final = to;
+
+    if (window.location.hostname.endsWith("github.io")) {
+      const repo = window.location.pathname.split("/")[1];
+      final = `/${repo}${to}`;
+    }
+
+    window.history.pushState(null, '', final);
     setPath(to);
   };
 
@@ -131,6 +178,7 @@ const RouterContext = createContext<RouterContextValue | undefined>(undefined);
 
 export const RouterProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const value = useRouter();
+
   return (
     <RouterContext.Provider value={value}>
       {children}
@@ -140,7 +188,10 @@ export const RouterProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
 export const useRouterContext = (): RouterContextValue => {
   const context = useContext(RouterContext);
-  if (!context) throw new Error('useRouterContext must be used within a RouterProvider');
+
+  if (!context)
+    throw new Error('useRouterContext must be used within a RouterProvider');
+
   return context;
 };
 
@@ -156,13 +207,22 @@ export const Link: FC<LinkProps> = ({ to, children, className, onClick }) => {
   const { navigate, path } = useRouterContext();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // Allow default behavior for cmd/ctrl clicks (open in new tab)
+    /**
+     * Allow default behavior for ctrl/cmd click
+     * so links can open in a new tab.
+     */
     if (e.metaKey || e.ctrlKey) return;
 
     e.preventDefault();
+
     if (to !== path) navigate(to);
+
     if (onClick) onClick();
   };
 
-  return <a href={to} onClick={handleClick} className={className}>{children}</a>;
+  return (
+    <a href={to} onClick={handleClick} className={className}>
+      {children}
+    </a>
+  );
 };
