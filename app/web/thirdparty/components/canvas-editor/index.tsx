@@ -1,228 +1,11 @@
 import React, { useState, useMemo, useEffect, createElement, Fragment, ReactNode, useCallback } from "react";
 import { registerComponent, CodefolioProps, getAllComponents, getComponent, FieldMeta } from "../registry";
 import { Button } from "@components/button";
-import { PrefabEditor } from "@components/input/custom/prefab-editor";
 import './style.scss';
-
-// --- Types & Interfaces ---
-
-export type NodeId = string;
-
-export interface CanvasNode {
-  id: NodeId;
-  component: string;
-  data: Record<string, any>;
-  children: CanvasNode[];
-}
-
-export interface Prefab {
-  id: number;
-  prefabName: string;
-  prefabJson: CanvasNode | CanvasNode[];
-  category: string;
-}
-
-// --- Internal Canvas Renderer ---
-
-const renderNode = (node: CanvasNode): ReactNode => {
-  if (!node) return null;
-  const { component: type, data = {}, children = [], id } = node;
-  const registered = getComponent(type);
-
-  const renderedChildren = children.map((child) => (
-    <Fragment key={child.id}>{renderNode(child)}</Fragment>
-  ));
-
-  if (registered) {
-    return createElement(
-      registered.component,
-      { data, key: id },
-      renderedChildren.length ? renderedChildren : undefined
-    );
-  }
-
-  const { textContent, ...restProps } = data;
-  return createElement(
-    "div",
-    { ...restProps, key: id },
-    renderedChildren.length ? renderedChildren : textContent || null
-  );
-};
-
-export const Canvas: React.FC<{ manualNodes?: CanvasNode[] }> = ({ manualNodes }) => {
-  if (manualNodes && manualNodes.length > 0) {
-    return <>{manualNodes.map(node => renderNode(node))}</>;
-  }
-  return <div className="canvas-placeholder">Drag components here to start building.</div>;
-};
-
-// --- Properties Pane Field Renderer ---
-
-const PropField: React.FC<{
-  propKey: string;
-  value: any;
-  meta?: FieldMeta;
-  onChange: (val: any) => void;
-}> = ({ propKey, value, meta, onChange }) => {
-  const label = meta?.label || propKey.replace(/([A-Z])/g, ' $1').trim();
-  const type = meta?.type || 'text';
-  const [jsonError, setJsonError] = useState<string | null>(null);
-
-  const handleJsonChange = (val: string) => {
-    onChange(val);
-    try {
-      if (val && typeof val === 'string' && val.trim() !== '') {
-        JSON.parse(val);
-      }
-      setJsonError(null);
-    } catch (e: any) {
-      setJsonError(e.message);
-    }
-  };
-
-  return (
-    <div className="field-group">
-      <label>{label}</label>
-
-      {type === 'prefab-editor' ? (
-        <PrefabEditor value={value} onChange={(e) => handleJsonChange(e)} />
-      ) : type === 'select' && meta?.options ? (
-        <select value={value || ""} onChange={e => onChange(e.target.value)}>
-          {meta.options.map(opt => (
-            <option key={opt} value={opt}>{opt}</option>
-          ))}
-        </select>
-      ) : type === 'textarea' ? (
-        <textarea
-          value={value || ""}
-          onChange={e => onChange(e.target.value)}
-          rows={6}
-        />
-      ) : type === 'json' ? (
-        <div className="json-field">
-          <textarea
-            className={`json-field__textarea ${jsonError ? 'has-error' : 'is-valid'}`}
-            value={typeof value === 'string' ? value : JSON.stringify(value, null, 2)}
-            onChange={e => handleJsonChange(e.target.value)}
-            rows={10}
-            spellCheck={false}
-          />
-          {jsonError && <div className="json-error">{jsonError}</div>}
-        </div>
-      ) : type === 'boolean' ? (
-        <div className="toggle-wrap">
-          <button
-            type="button"
-            className={`toggle ${value === 'true' ? 'active' : ''}`}
-            onClick={() => onChange(value === 'true' ? 'false' : 'true')}
-          >
-            <span className="toggle-thumb" />
-          </button>
-          <span className="toggle-label">{value === 'true' ? 'On' : 'Off'}</span>
-        </div>
-      ) : (
-        <input
-          type="text"
-          value={value || ""}
-          onChange={e => onChange(e.target.value)}
-        />
-      )}
-    </div>
-  );
-};
-
-// --- Tree Node (Blueprint Island) ---
-
-const BlueprintNode: React.FC<{
-  node: CanvasNode;
-  onDrop: (compName: string, targetId?: NodeId, position?: 'before' | 'inside', prefabData?: any) => void;
-  onMove: (dragId: NodeId, targetId?: NodeId, position?: 'before' | 'inside') => void;
-  onEdit: (id: NodeId) => void;
-  onDelete: (id: NodeId) => void;
-  isSelected: boolean;
-}> = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }) => {
-  const [isOverTop, setIsOverTop] = useState(false);
-  const [isOverInside, setIsOverInside] = useState(false);
-
-  const handleDragStart = (e: React.DragEvent) => {
-    e.stopPropagation();
-    e.dataTransfer.setData("dragNodeId", node.id);
-  };
-
-  const handleUniversalDrop = (e: React.DragEvent, position: 'before' | 'inside') => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsOverTop(false);
-    setIsOverInside(false);
-
-    const dragId = e.dataTransfer.getData("dragNodeId");
-    const compName = e.dataTransfer.getData("componentName");
-    const rawPrefab = e.dataTransfer.getData("prefabData");
-
-    if (dragId) {
-      onMove(dragId, node.id, position);
-    } else if (compName) {
-      let pData = undefined;
-      try { pData = rawPrefab ? JSON.parse(rawPrefab) : undefined; } catch(e) {}
-      onDrop(compName, node.id, position, pData);
-    }
-  };
-
-  return (
-    <div
-      className={`blueprint-island ${isSelected ? 'selected' : ''} ${node.component === 'Prefab' ? 'is-prefab' : ''}`}
-      draggable
-      onDragStart={handleDragStart}
-      onClick={(e) => { 
-        e.preventDefault();
-        e.stopPropagation(); 
-        onEdit(node.id); 
-      }}
-    >
-      <div
-        className={`drop-zone-edge ${isOverTop ? 'active' : ''}`}
-        onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); setIsOverTop(true); }}
-        onDragLeave={() => setIsOverTop(false)}
-        onDrop={(e) => handleUniversalDrop(e, 'before')}
-      />
-
-      <div className="island-header">
-        <span className="type-badge">
-          <i className={`fas ${node.component === 'Prefab' ? 'fa-clone' : 'fa-grip-vertical'} drag-handle`} /> {node.component}
-        </span>
-        <button
-          type="button"
-          className="delete-trigger"
-          onClick={(e) => { e.stopPropagation(); onDelete(node.id); }}
-        >
-          <i className="fas fa-trash-alt" />
-        </button>
-      </div>
-
-      <div className="island-body">
-        {node.children.map(child => (
-          <BlueprintNode
-            key={child.id}
-            node={child}
-            onDrop={onDrop}
-            onMove={onMove}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            isSelected={isSelected}
-          />
-        ))}
-        <div
-          className={`drop-zone-mini ${isOverInside ? 'active' : ''}`}
-          onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); setIsOverInside(true); }}
-          onDragLeave={() => setIsOverInside(false)}
-          onDrop={(e) => handleUniversalDrop(e, 'inside')}
-        >
-          <i className="fas fa-plus" />
-        </div>
-      </div>
-    </div>
-  );
-};
+import { Canvas } from "./canvas";
+import { CanvasNode, NodeId, Prefab } from "./types";
+import { PropField } from "./propfield";
+import { BlueprintNode } from "./blueprint-node";
 
 // --- Main Visual Editor ---
 
@@ -461,20 +244,20 @@ const addNode = (name: string, targetId?: NodeId, position: 'before' | 'inside' 
             <div className="palette-grid">
               {prefabs.map(p => (
                 // Inside your prefabs.map in the sidebar
-<div 
-  key={p.id} 
-  className="palette-item prefab-item" 
-  draggable 
-  onDragStart={(e) => {
-    // PASS ONLY THE SERIALIZED STRING
-    // This makes it impossible for the Canvas to "reach back" to the Sidebar
-    e.dataTransfer.setData("componentName", "Prefab");
-    e.dataTransfer.setData("prefabData", JSON.stringify({
-      prefabName: p.prefabName,
-      prefabJson: p.prefabJson // This gets flattened to a string here
-    }));
-  }}
->
+                <div 
+                  key={p.id} 
+                  className="palette-item prefab-item" 
+                  draggable 
+                  onDragStart={(e) => {
+                    // PASS ONLY THE SERIALIZED STRING
+                    // This makes it impossible for the Canvas to "reach back" to the Sidebar
+                    e.dataTransfer.setData("componentName", "Prefab");
+                    e.dataTransfer.setData("prefabData", JSON.stringify({
+                      prefabName: p.prefabName,
+                      prefabJson: p.prefabJson // This gets flattened to a string here
+                    }));
+                  }}
+                >
                   <i className="fas fa-clone" />
                   <span>{p.prefabName}</span>
                 </div>

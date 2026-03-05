@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { registerComponent } from "../registry";
-import { Canvas } from "@components/canvas-editor";
+import { Canvas } from "@components/canvas-editor/canvas";
 
 /**
  * Prefab Component
