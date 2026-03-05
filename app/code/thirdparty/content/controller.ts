@@ -78,8 +78,6 @@ export abstract class ContentController<T extends { id?: number }> {
             }
         }
 
-        console.log({rawFilter, filterObj})
-
         const filterKeys = Object.keys(filterObj);
         // Change your predicate logic to this:
         const predicate = filterKeys.length === 0
