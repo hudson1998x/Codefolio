@@ -2034,6 +2034,165 @@
   line-height: 1.65;
 }
 
+/* app/web/thirdparty/components/badge/style.scss */
+.cf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 20px;
+  font-weight: 700;
+  line-height: 1;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  text-decoration: none;
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+}
+.cf-badge--sm {
+  padding: 3px 8px;
+  font-size: 0.65rem;
+}
+.cf-badge--sm .cf-badge__icon {
+  font-size: 0.6rem;
+}
+.cf-badge--md {
+  padding: 5px 12px;
+  font-size: 0.75rem;
+}
+.cf-badge--md .cf-badge__icon {
+  font-size: 0.7rem;
+}
+.cf-badge--lg {
+  padding: 7px 16px;
+  font-size: 0.85rem;
+}
+.cf-badge--lg .cf-badge__icon {
+  font-size: 0.8rem;
+}
+.cf-badge--link {
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.cf-badge--link:hover {
+  filter: brightness(0.92);
+  transform: translateY(-1px);
+}
+.cf-badge--default {
+  background: #f1f5f9;
+  color: #475569;
+  border-color: #e2e8f0;
+}
+.cf-badge--blue {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+.cf-badge--green {
+  background: #f0fdf4;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+.cf-badge--yellow {
+  background: #fffbeb;
+  color: #b45309;
+  border-color: #fde68a;
+}
+.cf-badge--red {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+.cf-badge--purple {
+  background: #faf5ff;
+  color: #7e22ce;
+  border-color: #e9d5ff;
+}
+.cf-badge--orange {
+  background: #fff7ed;
+  color: #c2410c;
+  border-color: #fed7aa;
+}
+
+/* app/web/thirdparty/components/divider/style.scss */
+.cf-divider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.cf-divider--xs {
+  padding: 8px 0;
+}
+.cf-divider--sm {
+  padding: 16px 0;
+}
+.cf-divider--md {
+  padding: 32px 0;
+}
+.cf-divider--lg {
+  padding: 48px 0;
+}
+.cf-divider--xl {
+  padding: 64px 0;
+}
+.cf-divider--spacer.cf-divider--xs {
+  padding: 0;
+  height: 8px;
+}
+.cf-divider--spacer.cf-divider--sm {
+  padding: 0;
+  height: 16px;
+}
+.cf-divider--spacer.cf-divider--md {
+  padding: 0;
+  height: 32px;
+}
+.cf-divider--spacer.cf-divider--lg {
+  padding: 0;
+  height: 48px;
+}
+.cf-divider--spacer.cf-divider--xl {
+  padding: 0;
+  height: 64px;
+}
+.cf-divider--line::before,
+.cf-divider--line::after,
+.cf-divider--dashed::before,
+.cf-divider--dashed::after,
+.cf-divider--dotted::before,
+.cf-divider--dotted::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+.cf-divider--dashed::before,
+.cf-divider--dashed::after {
+  background: none;
+  border-top: 1px dashed #e2e8f0;
+  height: 0;
+}
+.cf-divider--dotted::before,
+.cf-divider--dotted::after {
+  background: none;
+  border-top: 1px dotted #e2e8f0;
+  height: 0;
+}
+.cf-divider__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+.cf-divider:not(:has(.cf-divider__label))::after {
+  display: none;
+}
+
 /* app/web/thirdparty/autocontent/list/style.scss */
 .cf-auto-list {
   --accent: #2563eb;

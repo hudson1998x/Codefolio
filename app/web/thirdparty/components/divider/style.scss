@@ -1,0 +1,67 @@
+.cf-divider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  // --- Spacing sizes ---
+  &--xs { padding: 8px 0; }
+  &--sm { padding: 16px 0; }
+  &--md { padding: 32px 0; }
+  &--lg { padding: 48px 0; }
+  &--xl { padding: 64px 0; }
+
+  // --- Spacer (invisible) ---
+  &--spacer {
+    &.cf-divider--xs { padding: 0; height: 8px; }
+    &.cf-divider--sm { padding: 0; height: 16px; }
+    &.cf-divider--md { padding: 0; height: 32px; }
+    &.cf-divider--lg { padding: 0; height: 48px; }
+    &.cf-divider--xl { padding: 0; height: 64px; }
+  }
+
+  // --- Line styles ---
+  &--line,
+  &--dashed,
+  &--dotted {
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e2e8f0;
+    }
+  }
+
+  &--dashed {
+    &::before, &::after {
+      background: none;
+      border-top: 1px dashed #e2e8f0;
+      height: 0;
+    }
+  }
+
+  &--dotted {
+    &::before, &::after {
+      background: none;
+      border-top: 1px dotted #e2e8f0;
+      height: 0;
+    }
+  }
+
+  // --- Label ---
+  &__label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    flex-shrink: 0;
+  }
+
+  // --- No label: merge the two pseudo lines into one ---
+  &:not(:has(.cf-divider__label)) {
+    &::after { display: none; }
+  }
+}
