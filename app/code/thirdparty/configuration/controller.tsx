@@ -7,6 +7,7 @@ import { AdminNavItem } from "@decorators/admin-nav";
 import { ConfigService } from "./service";
 import { Container } from "@decorators/di-container";
 import { Request, Response } from "express";
+import { canvasAsPage } from "../utils";
 
 @Controller("content/en-admin/configuration")
 export class ConfigController
@@ -24,7 +25,7 @@ export class ConfigController
     {
         const data: Record<string, any> = await this.service.getConfig();
 
-        return (
+        return canvasAsPage(
             <ui-Form
                 method="POST"
                 endpoint="/content/en-admin/configuration/save"
@@ -86,7 +87,10 @@ export class ConfigController
                         );
                     })}
                 </ui-Section>
-            </ui-Form>
+            </ui-Form>,
+            {
+                pageTitle: 'Manage site settings'
+            }
         );
     }
 

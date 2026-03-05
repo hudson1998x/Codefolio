@@ -2,6 +2,7 @@ import { Controller } from "app/code/thirdparty/decorators/controller";
 import { Get } from "app/code/thirdparty/decorators/routes";
 import { CanvasNode } from "../frontend/types";
 import { AdminNavItem } from "app/code/thirdparty/decorators/admin-nav";
+import { canvasAsPage } from "../utils";
 
 @Controller("content/en-admin")
 class AdminDashboardController
@@ -10,10 +11,13 @@ class AdminDashboardController
     @AdminNavItem("Dashboard", undefined, 1)
     public async homepage(): Promise<CanvasNode>
     {
-        return (
+        return canvasAsPage(
             <ui-Section>
                 Welcome to your admin
-            </ui-Section>
+            </ui-Section>,
+            {
+                pageTitle: 'Dashboard'
+            }
         )
     }
 }

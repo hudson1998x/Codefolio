@@ -2,6 +2,7 @@ import { useConfig, useModuleConfig } from '@config';
 import React, { createContext, useContext, ReactNode, PropsWithChildren, FC } from 'react';
 import { useEffect, useState, useCallback } from 'react';
 import homepageconfig from './configs/homepage-config/config.json'
+import websiteCfg from './configs/website-config/config.json'
 import { fetchContent } from './utils/fetch-content'
 import { getSafeUrl } from './utils/safe-url';
 
@@ -49,6 +50,7 @@ export const useRouter = () => {
   const [pageContent, setPageContent] = useState<PageContent | null>(null);
   const [path, setPath] = useState(getCleanPath());
   const homepage = useModuleConfig(homepageconfig.key, homepageconfig.config)
+  const website = useModuleConfig(websiteCfg.key, websiteCfg.config)
 
   const isAdmin =
     window.location?.pathname?.startsWith('/en-admin/') ||
@@ -67,6 +69,8 @@ export const useRouter = () => {
       if (!res.ok) throw new Error("404");
 
       const rawData = await res.json();
+      
+      document.title = `${rawData?.pageTitle ?? 'Untitled page'} | ${website?.title || 'Untitled website'}`
 
       /**
        * --- NORMALIZATION LOGIC ---

@@ -1,5 +1,6 @@
 {
     "component": "Blog/Index",
     "data": {},
-    "children": []                
+    "children": [],
+    "pageTitle": "Blog"
 }

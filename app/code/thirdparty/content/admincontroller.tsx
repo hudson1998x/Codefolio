@@ -4,6 +4,7 @@ import { IncomingMessage, ServerResponse } from "http";
 import { CanvasNode } from "../frontend/types";
 import { Content } from "./content";
 import { ContentController } from "./controller";
+import { canvasAsPage } from "../utils";
 
 /**
  * Abstract base controller that provides auto-generated admin UI pages
@@ -93,7 +94,7 @@ export abstract class AdminController<T extends Content> extends ContentControll
         fields: ReturnType<typeof this.getEditableFields>,
         submitLabel: string
     ): CanvasNode {
-        return (
+        return canvasAsPage(
             <ui-Section className='autoform'>
                 {title}
                 <ui-Form endpoint={endpoint} method={method}>
@@ -116,7 +117,10 @@ export abstract class AdminController<T extends Content> extends ContentControll
                     })}
                     <ui-Button type="submit">{submitLabel}</ui-Button>
                 </ui-Form>
-            </ui-Section>
+            </ui-Section>,
+            {
+                pageTitle: title
+            }
         );
     }
 
@@ -129,13 +133,16 @@ export abstract class AdminController<T extends Content> extends ContentControll
      */
     @Get("page.json")
     public async listPage(): Promise<CanvasNode> {
-        return (
+        return canvasAsPage(
             <ui-AutoList
                 apiUrl={'/api/' + this.getCollectionName()}
                 listUrl={'/en-admin/' + this.getCollectionName()}
                 searchFields={this.getSearchableFields()}
                 columns={this.getSearchableFields()}
-            />
+            />, 
+            {
+                pageTitle: `View all ${this.getTargetEntity().name}`
+            }
         );
     }
 

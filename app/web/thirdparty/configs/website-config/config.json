@@ -1,0 +1,8 @@
+{
+  "key": "website",
+  "config": {
+    "title": "Codefolio",
+    "description": "Open source portfolio building software aimed with static websites in mind",
+    "keywords": "Codefolio, Github pages, Static CMS, headless CMS"
+  }
+}

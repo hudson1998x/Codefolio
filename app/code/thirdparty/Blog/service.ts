@@ -20,7 +20,8 @@ export class BlogService extends ContentService<Blog> implements OnInit
             fs.writeFileSync('content/blog.json', `{
     "component": "Blog/Index",
     "data": {},
-    "children": []                
+    "children": [],
+    "pageTitle": "Blog"
 }`);
         }
     }

@@ -21788,6 +21788,16 @@ var config_default = {
   }
 };
 
+// app/web/thirdparty/configs/website-config/config.json
+var config_default2 = {
+  key: "website",
+  config: {
+    title: "Codefolio",
+    description: "Open source portfolio building software aimed with static websites in mind",
+    keywords: "Codefolio, Github pages, Static CMS, headless CMS"
+  }
+};
+
 // app/web/thirdparty/utils/safe-url.ts
 var getSafeUrl = (url) => {
   if (/^(?:[a-z]+:)?\/\//i.test(url) || url.startsWith("mailto:") || url.startsWith("tel:")) {
@@ -21817,6 +21827,7 @@ var useRouter = () => {
   const [pageContent, setPageContent] = (0, import_react3.useState)(null);
   const [path, setPath] = (0, import_react3.useState)(getCleanPath());
   const homepage = useModuleConfig(config_default.key, config_default.config);
+  const website = useModuleConfig(config_default2.key, config_default2.config);
   const isAdmin = window.location?.pathname?.startsWith("/en-admin/") || window.location?.pathname === "/en-admin";
   const loadPage = (0, import_react3.useCallback)(async (pathname) => {
     try {
@@ -21825,6 +21836,7 @@ var useRouter = () => {
       const res = await fetchContent(`/content${normalized}`);
       if (!res.ok) throw new Error("404");
       const rawData = await res.json();
+      document.title = `${rawData?.pageTitle ?? "Untitled page"} | ${website?.title || "Untitled website"}`;
       let processedContent;
       if (rawData.content && typeof rawData.content === "string") {
         try {
@@ -25143,7 +25155,7 @@ var Page = () => {
 };
 
 // app/web/themes/default/header/config.json
-var config_default2 = {
+var config_default3 = {
   key: "header",
   config: {
     component: "Admin/Config/Header",
@@ -25162,7 +25174,7 @@ var config_default2 = {
 var import_jsx_runtime45 = __toESM(require_jsx_runtime());
 var Header = () => {
   const { path } = useRouter();
-  const config = useModuleConfig(config_default2.key, config_default2.config);
+  const config = useModuleConfig(config_default3.key, config_default3.config);
   const isExternal = (to) => to.startsWith("http");
   return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("header", { className: "theme-header border-bottom shadow-sm", children: /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)("div", { className: "container d-flex justify-content-between align-items-center py-3", children: [
     /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("div", { className: "nav-logo h4 mb-0 fw-bold text-uppercase", children: /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("a", { href: getSafeUrl("/"), children: config.siteTitle }) }),
@@ -25196,12 +25208,12 @@ var Header = () => {
 };
 registerComponent({
   name: "header",
-  defaults: config_default2,
+  defaults: config_default3,
   component: Header
 });
 
 // app/web/themes/default/footer/config.json
-var config_default3 = {
+var config_default4 = {
   key: "footer",
   config: {
     component: "Admin/Config/Footer",
@@ -25217,7 +25229,7 @@ var config_default3 = {
 // app/web/themes/default/footer/index.tsx
 var import_jsx_runtime46 = __toESM(require_jsx_runtime());
 var Footer = () => {
-  const config = useModuleConfig(config_default3.key, config_default3.config);
+  const config = useModuleConfig(config_default4.key, config_default4.config);
   const visibleSocials = config.socials.filter((s) => s.href.trim() !== "");
   return /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("footer", { className: "theme-footer border-top mt-auto py-4 bg-light", children: /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("div", { className: "container", children: /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("div", { className: "footer-content d-flex flex-column flex-md-row justify-content-between align-items-center", children: [
     /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("p", { className: "mb-0 text-muted", children: [
@@ -25242,7 +25254,7 @@ var Footer = () => {
 };
 registerComponent({
   name: "footer",
-  defaults: config_default3,
+  defaults: config_default4,
   component: Footer
 });
 

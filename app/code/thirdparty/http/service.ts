@@ -6,6 +6,7 @@ import http from "http";
 import { Container } from "app/code/thirdparty/decorators/di-container";
 import fs from "fs";
 import path from "path";
+import { ConfigService } from "../configuration/service";
 
 export type NavConfig = {
   label: string;
@@ -57,7 +58,6 @@ export class HttpService {
    */
   constructor() {
     this.cacheKey = Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
-    this.writeIndexHtml();
   }
 
   addCustomNavEntry(navItem: NavConfig)
@@ -81,6 +81,8 @@ export class HttpService {
   async onInit() {
     console.log("🚀 Starting HTTP & WebSocket server...");
     console.log("🔑 Cache key:", this.cacheKey);
+
+    this.writeIndexHtml();
 
     this.app.use(express.json());
 
@@ -325,12 +327,12 @@ export class HttpService {
    * @param req - The incoming Express request.
    * @param res - The outgoing Express response.
    */
-  private pageFallback(req: Request, res: Response) {
+  private async pageFallback(req: Request, res: Response) {
     const normalisedPath = this.normalisePath(req.path);
 
     if (!normalisedPath.startsWith("/api")) {
       res.writeHead(200, { "Content-Type": "text/html" });
-      res.end(this.outputHtml());
+      res.end(await this.outputHtml());
     } else {
       res.status(404).json({ error: "API route not found" });
     }
@@ -358,11 +360,17 @@ export class HttpService {
    *
    * @returns The full HTML string for the SPA shell.
    */
-  private outputHtml(): string {
+  private async outputHtml(): Promise<string> {
+
+    const configService = Container.resolve(ConfigService);
+    const config = await configService.getConfig();
+
     return `
       <html>
         <head>
-          <title>SPA App</title>
+          <title>Loading... | ${config?.website?.title ?? 'Untitled website'}</title>
+          <meta name="description" content="${config?.website?.description ?? 'No description available'}"/>
+          <meta name="keywords" content="${config?.website?.keywords ?? ''}"/>
         </head>
         <body>
           <div id="root"></div>
@@ -394,12 +402,12 @@ export class HttpService {
    * directory. Called once at construction time so the file is available
    * immediately, before the HTTP server starts listening.
    */
-  private writeIndexHtml() {
+  private async writeIndexHtml() {
     let filePath = path.join(process.cwd(), "index.html");
-    fs.writeFileSync(filePath, this.outputHtml(), { encoding: "utf-8" });
+    fs.writeFileSync(filePath, await this.outputHtml(), { encoding: "utf-8" });
 
     filePath = path.join(process.cwd(), "404.html");
-    fs.writeFileSync(filePath, this.outputHtml(), { encoding: "utf-8" });
+    fs.writeFileSync(filePath, await this.outputHtml(), { encoding: "utf-8" });
     console.log(`📝 index.html & 404.html written with cache key ${this.cacheKey}`);
   }
 }
