@@ -293,3 +293,371 @@
   from { opacity: 0; transform: scale(0.95) translateY(10px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
+.mini-ide-explorer {
+  background: #ffffff; // Clean white background
+  color: #3b3b3b;      // Darker text for readability
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  border-right: 1px solid #e1e4e8;
+
+  .explorer-header {
+    padding: 10px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #6a737d; // Subtle gray for metadata
+    background: #f6f8fa; // Slightly off-white header area
+    border-bottom: 1px solid #e1e4e8;
+
+    .refresh-icon {
+      background: none;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      &:hover { opacity: 1; color: #0366d6; } // Blue tint on hover
+    }
+  }
+
+  .explorer-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .media-tree-root {
+      padding-top: 4px;
+
+      .tree-node {
+        ul {
+          padding-left: 12px;
+          border-left: 1px solid #f1f1f1; // Very faint guide lines
+          margin-left: 8px;
+        }
+
+        .node-label {
+          padding: 3px 12px; // Slightly more vertical breathing room
+          gap: 8px;
+          font-size: 13px;
+          border-radius: 0;
+          border: 1px solid transparent;
+          transition: background 0.1s;
+          
+          &:hover {
+            background: #f1f8ff; // Soft blue highlight (GitHub style)
+            color: #0366d6;      // Interactive blue text
+          }
+
+          // State for when a node is actively clicked/selected
+          &.selected {
+            background: #e2eef9;
+            color: #0366d6;
+            font-weight: 500;
+          }
+
+          .icon {
+            width: 16px;
+            font-size: 14px;
+            opacity: 0.9;
+          }
+
+          .name {
+            color: inherit;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+}
+.image-uploader-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  // Tab group styling
+  .uploader-tabs {
+    display: flex;
+    background: #f0f0f0;
+    padding: 2px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+
+    button {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #666;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: #333;
+      }
+
+      &.active {
+        background: #ffffff;
+        color: #0366d6;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
+  // Input styling for the URL mode
+  .uploader-content {
+    input[type="text"] {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: #0366d6;
+        box-shadow: 0 0 0 2px rgba(3, 102, 214, 0.1);
+      }
+    }
+  }
+}
+
+// Modal Styling
+.media-gallery-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); // Dim the background
+  backdrop-filter: blur(2px);     // Modern frosted glass effect
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+
+  .media-gallery-modal-content {
+    background: #ffffff;
+    width: 600px;
+    max-width: 90vw;
+    height: 500px;
+    max-height: 80vh;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    header {
+      padding: 16px 20px;
+      background: #f8f9fa;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h3 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .close-x {
+        background: none;
+        border: none;
+        font-size: 18px;
+        color: #999;
+        cursor: pointer;
+        padding: 4px;
+        line-height: 1;
+
+        &:hover {
+          color: #333;
+        }
+      }
+    }
+
+    .gallery-wrapper {
+      flex: 1;
+      overflow-y: auto;
+      
+      // Target the mini-ide-explorer inside the modal
+      .mini-ide-explorer {
+        border-right: none; // Remove inner border since modal provides it
+        height: 100%;
+      }
+    }
+  }
+}
+
+.media-tree-root.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); // Adjust min-width as needed
+  gap: 8px;
+  padding: 10px;
+  list-style: none;
+
+  // Flatten the hierarchy visually while keeping logical nesting
+  .sub-grid {
+    display: contents; 
+    
+
+    li {
+      position: relative;
+      left:14px;
+    }
+  }
+
+  .tree-node.directory {
+    grid-column: 1 / -1; // Folders act as full-width headers
+    margin: 15px 0 5px;
+    
+    .node-label {
+      padding: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      background: #f6f8fa;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .tree-node.file {
+    .node-label {
+      position: relative;
+      cursor: pointer;
+      width: 100%;
+      aspect-ratio: 1; // FORCES THE SQUARE
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid #e1e4e8;
+      background: #fdfdfd;
+      transition: transform 0.1s ease-in-out;
+
+      &:hover {
+        transform: scale(0.98);
+        border-color: #0366d6;
+        
+        .name-overlay {
+          opacity: 1;
+        }
+      }
+
+      .icon-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+
+        .preview-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover; // Fills the 1:1 box perfectly
+        }
+      }
+
+      .name-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 6px;
+        background: rgba(255, 255, 255, 0.9);
+        font-size: 11px;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        opacity: 0; // Hidden until hover
+        transition: opacity 0.2s;
+        text-align: center;
+        border-top: 1px solid #eee;
+      }
+    }
+  }
+}
+// --- Tree Mode Hierarchy ---
+.tree-layout {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .tree-node {
+    list-style: none;
+
+    .node-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 8px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.1s;
+      user-select: none;
+
+      &:hover {
+        background: #f0f0f0;
+      }
+
+      .chevron {
+        font-size: 10px;
+        width: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease;
+        color: #999;
+
+        &.open {
+          transform: rotate(90deg);
+        }
+      }
+
+      .icon-container {
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+      }
+
+      .name-overlay {
+        font-size: 13px;
+        white-space: nowrap;
+      }
+    }
+
+    // This is the magic part for hierarchy
+    .node-children {
+      margin: 0;
+      padding: 0 0 0 20px; // Left padding for nesting
+      list-style: none;
+      
+      // Optional: Vertical guide line for better depth perception
+      border-left: 1px solid #eee; 
+      margin-left: 14px; // Align the line under the parent's icon/chevron
+    }
+  }
+}
+
+// --- Grid Mode (Preview) ---
+// We keep this flat or with very minimal indentation so thumbnails stay large
+.grid-layout {
+  .sub-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 0 10px 15px; // Small nudge to show it's "inside"
+    border-left: 2px solid #f0f0f0;
+  }
+}

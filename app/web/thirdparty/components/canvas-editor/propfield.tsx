@@ -2,6 +2,7 @@ import { PrefabEditor } from "@components/input/custom/prefab-editor";
 import { LinkPicker } from "@components/link/picker";
 import { FieldMeta } from "@components/registry";
 import { PageSearchPicker } from "app/web/themes/@admin/components/page-picker";
+import { ImageUploader } from "app/web/themes/@admin/pages/media-gallery/image-miniselector";
 import { useState } from "react";
 
 export const PropField: React.FC<{
@@ -27,6 +28,12 @@ export const PropField: React.FC<{
   };
 
   const renderField = () => {
+
+    if (type === "image-uploader")
+    {
+      return <ImageUploader value={value} onChange={onChange}/>
+    }
+
     if (type === "prefab-editor") {
       return <PrefabEditor value={value} onChange={handleJsonChange} />;
     }

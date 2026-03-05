@@ -89,17 +89,30 @@ const ImageCanvas: React.FC<CodefolioProps<ImageData>> = ({ data }) => {
   );
 };
 
+// image-component.tsx
+
 registerComponent({
   name: "Image",
+  category: 'Media',
+  isCmsEditor: true,
+  icon: "fas fa-image", // Optional FontAwesome icon
   defaults: {
-    src: "https://via.placeholder.com/800x450?text=Codefolio+Image",
+    src: "https://via.placeholder.com/800x450?text=Select+Image",
     alt: "Placeholder Image",
     fit: "cover",
     lazy: true,
     aspectRatio: "auto",
     className: "",
   },
+  // We explicitly map the 'src' field to our new 'image-picker'
+  fields: {
+    src: { type: 'image-uploader', label: 'Image Source' },
+    fit: { 
+      type: 'select', 
+      options: ['cover', 'contain', 'fill', 'none', 'scale-down'],
+      label: 'Object Fit'
+    },
+    aspectRatio: { type: 'text', label: 'Aspect Ratio (e.g. 16/9)' }
+  },
   component: ImageCanvas,
-  isCmsEditor: true,
-  category: 'Media'
 });
