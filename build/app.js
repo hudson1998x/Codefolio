@@ -21950,7 +21950,7 @@ var registerTheme = (name, theme) => {
 var ThemeLoader = ({ children }) => {
   const { config } = useConfig();
   const { path } = useRouter();
-  const themeName = config?.theme ?? (path.startsWith("/en-admin/") || path === "/en-admin" ? "@admin" : "default");
+  const themeName = config?.theme?.theme ?? (path.startsWith("/en-admin/") || path === "/en-admin" ? "@admin" : "default");
   const Theme = _themeRoots[themeName];
   if (!Theme) {
     console.warn(`Theme "${themeName}" not found, falling back to default`);
@@ -25775,20 +25775,94 @@ registerComponent({
   component: HomepageEditor
 });
 
-// app/web/themes/@admin/index.tsx
+// app/web/themes/@admin/components/config/themeselector/index.tsx
+var import_react36 = __toESM(require_react());
 var import_jsx_runtime54 = __toESM(require_jsx_runtime());
+var ThemeSelector = ({ data }) => {
+  const [themes, setThemes] = (0, import_react36.useState)([]);
+  const [selected, setSelected] = (0, import_react36.useState)(data.theme || "default");
+  const [loading, setLoading] = (0, import_react36.useState)(true);
+  (0, import_react36.useEffect)(() => {
+    const fetchThemes = async () => {
+      try {
+        const res = await fetch("/content/en-admin/configuration/themes");
+        if (!res.ok) throw new Error("Failed to fetch themes");
+        const json = await res.json();
+        setThemes(json);
+      } catch (err) {
+        console.error("Error loading themes:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchThemes();
+  }, []);
+  const handleSelect = (themeName) => {
+    setSelected(themeName);
+    const inputEl = document.querySelector(
+      'input[name="theme"]'
+    );
+    if (inputEl) inputEl.value = themeName;
+  };
+  if (loading) return /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("p", { children: "Loading themes..." });
+  if (!themes.length) return /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("p", { children: "No themes found." });
+  return /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "cf-theme-selector", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("input", { type: "hidden", name: "theme", value: selected }),
+    /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("div", { className: "cf-theme-selector__grid", children: themes.map((theme) => /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)(
+      "div",
+      {
+        className: `cf-theme-selector__item ${selected === theme.key ? "selected" : ""}`,
+        onClick: () => handleSelect(theme.name),
+        children: [
+          theme.previewImage && /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(
+            "img",
+            {
+              className: "cf-theme-selector__preview",
+              src: `/app/web/themes/${theme.key}/${theme.previewImage}`,
+              alt: `${theme.name} preview`
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "cf-theme-selector__info", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("strong", { children: theme.name }),
+            /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("small", { children: theme.vendor }),
+            /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("span", { className: "cf-theme-selector__version", children: [
+              theme.version.major,
+              ".",
+              theme.version.minor,
+              ".",
+              theme.version.patch
+            ] })
+          ] }),
+          selected === theme.name && /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("span", { className: "cf-theme-selector__selected-badge", children: "\u2714" })
+        ]
+      },
+      theme.name
+    )) })
+  ] });
+};
+registerComponent({
+  name: "Admin/Config/ThemeSelector",
+  defaults: {
+    component: "Admin/Config/ThemeSelector",
+    theme: "default"
+  },
+  component: ThemeSelector
+});
+
+// app/web/themes/@admin/index.tsx
+var import_jsx_runtime55 = __toESM(require_jsx_runtime());
 var AdminThemeWrapper = (props) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "codefolio-default-admin", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(AdminHeader, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("div", { className: "content", children: props.children })
+  return /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)("div", { className: "codefolio-default-admin", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime55.jsx)(AdminHeader, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("div", { className: "content", children: props.children })
   ] });
 };
 registerTheme("@admin", AdminThemeWrapper);
 
 // app/web/index.tsx
-var import_jsx_runtime55 = __toESM(require_jsx_runtime());
+var import_jsx_runtime56 = __toESM(require_jsx_runtime());
 var root = (0, import_client.createRoot)(document.getElementById("root"));
-root.render(/* @__PURE__ */ (0, import_jsx_runtime55.jsx)(Page, {}));
+root.render(/* @__PURE__ */ (0, import_jsx_runtime56.jsx)(Page, {}));
 /*! Bundled license information:
 
 scheduler/cjs/scheduler.development.js:

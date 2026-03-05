@@ -1,0 +1,38 @@
+{
+  "name": "Default Light",
+  "vendor": "Codefolio",
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "description": "The default light theme for Codefolio, with a clean layout and Bootstrap variables.",
+  "previewImage": "theme.png",
+  "minAppVersion": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/hudson1998x/Codefolio",
+  "colors": {
+    "primary": "#0d6efd",
+    "secondary": "#6c757d",
+    "accent": "#198754",
+    "background": "#ffffff"
+  },
+  "fonts": [
+    "-apple-system",
+    "BlinkMacSystemFont",
+    "Segoe UI",
+    "Roboto",
+    "Helvetica",
+    "Arial",
+    "sans-serif"
+  ],
+  "features": {
+    "darkMode": false,
+    "responsive": true,
+    "customFonts": true
+  }
+}

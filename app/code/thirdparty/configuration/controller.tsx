@@ -1,5 +1,3 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
 import { Controller } from "@decorators/controller";
 import { Get, Post } from "@decorators/routes";
 import { CanvasNode } from "../frontend/types";
@@ -8,6 +6,9 @@ import { ConfigService } from "./service";
 import { Container } from "@decorators/di-container";
 import { Request, Response } from "express";
 import { canvasAsPage } from "../utils";
+import { ThemeData } from "./types";
+import fs from 'fs'
+import path from 'path'
 
 @Controller("content/en-admin/configuration")
 export class ConfigController
@@ -99,5 +100,40 @@ export class ConfigController
     {
         const merged = await this.service.updateConfig(req.body);
         res.json({ ok: true, config: merged });
+    }
+
+    @Get("themes")
+    public async listThemes(req: Request, res: Response): Promise<ThemeData[]> {
+        const themes: ThemeData[] = [];
+
+        const themeDir = 'app/web/themes';
+        const files: string[] = fs.readdirSync(themeDir);
+
+        files.forEach((folder) => {
+            const basePath = path.join(themeDir, folder);
+            const themeJsonPath = path.join(basePath, 'theme.json');
+
+            if (!fs.existsSync(themeJsonPath)) {
+                return; // skip folders without theme.json
+            }
+
+            try {
+                const raw = fs.readFileSync(themeJsonPath, 'utf-8');
+                const parsed: ThemeData = JSON.parse(raw);
+
+                parsed.key = folder;
+
+                // Optional: validate required fields
+                if (parsed.name && parsed.vendor && parsed.version) {
+                    themes.push(parsed);
+                } else {
+                    console.warn(`Theme in folder "${folder}" is missing required fields.`);
+                }
+            } catch (err) {
+                console.error(`Failed to read theme in folder "${folder}":`, err);
+            }
+        });
+
+        return themes;
     }
 }

@@ -42,6 +42,10 @@
     "component": "Admin/Config/HomepageEditor",
     "homepage": "/page/1"
   },
+  "theme": {
+    "component": "Admin/Config/ThemeSelector",
+    "theme": "default"
+  },
   "website": {
     "title": "Codefolio",
     "description": "Open source portfolio building software aimed with static websites in mind",

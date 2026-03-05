@@ -98,6 +98,8 @@ export class HttpService {
     // 3. Serve /media directory at /media
     this.app.use("/media", express.static(path.join(process.cwd(), "media")));
 
+    this.app.use("/app/web/themes", express.static(path.join(process.cwd(), "app/web/themes")));
+
     // 4. Handle /en-admin/nav.json
     this.app.get(["/en-admin/nav.json", "/en-admin//nav.json"], (req, res) => {
       res.json(this.adminNav);

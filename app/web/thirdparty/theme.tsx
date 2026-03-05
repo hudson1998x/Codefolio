@@ -66,7 +66,7 @@ export const ThemeLoader: FC<PropsWithChildren> = ({ children }) => {
   const { config } = useConfig();
   const { path } = useRouter();
 
-  const themeName = config?.theme ?? (
+  const themeName = config?.theme?.theme ?? (
     path.startsWith('/en-admin/') || path === '/en-admin'
       ? "@admin"
       : "default"

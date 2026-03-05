@@ -1,0 +1,7 @@
+{
+    "key": "theme",
+    "config": {
+        "component": "Admin/Config/ThemeSelector",
+        "theme": "default"
+    }
+}
