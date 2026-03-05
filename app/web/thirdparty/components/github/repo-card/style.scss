@@ -1,0 +1,55 @@
+.cf-gh-repo {
+  width: 100%;
+
+  &--error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    padding: 48px 24px;
+    border: 2px dashed #e2e8f0;
+    border-radius: 12px;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    i {
+      font-size: 2rem;
+      color: #cbd5e1;
+    }
+  }
+
+  &__link {
+    display: block;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 12px;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  &__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+  }
+
+  &__error-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    border: 1px solid #fee2e2;
+    background: #fef2f2;
+    border-radius: 12px;
+    color: #ef4444;
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    i { font-size: 1.1rem; }
+  }
+}

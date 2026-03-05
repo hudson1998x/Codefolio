@@ -1,0 +1,84 @@
+.cf-alert {
+  width: 100%;
+  border-radius: 10px;
+  padding: 16px 20px;
+  border: 1px solid transparent;
+  border-left-width: 4px;
+  box-sizing: border-box;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  &__icon {
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  &__message {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    padding-left: 26px; // aligns with title when icon is present
+  }
+
+  // --- Variants ---
+  &--info {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+    border-left-color: #3b82f6;
+
+    .cf-alert__icon  { color: #3b82f6; }
+    .cf-alert__title { color: #1d4ed8; }
+    .cf-alert__message { color: #1e40af; }
+  }
+
+  &--success {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+    border-left-color: #22c55e;
+
+    .cf-alert__icon  { color: #22c55e; }
+    .cf-alert__title { color: #15803d; }
+    .cf-alert__message { color: #166534; }
+  }
+
+  &--warning {
+    background: #fffbeb;
+    border-color: #fde68a;
+    border-left-color: #f59e0b;
+
+    .cf-alert__icon  { color: #f59e0b; }
+    .cf-alert__title { color: #b45309; }
+    .cf-alert__message { color: #92400e; }
+  }
+
+  &--danger {
+    background: #fef2f2;
+    border-color: #fecaca;
+    border-left-color: #ef4444;
+
+    .cf-alert__icon  { color: #ef4444; }
+    .cf-alert__title { color: #b91c1c; }
+    .cf-alert__message { color: #991b1b; }
+  }
+
+  &--tip {
+    background: #faf5ff;
+    border-color: #e9d5ff;
+    border-left-color: #a855f7;
+
+    .cf-alert__icon  { color: #a855f7; }
+    .cf-alert__title { color: #7e22ce; }
+    .cf-alert__message { color: #6b21a8; }
+  }
+}

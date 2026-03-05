@@ -1,0 +1,62 @@
+.cf-code-block {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  font-family: 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
+  font-size: 0.88rem;
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  &__filename {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    font-family: 'Fira Code', monospace;
+  }
+
+  &__copy {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #64748b;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      border-color: #3b82f6;
+      color: #3b82f6;
+    }
+
+    &.copied {
+      background: #f0fdf4;
+      border-color: #86efac;
+      color: #16a34a;
+    }
+  }
+
+  &__pre {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    padding: 20px !important;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar { height: 4px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  }
+}

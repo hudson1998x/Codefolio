@@ -1,0 +1,60 @@
+.cf-youtube {
+  position: relative;
+  width: 100%;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+  &__placeholder {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      .cf-youtube__play-btn {
+        transform: scale(1.1);
+        background: #ff0000;
+      }
+      .cf-youtube__thumb {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &__thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+  }
+
+  &__play-btn {
+    position: absolute;
+    width: 68px;
+    height: 48px;
+    background: rgba(33, 33, 33, 0.8);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &__iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}

@@ -1,6 +1,24 @@
 import React from "react";
 
 /**
+ * Metadata describing how a single field should be rendered in the
+ * Codefolio page editor properties pane.
+ *
+ * @remarks
+ * If no `fields` map is provided on a {@link CodefolioComponent}, every
+ * key in `defaults` will fall back to a plain text input. Supply `fields`
+ * only when you need richer controls (dropdowns, textareas, toggles, JSON editors).
+ */
+export interface FieldMeta {
+  /** The input control to render for this field in the properties pane. */
+  type: 'text' | 'textarea' | 'select' | 'boolean' | 'json';
+  /** For `select` fields — the list of options to display in the dropdown. */
+  options?: string[];
+  /** Override the auto-capitalised key name shown as the field label. */
+  label?: string;
+}
+
+/**
  * The standard props contract for every Codefolio component.
  *
  * All components registered via {@link registerComponent} receive these
@@ -31,6 +49,10 @@ export interface CodefolioProps<T extends Record<string, any> = Record<string, a
  * - Content scaffolding via `ContentService`
  * - The component palette (dropped onto canvas with defaults pre-filled)
  * - `useModuleConfig` fallback resolution
+ *
+ * Optionally supply a `fields` map to override how individual keys are
+ * rendered in the properties pane — e.g. to show a `<select>` dropdown
+ * instead of a plain text input for an enum-style prop.
  */
 export interface CodefolioComponent<T extends Record<string, any> = Record<string, any>> {
   /** The unique identifier used to reference this component in content JSON. */
@@ -43,12 +65,31 @@ export interface CodefolioComponent<T extends Record<string, any> = Record<strin
   defaults: T;
   /** The React component to mount when this component name is encountered in the content tree. */
   component: React.FC<CodefolioProps<T>>;
-
-  /** is this a CMS editor block? */
-  isCmsEditor?: boolean,
-
-  /** CMS component category */
-  category?: string
+  /** Is this component available in the CMS visual editor palette? */
+  isCmsEditor?: boolean;
+  /** Groups this component under a named category in the editor palette. */
+  category?: string;
+  /** FontAwesome class string for the palette icon e.g. `"fas fa-cube"` */
+  icon?: string;
+  /**
+   * Optional per-field rendering metadata for the properties pane.
+   *
+   * Keys must match keys in `defaults`. Any key omitted here will fall
+   * back to a plain text input. Only supply entries where you need a
+   * richer control — select dropdowns, textareas, boolean toggles, or
+   * structured JSON editors.
+   *
+   * @example
+   * ```ts
+   * fields: {
+   *   language: { type: 'select', options: ['javascript', 'typescript', 'python'] },
+   *   code:     { type: 'textarea' },
+   *   showCopy: { type: 'boolean', label: 'Show copy button' },
+   *   steps:    { type: 'json',    label: 'Steps' },
+   * }
+   * ```
+   */
+  fields?: Partial<Record<keyof T & string, FieldMeta>>;
 }
 
 /**

@@ -1,0 +1,181 @@
+.cf-figma {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+
+  // --- Empty / Error States ---
+  &--empty,
+  &--error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 60px 24px;
+    border: 2px dashed #e2e8f0;
+    background: #f8fafc;
+    text-align: center;
+
+    i {
+      font-size: 2.5rem;
+      color: #cbd5e1;
+    }
+
+    span {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #64748b;
+    }
+
+    p {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      margin: 0;
+      max-width: 280px;
+      line-height: 1.5;
+    }
+  }
+
+  &--error i { color: #fca5a5; }
+
+  // --- Loading Skeleton ---
+  &__skeleton {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: #f8fafc;
+    z-index: 2;
+  }
+
+  &__skeleton-pulse {
+    width: 80%;
+    height: 60%;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+    background-size: 200% 100%;
+    animation: cf-figma-shimmer 1.5s infinite;
+  }
+
+  &__skeleton-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    i { color: #a78bfa; }
+  }
+
+  // --- Blocked / Private State ---
+  &__blocked {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #fef2f2;
+    text-align: center;
+    padding: 24px;
+
+    i {
+      font-size: 2.5rem;
+      color: #fca5a5;
+    }
+
+    span {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ef4444;
+    }
+
+    p {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      margin: 0;
+      max-width: 260px;
+      line-height: 1.5;
+    }
+  }
+
+  // --- Iframe ---
+  &__iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &.is-loaded {
+      opacity: 1;
+    }
+  }
+
+  // --- Open in Figma pill (shown after load) ---
+  &__open-pill {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #1e293b;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s;
+    z-index: 10;
+
+    i { color: #a78bfa; }
+
+    &:hover {
+      background: #f8fafc;
+      border-color: #a78bfa;
+      color: #a78bfa;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(167, 139, 250, 0.2);
+    }
+  }
+
+  // --- Open in Figma button (in error state) ---
+  &__open-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 10px 20px;
+    background: #a78bfa;
+    color: white;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+
+    &:hover {
+      background: darken(#a78bfa, 8%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(167, 139, 250, 0.3);
+    }
+  }
+}
+
+@keyframes cf-figma-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
