@@ -1,0 +1,579 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;500;600;700;800&display=swap');
+
+// ── Tokens ────────────────────────────────────────────────────────────────────
+
+$font-display : 'Syne', sans-serif;
+$font-mono    : 'DM Mono', monospace;
+
+$bg-page      : #f4f5f7;
+$bg-header    : #0f1117;
+$bg-card      : #fff;
+$bg-card-dark : #0f1117;
+$bg-field     : #fafafa;
+
+$border       : #e5e7eb;
+$border-dark  : #1e2130;
+$border-dark2 : #2d3147;
+
+$text-primary  : #111;
+$text-secondary: #374151;
+$text-muted    : #6b7280;
+$text-faint    : #9ca3af;
+$text-dark-dim : #4b5563;
+
+$blue   : #2563eb;
+$green  : #10b981;
+$amber  : #f59e0b;
+$purple : #8b5cf6;
+$red    : #ef4444;
+
+$type-string    : $blue;
+$type-number    : $green;
+$type-boolean   : $amber;
+$type-canvasnode: $purple;
+
+// ── Base ──────────────────────────────────────────────────────────────────────
+
+.mgp {
+    font-family : $font-display;
+    background  : $bg-page;
+    min-height  : 100vh;
+    color       : $text-primary;
+
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    // ── Header ────────────────────────────────────────────────────────────────
+
+    &__header {
+        background    : $bg-header;
+        border-bottom : 1px solid $border-dark;
+        padding       : 0 32px;
+    }
+
+    &__header-inner {
+        max-width      : 1200px;
+        margin         : 0 auto;
+        display        : flex;
+        align-items    : center;
+        justify-content: space-between;
+        height         : 72px;
+    }
+
+    &__eyebrow {
+        font-family    : $font-mono;
+        font-size      : 11px;
+        color          : $border-dark2;
+        text-transform : uppercase;
+        letter-spacing : 0.12em;
+        margin-bottom  : 2px;
+    }
+
+    &__title {
+        font-size     : 20px;
+        font-weight   : 700;
+        color         : #fff;
+        letter-spacing: -0.02em;
+    }
+
+    // ── Generate button ───────────────────────────────────────────────────────
+
+    &__generate-btn {
+        display        : flex;
+        align-items    : center;
+        gap            : 8px;
+        background     : $blue;
+        color          : #fff;
+        border         : none;
+        border-radius  : 8px;
+        padding        : 10px 20px;
+        font-family    : $font-display;
+        font-size      : 14px;
+        font-weight    : 600;
+        letter-spacing : -0.01em;
+        cursor         : pointer;
+        transition     : background 0.15s, transform 0.1s;
+
+        &:hover  { background: darken($blue, 8%); }
+        &:active { transform: scale(0.98); }
+
+        &-arrow { font-size: 16px; }
+    }
+
+    // ── Body layout ───────────────────────────────────────────────────────────
+
+    &__body {
+        max-width            : 1200px;
+        margin               : 0 auto;
+        padding              : 28px 32px;
+        display              : grid;
+        grid-template-columns: 1fr 380px;
+        gap                  : 20px;
+        align-items          : start;
+    }
+
+    &__left {
+        display       : flex;
+        flex-direction: column;
+        gap           : 16px;
+    }
+
+    &__right {
+        position: sticky;
+        top     : 24px;
+    }
+
+    // ── Cards ─────────────────────────────────────────────────────────────────
+
+    &__card {
+        background   : $bg-card;
+        border-radius: 12px;
+        border       : 1px solid $border;
+        padding      : 24px;
+
+        &--dark {
+            background: $bg-card-dark;
+            border    : 1px solid $border-dark;
+            overflow  : hidden;
+
+            + .mgp__card--dark { margin-top: 16px; }
+        }
+    }
+
+    &__card-label {
+        font-family   : $font-mono;
+        font-size     : 11px;
+        color         : $text-faint;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom : 16px;
+    }
+
+    &__card-label-row {
+        display        : flex;
+        align-items    : center;
+        justify-content: space-between;
+        margin-bottom  : 16px;
+    }
+
+    &__field-count {
+        background   : #f3f4f6;
+        border-radius: 100px;
+        padding      : 1px 8px;
+        font-size    : 11px;
+        color        : $text-muted;
+        margin-left  : 8px;
+    }
+
+    // ── Config row ────────────────────────────────────────────────────────────
+
+    &__config-row {
+        display              : grid;
+        grid-template-columns: 1fr 1fr;
+        gap                  : 20px;
+    }
+
+    // ── Form primitives ───────────────────────────────────────────────────────
+
+    &__input-group {
+        display       : flex;
+        flex-direction: column;
+        gap           : 6px;
+    }
+
+    &__label {
+        font-size     : 12px;
+        font-weight   : 600;
+        color         : $text-secondary;
+        letter-spacing: -0.01em;
+    }
+
+    &__required { color: $red; }
+
+    &__input,
+    &__select,
+    &__textarea {
+        border       : 1px solid $border;
+        border-radius: 8px;
+        padding      : 9px 12px;
+        font-family  : $font-mono;
+        font-size    : 13px;
+        color        : $text-primary;
+        outline      : none;
+        background   : $bg-field;
+        transition   : border-color 0.15s, box-shadow 0.15s;
+        width        : 100%;
+
+        &:focus {
+            border-color: $blue;
+            box-shadow  : 0 0 0 3px rgba($blue, 0.1);
+        }
+
+        &--error {
+            border-color: $red;
+            background  : #fff5f5;
+
+            &:focus { box-shadow: 0 0 0 3px rgba($red, 0.1); }
+        }
+    }
+
+    &__select { cursor: pointer; }
+
+    &__textarea {
+        resize    : vertical;
+        min-height: 100px;
+    }
+
+    &__error-msg {
+        font-family: $font-mono;
+        font-size  : 11px;
+        color      : $red;
+    }
+
+    &__hint {
+        font-family: $font-mono;
+        font-size  : 11px;
+        color      : $text-faint;
+        line-height: 1.5;
+
+        code {
+            background   : #f3f4f6;
+            border-radius: 4px;
+            padding      : 1px 5px;
+            font-size    : 11px;
+            font-family  : $font-mono;
+        }
+    }
+
+    // ── Target toggle ─────────────────────────────────────────────────────────
+
+    &__toggle-row {
+        display: flex;
+        gap    : 4px;
+    }
+
+    &__toggle-btn {
+        border       : 1px solid $border;
+        border-radius: 7px;
+        padding      : 7px 14px;
+        font-family  : $font-mono;
+        font-size    : 12px;
+        color        : $text-muted;
+        background   : $bg-field;
+        cursor       : pointer;
+        transition   : all 0.15s;
+
+        &--active {
+            background  : #eff6ff;
+            border-color: $blue;
+            color       : $blue;
+            font-weight : 600;
+        }
+    }
+
+    // ── Add field button ──────────────────────────────────────────────────────
+
+    &__add-btn {
+        background   : transparent;
+        border       : 1px dashed #d1d5db;
+        border-radius: 7px;
+        padding      : 6px 14px;
+        font-family  : $font-display;
+        font-size    : 12px;
+        font-weight  : 600;
+        color        : $text-muted;
+        cursor       : pointer;
+        transition   : border-color 0.15s, color 0.15s;
+
+        &:hover {
+            border-color: $blue;
+            color       : $blue;
+        }
+    }
+
+    // ── Field list ────────────────────────────────────────────────────────────
+
+    &__field-list {
+        display       : flex;
+        flex-direction: column;
+        gap           : 8px;
+    }
+
+    &__field-item {
+        border       : 1px solid $border;
+        border-radius: 10px;
+        overflow     : hidden;
+        transition   : border-color 0.15s;
+
+        &:hover { border-color: darken($border, 8%); }
+    }
+
+    &__field-header {
+        display        : flex;
+        align-items    : center;
+        justify-content: space-between;
+        padding        : 12px 16px;
+        cursor         : pointer;
+        background     : $bg-field;
+        user-select    : none;
+        transition     : background 0.15s;
+
+        &:hover { background: darken($bg-field, 2%); }
+    }
+
+    &__field-header-left,
+    &__field-header-right {
+        display    : flex;
+        align-items: center;
+        gap        : 8px;
+    }
+
+    &__field-header-right { gap: 4px; }
+
+    // ── Type pill ─────────────────────────────────────────────────────────────
+
+    &__type-pill {
+        font-family   : $font-mono;
+        font-size     : 10px;
+        font-weight   : 500;
+        border-radius : 5px;
+        padding       : 2px 8px;
+        letter-spacing: 0.04em;
+
+        &--string     { background: rgba($type-string,     0.13); color: $type-string; }
+        &--number     { background: rgba($type-number,     0.13); color: $type-number; }
+        &--boolean    { background: rgba($type-boolean,    0.13); color: $type-boolean; }
+        &--CanvasNode { background: rgba($type-canvasnode, 0.13); color: $type-canvasnode; }
+    }
+
+    &__field-name {
+        font-family: $font-mono;
+        font-size  : 13px;
+        font-weight: 600;
+        color      : $text-primary;
+    }
+
+    &__unnamed {
+        color      : #d1d5db;
+        font-style : italic;
+    }
+
+    // ── Badges ────────────────────────────────────────────────────────────────
+
+    &__badge {
+        font-family  : $font-mono;
+        font-size    : 10px;
+        border-radius: 4px;
+        padding      : 2px 6px;
+
+        &--blue   { background: #dbeafe; color: $blue; }
+        &--red    { background: #fee2e2; color: $red; }
+        &--purple { background: #ede9fe; color: $purple; }
+    }
+
+    // ── Icon buttons ──────────────────────────────────────────────────────────
+
+    &__icon-btn {
+        background   : transparent;
+        border       : none;
+        cursor       : pointer;
+        font-size    : 12px;
+        color        : $text-faint;
+        padding      : 4px 6px;
+        border-radius: 5px;
+        transition   : color 0.15s, background 0.15s;
+
+        &:hover:not(:disabled) { background: #f3f4f6; color: $text-secondary; }
+        &:disabled             { opacity: 0.3; cursor: default; }
+        &--red                 { color: $red; &:hover { background: #fee2e2; } }
+    }
+
+    &__chevron {
+        font-size  : 9px;
+        color      : $text-faint;
+        margin-left: 4px;
+        transition : transform 0.2s;
+
+        &--open { transform: rotate(180deg); }
+    }
+
+    // ── Field editor ──────────────────────────────────────────────────────────
+
+    &__field-editor {
+        padding       : 16px;
+        border-top    : 1px solid $border;
+        background    : $bg-card;
+        display       : flex;
+        flex-direction: column;
+        gap           : 14px;
+    }
+
+    &__field-editor-grid {
+        display              : grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap                  : 12px;
+    }
+
+    &__checkbox-row {
+        display  : flex;
+        gap      : 20px;
+        flex-wrap: wrap;
+    }
+
+    &__check-label {
+        display    : flex;
+        align-items: center;
+        gap        : 6px;
+        font-size  : 12px;
+        font-weight: 600;
+        color      : $text-secondary;
+        cursor     : pointer;
+
+        input[type="checkbox"] {
+            cursor      : pointer;
+            accent-color: $blue;
+        }
+    }
+
+    // ── Module section ────────────────────────────────────────────────────────
+
+    &__module-section {
+        background    : #faf5ff;
+        border        : 1px solid #ede9fe;
+        border-radius : 8px;
+        padding       : 14px;
+        display       : flex;
+        flex-direction: column;
+        gap           : 12px;
+    }
+
+    &__module-label {
+        font-family   : $font-mono;
+        font-size     : 11px;
+        color         : $purple;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    // ── Payload panel ─────────────────────────────────────────────────────────
+
+    &__payload-header {
+        display        : flex;
+        align-items    : center;
+        justify-content: space-between;
+        margin-bottom  : 16px;
+    }
+
+    &__copy-btn {
+        background   : #1e2130;
+        border       : 1px solid $border-dark2;
+        color        : $text-faint;
+        border-radius: 6px;
+        padding      : 4px 12px;
+        font-family  : $font-mono;
+        font-size    : 11px;
+        cursor       : pointer;
+        transition   : background 0.15s, color 0.15s;
+
+        &:hover {
+            background: lighten(#1e2130, 5%);
+            color     : #e5e7eb;
+        }
+    }
+
+    &__pre {
+        font-family: $font-mono;
+        font-size  : 11px;
+        color      : #a5f3fc;
+        margin     : 0;
+        overflow-x : auto;
+        line-height: 1.7;
+        white-space: pre;
+    }
+
+    &__payload-empty {
+        display        : flex;
+        flex-direction : column;
+        align-items    : center;
+        gap            : 10px;
+        padding        : 32px 0;
+
+        &-icon {
+            font-size: 28px;
+            opacity  : 0.2;
+            color    : #fff;
+        }
+
+        &-text {
+            font-family: $font-mono;
+            font-size  : 11px;
+            color      : $text-dark-dim;
+            text-align : center;
+            line-height: 1.6;
+        }
+    }
+
+    // ── Schema preview ────────────────────────────────────────────────────────
+
+    &__schema-list {
+        display       : flex;
+        flex-direction: column;
+        gap           : 6px;
+    }
+
+    &__schema-row {
+        display        : flex;
+        align-items    : center;
+        justify-content: space-between;
+        padding        : 7px 0;
+        border-bottom  : 1px solid $border-dark;
+
+        &:last-child { border-bottom: none; }
+    }
+
+    &__schema-left,
+    &__schema-right {
+        display    : flex;
+        align-items: center;
+        gap        : 8px;
+    }
+
+    &__schema-right { gap: 4px; }
+
+    &__schema-dot {
+        width        : 7px;
+        height       : 7px;
+        border-radius: 50%;
+        flex-shrink  : 0;
+    }
+
+    &__schema-name {
+        font-family: $font-mono;
+        font-size  : 12px;
+        color      : #e5e7eb;
+    }
+
+    &__schema-type {
+        font-family: $font-mono;
+        font-size  : 11px;
+    }
+
+    &__schema-badge {
+        font-family  : $font-mono;
+        font-size    : 9px;
+        font-weight  : 700;
+        border-radius: 3px;
+        padding      : 1px 5px;
+
+        &--s { background: #dbeafe; color: $blue; }
+        &--r { background: #fee2e2; color: $red; }
+        &--m { background: #ede9fe; color: $purple; }
+    }
+
+    &__schema-empty {
+        font-family: $font-mono;
+        font-size  : 11px;
+        color      : $text-dark-dim;
+    }
+}

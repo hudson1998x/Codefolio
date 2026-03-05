@@ -2,6 +2,8 @@ import "reflect-metadata";
 import './jsx-factory/global'
 import './vcs'
 import './pages'
+import './dev'
+import './Prefab'
 
 // =================
 // Module imports

@@ -259,19 +259,29 @@ export class HttpService {
    */
   private buildNavTree(items: any[]): NavConfig[] {
     const root: NavConfig[] = [];
-    const map: Record<string, any> = {};
+    const map: Record<string, NavConfig> = {};
 
-    items.forEach((item) => (map[item.label] = item));
-    items.forEach((item) => {
-      if (item.parent && map[item.parent]) {
-        map[item.parent].children.push(item);
-      } else {
-        root.push(item);
-      }
+    // First pass — register all items and ensure children array exists
+    items.forEach(item => {
+        map[item.label] = { ...item, children: item.children ?? [] };
+    });
+
+    // Second pass — wire up parents, creating them if missing
+    items.forEach(item => {
+        if (item.parent) {
+            if (!map[item.parent]) {
+                // Parent referenced but not in the list — create it
+                map[item.parent] = { label: item.parent, children: [] };
+                root.push(map[item.parent]);
+            }
+            map[item.parent].children!.push(map[item.label]);
+        } else {
+            root.push(map[item.label]);
+        }
     });
 
     return root;
-  }
+}
 
   /**
    * Joins multiple URL path segments into a single normalised path, trimming

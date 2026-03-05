@@ -4,6 +4,7 @@ import { ConfigProvider } from "./providers/configuration"
 import { ThemeLoader } from './theme';
 import { Canvas } from "@components/canvas";
 import './components/loader'
+import './dev/module-generator'
 import './autocontent/loader'
 
 /**

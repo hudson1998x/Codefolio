@@ -41,9 +41,9 @@ export const AdminHeader = () => {
     return () => ws.close();
   }, []);
 
-  const RenderNavItems = ({ items }: { items: NavConfig[] }) => (
+  const RenderNavItems = ({ items, noBack }: { items: NavConfig[], noBack?: boolean }) => (
     <ul className="nav-list">
-      <li className='nav-item-wrapper'><a href={'/'} className="nav-link">&larr; Back</a></li>
+      {!noBack ? <li className='nav-item-wrapper'><a href={'/'} className="nav-link">&larr; Back</a></li> : null}
       {items.map((item, index) => (
         <li key={index} className="nav-item-wrapper">
           <a href={item.href || '#'} className="nav-link">
@@ -51,7 +51,7 @@ export const AdminHeader = () => {
             {item.children?.length ? <span className="chevron">▾</span> : null}
           </a>
           {item.children?.length ? (
-            <div className="nav-dropdown"><RenderNavItems items={item.children} /></div>
+            <div className="nav-dropdown"><RenderNavItems items={item.children} noBack={true}/></div>
           ) : null}
         </li>
       ))}

@@ -98,7 +98,7 @@ export function Entity(name: string): ClassDecorator {
  */
 export function Field(options: { required?: boolean; default?: any, searchable?: boolean, module?: CanvasNode, editable?: boolean} = {}): PropertyDecorator {
   return (target, key) => {
-    const fields: FieldMetadata[] = Reflect.getMetadata(META.fields, target.constructor) || [];
+    const fields: FieldMetadata[] = Reflect.getOwnMetadata(META.fields, target.constructor) || [];
 
     const type = Reflect.getMetadata("design:type", target, key);
 

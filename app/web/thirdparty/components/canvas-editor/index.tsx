@@ -509,6 +509,8 @@ const CanvasEditor: React.FC<CodefolioProps<{ value: string; name: string }>> = 
   return (
     <div className="canvas-editor">
       <input type="hidden" name={data.name} value={JSON.stringify(nodes)} />
+      {(data as Record<string,any>).label ?? ''}
+      <br />
       <Button type="button" onClick={() => setIsOpen(true)}>Visual Editor</Button>
 
       {isOpen && (

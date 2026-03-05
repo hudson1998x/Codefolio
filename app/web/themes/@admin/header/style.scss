@@ -9,7 +9,7 @@ $text-dim: #666666;
 $accent-blue: #0072f5;
 
 .platform-header {
-  height: 52px; // Slightly slimmer for a tighter, pro look
+  height: 52px;
   background: $black;
   border-bottom: 1px solid $border;
   display: flex;
@@ -55,7 +55,7 @@ $accent-blue: #0072f5;
       .label-group {
         display: flex;
         flex-direction: column;
-        .title { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
+        .title  { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
         .status { font-size: 10px; color: $text-dim; text-transform: uppercase; letter-spacing: 0.05em; }
       }
     }
@@ -63,9 +63,19 @@ $accent-blue: #0072f5;
     .dynamic-nav {
       .nav-list {
         display: flex;
+        flex-direction: row;
         gap: 2px;
         list-style: none;
-        margin: 0; padding: 0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-item-wrapper {
+        position: relative;
+
+        &:hover > .nav-dropdown {
+          display: block;
+        }
       }
 
       .nav-link {
@@ -74,8 +84,60 @@ $accent-blue: #0072f5;
         padding: 6px 10px;
         border-radius: 5px;
         text-decoration: none;
-        transition: 0.2s;
+        transition: color 0.2s, background 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        white-space: nowrap;
+        cursor: pointer;
+
         &:hover { color: white; background: #111; }
+      }
+
+      .chevron {
+        font-size: 10px;
+        color: $text-dim;
+        line-height: 1;
+      }
+
+      .nav-dropdown {
+        display: none;
+        position: absolute;
+        top: calc(100% - 4px);
+        left: 0;
+        min-width: 180px;
+        background: #0d0d0d;
+        border: 1px solid $border-bright;
+        border-radius: 6px;
+        padding: 4px;
+        z-index: 100;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+        .nav-list {
+          flex-direction: column;
+          gap: 0;
+        }
+
+        .nav-item-wrapper {
+          width: 100%;
+
+          &:hover > .nav-dropdown {
+            display: block;
+          }
+        }
+
+        .nav-link {
+          width: 100%;
+          border-radius: 4px;
+          padding: 7px 10px;
+          box-sizing: border-box;
+        }
+
+        // Nested dropdowns open to the right
+        .nav-dropdown {
+          top: 0;
+          left: calc(100% + 4px);
+        }
       }
 
       .nav-skeleton {
@@ -103,6 +165,7 @@ $accent-blue: #0072f5;
       &:focus-within { border-color: $border-bright; background: #0f0f0f; }
 
       .search-icon { color: $text-dim; font-size: 14px; }
+
       input {
         background: transparent;
         border: none;
@@ -140,6 +203,7 @@ $accent-blue: #0072f5;
         display: flex;
         align-items: center;
         gap: 6px;
+
         &::before {
           content: '';
           width: 5px;
@@ -147,6 +211,7 @@ $accent-blue: #0072f5;
           background: #333;
           border-radius: 50%;
         }
+
         &.is-saving {
           color: $accent-blue;
           &::before { background: $accent-blue; animation: pulse 1s infinite; }
@@ -175,7 +240,7 @@ $accent-blue: #0072f5;
       padding: 6px 12px;
       border-radius: 4px;
       cursor: pointer;
-      transition: 0.2s;
+      transition: background 0.2s;
       &:hover { background: #ccc; }
     }
 
@@ -190,7 +255,7 @@ $accent-blue: #0072f5;
 }
 
 @keyframes pulse {
-  0% { opacity: 0.4; }
-  50% { opacity: 1; }
+  0%   { opacity: 0.4; }
+  50%  { opacity: 1; }
   100% { opacity: 0.4; }
 }
