@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState } from "react";
 import { registerComponent, CodefolioProps } from "@components/registry";
 import { Field } from '@components/input';
 import './style.scss';
@@ -19,8 +19,7 @@ export interface HeaderConfigData {
 export const HeaderConfigEditor: FC<CodefolioProps<HeaderConfigData>> = ({ data }) => {
     const cfgKey = "header";
     const [isSearching, setIsSearching] = useState(false);
-    
-    // FAILSAFE: Handle potential object-transformed data from the DB
+
     const initialLinks: HeaderLink[] = data.links 
         ? (Array.isArray(data.links) ? data.links : Object.values(data.links)) 
         : [];
@@ -41,15 +40,13 @@ export const HeaderConfigEditor: FC<CodefolioProps<HeaderConfigData>> = ({ data 
     };
 
     const removeLink = (index: number) => {
-        setLinks(links.filter((_, i) => i !== index));
+        setLinks(prev => [...prev.slice(0, index), ...prev.slice(index + 1)]);
     };
 
     return (
         <div className="cf-header-editor">
-            {/* Persist the component path in the JSON config */}
             <input type="hidden" name={`${cfgKey}[component]`} value="Admin/Config/Header" />
 
-            {/* Site Title */}
             <div className="cf-header-editor__group">
                 <Field
                     name={`${cfgKey}[siteTitle]`}
@@ -63,7 +60,6 @@ export const HeaderConfigEditor: FC<CodefolioProps<HeaderConfigData>> = ({ data 
 
             <div className="cf-header-editor__divider" />
 
-            {/* Links List */}
             <div className="cf-header-editor__links">
                 <div className="cf-header-editor__links-header">
                     <label className="cf-header-editor__label">Navigation & Social Icons</label>
@@ -92,8 +88,7 @@ export const HeaderConfigEditor: FC<CodefolioProps<HeaderConfigData>> = ({ data 
                 )}
 
                 {links.map((link, index) => (
-                    <div key={index} className="cf-header-editor__link-row">
-                        {/* URL Target */}
+                    <div key={Math.random()} className="cf-header-editor__link-row">
                         <div className="cf-header-editor__col">
                             <Field
                                 name={`${cfgKey}[links][${index}][to]`}
@@ -104,7 +99,6 @@ export const HeaderConfigEditor: FC<CodefolioProps<HeaderConfigData>> = ({ data 
                             />
                         </div>
 
-                        {/* Label */}
                         <div className="cf-header-editor__col">
                             <Field
                                 name={`${cfgKey}[links][${index}][label]`}
@@ -114,7 +108,6 @@ export const HeaderConfigEditor: FC<CodefolioProps<HeaderConfigData>> = ({ data 
                             />
                         </div>
 
-                        {/* Icon Class */}
                         <div className="cf-header-editor__col">
                             <Field
                                 name={`${cfgKey}[links][${index}][icon]`}

@@ -1,3 +1,6 @@
+## See it in action!
+[https://hudson1998x.github.io/Codefolio/](https://hudson1998x.github.io/Codefolio/)
+
 ## Git-first, by design
 
 Codefolio treats git as the foundation, not an afterthought. Your content, your config, your components, and your history all live in a single repository. Every change is a commit. Every rollback is a `git checkout`. Collaboration is a pull request.

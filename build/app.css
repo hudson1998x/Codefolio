@@ -3464,6 +3464,9 @@
   border-radius: 0;
   background: transparent;
 }
+.theme-header .nav-tabs .nav-link.iconised-label i {
+  margin-right: 5px;
+}
 .theme-header .nav-tabs .nav-link:hover {
   color: var(--bs-dark);
   border-bottom: 2px solid var(--bs-gray-400);

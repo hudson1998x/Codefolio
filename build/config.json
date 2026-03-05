@@ -22,34 +22,19 @@
     "siteTitle": "CodeFolio",
     "links": [
       {
-        "to": "/work",
-        "label": "Work",
-        "icon": ""
-      },
-      {
         "to": "/about",
         "label": "About",
         "icon": ""
       },
       {
-        "to": "/contact",
-        "label": "Contact",
+        "to": "/blog",
+        "label": "Blog",
         "icon": ""
       },
       {
-        "icon": "",
-        "to": "/blog",
-        "label": "Blog"
-      },
-      {
-        "to": "https://github.com",
-        "label": "",
+        "to": "https://github.com/hudson1998x/Codefolio",
+        "label": "Repository",
         "icon": "fab fa-github"
-      },
-      {
-        "to": "https://linkedin.com",
-        "label": "",
-        "icon": "fab fa-linkedin"
       }
     ]
   },

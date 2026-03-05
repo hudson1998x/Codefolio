@@ -25182,7 +25182,7 @@ var Header = () => {
       "a",
       {
         href: item.to,
-        className: "nav-link border-0",
+        className: "nav-link border-0" + (Boolean(item.icon && item.label) ? " iconised-label" : ""),
         target: "_blank",
         rel: "noopener noreferrer",
         children: [
@@ -25195,7 +25195,7 @@ var Header = () => {
       "a",
       {
         href: getSafeUrl(item.to),
-        className: "nav-link border-0",
+        className: "nav-link border-0" + (Boolean(item.icon && item.label) ? " iconised-label" : ""),
         rel: "noopener noreferrer",
         children: [
           item.icon ? /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("i", { className: item.icon }) : null,
@@ -25642,7 +25642,7 @@ var HeaderConfigEditor = ({ data }) => {
     setIsSearching(false);
   };
   const removeLink = (index) => {
-    setLinks(links.filter((_, i) => i !== index));
+    setLinks((prev) => [...prev.slice(0, index), ...prev.slice(index + 1)]);
   };
   return /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-header-editor", children: [
     /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Header" }),
@@ -25722,7 +25722,7 @@ var HeaderConfigEditor = ({ data }) => {
             children: "\xD7"
           }
         )
-      ] }, index))
+      ] }, Math.random()))
     ] })
   ] });
 };

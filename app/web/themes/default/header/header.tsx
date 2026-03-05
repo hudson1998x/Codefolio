@@ -88,7 +88,7 @@ export const Header: React.FC = () => {
               <a
                 key={item.to}
                 href={item.to}
-                className="nav-link border-0"
+                className={"nav-link border-0" + (Boolean(item.icon && item.label) ? ' iconised-label' : '')}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -99,7 +99,7 @@ export const Header: React.FC = () => {
               <a
                 key={item.to}
                 href={getSafeUrl(item.to)}
-                className="nav-link border-0"
+                className={"nav-link border-0" + (Boolean(item.icon && item.label) ? ' iconised-label' : '')}
                 rel="noopener noreferrer"
               >
                 {item.icon  ? <i className={item.icon} /> : null}

@@ -24,6 +24,13 @@
       border-radius: 0;
       background: transparent;
 
+      &.iconised-label 
+      {
+        i {
+          margin-right: 5px;
+        }
+      }
+
       &:hover {
         color: var(--bs-dark);
         border-bottom: 2px solid var(--bs-gray-400);
