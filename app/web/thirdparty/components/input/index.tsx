@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useId } from "react";
 import { registerComponent, CodefolioProps } from "../registry";
 import './style.scss'
+import './custom/prefab-editor'
 
 // ─────────────────────────────────────────────
 // Types

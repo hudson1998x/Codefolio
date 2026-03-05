@@ -11,7 +11,7 @@ import React from "react";
  */
 export interface FieldMeta {
   /** The input control to render for this field in the properties pane. */
-  type: 'text' | 'textarea' | 'select' | 'boolean' | 'json';
+  type: 'text' | 'textarea' | 'select' | 'boolean' | 'json' | 'prefab-editor';
   /** For `select` fields — the list of options to display in the dropdown. */
   options?: string[];
   /** Override the auto-capitalised key name shown as the field label. */
