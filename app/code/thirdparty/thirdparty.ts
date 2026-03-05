@@ -4,6 +4,7 @@ import './vcs'
 import './pages'
 import './dev'
 import './Prefab'
+import './Blog'
 
 // =================
 // Module imports
