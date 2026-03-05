@@ -38,8 +38,7 @@
       },
       {
         "to": "/blog",
-        "label": "Blog",
-        "icon": "fab fa-github"
+        "label": "Blog"
       },
       {
         "to": "https://github.com",
