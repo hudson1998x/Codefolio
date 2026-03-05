@@ -22593,7 +22593,7 @@ var CanvasEditor = ({ data, onChange }) => {
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "library-search", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("input", { type: "text", placeholder: "Search...", value: search, onChange: (e) => setSearch(e.target.value) }) }),
         !search && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "category-capsules", children: categories.map((cat) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("button", { className: `capsule ${activeCategory === cat ? "active" : ""}`, onClick: () => setActiveCategory(cat), children: cat }, cat)) }),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "palette-grid", children: filteredLibrary.map((c) => /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "palette-item", draggable: true, onDragStart: (e) => {
+        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "palette-grid", style: { height: 300, overflowX: "hidden" }, children: filteredLibrary.map((c) => /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "palette-item", draggable: true, onDragStart: (e) => {
           e.dataTransfer.setData("componentName", c.name);
         }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("i", { className: c.icon || "fas fa-cube" }),

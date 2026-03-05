@@ -235,7 +235,7 @@ const addNode = (name: string, targetId?: NodeId, position: 'before' | 'inside' 
                 ))}
               </div>
             )}
-            <div className="palette-grid">
+            <div className="palette-grid" style={{ height: 300, overflowX: 'hidden' }}>
               {filteredLibrary.map(c => (
                 <div key={c.name} className="palette-item" draggable onDragStart={(e) => {
                    e.dataTransfer.setData("componentName", c.name);
