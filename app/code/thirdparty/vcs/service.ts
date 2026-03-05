@@ -222,6 +222,17 @@ export class VcsService {
     }
   }
 
+  public async addFile(file: string): Promise<void> {
+    try {
+      // 1. Stage all changes
+      await execAsync("git add \"" + file + "\"");
+
+    } catch (error) {
+      console.error("Git Deploy Error:", error);
+      throw new Error((error as any).stderr || "Failed to deploy to Git");
+    }
+  }
+
   public async deploy(message: string): Promise<void> {
     try {
       // 1. Stage all changes
@@ -237,7 +248,7 @@ export class VcsService {
       await execAsync(`git push origin ${branch}`);
     } catch (error) {
       console.error("Git Deploy Error:", error);
-      throw new Error(error.stderr || "Failed to deploy to Git");
+      throw new Error((error as any).stderr || "Failed to deploy to Git");
     }
   }
 }

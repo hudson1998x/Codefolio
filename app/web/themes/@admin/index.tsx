@@ -2,6 +2,7 @@ import { registerTheme } from "app/web/thirdparty/theme";
 import { AdminHeader } from "./header";
 import { FC, PropsWithChildren } from "react";
 import './pages/config/config.scss'
+import './pages/media-gallery'
 import './components/loader'
 
 /**
