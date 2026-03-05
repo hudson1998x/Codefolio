@@ -1,7 +1,7 @@
 {
   "footer": {
     "component": "Admin/Config/Footer",
-    "copyrightName": "My Portfolio",
+    "copyrightName": "CodeFolio",
     "socials": [
       {
         "label": "GitHub",
@@ -19,7 +19,7 @@
   },
   "header": {
     "component": "Admin/Config/Header",
-    "siteTitle": "My Portfolio",
+    "siteTitle": "CodeFolio",
     "links": [
       {
         "to": "/work",
@@ -35,6 +35,11 @@
         "to": "/contact",
         "label": "Contact",
         "icon": ""
+      },
+      {
+        "to": "/blog",
+        "label": "Blog",
+        "icon": "fab fa-github"
       },
       {
         "to": "https://github.com",
