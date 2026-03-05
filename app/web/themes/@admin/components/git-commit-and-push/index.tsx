@@ -54,7 +54,7 @@ export const GitCommitAndPush = () => {
             if (response.ok) {
                 setMessage('');
                 setIsOpen(false);
-                fetchStatus();
+                location.reload(); // we do a reload, so the sibling vcs component also updates.
             } else {
                 throw new Error(result.error || "Deploy failed");
             }

@@ -5,7 +5,7 @@
     "socials": [
       {
         "label": "GitHub",
-        "href": ""
+        "href": "https://github.com/hudson1998x/Codefolio"
       },
       {
         "label": "LinkedIn",
@@ -21,11 +21,6 @@
     "component": "Admin/Config/Header",
     "siteTitle": "CodeFolio",
     "links": [
-      {
-        "to": "/about",
-        "label": "About",
-        "icon": ""
-      },
       {
         "to": "/blog",
         "label": "Blog",
@@ -43,8 +38,8 @@
     "homepage": "/page/1"
   },
   "theme": {
-    "component": "Admin/Config/ThemeSelector",
-    "theme": "default"
+    "theme": "default",
+    "component": "Admin/Config/ThemeSelector"
   },
   "website": {
     "title": "Codefolio",

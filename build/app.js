@@ -25572,7 +25572,7 @@ var GitCommitAndPush = () => {
       if (response.ok) {
         setMessage("");
         setIsOpen(false);
-        fetchStatus();
+        location.reload();
       } else {
         throw new Error(result.error || "Deploy failed");
       }
@@ -25929,14 +25929,15 @@ var ThemeSelector = ({ data }) => {
   const handleSelect = (themeName) => {
     setSelected(themeName);
     const inputEl = document.querySelector(
-      'input[name="theme"]'
+      'input[name="theme[theme]"]'
     );
     if (inputEl) inputEl.value = themeName;
   };
   if (loading) return /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("p", { children: "Loading themes..." });
   if (!themes.length) return /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("p", { children: "No themes found." });
   return /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)("div", { className: "cf-theme-selector", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("input", { type: "hidden", name: "theme", value: selected }),
+    /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("input", { type: "hidden", name: "theme[theme]", value: selected }),
+    /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("input", { type: "hidden", name: "theme[component]", value: "Admin/Config/ThemeSelector" }),
     /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("div", { className: "cf-theme-selector__grid", children: themes.map((theme) => /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)(
       "div",
       {

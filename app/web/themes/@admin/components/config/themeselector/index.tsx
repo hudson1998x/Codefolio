@@ -33,7 +33,7 @@ export const ThemeSelector = ({ data }: CodefolioProps<ThemeSelectorProps>) => {
     setSelected(themeName);
     // Optionally, persist selection here or let the parent form handle it
     const inputEl = document.querySelector<HTMLInputElement>(
-      'input[name="theme"]'
+      'input[name="theme[theme]"]'
     );
     if (inputEl) inputEl.value = themeName;
   };
@@ -44,7 +44,8 @@ export const ThemeSelector = ({ data }: CodefolioProps<ThemeSelectorProps>) => {
   return (
     <div className="cf-theme-selector">
       {/* Hidden input so form submission picks up selected theme */}
-      <input type="hidden" name="theme" value={selected} />
+      <input type="hidden" name="theme[theme]" value={selected} />
+      <input type="hidden" name="theme[component]" value="Admin/Config/ThemeSelector"/>
 
       <div className="cf-theme-selector__grid">
         {themes.map((theme) => (
