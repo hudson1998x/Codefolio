@@ -1,0 +1,68 @@
+.cf-carousel {
+  position: relative;
+  width: 100%;
+  margin: 2rem 0;
+
+  &__controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  &__btn {
+    appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid #dee2e6;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: bold;
+
+    &:hover {
+      background: #f8f9fa;
+      border-color: #adb5bd;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  &__viewport {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    
+    // Snapping Logic
+    scroll-snap-type: x mandatory;
+    gap: 1.5rem;
+    padding-bottom: 1rem;
+
+    // Remove scrollbars for a clean look
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
+    }
+
+    // Carousel children must have snap-align
+    > * {
+      scroll-snap-align: start;
+      flex: 0 0 calc(33.333% - 1rem); // Show 3 cards (approx)
+      min-width: 280px;
+    }
+  }
+}
+
+// Mobile adjustment
+@media (max-width: 768px) {
+  .cf-carousel__viewport > * {
+    flex: 0 0 calc(85% - 1rem); // Show 1.5 cards to hint at scroll
+  }
+}

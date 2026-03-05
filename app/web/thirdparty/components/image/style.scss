@@ -1,0 +1,18 @@
+.cf-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  
+  // Object-fit variants
+  &--cover { object-fit: cover; }
+  &--contain { object-fit: contain; }
+  &--fill { object-fit: fill; }
+  &--none { object-fit: none; }
+  &--scale-down { object-fit: scale-down; }
+
+  // Ensure aspect-ratio works even if height/width aren't explicitly set
+  &[style*="aspect-ratio"] {
+    width: 100%;
+    height: auto;
+  }
+}

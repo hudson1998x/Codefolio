@@ -1328,7 +1328,7 @@ var require_react_dom_development = __commonJS({
         return dispatcher;
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React8 = require_react(), Internals = {
+      var React9 = require_react(), Internals = {
         d: {
           f: noop,
           r: function() {
@@ -1346,7 +1346,7 @@ var require_react_dom_development = __commonJS({
         },
         p: 0,
         findDOMNode: null
-      }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+      }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React9.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
       "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
         "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
       );
@@ -2881,7 +2881,7 @@ var require_react_dom_client_development = __commonJS({
         "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
       }
       function validateOptionProps(element, props) {
-        null == props.value && ("object" === typeof props.children && null !== props.children ? React8.Children.forEach(props.children, function(child) {
+        null == props.value && ("object" === typeof props.children && null !== props.children ? React9.Children.forEach(props.children, function(child) {
           null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           ));
@@ -18513,14 +18513,14 @@ var require_react_dom_client_development = __commonJS({
         ));
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var Scheduler = require_scheduler(), React8 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+      var Scheduler = require_scheduler(), React9 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
       /* @__PURE__ */ Symbol.for("react.scope");
       var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity");
       /* @__PURE__ */ Symbol.for("react.legacy_hidden");
       /* @__PURE__ */ Symbol.for("react.tracing_marker");
       var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel");
       /* @__PURE__ */ Symbol.for("react.view_transition");
-      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React9.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -21308,7 +21308,7 @@ var require_react_dom_client_development = __commonJS({
         }
       };
       (function() {
-        var isomorphicReactPackageVersion = React8.version;
+        var isomorphicReactPackageVersion = React9.version;
         if ("19.2.4" !== isomorphicReactPackageVersion)
           throw Error(
             'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.4\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -21662,18 +21662,18 @@ var require_react_jsx_runtime_development = __commonJS({
       function isValidElement(object) {
         return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
       }
-      var React8 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+      var React9 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React9.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
         return null;
       };
-      React8 = {
+      React9 = {
         react_stack_bottom_frame: function(callStackForError) {
           return callStackForError();
         }
       };
       var specialPropKeyWarningShown;
       var didWarnAboutElementRef = {};
-      var unknownOwnerDebugStack = React8.react_stack_bottom_frame.bind(
-        React8,
+      var unknownOwnerDebugStack = React9.react_stack_bottom_frame.bind(
+        React9,
         UnknownOwner
       )();
       var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -22782,25 +22782,279 @@ registerComponent({
   category: "Basic"
 });
 
-// app/web/thirdparty/autocontent/list/index.tsx
-var import_react10 = __toESM(require_react());
+// app/web/thirdparty/components/image/index.tsx
 var import_jsx_runtime12 = __toESM(require_jsx_runtime());
+var Image = ({
+  src,
+  alt = "",
+  fit = "cover",
+  aspectRatio,
+  className,
+  loading,
+  ...rest
+}) => {
+  const classes = [
+    "cf-img",
+    `cf-img--${fit}`,
+    className
+  ].filter(Boolean).join(" ");
+  const style = {
+    aspectRatio,
+    ...rest.style
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+    "img",
+    {
+      src,
+      alt,
+      className: classes,
+      loading: loading || "lazy",
+      style,
+      ...rest
+    }
+  );
+};
+var ImageCanvas = ({ data }) => {
+  const { src, alt, fit, lazy, aspectRatio, className } = data;
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+    Image,
+    {
+      src,
+      alt,
+      fit,
+      aspectRatio,
+      className,
+      loading: lazy ? "lazy" : "eager"
+    }
+  );
+};
+registerComponent({
+  name: "Image",
+  defaults: {
+    src: "https://via.placeholder.com/800x450?text=Codefolio+Image",
+    alt: "Placeholder Image",
+    fit: "cover",
+    lazy: true,
+    aspectRatio: "auto",
+    className: ""
+  },
+  component: ImageCanvas,
+  isCmsEditor: true,
+  category: "Media"
+});
+
+// app/web/thirdparty/components/video/index.tsx
+var import_jsx_runtime13 = __toESM(require_jsx_runtime());
+var Video = ({
+  src,
+  poster,
+  controls = true,
+  autoPlay = false,
+  loop = false,
+  muted = false,
+  preload = "metadata",
+  className,
+  children,
+  ...rest
+}) => {
+  const classes = [
+    "cf-video",
+    className
+  ].filter(Boolean).join(" ");
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
+    "video",
+    {
+      src,
+      poster,
+      controls,
+      autoPlay,
+      loop,
+      muted,
+      preload,
+      className: classes,
+      playsInline: true,
+      ...rest,
+      children: [
+        children,
+        "Your browser does not support the video tag."
+      ]
+    }
+  );
+};
+var VideoCanvas = ({ data }) => {
+  const {
+    src,
+    poster,
+    controls,
+    autoPlay,
+    loop,
+    muted,
+    preload,
+    className
+  } = data;
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+    Video,
+    {
+      src,
+      poster,
+      controls,
+      autoPlay,
+      loop,
+      muted,
+      preload,
+      className
+    }
+  );
+};
+registerComponent({
+  name: "Video",
+  defaults: {
+    src: "",
+    poster: "",
+    controls: true,
+    autoPlay: false,
+    loop: false,
+    muted: false,
+    preload: "metadata",
+    className: ""
+  },
+  component: VideoCanvas,
+  isCmsEditor: true,
+  category: "Media"
+});
+
+// app/web/thirdparty/components/grid/index.tsx
+var import_jsx_runtime14 = __toESM(require_jsx_runtime());
+var Grid = ({
+  gap = "md",
+  align = "stretch",
+  justify = "flex-start",
+  wrap = true,
+  className,
+  children
+}) => {
+  const classes = [
+    "cf-grid",
+    `cf-grid--gap-${gap}`,
+    `cf-grid--align-${align}`,
+    `cf-grid--justify-${justify}`,
+    wrap ? "cf-grid--wrap" : "",
+    className
+  ].filter(Boolean).join(" ");
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: classes, children });
+};
+var GridCanvas = ({ data, children }) => /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Grid, { ...data, children });
+registerComponent({
+  name: "Grid",
+  defaults: { gap: "md", align: "stretch", justify: "flex-start", wrap: true, className: "" },
+  component: GridCanvas,
+  isCmsEditor: true,
+  category: "Layout"
+});
+
+// app/web/thirdparty/components/column/index.tsx
+var import_jsx_runtime15 = __toESM(require_jsx_runtime());
+var Column = ({
+  span = 6,
+  mobileSpan = 12,
+  className,
+  children
+}) => {
+  const classes = [
+    "cf-col",
+    `cf-col--${span}`,
+    `cf-col-m--${mobileSpan}`,
+    className
+  ].filter(Boolean).join(" ");
+  return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: classes, children });
+};
+var ColumnCanvas = ({ data, children }) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Column, { ...data, children });
+registerComponent({
+  name: "Column",
+  defaults: { span: 6, mobileSpan: 12, className: "" },
+  component: ColumnCanvas,
+  isCmsEditor: true,
+  category: "Layout"
+});
+
+// app/web/thirdparty/components/carousel-list/index.tsx
+var import_react10 = __toESM(require_react());
+var import_jsx_runtime16 = __toESM(require_jsx_runtime());
+var CarouselList = ({ children }) => {
+  const scrollRef = (0, import_react10.useRef)(null);
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { current: el } = scrollRef;
+      const cardWidth = el.firstElementChild?.clientWidth || 300;
+      const gap = 24;
+      el.scrollBy({
+        left: direction === "next" ? cardWidth + gap : -(cardWidth + gap),
+        behavior: "smooth"
+      });
+    }
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "cf-carousel", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "cf-carousel__controls", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("button", { type: "button", onClick: () => scroll("prev"), className: "cf-carousel__btn", children: "<" }),
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("button", { type: "button", onClick: () => scroll("next"), className: "cf-carousel__btn", children: ">" })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: "cf-carousel__viewport", ref: scrollRef, children })
+  ] });
+};
+registerComponent({
+  name: "CarouselList",
+  defaults: {},
+  component: CarouselList,
+  isCmsEditor: true,
+  category: "Structure"
+});
+
+// app/web/thirdparty/components/card/index.tsx
+var import_jsx_runtime17 = __toESM(require_jsx_runtime());
+var Card = ({
+  title,
+  subtitle,
+  image,
+  showFooter,
+  className,
+  children
+}) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: `cf-card ${className}`, children: [
+    image && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("img", { src: image, className: "cf-card__img", alt: title }),
+    /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "cf-card__body", children: [
+      title && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("h3", { className: "cf-card__title", children: title }),
+      subtitle && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("h4", { className: "cf-card__subtitle", children: subtitle }),
+      /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "cf-card__text", children })
+    ] }),
+    showFooter && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "cf-card__footer", children: "Action Area" })
+  ] });
+};
+registerComponent({
+  name: "Card",
+  defaults: { title: "Card Title", subtitle: "Card Subtitle", showFooter: false, className: "" },
+  component: Card,
+  isCmsEditor: true
+});
+
+// app/web/thirdparty/autocontent/list/index.tsx
+var import_react11 = __toESM(require_react());
+var import_jsx_runtime18 = __toESM(require_jsx_runtime());
 var AutoContentList = ({ data }) => {
   const { apiUrl, listUrl, searchFields = [], columns = [] } = data;
   const addUrl = listUrl + "/add";
   const editUrl = listUrl + "/:id";
-  const [filters, setFilters] = (0, import_react10.useState)(
+  const [filters, setFilters] = (0, import_react11.useState)(
     () => Object.fromEntries(searchFields.map((f) => [f.key, ""]))
   );
-  const [results, setResults] = (0, import_react10.useState)([]);
-  const [loading, setLoading] = (0, import_react10.useState)(false);
-  const [error, setError] = (0, import_react10.useState)(null);
-  const [page, setPage] = (0, import_react10.useState)(1);
-  const [hasMore, setHasMore] = (0, import_react10.useState)(true);
-  const [selected, setSelected] = (0, import_react10.useState)(/* @__PURE__ */ new Set());
-  const [deleting, setDeleting] = (0, import_react10.useState)(false);
+  const [results, setResults] = (0, import_react11.useState)([]);
+  const [loading, setLoading] = (0, import_react11.useState)(false);
+  const [error, setError] = (0, import_react11.useState)(null);
+  const [page, setPage] = (0, import_react11.useState)(1);
+  const [hasMore, setHasMore] = (0, import_react11.useState)(true);
+  const [selected, setSelected] = (0, import_react11.useState)(/* @__PURE__ */ new Set());
+  const [deleting, setDeleting] = (0, import_react11.useState)(false);
   const PAGE_SIZE = 20;
-  const buildApiUrl = (0, import_react10.useCallback)((p) => {
+  const buildApiUrl = (0, import_react11.useCallback)((p) => {
     const params = new URLSearchParams();
     params.set("page", String(p));
     params.set("size", String(PAGE_SIZE));
@@ -22808,7 +23062,7 @@ var AutoContentList = ({ data }) => {
     if (Object.keys(activeFilters).length > 0) params.set("filter", JSON.stringify(activeFilters));
     return `${apiUrl}?${params.toString()}`;
   }, [apiUrl, filters]);
-  const fetchResults = (0, import_react10.useCallback)(async (p) => {
+  const fetchResults = (0, import_react11.useCallback)(async (p) => {
     setLoading(true);
     setError(null);
     setSelected(/* @__PURE__ */ new Set());
@@ -22825,7 +23079,7 @@ var AutoContentList = ({ data }) => {
       setLoading(false);
     }
   }, [buildApiUrl]);
-  (0, import_react10.useEffect)(() => {
+  (0, import_react11.useEffect)(() => {
     fetchResults(page);
   }, [page, fetchResults]);
   const handleSearch = (e) => {
@@ -22859,27 +23113,27 @@ var AutoContentList = ({ data }) => {
     }
   };
   const allSelected = results.length > 0 && results.every((r) => selected.has(r.id));
-  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "cf-auto-list", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "cf-auto-list__inner", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("header", { className: "cf-auto-list__header", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "cf-auto-list__title-group", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("h1", { children: apiUrl.split("/").pop()?.toUpperCase() || "Entries" }),
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("p", { children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "cf-auto-list", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "cf-auto-list__inner", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("header", { className: "cf-auto-list__header", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "cf-auto-list__title-group", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("h1", { children: apiUrl.split("/").pop()?.toUpperCase() || "Entries" }),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("p", { children: [
           results.length,
           " records found"
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "cf-auto-list__header-actions", children: [
-        selected.size > 0 && /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("button", { onClick: handleDeleteSelected, disabled: deleting, className: "cf-auto-list__btn cf-auto-list__btn--danger", children: deleting ? "..." : `Delete ${selected.size}` }),
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("a", { href: addUrl, className: "cf-auto-list__btn cf-auto-list__btn--primary", children: "+ New Entry" })
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "cf-auto-list__header-actions", children: [
+        selected.size > 0 && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("button", { onClick: handleDeleteSelected, disabled: deleting, className: "cf-auto-list__btn cf-auto-list__btn--danger", children: deleting ? "..." : `Delete ${selected.size}` }),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("a", { href: addUrl, className: "cf-auto-list__btn cf-auto-list__btn--primary", children: "+ New Entry" })
       ] })
     ] }),
-    searchFields.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("form", { className: "cf-auto-list__filters", onSubmit: handleSearch, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "cf-auto-list__filter-grid", children: searchFields.map((field) => /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "cf-auto-list__control", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("label", { children: field.label }),
-        field.type === "select" ? /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("select", { value: filters[field.key], onChange: (e) => handleFilterChange(field.key, e.target.value), children: [
-          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("option", { value: "", children: "All" }),
-          field.options?.map((opt) => /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("option", { value: opt.value, children: opt.label }, opt.value))
-        ] }) : /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+    searchFields.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("form", { className: "cf-auto-list__filters", onSubmit: handleSearch, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "cf-auto-list__filter-grid", children: searchFields.map((field) => /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "cf-auto-list__control", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("label", { children: field.label }),
+        field.type === "select" ? /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("select", { value: filters[field.key], onChange: (e) => handleFilterChange(field.key, e.target.value), children: [
+          /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("option", { value: "", children: "All" }),
+          field.options?.map((opt) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("option", { value: opt.value, children: opt.label }, opt.value))
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
           "input",
           {
             type: field.type || "text",
@@ -22889,37 +23143,37 @@ var AutoContentList = ({ data }) => {
           }
         )
       ] }, field.key)) }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "cf-auto-list__filter-btns", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("button", { type: "submit", className: "cf-auto-list__btn", children: "Apply" }),
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("button", { type: "button", className: "cf-auto-list__btn-link", onClick: () => {
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "cf-auto-list__filter-btns", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("button", { type: "submit", className: "cf-auto-list__btn", children: "Apply" }),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("button", { type: "button", className: "cf-auto-list__btn-link", onClick: () => {
           setFilters(Object.fromEntries(searchFields.map((f) => [f.key, ""])));
           setPage(1);
           setTimeout(() => fetchResults(1), 0);
         }, children: "Reset" })
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "cf-auto-list__body", children: [
-      error && /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "cf-auto-list__error", children: error }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "cf-auto-list__table-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("table", { className: "cf-auto-list__table", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("tr", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("th", { className: "w-checkbox", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("input", { type: "checkbox", checked: allSelected, onChange: toggleSelectAll }) }),
-          columns.map((col) => /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("th", { children: col.label }, col.key)),
-          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("th", { className: "w-actions", children: "Actions" })
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "cf-auto-list__body", children: [
+      error && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "cf-auto-list__error", children: error }),
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "cf-auto-list__table-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("table", { className: "cf-auto-list__table", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("tr", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("th", { className: "w-checkbox", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("input", { type: "checkbox", checked: allSelected, onChange: toggleSelectAll }) }),
+          columns.map((col) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("th", { children: col.label }, col.key)),
+          /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("th", { className: "w-actions", children: "Actions" })
         ] }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("tbody", { children: loading ? /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("td", { colSpan: columns.length + 2, className: "cf-auto-list__loading", children: "Loading records..." }) }) : results.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("td", { colSpan: columns.length + 2, className: "cf-auto-list__empty", children: "No data found." }) }) : results.map((row) => /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("tr", { className: selected.has(row.id) ? "is-selected" : "", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("td", { children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("input", { type: "checkbox", checked: selected.has(row.id), onChange: () => toggleSelect(row.id) }) }),
-          columns.map((col) => /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("td", { children: String(row[col.key] ?? "-") }, col.key)),
-          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("td", { children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("a", { href: editUrl.replace(":id", row.id), className: "cf-auto-list__edit-link", children: "Edit" }) })
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("tbody", { children: loading ? /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("td", { colSpan: columns.length + 2, className: "cf-auto-list__loading", children: "Loading records..." }) }) : results.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("td", { colSpan: columns.length + 2, className: "cf-auto-list__empty", children: "No data found." }) }) : results.map((row) => /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("tr", { className: selected.has(row.id) ? "is-selected" : "", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("td", { children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("input", { type: "checkbox", checked: selected.has(row.id), onChange: () => toggleSelect(row.id) }) }),
+          columns.map((col) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("td", { children: String(row[col.key] ?? "-") }, col.key)),
+          /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("td", { children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("a", { href: editUrl.replace(":id", row.id), className: "cf-auto-list__edit-link", children: "Edit" }) })
         ] }, row.id)) })
       ] }) })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("footer", { className: "cf-auto-list__footer", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "cf-auto-list__pagination", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("button", { disabled: page <= 1, onClick: () => setPage((p) => p - 1), children: "Previous" }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("span", { className: "cf-auto-list__page-indicator", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("footer", { className: "cf-auto-list__footer", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "cf-auto-list__pagination", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("button", { disabled: page <= 1, onClick: () => setPage((p) => p - 1), children: "Previous" }),
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("span", { className: "cf-auto-list__page-indicator", children: [
         "Page ",
         page
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("button", { disabled: !hasMore, onClick: () => setPage((p) => p + 1), children: "Next" })
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("button", { disabled: !hasMore, onClick: () => setPage((p) => p + 1), children: "Next" })
     ] }) })
   ] }) });
 };
@@ -22930,9 +23184,9 @@ registerComponent({
 });
 
 // app/web/thirdparty/page.tsx
-var import_jsx_runtime13 = __toESM(require_jsx_runtime());
+var import_jsx_runtime19 = __toESM(require_jsx_runtime());
 var Page = () => {
-  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(WsListener, { children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(ConfigProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(RouterProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(ThemeLoader, { children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Canvas, {}) }) }) }) });
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(WsListener, { children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(ConfigProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(RouterProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(ThemeLoader, { children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Canvas, {}) }) }) }) });
 };
 
 // app/web/themes/default/header/config.json
@@ -22952,14 +23206,14 @@ var config_default2 = {
 };
 
 // app/web/themes/default/header/header.tsx
-var import_jsx_runtime14 = __toESM(require_jsx_runtime());
+var import_jsx_runtime20 = __toESM(require_jsx_runtime());
 var Header = () => {
   const { path } = useRouter();
   const config = useModuleConfig(config_default2.key, config_default2.config);
   const isExternal = (to) => to.startsWith("http");
-  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("header", { className: "theme-header border-bottom shadow-sm", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "container d-flex justify-content-between align-items-center py-3", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "nav-logo h4 mb-0 fw-bold text-uppercase", children: config.siteTitle }),
-    /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("nav", { className: "nav nav-tabs border-0", children: config?.links?.map((item) => isExternal(item.to) ? /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("header", { className: "theme-header border-bottom shadow-sm", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "container d-flex justify-content-between align-items-center py-3", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "nav-logo h4 mb-0 fw-bold text-uppercase", children: config.siteTitle }),
+    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("nav", { className: "nav nav-tabs border-0", children: config?.links?.map((item) => isExternal(item.to) ? /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
       "a",
       {
         href: item.to,
@@ -22967,19 +23221,19 @@ var Header = () => {
         target: "_blank",
         rel: "noopener noreferrer",
         children: [
-          item.icon ? /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("i", { className: item.icon }) : null,
-          item.label ? /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { children: item.label }) : null
+          item.icon ? /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("i", { className: item.icon }) : null,
+          item.label ? /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { children: item.label }) : null
         ]
       },
       item.to
-    ) : /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
+    ) : /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
       "button",
       {
         className: `nav-link border-0 ${path === item.to ? "active" : ""}`,
         type: "button",
         children: [
-          item.icon ? /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("i", { className: item.icon }) : null,
-          item.label ? /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { children: item.label }) : null
+          item.icon ? /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("i", { className: item.icon }) : null,
+          item.label ? /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { children: item.label }) : null
         ]
       },
       item.to
@@ -23007,19 +23261,19 @@ var config_default3 = {
 };
 
 // app/web/themes/default/footer/index.tsx
-var import_jsx_runtime15 = __toESM(require_jsx_runtime());
+var import_jsx_runtime21 = __toESM(require_jsx_runtime());
 var Footer = () => {
   const config = useModuleConfig(config_default3.key, config_default3.config);
   const visibleSocials = config.socials.filter((s) => s.href.trim() !== "");
-  return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("footer", { className: "theme-footer border-top mt-auto py-4 bg-light", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "container", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "footer-content d-flex flex-column flex-md-row justify-content-between align-items-center", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("p", { className: "mb-0 text-muted", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("footer", { className: "theme-footer border-top mt-auto py-4 bg-light", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "container", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "footer-content d-flex flex-column flex-md-row justify-content-between align-items-center", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("p", { className: "mb-0 text-muted", children: [
       "\xA9 ",
       (/* @__PURE__ */ new Date()).getFullYear(),
       " \u2014",
       " ",
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "fw-semibold", children: config.copyrightName })
+      /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "fw-semibold", children: config.copyrightName })
     ] }),
-    visibleSocials.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "footer-socials d-flex gap-3 mt-3 mt-md-0", children: visibleSocials.map((social) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+    visibleSocials.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "footer-socials d-flex gap-3 mt-3 mt-md-0", children: visibleSocials.map((social) => /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
       "a",
       {
         href: social.href,
@@ -23039,22 +23293,22 @@ registerComponent({
 });
 
 // app/web/themes/default/index.tsx
-var import_jsx_runtime16 = __toESM(require_jsx_runtime());
+var import_jsx_runtime22 = __toESM(require_jsx_runtime());
 var DefaultTheme = ({ children }) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "theme-default", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(Header, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("main", { className: "theme-content", children }),
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(Footer, {})
+  return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "theme-default", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Header, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("main", { className: "theme-content", children }),
+    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Footer, {})
   ] });
 };
 registerTheme("default", DefaultTheme);
 
 // app/web/themes/@admin/header/index.tsx
-var import_react14 = __toESM(require_react());
+var import_react15 = __toESM(require_react());
 
 // app/web/themes/@admin/components/vcs-status/index.tsx
-var import_react11 = __toESM(require_react());
-var import_jsx_runtime17 = __toESM(require_jsx_runtime());
+var import_react12 = __toESM(require_react());
+var import_jsx_runtime23 = __toESM(require_jsx_runtime());
 var statusIcons = {
   modified: "M",
   added: "A",
@@ -23064,10 +23318,10 @@ var statusIcons = {
   other: "\u2022"
 };
 var VcsStatusBar = () => {
-  const [data, setData] = (0, import_react11.useState)(null);
-  const [error, setError] = (0, import_react11.useState)(null);
-  const [loading, setLoading] = (0, import_react11.useState)(true);
-  const fetchData = (0, import_react11.useCallback)(async () => {
+  const [data, setData] = (0, import_react12.useState)(null);
+  const [error, setError] = (0, import_react12.useState)(null);
+  const [loading, setLoading] = (0, import_react12.useState)(true);
+  const fetchData = (0, import_react12.useCallback)(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -23080,34 +23334,34 @@ var VcsStatusBar = () => {
       setLoading(false);
     }
   }, []);
-  (0, import_react11.useEffect)(() => {
+  (0, import_react12.useEffect)(() => {
     fetchData();
   }, [fetchData]);
   if (loading) {
-    return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "cf-vcs", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "cf-vcs__spinner" }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("div", { className: "cf-vcs", children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("span", { className: "cf-vcs__spinner" }) });
   }
   if (error || !data) {
-    return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: `cf-vcs ${error ? "cf-vcs--error" : ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { children: error || "No Data" }),
-      /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("button", { className: "cf-vcs__refresh", onClick: fetchData, children: "\u21BA" })
+    return /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("div", { className: `cf-vcs ${error ? "cf-vcs--error" : ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("span", { children: error || "No Data" }),
+      /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("button", { className: "cf-vcs__refresh", onClick: fetchData, children: "\u21BA" })
     ] });
   }
   const { status, lastCommit } = data;
   const hasChanges = status.changeCount > 0;
   const timestamp = lastCommit ? new Date(lastCommit.timestamp).toLocaleString() : "";
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: `cf-vcs ${hasChanges ? "cf-vcs--dirty" : "cf-vcs--clean"}`, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "cf-vcs__section", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("span", { className: "cf-vcs__branch", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "cf-vcs__branch-icon", children: "\u2387" }),
+  return /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("div", { className: `cf-vcs ${hasChanges ? "cf-vcs--dirty" : "cf-vcs--clean"}`, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("div", { className: "cf-vcs__section", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("span", { className: "cf-vcs__branch", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("span", { className: "cf-vcs__branch-icon", children: "\u2387" }),
         " ",
         status.branch
       ] }),
-      (status.ahead > 0 || status.behind > 0) && /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("span", { className: "cf-vcs__sync", children: [
+      (status.ahead > 0 || status.behind > 0) && /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("span", { className: "cf-vcs__sync", children: [
         status.ahead > 0 && `\u2191${status.ahead}`,
         status.behind > 0 && `\u2193${status.behind}`
       ] })
     ] }),
-    hasChanges && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "cf-vcs__section", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+    hasChanges && /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("div", { className: "cf-vcs__section", children: /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)(
       "span",
       {
         className: "cf-vcs__changes",
@@ -23118,23 +23372,23 @@ var VcsStatusBar = () => {
         ]
       }
     ) }),
-    lastCommit && /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "cf-vcs__section cf-vcs__commit", title: `${lastCommit.message}
+    lastCommit && /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("div", { className: "cf-vcs__section cf-vcs__commit", title: `${lastCommit.message}
 
 ${timestamp}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "cf-vcs__commit-hash", children: lastCommit.shortHash }),
-      /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "cf-vcs__commit-message", children: lastCommit.message })
+      /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("span", { className: "cf-vcs__commit-hash", children: lastCommit.shortHash }),
+      /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("span", { className: "cf-vcs__commit-message", children: lastCommit.message })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("button", { className: "cf-vcs__refresh", onClick: fetchData, title: "Refresh Status", children: "\u21BA" })
+    /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("button", { className: "cf-vcs__refresh", onClick: fetchData, title: "Refresh Status", children: "\u21BA" })
   ] });
 };
 
 // app/web/themes/@admin/components/command-search/index.tsx
-var import_react13 = __toESM(require_react());
+var import_react14 = __toESM(require_react());
 
 // app/web/thirdparty/hooks/use-hotkey.ts
-var import_react12 = __toESM(require_react());
+var import_react13 = __toESM(require_react());
 function useHotKey(keys, callback) {
-  (0, import_react12.useEffect)(() => {
+  (0, import_react13.useEffect)(() => {
     const modifiers = {
       ctrl: "ctrlKey",
       shift: "shiftKey",
@@ -23158,20 +23412,20 @@ function useHotKey(keys, callback) {
 }
 
 // app/web/themes/@admin/components/command-search/index.tsx
-var import_jsx_runtime18 = __toESM(require_jsx_runtime());
+var import_jsx_runtime24 = __toESM(require_jsx_runtime());
 var SEARCHABLE_INDICES = {
   page: ["pageTitle"]
 };
 var CommandSearch = ({ navigation: navigation2 }) => {
-  const [query, setQuery] = (0, import_react13.useState)("");
-  const [isSearching, setIsSearching] = (0, import_react13.useState)(false);
-  const [results, setResults] = (0, import_react13.useState)([]);
-  const [showOverlay, setShowOverlay] = (0, import_react13.useState)(false);
-  const [selectedResult, setSelectedResult] = (0, import_react13.useState)(null);
-  const inputRef = (0, import_react13.useRef)(null);
+  const [query, setQuery] = (0, import_react14.useState)("");
+  const [isSearching, setIsSearching] = (0, import_react14.useState)(false);
+  const [results, setResults] = (0, import_react14.useState)([]);
+  const [showOverlay, setShowOverlay] = (0, import_react14.useState)(false);
+  const [selectedResult, setSelectedResult] = (0, import_react14.useState)(null);
+  const inputRef = (0, import_react14.useRef)(null);
   useHotKey(["ctrl", "k"], () => inputRef.current?.focus());
   useHotKey(["meta", "k"], () => inputRef.current?.focus());
-  const flattenedNav = (0, import_react13.useMemo)(() => {
+  const flattenedNav = (0, import_react14.useMemo)(() => {
     const flat = [];
     const recurse = (items) => {
       items.forEach((item) => {
@@ -23184,7 +23438,7 @@ var CommandSearch = ({ navigation: navigation2 }) => {
     recurse(navigation2);
     return flat;
   }, [navigation2]);
-  (0, import_react13.useEffect)(() => {
+  (0, import_react14.useEffect)(() => {
     if (query.length < 2) {
       setResults([]);
       setShowOverlay(false);
@@ -23265,10 +23519,10 @@ var CommandSearch = ({ navigation: navigation2 }) => {
     setShowOverlay(false);
     setSelectedResult(null);
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "command-search-container", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "command-search", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "search-icon", children: isSearching ? "\u231B" : "\u26B2" }),
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("div", { className: "command-search-container", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("div", { className: "command-search", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("span", { className: "search-icon", children: isSearching ? "\u231B" : "\u26B2" }),
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(
         "input",
         {
           ref: inputRef,
@@ -23281,34 +23535,34 @@ var CommandSearch = ({ navigation: navigation2 }) => {
           }
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("kbd", { className: "key-hint", children: "\u2318K" })
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("kbd", { className: "key-hint", children: "\u2318K" })
     ] }),
-    showOverlay && results.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "search-results-overlay", children: selectedResult ? /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "action-prompt", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("p", { children: [
+    showOverlay && results.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("div", { className: "search-results-overlay", children: selectedResult ? /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("div", { className: "action-prompt", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("p", { children: [
         "Action for ",
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("strong", { children: selectedResult.label })
+        /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("strong", { children: selectedResult.label })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "btn-group", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("button", { onClick: () => handleAction("view", selectedResult), children: "View in New Tab" }),
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("button", { onClick: () => handleAction("edit", selectedResult), className: "primary", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("div", { className: "btn-group", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("button", { onClick: () => handleAction("view", selectedResult), children: "View in New Tab" }),
+        /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("button", { onClick: () => handleAction("edit", selectedResult), className: "primary", children: [
           "Edit ",
           selectedResult.contentType || "Item"
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("button", { onClick: () => setSelectedResult(null), className: "ghost", children: "Cancel" })
+        /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("button", { onClick: () => setSelectedResult(null), className: "ghost", children: "Cancel" })
       ] })
-    ] }) : /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("ul", { className: "search-results-list", children: results.map((res, i) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("li", { onClick: () => setSelectedResult(res), children: /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "res-info", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "res-label", children: res.label }),
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "res-tag", children: res.type === "page" ? "Live on Page" : res.contentType || "Menu" })
+    ] }) : /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("ul", { className: "search-results-list", children: results.map((res, i) => /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("li", { onClick: () => setSelectedResult(res), children: /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("div", { className: "res-info", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("span", { className: "res-label", children: res.label }),
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("span", { className: "res-tag", children: res.type === "page" ? "Live on Page" : res.contentType || "Menu" })
     ] }) }, `${res.type}-${i}`)) }) }) : null
   ] });
 };
 
 // app/web/themes/@admin/header/index.tsx
-var import_jsx_runtime19 = __toESM(require_jsx_runtime());
+var import_jsx_runtime25 = __toESM(require_jsx_runtime());
 var AdminHeader = () => {
-  const [isSaving, setIsSaving] = (0, import_react14.useState)(false);
-  const [navigation2, setNavigation] = (0, import_react14.useState)([]);
-  (0, import_react14.useEffect)(() => {
+  const [isSaving, setIsSaving] = (0, import_react15.useState)(false);
+  const [navigation2, setNavigation] = (0, import_react15.useState)([]);
+  (0, import_react15.useEffect)(() => {
     const fetchNav = async () => {
       try {
         const response = await fetch("/en-admin/nav.json");
@@ -23320,7 +23574,7 @@ var AdminHeader = () => {
     };
     fetchNav();
   }, []);
-  (0, import_react14.useEffect)(() => {
+  (0, import_react15.useEffect)(() => {
     const ws = new WebSocket(`ws://${window.location.host}/ws`);
     ws.onmessage = (event) => {
       if (event.data === "SAVING_START") setIsSaving(true);
@@ -23328,51 +23582,51 @@ var AdminHeader = () => {
     };
     return () => ws.close();
   }, []);
-  const RenderNavItems = ({ items }) => /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("ul", { className: "nav-list", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("a", { href: "/", className: "nav-link", children: "\u2190 Back" }) }),
-    items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("li", { className: "nav-item-wrapper", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("a", { href: item.href || "#", className: "nav-link", children: [
+  const RenderNavItems = ({ items }) => /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("ul", { className: "nav-list", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("a", { href: "/", className: "nav-link", children: "\u2190 Back" }) }),
+    items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("li", { className: "nav-item-wrapper", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("a", { href: item.href || "#", className: "nav-link", children: [
         item.label,
-        item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { className: "chevron", children: "\u25BE" }) : null
+        item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("span", { className: "chevron", children: "\u25BE" }) : null
       ] }),
-      item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "nav-dropdown", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(RenderNavItems, { items: item.children }) }) : null
+      item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: "nav-dropdown", children: /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(RenderNavItems, { items: item.children }) }) : null
     ] }, index))
   ] });
-  return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("header", { className: "platform-header", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "header-left", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "workspace-switcher", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "logo-box", children: "CF" }),
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "label-group", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { className: "title", children: "CodeFolio" }),
-          /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { className: "status", children: "Dev Mode" })
+  return /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("header", { className: "platform-header", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("div", { className: "header-left", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("div", { className: "workspace-switcher", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: "logo-box", children: "CF" }),
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("div", { className: "label-group", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("span", { className: "title", children: "CodeFolio" }),
+          /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("span", { className: "status", children: "Dev Mode" })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("nav", { className: "dynamic-nav", children: navigation2.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(RenderNavItems, { items: navigation2 }) : /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "nav-skeleton" }) })
+      /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("nav", { className: "dynamic-nav", children: navigation2.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(RenderNavItems, { items: navigation2 }) : /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: "nav-skeleton" }) })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "header-center", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(CommandSearch, { navigation: navigation2 }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "header-right", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "system-indicators", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: `save-status ${isSaving ? "is-saving" : ""}`, children: isSaving ? "Syncing..." : "Synced" }),
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(VcsStatusBar, {})
+    /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: "header-center", children: /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(CommandSearch, { navigation: navigation2 }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("div", { className: "header-right", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("div", { className: "system-indicators", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: `save-status ${isSaving ? "is-saving" : ""}`, children: isSaving ? "Syncing..." : "Synced" }),
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(VcsStatusBar, {})
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("button", { className: "deploy-btn", children: "Ship Changes" }),
-      /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "profile-pill", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("img", { src: "https://api.dicebear.com/7.x/shapes/svg?seed=noir", alt: "User" }) })
+      /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("button", { className: "deploy-btn", children: "Ship Changes" }),
+      /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: "profile-pill", children: /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("img", { src: "https://api.dicebear.com/7.x/shapes/svg?seed=noir", alt: "User" }) })
     ] })
   ] });
 };
 
 // app/web/themes/@admin/components/config/footer/index.tsx
-var import_react15 = __toESM(require_react());
-var import_jsx_runtime20 = __toESM(require_jsx_runtime());
+var import_react16 = __toESM(require_react());
+var import_jsx_runtime26 = __toESM(require_jsx_runtime());
 var FooterConfigEditor = ({ data }) => {
   const cfgKey = "footer";
   const initialSocials = data.socials ? Array.isArray(data.socials) ? data.socials : Object.values(data.socials) : [];
-  const [socials, setSocials] = (0, import_react15.useState)(initialSocials);
+  const [socials, setSocials] = (0, import_react16.useState)(initialSocials);
   const addSocial = () => setSocials([...socials, { label: "", href: "" }]);
   const removeSocial = (index) => setSocials(socials.filter((_, i) => i !== index));
-  return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-footer-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Footer" }),
-    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-footer-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("div", { className: "cf-footer-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Footer" }),
+    /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: "cf-footer-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(
       Field,
       {
         name: `${cfgKey}[copyrightName]`,
@@ -23382,16 +23636,16 @@ var FooterConfigEditor = ({ data }) => {
         required: true
       }
     ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-footer-editor__divider" }),
-    /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-footer-editor__socials", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-footer-editor__socials-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("label", { className: "cf-footer-editor__label", children: "Social Media" }),
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("button", { type: "button", className: "cf-footer-editor__add-btn", onClick: addSocial, children: "+ Add Social" })
+    /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: "cf-footer-editor__divider" }),
+    /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("div", { className: "cf-footer-editor__socials", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("div", { className: "cf-footer-editor__socials-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("label", { className: "cf-footer-editor__label", children: "Social Media" }),
+        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("button", { type: "button", className: "cf-footer-editor__add-btn", onClick: addSocial, children: "+ Add Social" })
       ] }),
-      socials.map((social, index) => /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "cf-footer-editor__social-row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Field, { name: `${cfgKey}[socials][${index}][label]`, kind: "input", label: "Platform", defaultValue: social.label }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Field, { name: `${cfgKey}[socials][${index}][href]`, kind: "input", label: "URL", defaultValue: social.href }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("button", { type: "button", className: "cf-footer-editor__remove-btn", onClick: () => removeSocial(index), children: "\xD7" })
+      socials.map((social, index) => /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("div", { className: "cf-footer-editor__social-row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(Field, { name: `${cfgKey}[socials][${index}][label]`, kind: "input", label: "Platform", defaultValue: social.label }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(Field, { name: `${cfgKey}[socials][${index}][href]`, kind: "input", label: "URL", defaultValue: social.href }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("button", { type: "button", className: "cf-footer-editor__remove-btn", onClick: () => removeSocial(index), children: "\xD7" })
       ] }, index))
     ] })
   ] });
@@ -23403,16 +23657,16 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/header/index.tsx
-var import_react17 = __toESM(require_react());
+var import_react18 = __toESM(require_react());
 
 // app/web/themes/@admin/components/page-picker/index.tsx
-var import_react16 = __toESM(require_react());
-var import_jsx_runtime21 = __toESM(require_jsx_runtime());
+var import_react17 = __toESM(require_react());
+var import_jsx_runtime27 = __toESM(require_jsx_runtime());
 var PageSearchPicker = ({ onSelect }) => {
-  const [query, setQuery] = (0, import_react16.useState)("");
-  const [results, setResults] = (0, import_react16.useState)([]);
-  const [searching, setSearching] = (0, import_react16.useState)(false);
-  (0, import_react16.useEffect)(() => {
+  const [query, setQuery] = (0, import_react17.useState)("");
+  const [results, setResults] = (0, import_react17.useState)([]);
+  const [searching, setSearching] = (0, import_react17.useState)(false);
+  (0, import_react17.useEffect)(() => {
     if (query.length < 2) {
       setResults([]);
       return;
@@ -23432,9 +23686,9 @@ var PageSearchPicker = ({ onSelect }) => {
     }, 300);
     return () => clearTimeout(timer);
   }, [query]);
-  return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "cf-page-picker", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "cf-page-picker__input-wrapper", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "cf-page-picker", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "cf-page-picker__input-wrapper", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
         "input",
         {
           type: "text",
@@ -23444,15 +23698,15 @@ var PageSearchPicker = ({ onSelect }) => {
           className: "cf-page-picker__input"
         }
       ),
-      searching && /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "cf-page-picker__spinner" })
+      searching && /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: "cf-page-picker__spinner" })
     ] }),
-    results.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("ul", { className: "cf-page-picker__results", children: results.map((page) => /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("li", { className: "cf-page-picker__item", onClick: () => {
+    results.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("ul", { className: "cf-page-picker__results", children: results.map((page) => /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("li", { className: "cf-page-picker__item", onClick: () => {
       onSelect(page);
       setQuery("");
       setResults([]);
     }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "cf-page-picker__title", children: page.pageTitle }),
-      /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { className: "cf-page-picker__path", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "cf-page-picker__title", children: page.pageTitle }),
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("span", { className: "cf-page-picker__path", children: [
         "/page/",
         page.id
       ] })
@@ -23461,12 +23715,12 @@ var PageSearchPicker = ({ onSelect }) => {
 };
 
 // app/web/themes/@admin/components/config/header/index.tsx
-var import_jsx_runtime22 = __toESM(require_jsx_runtime());
+var import_jsx_runtime28 = __toESM(require_jsx_runtime());
 var HeaderConfigEditor = ({ data }) => {
   const cfgKey = "header";
-  const [isSearching, setIsSearching] = (0, import_react17.useState)(false);
+  const [isSearching, setIsSearching] = (0, import_react18.useState)(false);
   const initialLinks = data.links ? Array.isArray(data.links) ? data.links : Object.values(data.links) : [];
-  const [links, setLinks] = (0, import_react17.useState)(initialLinks);
+  const [links, setLinks] = (0, import_react18.useState)(initialLinks);
   const addCustomLink = () => {
     setLinks([...links, { to: "", label: "New Link", icon: "" }]);
   };
@@ -23481,9 +23735,9 @@ var HeaderConfigEditor = ({ data }) => {
   const removeLink = (index) => {
     setLinks(links.filter((_, i) => i !== index));
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "cf-header-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Header" }),
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "cf-header-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "cf-header-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Header" }),
+    /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "cf-header-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
       Field,
       {
         name: `${cfgKey}[siteTitle]`,
@@ -23494,12 +23748,12 @@ var HeaderConfigEditor = ({ data }) => {
         required: true
       }
     ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "cf-header-editor__divider" }),
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "cf-header-editor__links", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "cf-header-editor__links-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("label", { className: "cf-header-editor__label", children: "Navigation & Social Icons" }),
-        /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "cf-header-editor__actions", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "cf-header-editor__divider" }),
+    /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "cf-header-editor__links", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "cf-header-editor__links-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("label", { className: "cf-header-editor__label", children: "Navigation & Social Icons" }),
+        /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "cf-header-editor__actions", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
             "button",
             {
               type: "button",
@@ -23508,7 +23762,7 @@ var HeaderConfigEditor = ({ data }) => {
               children: isSearching ? "Cancel" : "+ Add Existing Page"
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
             "button",
             {
               type: "button",
@@ -23519,9 +23773,9 @@ var HeaderConfigEditor = ({ data }) => {
           )
         ] })
       ] }),
-      isSearching && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "cf-header-editor__search-container", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(PageSearchPicker, { onSelect: addPageLink }) }),
-      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "cf-header-editor__link-row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+      isSearching && /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "cf-header-editor__search-container", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(PageSearchPicker, { onSelect: addPageLink }) }),
+      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "cf-header-editor__link-row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
           Field,
           {
             name: `${cfgKey}[links][${index}][to]`,
@@ -23531,7 +23785,7 @@ var HeaderConfigEditor = ({ data }) => {
             required: true
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
           Field,
           {
             name: `${cfgKey}[links][${index}][label]`,
@@ -23540,7 +23794,7 @@ var HeaderConfigEditor = ({ data }) => {
             defaultValue: link.label || ""
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
           Field,
           {
             name: `${cfgKey}[links][${index}][icon]`,
@@ -23550,7 +23804,7 @@ var HeaderConfigEditor = ({ data }) => {
             placeholder: "fab fa-github"
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
           "button",
           {
             type: "button",
@@ -23574,20 +23828,20 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/homepage/index.tsx
-var import_react18 = __toESM(require_react());
-var import_jsx_runtime23 = __toESM(require_jsx_runtime());
+var import_react19 = __toESM(require_react());
+var import_jsx_runtime29 = __toESM(require_jsx_runtime());
 var HomepageEditor = ({ data }) => {
   const cfgKey = "homepage";
-  const [selectedPage, setSelectedPage] = (0, import_react18.useState)(data.homepage);
+  const [selectedPage, setSelectedPage] = (0, import_react19.useState)(data.homepage);
   const handlePageSelect = (page) => {
     setSelectedPage(`/page/${page.id}`);
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("div", { className: "cf-homepage-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/HomepageEditor" }),
-    /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("div", { className: "cf-homepage-editor__group", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("label", { className: "cf-header-editor__label", children: "Default Homepage" }),
-      /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("p", { className: "cf-homepage-editor__help", children: "Select the page that visitors see when they first arrive at your site." }),
-      /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "cf-homepage-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/HomepageEditor" }),
+    /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "cf-homepage-editor__group", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("label", { className: "cf-header-editor__label", children: "Default Homepage" }),
+      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("p", { className: "cf-homepage-editor__help", children: "Select the page that visitors see when they first arrive at your site." }),
+      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(
         "input",
         {
           type: "hidden",
@@ -23595,10 +23849,10 @@ var HomepageEditor = ({ data }) => {
           value: selectedPage
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("div", { className: "cf-homepage-editor__picker-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(PageSearchPicker, { onSelect: handlePageSelect }) }),
-      selectedPage && /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("div", { className: "cf-homepage-editor__current", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("div", { className: "cf-homepage-editor__picker-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(PageSearchPicker, { onSelect: handlePageSelect }) }),
+      selectedPage && /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "cf-homepage-editor__current", children: [
         "Currently selected: ",
-        /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("code", { children: selectedPage })
+        /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("code", { children: selectedPage })
       ] })
     ] })
   ] });
@@ -23613,19 +23867,19 @@ registerComponent({
 });
 
 // app/web/themes/@admin/index.tsx
-var import_jsx_runtime24 = __toESM(require_jsx_runtime());
+var import_jsx_runtime30 = __toESM(require_jsx_runtime());
 var AdminThemeWrapper = (props) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("div", { className: "codefolio-default-admin", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(AdminHeader, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("div", { className: "content", children: props.children })
+  return /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: "codefolio-default-admin", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(AdminHeader, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("div", { className: "content", children: props.children })
   ] });
 };
 registerTheme("@admin", AdminThemeWrapper);
 
 // app/web/index.tsx
-var import_jsx_runtime25 = __toESM(require_jsx_runtime());
+var import_jsx_runtime31 = __toESM(require_jsx_runtime());
 var root = (0, import_client.createRoot)(document.getElementById("root"));
-root.render(/* @__PURE__ */ (0, import_jsx_runtime25.jsx)(Page, {}));
+root.render(/* @__PURE__ */ (0, import_jsx_runtime31.jsx)(Page, {}));
 /*! Bundled license information:
 
 scheduler/cjs/scheduler.development.js:

@@ -1,0 +1,41 @@
+.cf-grid {
+  display: flex;
+  width: 100%;
+  
+  &--wrap { flex-wrap: wrap; }
+
+  // Alignment
+  &--align-center { align-items: center; }
+  &--align-flex-start { align-items: flex-start; }
+  &--align-flex-end { align-items: flex-end; }
+  &--align-stretch { align-items: stretch; }
+
+  // Spacing (Gaps)
+  &--gap-none { margin: 0; .cf-col { padding: 0; } }
+  &--gap-sm { margin: -0.5rem; .cf-col { padding: 0.5rem; } }
+  &--gap-md { margin: -1rem; .cf-col { padding: 1rem; } }
+  &--gap-lg { margin: -2rem; .cf-col { padding: 2rem; } }
+}
+
+// 12-Column Math
+.cf-col {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+
+  @for $i from 1 through 12 {
+    &--#{$i} {
+      width: percentage(calc($i / 12));
+    }
+  }
+}
+
+// Mobile Overrides
+@media (max-width: 768px) {
+  .cf-col {
+    @for $i from 1 through 12 {
+      &-m--#{$i} {
+        width: percentage(calc($i / 12));
+      }
+    }
+  }
+}

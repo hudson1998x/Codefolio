@@ -1,0 +1,14 @@
+.cf-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  border-radius: inherit; // Follows parent container rounding
+  background-color: #000; // Prevents flash of white before video/poster loads
+  
+  // Custom focus state for accessibility
+  &:focus {
+    outline: 2px solid #0071e3;
+    outline-offset: 2px;
+  }
+}
