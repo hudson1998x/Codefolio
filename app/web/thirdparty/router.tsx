@@ -3,6 +3,7 @@ import React, { createContext, useContext, ReactNode, PropsWithChildren, FC } fr
 import { useEffect, useState, useCallback } from 'react';
 import homepageconfig from './configs/homepage-config/config.json'
 import { fetchContent } from './utils/fetch-content'
+import { getSafeUrl } from './utils/safe-url';
 
 /**
  * Unified Page Content Interface
@@ -221,7 +222,7 @@ export const Link: FC<LinkProps> = ({ to, children, className, onClick }) => {
   };
 
   return (
-    <a href={to} onClick={handleClick} className={className}>
+    <a href={getSafeUrl(to)} onClick={handleClick} className={className}>
       {children}
     </a>
   );

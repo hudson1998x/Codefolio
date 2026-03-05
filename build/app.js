@@ -21788,6 +21788,20 @@ var config_default = {
   }
 };
 
+// app/web/thirdparty/utils/safe-url.ts
+var getSafeUrl = (url) => {
+  if (/^(?:[a-z]+:)?\/\//i.test(url) || url.startsWith("mailto:") || url.startsWith("tel:")) {
+    return url;
+  }
+  const clean = url.startsWith("/") ? url : `/${url}`;
+  if (window.location.hostname.endsWith("github.io")) {
+    const repo = window.location.pathname.split("/")[1];
+    if (clean.startsWith(`/${repo}/`)) return clean;
+    return `/${repo}${clean}`;
+  }
+  return clean;
+};
+
 // app/web/thirdparty/router.tsx
 var import_jsx_runtime2 = __toESM(require_jsx_runtime());
 var getCleanPath = () => {
@@ -25113,7 +25127,7 @@ var BlogPage = () => {
           "#",
           t
         ] }, t)) }),
-        /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("a", { href: `/blog/${post.id}`, className: "read-link", children: "Read More" })
+        /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("a", { href: getSafeUrl(`/blog/${post.id}`), className: "read-link", children: "Read More" })
       ] })
     ] }) }, post.id)) }),
     visibleCount < filteredEntries.length && /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("div", { ref: loaderRef, className: "infinite-loader", children: /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("div", { className: "dot-pulse" }) }),
@@ -25522,7 +25536,7 @@ var AdminHeader = () => {
     return () => ws.close();
   }, []);
   const RenderNavItems = ({ items, noBack }) => /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("ul", { className: "nav-list", children: [
-    !noBack ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("a", { href: "/", className: "nav-link", children: "\u2190 Back" }) }) : null,
+    !noBack ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("a", { href: getSafeUrl("/"), className: "nav-link", children: "\u2190 Back" }) }) : null,
     items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("li", { className: "nav-item-wrapper", children: [
       /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("a", { href: item.href || "#", className: "nav-link", children: [
         item.label,

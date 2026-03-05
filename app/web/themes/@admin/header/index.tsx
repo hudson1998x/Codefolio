@@ -4,6 +4,7 @@ import { useHotKey } from '@hooks/use-hotkey';
 import { VcsStatusBar } from '../components/vcs-status';
 import { Link } from '@router';
 import { CommandSearch } from '../components/command-search';
+import { getSafeUrl } from 'app/web/thirdparty/utils/safe-url';
 
 /** Navigation Interface */
 interface NavConfig {
@@ -43,7 +44,7 @@ export const AdminHeader = () => {
 
   const RenderNavItems = ({ items, noBack }: { items: NavConfig[], noBack?: boolean }) => (
     <ul className="nav-list">
-      {!noBack ? <li className='nav-item-wrapper'><a href={'/'} className="nav-link">&larr; Back</a></li> : null}
+      {!noBack ? <li className='nav-item-wrapper'><a href={getSafeUrl('/')} className="nav-link">&larr; Back</a></li> : null}
       {items.map((item, index) => (
         <li key={index} className="nav-item-wrapper">
           <a href={item.href || '#'} className="nav-link">

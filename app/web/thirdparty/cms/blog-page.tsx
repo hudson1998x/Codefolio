@@ -2,6 +2,7 @@ import { registerComponent } from "@components/registry";
 import { FC, useEffect, useState, useMemo, useRef, useCallback } from "react";
 import './style.scss';
 import { fetchContent } from "../utils/fetch-content";
+import { getSafeUrl } from "../utils/safe-url";
 
 interface BlogEntry {
   id: number;
@@ -177,7 +178,7 @@ const BlogPage: FC<{}> = () => {
                 <div className="tags-list">
                   {post.tags?.slice(0, 2).map(t => <span key={t} className="tag-pill">#{t}</span>)}
                 </div>
-                <a href={`/blog/${post.id}`} className="read-link">Read More</a>
+                <a href={getSafeUrl(`/blog/${post.id}`)} className="read-link">Read More</a>
               </div>
             </div>
           </article>
