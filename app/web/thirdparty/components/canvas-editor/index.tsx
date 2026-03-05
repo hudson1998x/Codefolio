@@ -210,7 +210,12 @@ const addNode = (name: string, targetId?: NodeId, position: 'before' | 'inside' 
   return (
     <div className="canvas-editor">
       <input type="hidden" name={data.name} value={getSerializedNodes()} />
-      <span className="editor-label">{data.label ?? ''}</span>
+      <span className="editor-label">
+        
+        {
+        // @ts-ignore TODO: Alter type definition to allow optional label. 
+        data?.label ?? ''}
+      </span>
       <br />
       <Button type="button" onClick={() => setIsOpen(true)}>Visual Editor</Button>
 

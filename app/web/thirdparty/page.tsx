@@ -6,6 +6,7 @@ import { Canvas } from "@components/canvas";
 import './components/loader'
 import './dev/module-generator'
 import './autocontent/loader'
+import './cms/blog-page'
 
 /**
  * `Page` is the application root — it composes the full provider stack and

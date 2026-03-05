@@ -1,0 +1,142 @@
+$primary: #2563eb;
+$text-main: #0f172a;
+$text-muted: #64748b;
+$bg-page: #f8fafc;
+$bg-card: #ffffff;
+$border: #e2e8f0;
+$radius: 12px;
+$transition: all 0.2s ease;
+
+.blog-index {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+
+  .blog-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 2rem; color: $text-main; }
+  }
+
+  .filter-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    
+    .search-wrapper {
+      flex: 1;
+      max-width: 400px;
+      .search-input {
+        width: 100%;
+        padding: 0.8rem 1.2rem;
+        border: 2px solid $border;
+        border-radius: $radius;
+        &:focus { outline: none; border-color: $primary; }
+      }
+    }
+
+    .category-select {
+      padding: 0.8rem;
+      border: 2px solid $border;
+      border-radius: $radius;
+      background: white;
+      cursor: pointer;
+    }
+  }
+
+  .tag-cloud {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+    button {
+      background: white;
+      border: 1px solid $border;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      cursor: pointer;
+      &.active { background: $primary; color: white; border-color: $primary; }
+    }
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .blog-card {
+    background: white;
+    border: 1px solid $border;
+    border-radius: $radius;
+    transition: $transition;
+    &:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    
+    .card-inner {
+      padding: 1.5rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      
+      .category-label { color: $primary; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; }
+      h3 { margin: 0.5rem 0; font-size: 1.4rem; color: $text-main; }
+      p { color: $text-muted; flex-grow: 1; line-height: 1.5; margin-bottom: 1.5rem; }
+      
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid $border;
+        padding-top: 1rem;
+        
+        .tag-pill { font-size: 0.75rem; background: #f1f5f9; padding: 2px 8px; border-radius: 4px; margin-right: 4px; color: $text-muted; }
+        .read-link { font-weight: 600; color: $primary; text-decoration: none; }
+      }
+    }
+  }
+
+  // Infinite Scroll Loader
+  .infinite-loader {
+    display: flex;
+    justify-content: center;
+    padding: 4rem 0;
+    
+    .dot-pulse {
+      position: relative;
+      left: -9999px;
+      width: 10px;
+      height: 10px;
+      border-radius: 5px;
+      background-color: $primary;
+      color: $primary;
+      box-shadow: 9999px 0 0 -5px;
+      animation: dotPulse 1.5s infinite linear;
+      animation-delay: .25s;
+      &::before, &::after {
+        content: ''; display: inline-block; position: absolute; top: 0; width: 10px; height: 10px; border-radius: 5px; background-color: $primary; color: $primary;
+      }
+      &::before { box-shadow: 9984px 0 0 -5px; animation: dotPulseBefore 1.5s infinite linear; animation-delay: 0s; }
+      &::after { box-shadow: 10014px 0 0 -5px; animation: dotPulseAfter 1.5s infinite linear; animation-delay: .5s; }
+    }
+  }
+
+  .streaming-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #1e293b;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    z-index: 100;
+  }
+}
+
+@keyframes dotPulseBefore { 0% { box-shadow: 9984px 0 0 -5px; } 30% { box-shadow: 9984px 0 0 2px; } 60%, 100% { box-shadow: 9984px 0 0 -5px; } }
+@keyframes dotPulse { 0% { box-shadow: 9999px 0 0 -5px; } 30% { box-shadow: 9999px 0 0 2px; } 60%, 100% { box-shadow: 9999px 0 0 -5px; } }
+@keyframes dotPulseAfter { 0% { box-shadow: 10014px 0 0 -5px; } 30% { box-shadow: 10014px 0 0 2px; } 60%, 100% { box-shadow: 10014px 0 0 -5px; } }

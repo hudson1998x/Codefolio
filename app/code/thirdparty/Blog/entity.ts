@@ -25,4 +25,18 @@ export class Blog extends Content
 
     @Field({  })
     public pageDescription: string | undefined;
+
+    @Field({  })
+    public category: string | undefined;
+
+    @Field({
+        module: {
+            component: "Blog/TagEditor",
+            data: {
+                label: "Tags"
+            },
+            children: []
+        }
+    })
+    public tags: string[] | undefined;
 }

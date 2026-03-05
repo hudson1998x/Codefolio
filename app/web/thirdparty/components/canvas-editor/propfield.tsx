@@ -1,5 +1,7 @@
 import { PrefabEditor } from "@components/input/custom/prefab-editor";
+import { LinkPicker } from "@components/link/picker";
 import { FieldMeta } from "@components/registry";
+import { PageSearchPicker } from "app/web/themes/@admin/components/page-picker";
 import { useState } from "react";
 
 export const PropField: React.FC<{
@@ -8,14 +10,14 @@ export const PropField: React.FC<{
   meta?: FieldMeta;
   onChange: (val: any) => void;
 }> = ({ propKey, value, meta, onChange }) => {
-  const label = meta?.label || propKey.replace(/([A-Z])/g, ' $1').trim();
-  const type = meta?.type || 'text';
+  const label = meta?.label || propKey.replace(/([A-Z])/g, " $1").trim();
+  const type = meta?.type || "text";
   const [jsonError, setJsonError] = useState<string | null>(null);
 
   const handleJsonChange = (val: string) => {
     onChange(val);
     try {
-      if (val && typeof val === 'string' && val.trim() !== '') {
+      if (val && typeof val === "string" && val.trim() !== "") {
         JSON.parse(val);
       }
       setJsonError(null);
@@ -24,53 +26,83 @@ export const PropField: React.FC<{
     }
   };
 
-  return (
-    <div className="field-group">
-      <label>{label}</label>
+  const renderField = () => {
+    if (type === "prefab-editor") {
+      return <PrefabEditor value={value} onChange={handleJsonChange} />;
+    }
 
-      {type === 'prefab-editor' ? (
-        <PrefabEditor value={value} onChange={(e) => handleJsonChange(e)} />
-      ) : type === 'select' && meta?.options ? (
-        <select value={value || ""} onChange={e => onChange(e.target.value)}>
-          {meta.options.map(opt => (
-            <option key={opt} value={opt}>{opt}</option>
+    // Inside PropField.tsx renderField logic:
+    if (type === 'page-picker') {
+    return <LinkPicker value={value} onChange={onChange} />;
+    }
+
+    if (type === "select" && meta?.options) {
+      return (
+        <select value={value || ""} onChange={(e) => onChange(e.target.value)}>
+          {meta.options.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
           ))}
         </select>
-      ) : type === 'textarea' ? (
+      );
+    }
+
+    if (type === "textarea") {
+      return (
         <textarea
           value={value || ""}
-          onChange={e => onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           rows={6}
         />
-      ) : type === 'json' ? (
+      );
+    }
+
+    if (type === "json") {
+      return (
         <div className="json-field">
           <textarea
-            className={`json-field__textarea ${jsonError ? 'has-error' : 'is-valid'}`}
-            value={typeof value === 'string' ? value : JSON.stringify(value, null, 2)}
-            onChange={e => handleJsonChange(e.target.value)}
+            className={`json-field__textarea ${jsonError ? "has-error" : "is-valid"}`}
+            value={typeof value === "string" ? value : JSON.stringify(value, null, 2)}
+            onChange={(e) => handleJsonChange(e.target.value)}
             rows={10}
             spellCheck={false}
           />
           {jsonError && <div className="json-error">{jsonError}</div>}
         </div>
-      ) : type === 'boolean' ? (
+      );
+    }
+
+    if (type === "boolean") {
+      const isActive = value === "true" || value === true;
+      return (
         <div className="toggle-wrap">
           <button
             type="button"
-            className={`toggle ${value === 'true' ? 'active' : ''}`}
-            onClick={() => onChange(value === 'true' ? 'false' : 'true')}
+            className={`toggle ${isActive ? "active" : ""}`}
+            onClick={() => onChange(!isActive ? "true" : "false")}
           >
             <span className="toggle-thumb" />
           </button>
-          <span className="toggle-label">{value === 'true' ? 'On' : 'Off'}</span>
+          <span className="toggle-label">{isActive ? "On" : "Off"}</span>
         </div>
-      ) : (
-        <input
-          type="text"
-          value={value || ""}
-          onChange={e => onChange(e.target.value)}
-        />
-      )}
+      );
+    }
+
+    // Default Fallback (text input)
+    return (
+      <input
+        type="text"
+        value={value || ""}
+        onChange={(e) => onChange(e.target.value)}
+      />
+    );
+  };
+
+  return (
+    <div className="field-group">
+      <label>{label}</label>
+      {renderField()}
     </div>
   );
 };

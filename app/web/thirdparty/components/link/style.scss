@@ -1,0 +1,46 @@
+.cf-link-picker {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 8px;
+
+  &__tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+    
+    button {
+      flex: 1;
+      font-size: 11px;
+      padding: 4px;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 4px;
+      color: #64748b;
+
+      &.active {
+        background: white;
+        border-color: #e2e8f0;
+        color: #2563eb;
+        font-weight: 600;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      }
+    }
+  }
+
+  .current-selection {
+    font-size: 10px;
+    margin-top: 6px;
+    color: #94a3b8;
+    code { color: #2563eb; }
+  }
+
+  .external-input {
+    width: 100%;
+    padding: 6px;
+    font-size: 13px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+  }
+}

@@ -1,52 +1,72 @@
 import React from "react";
 import { registerComponent, CodefolioProps } from "../registry";
 
-export interface ColumnData {
-  /** Width on desktop (1-12 scale). @defaultValue `6` (50%) */
-  span: number;
-  /** Width on mobile. @defaultValue `12` (100%) */
-  mobileSpan: number;
-  /** Additional CSS class name(s) to apply to the column element. */
-  className: string;
+export interface LinkData {
+  /** Whether the link points to an internal page or an external URL. */
+  linkType: 'internal' | 'external';
+  /** The destination path (e.g. /page/1) or full URL (e.g. https://google.com). */
+  url: string;
+  /** The text to display inside the link. */
+  text: string;
+  /** Whether to open in the same tab or a new one. */
+  target: '_self' | '_blank';
+  /** Additional CSS class name(s). */
+  className?: string;
 }
 
-/**
- * A single column for use inside a {@link Row} layout component.
- *
- * Renders a `div` with responsive BEM modifier classes derived from
- * `span` (desktop) and `mobileSpan` (mobile) on a 12-column grid.
- *
- * @example
- * ```tsx
- * <Column span={4} mobileSpan={12} className="">
- *   <p>One third of the desktop grid.</p>
- * </Column>
- * ```
- */
-export const Column: React.FC<ColumnData & { children?: React.ReactNode }> = ({
-  span = 6,
-  mobileSpan = 12,
+export const Link: React.FC<LinkData & { children?: React.ReactNode }> = ({
+  linkType = "internal",
+  url = "/page/1",
+  text = "Learn More",
+  target = "_self",
   className,
   children
 }) => {
-  const classes = [
-    "cf-col",
-    `cf-col--${span}`,
-    `cf-col-m--${mobileSpan}`,
-    className
-  ].filter(Boolean).join(" ");
+  const classes = ["cf-link", className].filter(Boolean).join(" ");
 
-  return <div className={classes}>{children}</div>;
+  return (
+    <a 
+      href={url} 
+      className={classes} 
+      target={target}
+      rel={target === '_blank' ? "noopener noreferrer" : undefined}
+    >
+      {text || children}
+    </a>
+  );
 };
 
-const ColumnCanvas: React.FC<CodefolioProps<ColumnData>> = ({ data, children }) => (
-  <Column {...data}>{children}</Column>
+const LinkCanvas: React.FC<CodefolioProps<LinkData>> = ({ data, children }) => (
+  <Link {...data}>{children}</Link>
 );
 
 registerComponent({
-  name: "Column",
-  defaults: { span: 6, mobileSpan: 12, className: "" },
-  component: ColumnCanvas,
+  name: "Anchor",
+  defaults: { 
+    linkType: "internal",
+    url: "/page/1", 
+    text: "Learn More", 
+    target: "_self", 
+    className: "" 
+  },
+  component: LinkCanvas,
   isCmsEditor: true,
-  category: 'Layout'
+  category: 'General',
+  icon: 'fas fa-link',
+  fields: {
+    linkType: {
+      label: 'Link Mode',
+      type: 'select',
+      options: ['internal', 'external']
+    },
+    url: { 
+      label: 'Destination', 
+      // We keep this as text by default, but our PropField will 
+      // check 'linkType' to decide if it shows the Picker.
+      type: 'page-picker' 
+    },
+    text: { label: 'Link Text', type: 'text' },
+    target: { label: 'Open In', type: 'select', options: ['_self', '_blank'] },
+    className: { label: 'Custom Class', type: 'text' }
+  }
 });

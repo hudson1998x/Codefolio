@@ -1328,7 +1328,7 @@ var require_react_dom_development = __commonJS({
         return dispatcher;
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React18 = require_react(), Internals = {
+      var React19 = require_react(), Internals = {
         d: {
           f: noop,
           r: function() {
@@ -1346,7 +1346,7 @@ var require_react_dom_development = __commonJS({
         },
         p: 0,
         findDOMNode: null
-      }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React18.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+      }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React19.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
       "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
         "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
       );
@@ -2881,7 +2881,7 @@ var require_react_dom_client_development = __commonJS({
         "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
       }
       function validateOptionProps(element, props) {
-        null == props.value && ("object" === typeof props.children && null !== props.children ? React18.Children.forEach(props.children, function(child) {
+        null == props.value && ("object" === typeof props.children && null !== props.children ? React19.Children.forEach(props.children, function(child) {
           null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           ));
@@ -18513,14 +18513,14 @@ var require_react_dom_client_development = __commonJS({
         ));
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var Scheduler = require_scheduler(), React18 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+      var Scheduler = require_scheduler(), React19 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
       /* @__PURE__ */ Symbol.for("react.scope");
       var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity");
       /* @__PURE__ */ Symbol.for("react.legacy_hidden");
       /* @__PURE__ */ Symbol.for("react.tracing_marker");
       var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel");
       /* @__PURE__ */ Symbol.for("react.view_transition");
-      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React18.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React19.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -21308,7 +21308,7 @@ var require_react_dom_client_development = __commonJS({
         }
       };
       (function() {
-        var isomorphicReactPackageVersion = React18.version;
+        var isomorphicReactPackageVersion = React19.version;
         if ("19.2.4" !== isomorphicReactPackageVersion)
           throw Error(
             'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.4\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -21662,18 +21662,18 @@ var require_react_jsx_runtime_development = __commonJS({
       function isValidElement(object) {
         return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
       }
-      var React18 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React18.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+      var React19 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React19.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
         return null;
       };
-      React18 = {
+      React19 = {
         react_stack_bottom_frame: function(callStackForError) {
           return callStackForError();
         }
       };
       var specialPropKeyWarningShown;
       var didWarnAboutElementRef = {};
-      var unknownOwnerDebugStack = React18.react_stack_bottom_frame.bind(
-        React18,
+      var unknownOwnerDebugStack = React19.react_stack_bottom_frame.bind(
+        React19,
         UnknownOwner
       )();
       var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -22022,13 +22022,13 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/input/index.tsx
-var import_react11 = __toESM(require_react());
+var import_react13 = __toESM(require_react());
 
 // app/web/thirdparty/components/input/custom/prefab-editor.tsx
-var import_react10 = __toESM(require_react());
+var import_react12 = __toESM(require_react());
 
 // app/web/thirdparty/components/canvas-editor/index.tsx
-var import_react9 = __toESM(require_react());
+var import_react11 = __toESM(require_react());
 
 // app/web/thirdparty/components/button/index.tsx
 var import_jsx_runtime8 = __toESM(require_jsx_runtime());
@@ -22106,13 +22106,114 @@ var Canvas2 = ({ manualNodes }) => {
   return /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "canvas-placeholder", children: "Drag components here to start building." });
 };
 
-// app/web/thirdparty/components/canvas-editor/propfield.tsx
+// app/web/themes/@admin/components/page-picker/index.tsx
 var import_react7 = __toESM(require_react());
 var import_jsx_runtime11 = __toESM(require_jsx_runtime());
+var PageSearchPicker = ({ onSelect }) => {
+  const [query, setQuery] = (0, import_react7.useState)("");
+  const [results, setResults] = (0, import_react7.useState)([]);
+  const [searching, setSearching] = (0, import_react7.useState)(false);
+  (0, import_react7.useEffect)(() => {
+    if (query.length < 2) {
+      setResults([]);
+      return;
+    }
+    const timer = setTimeout(async () => {
+      setSearching(true);
+      try {
+        const filter = JSON.stringify({ pageTitle: query });
+        const res = await fetch(`/api/page?filter=${filter}&size=5`);
+        const json = await res.json();
+        if (json.ok) setResults(json.results);
+      } catch (err) {
+        console.error("Search failed", err);
+      } finally {
+        setSearching(false);
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [query]);
+  return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "cf-page-picker", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "cf-page-picker__input-wrapper", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+        "input",
+        {
+          type: "text",
+          placeholder: "Type to search pages...",
+          value: query,
+          onChange: (e) => setQuery(e.target.value),
+          className: "cf-page-picker__input"
+        }
+      ),
+      searching && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: "cf-page-picker__spinner" })
+    ] }),
+    results.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("ul", { className: "cf-page-picker__results", children: results.map((page) => /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("li", { className: "cf-page-picker__item", onClick: () => {
+      onSelect(page);
+      setQuery("");
+      setResults([]);
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "cf-page-picker__title", children: page.pageTitle }),
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("span", { className: "cf-page-picker__path", children: [
+        "/page/",
+        page.id
+      ] })
+    ] }, page.id)) })
+  ] });
+};
+
+// app/web/thirdparty/components/link/picker.tsx
+var import_react8 = __toESM(require_react());
+var import_jsx_runtime12 = __toESM(require_jsx_runtime());
+var LinkPicker = ({ value, onChange }) => {
+  const isInitialExternal = value.startsWith("http") || value && !value.startsWith("/page/");
+  const [mode, setMode] = (0, import_react8.useState)(isInitialExternal ? "external" : "internal");
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "cf-link-picker", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "cf-link-picker__tabs", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+        "button",
+        {
+          type: "button",
+          className: mode === "internal" ? "active" : "",
+          onClick: () => setMode("internal"),
+          children: "Internal Page"
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+        "button",
+        {
+          type: "button",
+          className: mode === "external" ? "active" : "",
+          onClick: () => setMode("external"),
+          children: "External URL"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "cf-link-picker__input", children: mode === "internal" ? /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "internal-wrapper", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(PageSearchPicker, { onSelect: (page) => onChange(`/page/${page.id}`) }),
+      value.startsWith("/page/") && /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "current-selection", children: [
+        "Selected: ",
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("code", { children: value })
+      ] })
+    ] }) : /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+      "input",
+      {
+        type: "text",
+        placeholder: "https://example.com",
+        value,
+        onChange: (e) => onChange(e.target.value),
+        className: "external-input"
+      }
+    ) })
+  ] });
+};
+
+// app/web/thirdparty/components/canvas-editor/propfield.tsx
+var import_react9 = __toESM(require_react());
+var import_jsx_runtime13 = __toESM(require_jsx_runtime());
 var PropField = ({ propKey, value, meta, onChange }) => {
   const label = meta?.label || propKey.replace(/([A-Z])/g, " $1").trim();
   const type = meta?.type || "text";
-  const [jsonError, setJsonError] = (0, import_react7.useState)(null);
+  const [jsonError, setJsonError] = (0, import_react9.useState)(null);
   const handleJsonChange = (val) => {
     onChange(val);
     try {
@@ -22124,55 +22225,77 @@ var PropField = ({ propKey, value, meta, onChange }) => {
       setJsonError(e.message);
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "field-group", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("label", { children: label }),
-    type === "prefab-editor" ? /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(PrefabEditor, { value, onChange: (e) => handleJsonChange(e) }) : type === "select" && meta?.options ? /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("select", { value: value || "", onChange: (e) => onChange(e.target.value), children: meta.options.map((opt) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("option", { value: opt, children: opt }, opt)) }) : type === "textarea" ? /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
-      "textarea",
-      {
-        value: value || "",
-        onChange: (e) => onChange(e.target.value),
-        rows: 6
-      }
-    ) : type === "json" ? /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "json-field", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+  const renderField = () => {
+    if (type === "prefab-editor") {
+      return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(PrefabEditor, { value, onChange: handleJsonChange });
+    }
+    if (type === "page-picker") {
+      return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(LinkPicker, { value, onChange });
+    }
+    if (type === "select" && meta?.options) {
+      return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("select", { value: value || "", onChange: (e) => onChange(e.target.value), children: meta.options.map((opt) => /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("option", { value: opt, children: opt }, opt)) });
+    }
+    if (type === "textarea") {
+      return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
         "textarea",
         {
-          className: `json-field__textarea ${jsonError ? "has-error" : "is-valid"}`,
-          value: typeof value === "string" ? value : JSON.stringify(value, null, 2),
-          onChange: (e) => handleJsonChange(e.target.value),
-          rows: 10,
-          spellCheck: false
+          value: value || "",
+          onChange: (e) => onChange(e.target.value),
+          rows: 6
         }
-      ),
-      jsonError && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: "json-error", children: jsonError })
-    ] }) : type === "boolean" ? /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "toggle-wrap", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
-        "button",
-        {
-          type: "button",
-          className: `toggle ${value === "true" ? "active" : ""}`,
-          onClick: () => onChange(value === "true" ? "false" : "true"),
-          children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "toggle-thumb" })
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "toggle-label", children: value === "true" ? "On" : "Off" })
-    ] }) : /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+      );
+    }
+    if (type === "json") {
+      return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "json-field", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+          "textarea",
+          {
+            className: `json-field__textarea ${jsonError ? "has-error" : "is-valid"}`,
+            value: typeof value === "string" ? value : JSON.stringify(value, null, 2),
+            onChange: (e) => handleJsonChange(e.target.value),
+            rows: 10,
+            spellCheck: false
+          }
+        ),
+        jsonError && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "json-error", children: jsonError })
+      ] });
+    }
+    if (type === "boolean") {
+      const isActive = value === "true" || value === true;
+      return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "toggle-wrap", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+          "button",
+          {
+            type: "button",
+            className: `toggle ${isActive ? "active" : ""}`,
+            onClick: () => onChange(!isActive ? "true" : "false"),
+            children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "toggle-thumb" })
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "toggle-label", children: isActive ? "On" : "Off" })
+      ] });
+    }
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       "input",
       {
         type: "text",
         value: value || "",
         onChange: (e) => onChange(e.target.value)
       }
-    )
+    );
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "field-group", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("label", { children: label }),
+    renderField()
   ] });
 };
 
 // app/web/thirdparty/components/canvas-editor/blueprint-node.tsx
-var import_react8 = __toESM(require_react());
-var import_jsx_runtime12 = __toESM(require_jsx_runtime());
+var import_react10 = __toESM(require_react());
+var import_jsx_runtime14 = __toESM(require_jsx_runtime());
 var BlueprintNode = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }) => {
-  const [isOverTop, setIsOverTop] = (0, import_react8.useState)(false);
-  const [isOverInside, setIsOverInside] = (0, import_react8.useState)(false);
+  const [isOverTop, setIsOverTop] = (0, import_react10.useState)(false);
+  const [isOverInside, setIsOverInside] = (0, import_react10.useState)(false);
   const handleDragStart = (e) => {
     e.stopPropagation();
     e.dataTransfer.setData("dragNodeId", node.id);
@@ -22196,7 +22319,7 @@ var BlueprintNode = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }) => 
       onDrop(compName, node.id, position, pData);
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
     "div",
     {
       className: `blueprint-island ${isSelected ? "selected" : ""} ${node.component === "Prefab" ? "is-prefab" : ""}`,
@@ -22208,7 +22331,7 @@ var BlueprintNode = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }) => 
         onEdit(node.id);
       },
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
           "div",
           {
             className: `drop-zone-edge ${isOverTop ? "active" : ""}`,
@@ -22221,13 +22344,13 @@ var BlueprintNode = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }) => 
             onDrop: (e) => handleUniversalDrop(e, "before")
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "island-header", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("span", { className: "type-badge", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("i", { className: `fas ${node.component === "Prefab" ? "fa-clone" : "fa-grip-vertical"} drag-handle` }),
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "island-header", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("span", { className: "type-badge", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("i", { className: `fas ${node.component === "Prefab" ? "fa-clone" : "fa-grip-vertical"} drag-handle` }),
             " ",
             node.component
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
             "button",
             {
               type: "button",
@@ -22236,12 +22359,12 @@ var BlueprintNode = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }) => 
                 e.stopPropagation();
                 onDelete(node.id);
               },
-              children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("i", { className: "fas fa-trash-alt" })
+              children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("i", { className: "fas fa-trash-alt" })
             }
           )
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "island-body", children: [
-          node.children.map((child) => /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "island-body", children: [
+          node.children.map((child) => /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
             BlueprintNode,
             {
               node: child,
@@ -22253,7 +22376,7 @@ var BlueprintNode = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }) => 
             },
             child.id
           )),
-          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
             "div",
             {
               className: `drop-zone-mini ${isOverInside ? "active" : ""}`,
@@ -22264,7 +22387,7 @@ var BlueprintNode = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }) => 
               },
               onDragLeave: () => setIsOverInside(false),
               onDrop: (e) => handleUniversalDrop(e, "inside"),
-              children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("i", { className: "fas fa-plus" })
+              children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("i", { className: "fas fa-plus" })
             }
           )
         ] })
@@ -22274,22 +22397,22 @@ var BlueprintNode = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }) => 
 };
 
 // app/web/thirdparty/components/canvas-editor/index.tsx
-var import_jsx_runtime13 = __toESM(require_jsx_runtime());
+var import_jsx_runtime15 = __toESM(require_jsx_runtime());
 var CanvasEditor = ({ data, onChange }) => {
-  const [isOpen, setIsOpen] = (0, import_react9.useState)(false);
-  const [nodes, setNodes] = (0, import_react9.useState)(() => {
+  const [isOpen, setIsOpen] = (0, import_react11.useState)(false);
+  const [nodes, setNodes] = (0, import_react11.useState)(() => {
     try {
       return data.value ? JSON.parse(data.value) : [];
     } catch {
       return [];
     }
   });
-  const [selectedId, setSelectedId] = (0, import_react9.useState)(null);
-  const [activeCategory, setActiveCategory] = (0, import_react9.useState)("All");
-  const [search, setSearch] = (0, import_react9.useState)("");
-  const [prefabs, setPrefabs] = (0, import_react9.useState)([]);
-  const getSerializedNodes = (0, import_react9.useCallback)(() => JSON.stringify(nodes), [nodes]);
-  (0, import_react9.useEffect)(() => {
+  const [selectedId, setSelectedId] = (0, import_react11.useState)(null);
+  const [activeCategory, setActiveCategory] = (0, import_react11.useState)("All");
+  const [search, setSearch] = (0, import_react11.useState)("");
+  const [prefabs, setPrefabs] = (0, import_react11.useState)([]);
+  const getSerializedNodes = (0, import_react11.useCallback)(() => JSON.stringify(nodes), [nodes]);
+  (0, import_react11.useEffect)(() => {
     if (onChange) {
       const serialized = getSerializedNodes();
       if (serialized !== data.value) {
@@ -22303,28 +22426,28 @@ var CanvasEditor = ({ data, onChange }) => {
     }
     setIsOpen(false);
   };
-  const cmsComponents = (0, import_react9.useMemo)(() => {
+  const cmsComponents = (0, import_react11.useMemo)(() => {
     return getAllComponents().filter((c) => c.isCmsEditor === true);
   }, []);
-  (0, import_react9.useEffect)(() => {
+  (0, import_react11.useEffect)(() => {
     if (isOpen) {
       fetch("/api/prefab?size=50").then((res) => res.json()).then((res) => {
         if (res.ok) setPrefabs(res.results);
       }).catch((err) => console.error("Prefab fetch error", err));
     }
   }, [isOpen]);
-  const categories = (0, import_react9.useMemo)(() => {
+  const categories = (0, import_react11.useMemo)(() => {
     const cats = /* @__PURE__ */ new Set();
     cmsComponents.forEach((c) => cats.add(c.category || "Uncategorized"));
     return ["All", ...Array.from(cats).sort()];
   }, [cmsComponents]);
-  const filteredLibrary = (0, import_react9.useMemo)(() => {
+  const filteredLibrary = (0, import_react11.useMemo)(() => {
     const q = search.trim().toLowerCase();
     if (q) return cmsComponents.filter((c) => c.name.toLowerCase().includes(q));
     if (activeCategory === "All") return cmsComponents;
     return cmsComponents.filter((c) => (c.category || "Uncategorized") === activeCategory);
   }, [activeCategory, cmsComponents, search]);
-  const activeNode = (0, import_react9.useMemo)(() => {
+  const activeNode = (0, import_react11.useMemo)(() => {
     if (!selectedId) return null;
     const find = (list) => {
       for (const n of list) {
@@ -22335,8 +22458,8 @@ var CanvasEditor = ({ data, onChange }) => {
     };
     return find(nodes) || null;
   }, [nodes, selectedId]);
-  const activeDef = (0, import_react9.useMemo)(() => activeNode ? getComponent(activeNode.component) : null, [activeNode]);
-  const updateNodeData = (0, import_react9.useCallback)((key, val) => {
+  const activeDef = (0, import_react11.useMemo)(() => activeNode ? getComponent(activeNode.component) : null, [activeNode]);
+  const updateNodeData = (0, import_react11.useCallback)((key, val) => {
     if (!selectedId) return;
     setNodes((currentNodes) => {
       const newTree = structuredClone(currentNodes);
@@ -22453,32 +22576,36 @@ var CanvasEditor = ({ data, onChange }) => {
       addNode(name, void 0, "inside", pData);
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "canvas-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("input", { type: "hidden", name: data.name, value: getSerializedNodes() }),
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "editor-label", children: data.label ?? "" }),
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("br", {}),
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Button, { type: "button", onClick: () => setIsOpen(true), children: "Visual Editor" }),
-    isOpen && /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "editor-overlay", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("aside", { className: "panel-island side-nav", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "section-title", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("i", { className: "fas fa-th-large" }),
+  return /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "canvas-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("input", { type: "hidden", name: data.name, value: getSerializedNodes() }),
+    /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", {
+      className: "editor-label",
+      // @ts-ignore TODO: Alter type definition to allow optional label. 
+      children: data?.label ?? ""
+    }),
+    /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("br", {}),
+    /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Button, { type: "button", onClick: () => setIsOpen(true), children: "Visual Editor" }),
+    isOpen && /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "editor-overlay", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("aside", { className: "panel-island side-nav", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "section-title", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("i", { className: "fas fa-th-large" }),
           " Library"
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "library-search", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("input", { type: "text", placeholder: "Search...", value: search, onChange: (e) => setSearch(e.target.value) }) }),
-        !search && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "category-capsules", children: categories.map((cat) => /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("button", { className: `capsule ${activeCategory === cat ? "active" : ""}`, onClick: () => setActiveCategory(cat), children: cat }, cat)) }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "palette-grid", children: filteredLibrary.map((c) => /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "palette-item", draggable: true, onDragStart: (e) => {
+        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "library-search", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("input", { type: "text", placeholder: "Search...", value: search, onChange: (e) => setSearch(e.target.value) }) }),
+        !search && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "category-capsules", children: categories.map((cat) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("button", { className: `capsule ${activeCategory === cat ? "active" : ""}`, onClick: () => setActiveCategory(cat), children: cat }, cat)) }),
+        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "palette-grid", children: filteredLibrary.map((c) => /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "palette-item", draggable: true, onDragStart: (e) => {
           e.dataTransfer.setData("componentName", c.name);
         }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("i", { className: c.icon || "fas fa-cube" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { children: c.name })
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("i", { className: c.icon || "fas fa-cube" }),
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { children: c.name })
         ] }, c.name)) }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "section-title", style: { marginTop: "2rem" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("i", { className: "fas fa-layer-group" }),
+        /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "section-title", style: { marginTop: "2rem" }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("i", { className: "fas fa-layer-group" }),
           " Prefabs"
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "palette-grid", children: prefabs.map((p) => (
+        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "palette-grid", children: prefabs.map((p) => (
           // Inside your prefabs.map in the sidebar
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
             "div",
             {
               className: "palette-item prefab-item",
@@ -22492,18 +22619,18 @@ var CanvasEditor = ({ data, onChange }) => {
                 }));
               },
               children: [
-                /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("i", { className: "fas fa-clone" }),
-                /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { children: p.prefabName })
+                /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("i", { className: "fas fa-clone" }),
+                /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { children: p.prefabName })
               ]
             },
             p.id
           )
         )) })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("main", { className: "workspace-container", onClick: () => setSelectedId(null), children: [
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("section", { className: "workspace-pane blueprint", onDragOver: (e) => e.preventDefault(), onDrop: handleWorkspaceDrop, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "pane-label", children: "Structure" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "tree-content", children: nodes.map((n) => /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("main", { className: "workspace-container", onClick: () => setSelectedId(null), children: [
+        /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("section", { className: "workspace-pane blueprint", onDragOver: (e) => e.preventDefault(), onDrop: handleWorkspaceDrop, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "pane-label", children: "Structure" }),
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "tree-content", children: nodes.map((n) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
             BlueprintNode,
             {
               node: n,
@@ -22516,11 +22643,11 @@ var CanvasEditor = ({ data, onChange }) => {
             n.id
           )) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("section", { className: "workspace-pane properties-pane", onClick: (e) => e.stopPropagation(), children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "pane-label", children: "Properties" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "settings-content", children: activeNode && (activeDef || activeNode.component === "Prefab") ? /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "prop-controls", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "editing-badge", children: activeNode.component }),
-            Object.keys(activeDef?.fields || activeDef?.defaults || {}).map((key) => /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("section", { className: "workspace-pane properties-pane", onClick: (e) => e.stopPropagation(), children: [
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "pane-label", children: "Properties" }),
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "settings-content", children: activeNode && (activeDef || activeNode.component === "Prefab") ? /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "prop-controls", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "editing-badge", children: activeNode.component }),
+            Object.keys(activeDef?.fields || activeDef?.defaults || {}).map((key) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
               PropField,
               {
                 propKey: key,
@@ -22530,13 +22657,13 @@ var CanvasEditor = ({ data, onChange }) => {
               },
               key
             ))
-          ] }) : /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "empty-hint", children: "Select a block to edit" }) })
+          ] }) : /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "empty-hint", children: "Select a block to edit" }) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("section", { className: "workspace-pane preview", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "pane-label", children: "Live Preview" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "preview-frame", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "canvas-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Canvas2, { manualNodes: nodes }, getSerializedNodes().length) }),
-            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("button", { className: "close-visual", onClick: handleFinish, children: "FINISH & SYNC" })
+        /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("section", { className: "workspace-pane preview", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "pane-label", children: "Live Preview" }),
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "preview-frame", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "canvas-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Canvas2, { manualNodes: nodes }, getSerializedNodes().length) }),
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("button", { className: "close-visual", onClick: handleFinish, children: "FINISH & SYNC" })
           ] })
         ] })
       ] })
@@ -22550,18 +22677,18 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/input/custom/prefab-editor.tsx
-var import_jsx_runtime14 = __toESM(require_jsx_runtime());
+var import_jsx_runtime16 = __toESM(require_jsx_runtime());
 var PrefabEditor = ({ value, onChange }) => {
-  const stringifiedValue = (0, import_react10.useMemo)(() => {
+  const stringifiedValue = (0, import_react12.useMemo)(() => {
     if (typeof value === "string") return value;
     return JSON.stringify(value || []);
   }, [value]);
-  (0, import_react10.useEffect)(() => {
+  (0, import_react12.useEffect)(() => {
     onChange(stringifiedValue);
   }, [stringifiedValue]);
-  return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "prefab-field-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "prefab-field-editor__help", children: "Editing Nested Template Structure:" }),
-    /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "prefab-field-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: "prefab-field-editor__help", children: "Editing Nested Template Structure:" }),
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
       CanvasEditor,
       {
         data: {
@@ -22573,12 +22700,12 @@ var PrefabEditor = ({ value, onChange }) => {
         onChange
       }
     ),
-    /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "prefab-field-editor__notice", children: "Note: Changes inside the designer update the Prefab JSON field." })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: "prefab-field-editor__notice", children: "Note: Changes inside the designer update the Prefab JSON field." })
   ] });
 };
 
 // app/web/thirdparty/components/input/index.tsx
-var import_jsx_runtime15 = __toESM(require_jsx_runtime());
+var import_jsx_runtime17 = __toESM(require_jsx_runtime());
 var runValidation = (value, rules = [], required) => {
   if (required && !value.trim()) return "This field is required.";
   for (const rule of rules) {
@@ -22608,10 +22735,10 @@ var fieldDataToProps = (data) => {
   }
   return { ...base, kind: "input", type: data.type ?? "text" };
 };
-var FieldWrapper = ({ id, label, error, children }) => /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "cf-field", children: [
-  /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("label", { className: "cf-label", htmlFor: id, children: label }),
+var FieldWrapper = ({ id, label, error, children }) => /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "cf-field", children: [
+  /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("label", { className: "cf-label", htmlFor: id, children: label }),
   children,
-  error && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "cf-error", role: "alert", children: error })
+  error && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "cf-error", role: "alert", children: error })
 ] });
 var SearchableSelect = ({
   id,
@@ -22622,14 +22749,14 @@ var SearchableSelect = ({
   onChange,
   onBlur
 }) => {
-  const [open, setOpen] = (0, import_react11.useState)(false);
-  const [query, setQuery] = (0, import_react11.useState)("");
-  const [focused, setFocused] = (0, import_react11.useState)(-1);
-  const containerRef = (0, import_react11.useRef)(null);
-  const inputRef = (0, import_react11.useRef)(null);
+  const [open, setOpen] = (0, import_react13.useState)(false);
+  const [query, setQuery] = (0, import_react13.useState)("");
+  const [focused, setFocused] = (0, import_react13.useState)(-1);
+  const containerRef = (0, import_react13.useRef)(null);
+  const inputRef = (0, import_react13.useRef)(null);
   const selected = options.find((o) => o.value === value);
   const filtered = query.trim() ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase())) : options;
-  (0, import_react11.useEffect)(() => {
+  (0, import_react13.useEffect)(() => {
     const handler = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
         setOpen(false);
@@ -22674,7 +22801,7 @@ var SearchableSelect = ({
       onBlur();
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
     "div",
     {
       ref: containerRef,
@@ -22687,12 +22814,12 @@ var SearchableSelect = ({
       "aria-controls": `${id}-listbox`,
       onClick: handleOpen,
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "cf-select__trigger", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: `cf-select__value ${!selected ? "cf-select__value--placeholder" : ""}`, children: selected ? selected.label : placeholder }),
-          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "cf-select__chevron", "aria-hidden": true, children: "\u25BE" })
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "cf-select__trigger", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: `cf-select__value ${!selected ? "cf-select__value--placeholder" : ""}`, children: selected ? selected.label : placeholder }),
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "cf-select__chevron", "aria-hidden": true, children: "\u25BE" })
         ] }),
-        open && /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "cf-select__dropdown", role: "listbox", id: `${id}-listbox`, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "cf-select__search", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+        open && /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "cf-select__dropdown", role: "listbox", id: `${id}-listbox`, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "cf-select__search", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
             "input",
             {
               ref: inputRef,
@@ -22707,9 +22834,9 @@ var SearchableSelect = ({
               "aria-label": "Search options"
             }
           ) }),
-          /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("ul", { className: "cf-select__options", children: [
-            filtered.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("li", { className: "cf-select__empty", children: "No results found." }),
-            filtered.map((option, idx) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("ul", { className: "cf-select__options", children: [
+            filtered.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("li", { className: "cf-select__empty", children: "No results found." }),
+            filtered.map((option, idx) => /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
               "li",
               {
                 className: [
@@ -22736,10 +22863,10 @@ var SearchableSelect = ({
 };
 var Field = (props) => {
   const { name, label, defaultValue = "", onChange, validate, required, disabled, placeholder } = props;
-  const id = (0, import_react11.useId)();
-  const [value, setValue] = (0, import_react11.useState)(defaultValue);
-  const [touched, setTouched] = (0, import_react11.useState)(false);
-  const [error, setError] = (0, import_react11.useState)(null);
+  const id = (0, import_react13.useId)();
+  const [value, setValue] = (0, import_react13.useState)(defaultValue);
+  const [touched, setTouched] = (0, import_react13.useState)(false);
+  const [error, setError] = (0, import_react13.useState)(null);
   const handleChange = (next) => {
     setValue(next);
     const err = runValidation(next, validate, required);
@@ -22751,7 +22878,7 @@ var Field = (props) => {
     setError(runValidation(value, validate, required));
   };
   if (props.kind === "select") {
-    return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(FieldWrapper, { id, label, error: touched ? error : null, children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(FieldWrapper, { id, label, error: touched ? error : null, children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
       SearchableSelect,
       {
         id,
@@ -22765,7 +22892,7 @@ var Field = (props) => {
     ) });
   }
   if (props.kind === "textarea") {
-    return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(FieldWrapper, { id, label, error: touched ? error : null, children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(FieldWrapper, { id, label, error: touched ? error : null, children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
       "textarea",
       {
         id,
@@ -22780,7 +22907,7 @@ var Field = (props) => {
       }
     ) });
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(FieldWrapper, { id, label, error: touched ? error : null, children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(FieldWrapper, { id, label, error: touched ? error : null, children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
     "input",
     {
       id,
@@ -22796,7 +22923,7 @@ var Field = (props) => {
   ) });
 };
 var FieldCanvas = ({ data }) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Field, { ...fieldDataToProps(data) });
+  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(Field, { ...fieldDataToProps(data) });
 };
 var fieldDefaults = {
   name: "",
@@ -22819,8 +22946,8 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/form/index.tsx
-var import_react12 = __toESM(require_react());
-var import_jsx_runtime16 = __toESM(require_jsx_runtime());
+var import_react14 = __toESM(require_react());
+var import_jsx_runtime18 = __toESM(require_jsx_runtime());
 var parseName = (name) => {
   const parts = [];
   const pattern = /([^\[\]]+)|(\[\])/g;
@@ -22867,8 +22994,8 @@ var collectValues = (form) => {
 };
 var Form = ({ data, children, onValues, onSuccess, onError }) => {
   const { endpoint, method = "POST", className = "" } = data;
-  const formRef = (0, import_react12.useRef)(null);
-  const [status, setStatus] = (0, import_react12.useState)({ type: "idle" });
+  const formRef = (0, import_react14.useRef)(null);
+  const [status, setStatus] = (0, import_react14.useState)({ type: "idle" });
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formRef.current || status.type === "loading") return;
@@ -22902,7 +23029,7 @@ var Form = ({ data, children, onValues, onSuccess, onError }) => {
       onError?.(error);
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
     "form",
     {
       ref: formRef,
@@ -22911,7 +23038,7 @@ var Form = ({ data, children, onValues, onSuccess, onError }) => {
       noValidate: true,
       children: [
         children,
-        status.type !== "idle" && /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: `cf-form__message cf-form__message--${status.type}`, children: status.msg })
+        status.type !== "idle" && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: `cf-form__message cf-form__message--${status.type}`, children: status.msg })
       ]
     }
   );
@@ -22925,7 +23052,7 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/section/index.tsx
-var import_jsx_runtime17 = __toESM(require_jsx_runtime());
+var import_jsx_runtime19 = __toESM(require_jsx_runtime());
 var Section = ({ data, children }) => {
   const {
     title = "",
@@ -22940,12 +23067,12 @@ var Section = ({ data, children }) => {
     `cf-section--bg-${background}`,
     className
   ].filter(Boolean).join(" ");
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("section", { className: classes, children: /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "cf-section__inner", children: [
-    (title || subtitle) && /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "cf-section__header", children: [
-      title && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("h2", { className: "cf-section__title", children: title }),
-      subtitle && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("p", { className: "cf-section__subtitle", children: subtitle })
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("section", { className: classes, children: /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "cf-section__inner", children: [
+    (title || subtitle) && /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "cf-section__header", children: [
+      title && /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("h2", { className: "cf-section__title", children: title }),
+      subtitle && /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("p", { className: "cf-section__subtitle", children: subtitle })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "cf-section__content", children })
+    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "cf-section__content", children })
   ] }) });
 };
 var sectionDefaults = {
@@ -22964,7 +23091,7 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/text/index.tsx
-var import_react13 = __toESM(require_react());
+var import_react15 = __toESM(require_react());
 var Typography = ({ data }) => {
   const {
     content = "Type something...",
@@ -22990,7 +23117,7 @@ var Typography = ({ data }) => {
     marginBottom: marginBottom || void 0,
     textAlign: align
   };
-  return import_react13.default.createElement(
+  return import_react15.default.createElement(
     safeTag,
     {
       className: `cf-typography weight-${weight} tag-${safeTag} ${className}`.trim(),
@@ -23024,7 +23151,7 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/image/index.tsx
-var import_jsx_runtime18 = __toESM(require_jsx_runtime());
+var import_jsx_runtime20 = __toESM(require_jsx_runtime());
 var Image = ({
   src,
   alt = "",
@@ -23043,7 +23170,7 @@ var Image = ({
     aspectRatio,
     ...rest.style
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
     "img",
     {
       src,
@@ -23057,7 +23184,7 @@ var Image = ({
 };
 var ImageCanvas = ({ data }) => {
   const { src, alt, fit, lazy, aspectRatio, className } = data;
-  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
     Image,
     {
       src,
@@ -23085,7 +23212,7 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/video/index.tsx
-var import_jsx_runtime19 = __toESM(require_jsx_runtime());
+var import_jsx_runtime21 = __toESM(require_jsx_runtime());
 var Video = ({
   src,
   poster,
@@ -23102,7 +23229,7 @@ var Video = ({
     "cf-video",
     className
   ].filter(Boolean).join(" ");
-  return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
     "video",
     {
       src,
@@ -23133,7 +23260,7 @@ var VideoCanvas = ({ data }) => {
     preload,
     className
   } = data;
-  return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
     Video,
     {
       src,
@@ -23165,7 +23292,7 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/grid/index.tsx
-var import_jsx_runtime20 = __toESM(require_jsx_runtime());
+var import_jsx_runtime22 = __toESM(require_jsx_runtime());
 var Grid = ({
   gap = "md",
   align = "stretch",
@@ -23182,9 +23309,9 @@ var Grid = ({
     wrap ? "cf-grid--wrap" : "",
     className
   ].filter(Boolean).join(" ");
-  return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: classes, children });
+  return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: classes, children });
 };
-var GridCanvas = ({ data, children }) => /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Grid, { ...data, children });
+var GridCanvas = ({ data, children }) => /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Grid, { ...data, children });
 registerComponent({
   name: "Grid",
   defaults: { gap: "md", align: "stretch", justify: "flex-start", wrap: true, className: "" },
@@ -23194,35 +23321,64 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/column/index.tsx
-var import_jsx_runtime21 = __toESM(require_jsx_runtime());
-var Column = ({
-  span = 6,
-  mobileSpan = 12,
+var import_jsx_runtime23 = __toESM(require_jsx_runtime());
+var Link = ({
+  linkType = "internal",
+  url = "/page/1",
+  text = "Learn More",
+  target = "_self",
   className,
   children
 }) => {
-  const classes = [
-    "cf-col",
-    `cf-col--${span}`,
-    `cf-col-m--${mobileSpan}`,
-    className
-  ].filter(Boolean).join(" ");
-  return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: classes, children });
+  const classes = ["cf-link", className].filter(Boolean).join(" ");
+  return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
+    "a",
+    {
+      href: url,
+      className: classes,
+      target,
+      rel: target === "_blank" ? "noopener noreferrer" : void 0,
+      children: text || children
+    }
+  );
 };
-var ColumnCanvas = ({ data, children }) => /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(Column, { ...data, children });
+var LinkCanvas = ({ data, children }) => /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(Link, { ...data, children });
 registerComponent({
-  name: "Column",
-  defaults: { span: 6, mobileSpan: 12, className: "" },
-  component: ColumnCanvas,
+  name: "Anchor",
+  defaults: {
+    linkType: "internal",
+    url: "/page/1",
+    text: "Learn More",
+    target: "_self",
+    className: ""
+  },
+  component: LinkCanvas,
   isCmsEditor: true,
-  category: "Layout"
+  category: "General",
+  icon: "fas fa-link",
+  fields: {
+    linkType: {
+      label: "Link Mode",
+      type: "select",
+      options: ["internal", "external"]
+    },
+    url: {
+      label: "Destination",
+      // We keep this as text by default, but our PropField will 
+      // check 'linkType' to decide if it shows the Picker.
+      type: "page-picker"
+    },
+    text: { label: "Link Text", type: "text" },
+    target: { label: "Open In", type: "select", options: ["_self", "_blank"] },
+    className: { label: "Custom Class", type: "text" }
+  }
 });
 
 // app/web/thirdparty/components/carousel-list/index.tsx
-var import_react14 = __toESM(require_react());
-var import_jsx_runtime22 = __toESM(require_jsx_runtime());
+var import_react16 = __toESM(require_react());
+var import_jsx_runtime24 = __toESM(require_jsx_runtime());
 var CarouselList = ({ children }) => {
-  const scrollRef = (0, import_react14.useRef)(null);
+  const scrollRef = (0, import_react16.useRef)(null);
   const scroll = (direction) => {
     if (scrollRef.current) {
       const { current: el } = scrollRef;
@@ -23234,12 +23390,12 @@ var CarouselList = ({ children }) => {
       });
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "cf-carousel", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "cf-carousel__controls", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("button", { type: "button", onClick: () => scroll("prev"), className: "cf-carousel__btn", children: "<" }),
-      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("button", { type: "button", onClick: () => scroll("next"), className: "cf-carousel__btn", children: ">" })
+  return /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("div", { className: "cf-carousel", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("div", { className: "cf-carousel__controls", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("button", { type: "button", onClick: () => scroll("prev"), className: "cf-carousel__btn", children: "<" }),
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("button", { type: "button", onClick: () => scroll("next"), className: "cf-carousel__btn", children: ">" })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "cf-carousel__viewport", ref: scrollRef, children })
+    /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("div", { className: "cf-carousel__viewport", ref: scrollRef, children })
   ] });
 };
 registerComponent({
@@ -23251,7 +23407,7 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/card/index.tsx
-var import_jsx_runtime23 = __toESM(require_jsx_runtime());
+var import_jsx_runtime25 = __toESM(require_jsx_runtime());
 var Card = ({
   title,
   subtitle,
@@ -23260,14 +23416,14 @@ var Card = ({
   className,
   children
 }) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("div", { className: `cf-card ${className}`, children: [
-    image && /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("img", { src: image, className: "cf-card__img", alt: title }),
-    /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("div", { className: "cf-card__body", children: [
-      title && /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("h3", { className: "cf-card__title", children: title }),
-      subtitle && /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("h4", { className: "cf-card__subtitle", children: subtitle }),
-      /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("div", { className: "cf-card__text", children })
+  return /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("div", { className: `cf-card ${className}`, children: [
+    image && /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("img", { src: image, className: "cf-card__img", alt: title }),
+    /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("div", { className: "cf-card__body", children: [
+      title && /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("h3", { className: "cf-card__title", children: title }),
+      subtitle && /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("h4", { className: "cf-card__subtitle", children: subtitle }),
+      /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: "cf-card__text", children })
     ] }),
-    showFooter && /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("div", { className: "cf-card__footer", children: "Action Area" })
+    showFooter && /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: "cf-card__footer", children: "Action Area" })
   ] });
 };
 registerComponent({
@@ -23278,7 +23434,7 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/youtube-embed/index.tsx
-var import_jsx_runtime24 = __toESM(require_jsx_runtime());
+var import_jsx_runtime26 = __toESM(require_jsx_runtime());
 var getYouTubeID = (urlStr) => {
   if (!urlStr) return null;
   try {
@@ -23300,9 +23456,9 @@ var YouTube = ({ data }) => {
   const { url, aspectRatio = "16/9", className } = data;
   const videoId = getYouTubeID(url);
   if (!videoId) {
-    return /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("div", { className: `cf-youtube cf-youtube--error ${className}`, style: { aspectRatio }, children: /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("span", { children: "Please enter a valid YouTube URL" }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: `cf-youtube cf-youtube--error ${className}`, style: { aspectRatio }, children: /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("span", { children: "Please enter a valid YouTube URL" }) });
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("div", { className: `cf-youtube ${className}`, style: { aspectRatio }, children: /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: `cf-youtube ${className}`, style: { aspectRatio }, children: /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(
     "iframe",
     {
       className: "cf-youtube__iframe",
@@ -23327,14 +23483,14 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/maps/index.tsx
-var import_jsx_runtime25 = __toESM(require_jsx_runtime());
+var import_jsx_runtime27 = __toESM(require_jsx_runtime());
 var GoogleMaps = ({ data }) => {
   const { location, apiKey, aspectRatio = "16/9", zoom = "14", className } = data;
   if (!location || !apiKey) {
-    return /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: `cf-maps cf-maps--error ${className}`, style: { aspectRatio }, children: /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("span", { children: !apiKey ? "API key required" : "Please enter a location" }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: `cf-maps cf-maps--error ${className}`, style: { aspectRatio }, children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { children: !apiKey ? "API key required" : "Please enter a location" }) });
   }
   const src = `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${encodeURIComponent(location)}&zoom=${zoom}`;
-  return /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: `cf-maps ${className}`, style: { aspectRatio }, children: /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: `cf-maps ${className}`, style: { aspectRatio }, children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
     "iframe",
     {
       className: "cf-maps__iframe",
@@ -23363,11 +23519,11 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/accordion/index.tsx
-var import_react15 = __toESM(require_react());
-var import_jsx_runtime26 = __toESM(require_jsx_runtime());
+var import_react17 = __toESM(require_react());
+var import_jsx_runtime28 = __toESM(require_jsx_runtime());
 var Accordion = ({ data, children }) => {
   const { allowMultiple = "false", className } = data;
-  const [openIds, setOpenIds] = (0, import_react15.useState)(/* @__PURE__ */ new Set());
+  const [openIds, setOpenIds] = (0, import_react17.useState)(/* @__PURE__ */ new Set());
   const toggle = (idx) => {
     setOpenIds((prev) => {
       const next = new Set(prev);
@@ -23380,10 +23536,10 @@ var Accordion = ({ data, children }) => {
       return next;
     });
   };
-  const items = import_react15.default.Children.toArray(children);
-  return /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: `cf-accordion ${className}`, children: items.map((child, idx) => {
-    if (!import_react15.default.isValidElement(child)) return child;
-    return import_react15.default.cloneElement(child, {
+  const items = import_react17.default.Children.toArray(children);
+  return /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: `cf-accordion ${className}`, children: items.map((child, idx) => {
+    if (!import_react17.default.isValidElement(child)) return child;
+    return import_react17.default.cloneElement(child, {
       key: idx,
       isOpen: openIds.has(idx),
       onToggle: () => toggle(idx)
@@ -23403,17 +23559,17 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/accordion-item/index.tsx
-var import_react16 = __toESM(require_react());
-var import_jsx_runtime27 = __toESM(require_jsx_runtime());
+var import_react18 = __toESM(require_react());
+var import_jsx_runtime29 = __toESM(require_jsx_runtime());
 var AccordionItem = ({ data, children }) => {
   const { label, className } = data;
-  const [isOpen, setIsOpen] = (0, import_react16.useState)(false);
-  return /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: `cf-accordion-item ${isOpen ? "is-open" : ""} ${className ?? ""}`, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("button", { type: "button", className: "cf-accordion-item__trigger", onClick: () => setIsOpen((prev) => !prev), children: [
-      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { children: label || "Accordion Item" }),
-      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("i", { className: "fas fa-chevron-down cf-accordion-item__icon" })
+  const [isOpen, setIsOpen] = (0, import_react18.useState)(false);
+  return /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: `cf-accordion-item ${isOpen ? "is-open" : ""} ${className ?? ""}`, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("button", { type: "button", className: "cf-accordion-item__trigger", onClick: () => setIsOpen((prev) => !prev), children: [
+      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { children: label || "Accordion Item" }),
+      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("i", { className: "fas fa-chevron-down cf-accordion-item__icon" })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: "cf-accordion-item__body", children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: "cf-accordion-item__content", children: children ?? /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("p", { children: "Add content inside this accordion item." }) }) })
+    /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("div", { className: "cf-accordion-item__body", children: /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("div", { className: "cf-accordion-item__content", children: children ?? /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("p", { children: "Add content inside this accordion item." }) }) })
   ] });
 };
 registerComponent({
@@ -23429,8 +23585,8 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/codeblock/index.tsx
-var import_react17 = __toESM(require_react());
-var import_jsx_runtime28 = __toESM(require_jsx_runtime());
+var import_react19 = __toESM(require_react());
+var import_jsx_runtime30 = __toESM(require_jsx_runtime());
 var LANGUAGES = [
   // Web
   "javascript",
@@ -23507,9 +23663,9 @@ var LANGUAGE_LABELS = {
 };
 var CodeBlock = ({ data }) => {
   const { code, language = "javascript", filename, showCopy = "true", className } = data;
-  const codeRef = (0, import_react17.useRef)(null);
-  const [copied, setCopied] = (0, import_react17.useState)(false);
-  (0, import_react17.useEffect)(() => {
+  const codeRef = (0, import_react19.useRef)(null);
+  const [copied, setCopied] = (0, import_react19.useState)(false);
+  (0, import_react19.useEffect)(() => {
     if (document.getElementById("prism-css")) return;
     const link = document.createElement("link");
     link.id = "prism-css";
@@ -23526,7 +23682,7 @@ var CodeBlock = ({ data }) => {
     };
     document.head.appendChild(script);
   }, []);
-  (0, import_react17.useEffect)(() => {
+  (0, import_react19.useEffect)(() => {
     if (!codeRef.current) return;
     const highlight = () => {
       if (window.Prism && codeRef.current) {
@@ -23550,23 +23706,23 @@ var CodeBlock = ({ data }) => {
     });
   };
   const displayLabel = filename || LANGUAGE_LABELS[language] || language;
-  return /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: `cf-code-block ${className ?? ""}`, children: [
-    (filename || showCopy === "true") && /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "cf-code-block__bar", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "cf-code-block__filename", children: displayLabel }),
-      showCopy === "true" && /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: `cf-code-block ${className ?? ""}`, children: [
+    (filename || showCopy === "true") && /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: "cf-code-block__bar", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("span", { className: "cf-code-block__filename", children: displayLabel }),
+      showCopy === "true" && /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)(
         "button",
         {
           type: "button",
           className: `cf-code-block__copy ${copied ? "copied" : ""}`,
           onClick: handleCopy,
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("i", { className: `fas ${copied ? "fa-check" : "fa-copy"}` }),
+            /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("i", { className: `fas ${copied ? "fa-check" : "fa-copy"}` }),
             copied ? "Copied!" : "Copy"
           ]
         }
       )
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("pre", { className: `cf-code-block__pre language-${language}`, children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("code", { ref: codeRef, className: `language-${language}`, children: code }) })
+    /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("pre", { className: `cf-code-block__pre language-${language}`, children: /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("code", { ref: codeRef, className: `language-${language}`, children: code }) })
   ] });
 };
 registerComponent({
@@ -23592,8 +23748,8 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/github/stats/index.tsx
-var import_react18 = __toESM(require_react());
-var import_jsx_runtime29 = __toESM(require_jsx_runtime());
+var import_react20 = __toESM(require_react());
+var import_jsx_runtime31 = __toESM(require_jsx_runtime());
 var THEMES = [
   "default",
   "transparent",
@@ -23629,11 +23785,11 @@ var GitHubStatsCard = ({ data }) => {
     showTopLangs = "true",
     className
   } = data;
-  const [imgErrors, setImgErrors] = (0, import_react18.useState)({});
+  const [imgErrors, setImgErrors] = (0, import_react20.useState)({});
   if (!username) {
-    return /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: `cf-gh-stats cf-gh-stats--error ${className ?? ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("i", { className: "fab fa-github" }),
-      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { children: "Enter a GitHub username to display stats" })
+    return /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)("div", { className: `cf-gh-stats cf-gh-stats--error ${className ?? ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("i", { className: "fab fa-github" }),
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("span", { children: "Enter a GitHub username to display stats" })
     ] });
   }
   const base = "https://github-readme-stats.vercel.app/api";
@@ -23644,11 +23800,11 @@ var GitHubStatsCard = ({ data }) => {
   const handleImgError = (key) => {
     setImgErrors((prev) => ({ ...prev, [key]: true }));
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: `cf-gh-stats ${className ?? ""}`, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("div", { className: "cf-gh-stats__card", children: imgErrors["stats"] ? /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "cf-gh-stats__error-card", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("i", { className: "fab fa-github" }),
+  return /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)("div", { className: `cf-gh-stats ${className ?? ""}`, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("div", { className: "cf-gh-stats__card", children: imgErrors["stats"] ? /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)("div", { className: "cf-gh-stats__error-card", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("i", { className: "fab fa-github" }),
       " Failed to load stats \u2014 check username"
-    ] }) : /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(
+    ] }) : /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
       "img",
       {
         src: statsUrl,
@@ -23657,10 +23813,10 @@ var GitHubStatsCard = ({ data }) => {
         onError: () => handleImgError("stats")
       }
     ) }),
-    showStreak === "true" && /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("div", { className: "cf-gh-stats__card", children: imgErrors["streak"] ? /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "cf-gh-stats__error-card", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("i", { className: "fab fa-github" }),
+    showStreak === "true" && /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("div", { className: "cf-gh-stats__card", children: imgErrors["streak"] ? /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)("div", { className: "cf-gh-stats__error-card", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("i", { className: "fab fa-github" }),
       " Failed to load streak"
-    ] }) : /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(
+    ] }) : /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
       "img",
       {
         src: streakUrl,
@@ -23669,10 +23825,10 @@ var GitHubStatsCard = ({ data }) => {
         onError: () => handleImgError("streak")
       }
     ) }),
-    showTopLangs === "true" && /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("div", { className: "cf-gh-stats__card cf-gh-stats__card--langs", children: imgErrors["langs"] ? /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "cf-gh-stats__error-card", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("i", { className: "fab fa-github" }),
+    showTopLangs === "true" && /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("div", { className: "cf-gh-stats__card cf-gh-stats__card--langs", children: imgErrors["langs"] ? /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)("div", { className: "cf-gh-stats__error-card", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("i", { className: "fab fa-github" }),
       " Failed to load languages"
-    ] }) : /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(
+    ] }) : /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
       "img",
       {
         src: langsUrl,
@@ -23710,8 +23866,8 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/github/repo-card/index.tsx
-var import_react19 = __toESM(require_react());
-var import_jsx_runtime30 = __toESM(require_jsx_runtime());
+var import_react21 = __toESM(require_react());
+var import_jsx_runtime32 = __toESM(require_jsx_runtime());
 var THEMES2 = [
   "default",
   "transparent",
@@ -23739,25 +23895,25 @@ var THEMES2 = [
 ];
 var GitHubRepoCard = ({ data }) => {
   const { username, repo, theme = "default", className } = data;
-  const [imgError, setImgError] = (0, import_react19.useState)(false);
+  const [imgError, setImgError] = (0, import_react21.useState)(false);
   if (!username || !repo) {
-    return /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: `cf-gh-repo cf-gh-repo--error ${className ?? ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("i", { className: "fab fa-github" }),
-      /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("span", { children: "Enter a GitHub username and repo name" })
+    return /* @__PURE__ */ (0, import_jsx_runtime32.jsxs)("div", { className: `cf-gh-repo cf-gh-repo--error ${className ?? ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)("i", { className: "fab fa-github" }),
+      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)("span", { children: "Enter a GitHub username and repo name" })
     ] });
   }
   const src = `https://github-readme-stats.vercel.app/api/pin?username=${username}&repo=${repo}&theme=${theme}&border_radius=12`;
-  return /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("div", { className: `cf-gh-repo ${className ?? ""}`, children: imgError ? /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: "cf-gh-repo__error-card", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("i", { className: "fab fa-github" }),
+  return /* @__PURE__ */ (0, import_jsx_runtime32.jsx)("div", { className: `cf-gh-repo ${className ?? ""}`, children: imgError ? /* @__PURE__ */ (0, import_jsx_runtime32.jsxs)("div", { className: "cf-gh-repo__error-card", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime32.jsx)("i", { className: "fab fa-github" }),
     " Failed to load repo \u2014 check username and repo name"
-  ] }) : /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(
+  ] }) : /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
     "a",
     {
       href: `https://github.com/${username}/${repo}`,
       target: "_blank",
       rel: "noopener noreferrer",
       className: "cf-gh-repo__link",
-      children: /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(
+      children: /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
         "img",
         {
           src,
@@ -23790,8 +23946,8 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/github/activity-graph/index.tsx
-var import_react20 = __toESM(require_react());
-var import_jsx_runtime31 = __toESM(require_jsx_runtime());
+var import_react22 = __toESM(require_react());
+var import_jsx_runtime33 = __toESM(require_jsx_runtime());
 var GRAPH_THEMES = [
   "default",
   "transparent",
@@ -23812,18 +23968,18 @@ var GRAPH_THEMES = [
 ];
 var GitHubActivityGraph = ({ data }) => {
   const { username, theme = "default", area = "true", hideBorder = "false", className } = data;
-  const [imgError, setImgError] = (0, import_react20.useState)(false);
+  const [imgError, setImgError] = (0, import_react22.useState)(false);
   if (!username) {
-    return /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)("div", { className: `cf-gh-graph cf-gh-graph--error ${className ?? ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("i", { className: "fab fa-github" }),
-      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("span", { children: "Enter a GitHub username to display activity graph" })
+    return /* @__PURE__ */ (0, import_jsx_runtime33.jsxs)("div", { className: `cf-gh-graph cf-gh-graph--error ${className ?? ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("i", { className: "fab fa-github" }),
+      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("span", { children: "Enter a GitHub username to display activity graph" })
     ] });
   }
   const src = `https://github-readme-activity-graph.vercel.app/graph?username=${username}&theme=${theme}&area=${area}&hide_border=${hideBorder}&radius=12`;
-  return /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("div", { className: `cf-gh-graph ${className ?? ""}`, children: imgError ? /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)("div", { className: "cf-gh-graph__error-card", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("i", { className: "fab fa-github" }),
+  return /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("div", { className: `cf-gh-graph ${className ?? ""}`, children: imgError ? /* @__PURE__ */ (0, import_jsx_runtime33.jsxs)("div", { className: "cf-gh-graph__error-card", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("i", { className: "fab fa-github" }),
     " Failed to load activity graph \u2014 check username"
-  ] }) : /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
+  ] }) : /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
     "img",
     {
       src,
@@ -23856,8 +24012,8 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/github/trophies/index.tsx
-var import_react21 = __toESM(require_react());
-var import_jsx_runtime32 = __toESM(require_jsx_runtime());
+var import_react23 = __toESM(require_react());
+var import_jsx_runtime34 = __toESM(require_jsx_runtime());
 var TROPHY_THEMES = [
   "flat",
   "onedark",
@@ -23886,18 +24042,18 @@ var TROPHY_THEMES = [
 var RANKS = ["SECRET", "SSS", "SS", "S", "AAA", "AA", "A", "B", "C"];
 var GitHubTrophy = ({ data }) => {
   const { username, theme = "flat", rank = "B", column = "6", className } = data;
-  const [imgError, setImgError] = (0, import_react21.useState)(false);
+  const [imgError, setImgError] = (0, import_react23.useState)(false);
   if (!username) {
-    return /* @__PURE__ */ (0, import_jsx_runtime32.jsxs)("div", { className: `cf-gh-trophy cf-gh-trophy--error ${className ?? ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)("i", { className: "fab fa-github" }),
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)("span", { children: "Enter a GitHub username to display trophies" })
+    return /* @__PURE__ */ (0, import_jsx_runtime34.jsxs)("div", { className: `cf-gh-trophy cf-gh-trophy--error ${className ?? ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("i", { className: "fab fa-github" }),
+      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("span", { children: "Enter a GitHub username to display trophies" })
     ] });
   }
   const src = `https://github-profile-trophy.vercel.app/?username=${username}&theme=${theme}&rank=${rank}&column=${column}&margin-w=8&margin-h=8&no-bg=false&no-frame=false`;
-  return /* @__PURE__ */ (0, import_jsx_runtime32.jsx)("div", { className: `cf-gh-trophy ${className ?? ""}`, children: imgError ? /* @__PURE__ */ (0, import_jsx_runtime32.jsxs)("div", { className: "cf-gh-trophy__error-card", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime32.jsx)("i", { className: "fab fa-github" }),
+  return /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("div", { className: `cf-gh-trophy ${className ?? ""}`, children: imgError ? /* @__PURE__ */ (0, import_jsx_runtime34.jsxs)("div", { className: "cf-gh-trophy__error-card", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("i", { className: "fab fa-github" }),
     " Failed to load trophies \u2014 check username"
-  ] }) : /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+  ] }) : /* @__PURE__ */ (0, import_jsx_runtime34.jsx)(
     "img",
     {
       src,
@@ -23930,8 +24086,8 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/figma/embed/index.tsx
-var import_react22 = __toESM(require_react());
-var import_jsx_runtime33 = __toESM(require_jsx_runtime());
+var import_react24 = __toESM(require_react());
+var import_jsx_runtime35 = __toESM(require_jsx_runtime());
 var getFigmaEmbedUrl = (urlStr) => {
   if (!urlStr) return null;
   const trimmed = urlStr.trim();
@@ -23947,41 +24103,41 @@ var getFigmaEmbedUrl = (urlStr) => {
 };
 var FigmaEmbed = ({ data }) => {
   const { url, height = "600", showOpenButton = "true", className } = data;
-  const [isLoaded, setIsLoaded] = (0, import_react22.useState)(false);
-  const [hasError, setHasError] = (0, import_react22.useState)(false);
+  const [isLoaded, setIsLoaded] = (0, import_react24.useState)(false);
+  const [hasError, setHasError] = (0, import_react24.useState)(false);
   const embedUrl = getFigmaEmbedUrl(url);
   if (!url) {
-    return /* @__PURE__ */ (0, import_jsx_runtime33.jsxs)("div", { className: `cf-figma cf-figma--empty ${className ?? ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("i", { className: "fab fa-figma" }),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("span", { children: "Paste a Figma file or prototype URL" }),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("p", { children: 'Make sure the file is set to "Anyone with the link can view" in Figma' })
+    return /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("div", { className: `cf-figma cf-figma--empty ${className ?? ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("i", { className: "fab fa-figma" }),
+      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("span", { children: "Paste a Figma file or prototype URL" }),
+      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("p", { children: 'Make sure the file is set to "Anyone with the link can view" in Figma' })
     ] });
   }
   if (!embedUrl) {
-    return /* @__PURE__ */ (0, import_jsx_runtime33.jsxs)("div", { className: `cf-figma cf-figma--error ${className ?? ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("i", { className: "fab fa-figma" }),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("span", { children: "Invalid Figma URL" }),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("p", { children: "Must be a figma.com/file, figma.com/design or figma.com/proto URL" })
+    return /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("div", { className: `cf-figma cf-figma--error ${className ?? ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("i", { className: "fab fa-figma" }),
+      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("span", { children: "Invalid Figma URL" }),
+      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("p", { children: "Must be a figma.com/file, figma.com/design or figma.com/proto URL" })
     ] });
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime33.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)(
     "div",
     {
       className: `cf-figma ${className ?? ""}`,
       style: { height: `${height}px` },
       children: [
-        !isLoaded && !hasError && /* @__PURE__ */ (0, import_jsx_runtime33.jsxs)("div", { className: "cf-figma__skeleton", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("div", { className: "cf-figma__skeleton-pulse" }),
-          /* @__PURE__ */ (0, import_jsx_runtime33.jsxs)("div", { className: "cf-figma__skeleton-label", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("i", { className: "fab fa-figma" }),
+        !isLoaded && !hasError && /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("div", { className: "cf-figma__skeleton", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("div", { className: "cf-figma__skeleton-pulse" }),
+          /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("div", { className: "cf-figma__skeleton-label", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("i", { className: "fab fa-figma" }),
             " Loading Figma embed..."
           ] })
         ] }),
-        hasError && /* @__PURE__ */ (0, import_jsx_runtime33.jsxs)("div", { className: "cf-figma__blocked", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("i", { className: "fab fa-figma" }),
-          /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("span", { children: "Embed blocked or file is private" }),
-          /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("p", { children: "Make sure the Figma file is publicly shared" }),
-          showOpenButton === "true" && /* @__PURE__ */ (0, import_jsx_runtime33.jsxs)(
+        hasError && /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("div", { className: "cf-figma__blocked", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("i", { className: "fab fa-figma" }),
+          /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("span", { children: "Embed blocked or file is private" }),
+          /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("p", { children: "Make sure the Figma file is publicly shared" }),
+          showOpenButton === "true" && /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)(
             "a",
             {
               href: url,
@@ -23989,13 +24145,13 @@ var FigmaEmbed = ({ data }) => {
               rel: "noopener noreferrer",
               className: "cf-figma__open-btn",
               children: [
-                /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("i", { className: "fab fa-figma" }),
+                /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("i", { className: "fab fa-figma" }),
                 " Open in Figma"
               ]
             }
           )
         ] }),
-        !hasError && /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+        !hasError && /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
           "iframe",
           {
             className: `cf-figma__iframe ${isLoaded ? "is-loaded" : ""}`,
@@ -24006,7 +24162,7 @@ var FigmaEmbed = ({ data }) => {
             onError: () => setHasError(true)
           }
         ),
-        isLoaded && showOpenButton === "true" && /* @__PURE__ */ (0, import_jsx_runtime33.jsxs)(
+        isLoaded && showOpenButton === "true" && /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)(
           "a",
           {
             href: url,
@@ -24014,7 +24170,7 @@ var FigmaEmbed = ({ data }) => {
             rel: "noopener noreferrer",
             className: "cf-figma__open-pill",
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("i", { className: "fab fa-figma" }),
+              /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("i", { className: "fab fa-figma" }),
               " Open in Figma"
             ]
           }
@@ -24044,7 +24200,7 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/steps/index.tsx
-var import_jsx_runtime34 = __toESM(require_jsx_runtime());
+var import_jsx_runtime36 = __toESM(require_jsx_runtime());
 var DEFAULT_STEPS = [
   { title: "Install dependencies", description: "Run `npm install` to install all required packages.", completed: true },
   { title: "Configure environment", description: "Copy `.env.example` to `.env` and fill in your values.", completed: true },
@@ -24060,17 +24216,17 @@ var StepList = ({ data }) => {
       return DEFAULT_STEPS;
     }
   })();
-  return /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("div", { className: `cf-steps ${className ?? ""}`, children: steps.map((step, idx) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("div", { className: `cf-steps ${className ?? ""}`, children: steps.map((step, idx) => {
     const isLast = idx === steps.length - 1;
     const isCompleted = step.completed === true;
-    return /* @__PURE__ */ (0, import_jsx_runtime34.jsxs)("div", { className: `cf-steps__item ${isCompleted ? "is-completed" : ""} ${isLast ? "is-last" : ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsxs)("div", { className: "cf-steps__left", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("div", { className: "cf-steps__indicator", children: isCompleted ? /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("i", { className: "fas fa-check" }) : /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("span", { className: "cf-steps__dot" }) }),
-        !isLast && /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("div", { className: "cf-steps__line" })
+    return /* @__PURE__ */ (0, import_jsx_runtime36.jsxs)("div", { className: `cf-steps__item ${isCompleted ? "is-completed" : ""} ${isLast ? "is-last" : ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime36.jsxs)("div", { className: "cf-steps__left", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("div", { className: "cf-steps__indicator", children: isCompleted ? /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("i", { className: "fas fa-check" }) : /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("span", { className: "cf-steps__dot" }) }),
+        !isLast && /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("div", { className: "cf-steps__line" })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsxs)("div", { className: "cf-steps__content", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("div", { className: "cf-steps__title", children: step.title }),
-        step.description && /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("p", { className: "cf-steps__description", children: step.description })
+      /* @__PURE__ */ (0, import_jsx_runtime36.jsxs)("div", { className: "cf-steps__content", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("div", { className: "cf-steps__title", children: step.title }),
+        step.description && /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("p", { className: "cf-steps__description", children: step.description })
       ] })
     ] }, idx);
   }) });
@@ -24092,19 +24248,19 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/badge/index.tsx
-var import_jsx_runtime35 = __toESM(require_jsx_runtime());
+var import_jsx_runtime37 = __toESM(require_jsx_runtime());
 var VARIANTS2 = ["default", "blue", "green", "yellow", "red", "purple", "orange"];
 var SIZES = ["sm", "md", "lg"];
 var Badge = ({ data }) => {
   const { label, variant = "default", size = "md", icon, href, className } = data;
   const safeVariant = VARIANTS2.includes(variant) ? variant : "default";
   const safeSize = SIZES.includes(size) ? size : "md";
-  const content = /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)(import_jsx_runtime35.Fragment, { children: [
-    icon && /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("i", { className: `${icon} cf-badge__icon` }),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("span", { children: label || "Badge" })
+  const content = /* @__PURE__ */ (0, import_jsx_runtime37.jsxs)(import_jsx_runtime37.Fragment, { children: [
+    icon && /* @__PURE__ */ (0, import_jsx_runtime37.jsx)("i", { className: `${icon} cf-badge__icon` }),
+    /* @__PURE__ */ (0, import_jsx_runtime37.jsx)("span", { children: label || "Badge" })
   ] });
   if (href) {
-    return /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime37.jsx)(
       "a",
       {
         href,
@@ -24115,7 +24271,7 @@ var Badge = ({ data }) => {
       }
     );
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("span", { className: `cf-badge cf-badge--${safeVariant} cf-badge--${safeSize} ${className ?? ""}`, children: content });
+  return /* @__PURE__ */ (0, import_jsx_runtime37.jsx)("span", { className: `cf-badge cf-badge--${safeVariant} cf-badge--${safeSize} ${className ?? ""}`, children: content });
 };
 registerComponent({
   name: "Badge",
@@ -24142,7 +24298,7 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/divider/index.tsx
-var import_jsx_runtime36 = __toESM(require_jsx_runtime());
+var import_jsx_runtime38 = __toESM(require_jsx_runtime());
 var VARIANTS3 = ["line", "dashed", "dotted", "spacer"];
 var SIZES2 = ["xs", "sm", "md", "lg", "xl"];
 var Divider = ({ data }) => {
@@ -24150,9 +24306,9 @@ var Divider = ({ data }) => {
   const safeVariant = VARIANTS3.includes(variant) ? variant : "line";
   const safeSize = SIZES2.includes(size) ? size : "md";
   if (safeVariant === "spacer") {
-    return /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("div", { className: `cf-divider cf-divider--spacer cf-divider--${safeSize} ${className ?? ""}` });
+    return /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: `cf-divider cf-divider--spacer cf-divider--${safeSize} ${className ?? ""}` });
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("div", { className: `cf-divider cf-divider--${safeVariant} cf-divider--${safeSize} ${className ?? ""}`, children: label ? /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("span", { className: "cf-divider__label", children: label }) : null });
+  return /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: `cf-divider cf-divider--${safeVariant} cf-divider--${safeSize} ${className ?? ""}`, children: label ? /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "cf-divider__label", children: label }) : null });
 };
 registerComponent({
   name: "Divider",
@@ -24175,10 +24331,10 @@ registerComponent({
 });
 
 // app/web/thirdparty/components/prefab/index.tsx
-var import_react23 = __toESM(require_react());
-var import_jsx_runtime37 = __toESM(require_jsx_runtime());
+var import_react25 = __toESM(require_react());
+var import_jsx_runtime39 = __toESM(require_jsx_runtime());
 var Prefab = ({ data }) => {
-  const nodes = (0, import_react23.useMemo)(() => {
+  const nodes = (0, import_react25.useMemo)(() => {
     const raw = data?.prefabJson;
     if (!raw) return [];
     try {
@@ -24189,7 +24345,7 @@ var Prefab = ({ data }) => {
       return [];
     }
   }, [data?.prefabJson]);
-  return /* @__PURE__ */ (0, import_jsx_runtime37.jsx)("div", { className: "codefolio-prefab-render", children: /* @__PURE__ */ (0, import_jsx_runtime37.jsx)(Canvas2, { manualNodes: nodes }) });
+  return /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("div", { className: "codefolio-prefab-render", children: /* @__PURE__ */ (0, import_jsx_runtime39.jsx)(Canvas2, { manualNodes: nodes }) });
 };
 registerComponent({
   name: "Prefab",
@@ -24207,9 +24363,55 @@ registerComponent({
   isCmsEditor: true
 });
 
+// app/web/thirdparty/components/link/index.tsx
+var import_jsx_runtime40 = __toESM(require_jsx_runtime());
+var Anchor = ({
+  url = "/page/1",
+  text = "Learn More",
+  target = "_self",
+  className,
+  children
+}) => {
+  const isExternal = url.startsWith("http");
+  const classes = ["cf-anchor", className].filter(Boolean).join(" ");
+  return /* @__PURE__ */ (0, import_jsx_runtime40.jsx)(
+    "a",
+    {
+      href: url,
+      className: classes,
+      target,
+      rel: isExternal || target === "_blank" ? "noopener noreferrer" : void 0,
+      children: text || children
+    }
+  );
+};
+var AnchorCanvas = ({ data, children }) => /* @__PURE__ */ (0, import_jsx_runtime40.jsx)(Anchor, { ...data, children });
+registerComponent({
+  name: "Anchor",
+  defaults: {
+    url: "/page/1",
+    text: "Learn More",
+    target: "_self",
+    className: ""
+  },
+  component: AnchorCanvas,
+  isCmsEditor: true,
+  category: "General",
+  icon: "fas fa-link",
+  fields: {
+    url: {
+      label: "Link Destination",
+      type: "page-picker"
+    },
+    text: { label: "Display Text", type: "text" },
+    target: { label: "Open In", type: "select", options: ["_self", "_blank"] },
+    className: { label: "CSS Class", type: "text" }
+  }
+});
+
 // app/web/thirdparty/dev/module-generator/index.tsx
-var import_react24 = __toESM(require_react());
-var import_jsx_runtime38 = __toESM(require_jsx_runtime());
+var import_react26 = __toESM(require_react());
+var import_jsx_runtime41 = __toESM(require_jsx_runtime());
 var TYPE_OPTIONS = ["string", "number", "boolean", "CanvasNode"];
 var TYPE_COLORS = {
   string: "#3b82f6",
@@ -24230,15 +24432,15 @@ var defaultField = () => ({
   moduleData: '{\n  "label": ""\n}'
 });
 function ModuleGeneratorPage() {
-  const [moduleName, setModuleName] = (0, import_react24.useState)("");
-  const [isThirdParty, setIsThirdParty] = (0, import_react24.useState)(false);
-  const [fields, setFields] = (0, import_react24.useState)([defaultField()]);
-  const [expandedId, setExpandedId] = (0, import_react24.useState)(fields[0].id);
-  const [payload, setPayload] = (0, import_react24.useState)(null);
-  const [nameError, setNameError] = (0, import_react24.useState)("");
-  const [status, setStatus] = (0, import_react24.useState)("idle");
-  const [resultPath, setResultPath] = (0, import_react24.useState)("");
-  const [resultMsg, setResultMsg] = (0, import_react24.useState)("");
+  const [moduleName, setModuleName] = (0, import_react26.useState)("");
+  const [isThirdParty, setIsThirdParty] = (0, import_react26.useState)(false);
+  const [fields, setFields] = (0, import_react26.useState)([defaultField()]);
+  const [expandedId, setExpandedId] = (0, import_react26.useState)(fields[0].id);
+  const [payload, setPayload] = (0, import_react26.useState)(null);
+  const [nameError, setNameError] = (0, import_react26.useState)("");
+  const [status, setStatus] = (0, import_react26.useState)("idle");
+  const [resultPath, setResultPath] = (0, import_react26.useState)("");
+  const [resultMsg, setResultMsg] = (0, import_react26.useState)("");
   const updateField = (id, patch) => setFields((prev) => prev.map((f) => f.id === id ? { ...f, ...patch } : f));
   const addField = () => {
     const f = defaultField();
@@ -24322,13 +24524,13 @@ function ModuleGeneratorPage() {
     if (payload) navigator.clipboard.writeText(payload);
   };
   const namedFields = fields.filter((f) => f.name);
-  return /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__header", children: /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__header-inner", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__eyebrow", children: "Module Generator" }),
-        /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__title", children: "New Module" })
+  return /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__header", children: /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__header-inner", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__eyebrow", children: "Module Generator" }),
+        /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__title", children: "New Module" })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)(
+      /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)(
         "button",
         {
           className: `mgp__generate-btn mgp__generate-btn--${status}`,
@@ -24339,27 +24541,27 @@ function ModuleGeneratorPage() {
             status === "success" && "\u2713 Generated",
             status === "error" && "Try Again",
             status === "idle" && "Generate Module",
-            /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "mgp__generate-btn-arrow", children: "\u2192" })
+            /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: "mgp__generate-btn-arrow", children: "\u2192" })
           ]
         }
       )
     ] }) }),
-    status === "success" && /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__banner mgp__banner--success", children: [
+    status === "success" && /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__banner mgp__banner--success", children: [
       "Module created at ",
-      /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("code", { children: resultPath })
+      /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("code", { children: resultPath })
     ] }),
-    status === "error" && /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__banner mgp__banner--error", children: resultMsg }),
-    /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__body", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__left", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__card", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__card-label", children: "Module Configuration" }),
-          /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__config-row", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__input-group", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("label", { className: "mgp__label", children: [
+    status === "error" && /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__banner mgp__banner--error", children: resultMsg }),
+    /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__body", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__left", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__card", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__card-label", children: "Module Configuration" }),
+          /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__config-row", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__input-group", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("label", { className: "mgp__label", children: [
                 "Module Name ",
-                /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "mgp__required", children: "*" })
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: "mgp__required", children: "*" })
               ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
                 "input",
                 {
                   className: `mgp__input${nameError ? " mgp__input--error" : ""}`,
@@ -24372,13 +24574,13 @@ function ModuleGeneratorPage() {
                   }
                 }
               ),
-              nameError && /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__error-msg", children: nameError }),
-              /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__hint", children: "PascalCase. Generates entity, service, controller, admincontroller, index." })
+              nameError && /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__error-msg", children: nameError }),
+              /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__hint", children: "PascalCase. Generates entity, service, controller, admincontroller, index." })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__input-group", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("label", { className: "mgp__label", children: "Target" }),
-              /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__toggle-row", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
+            /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__input-group", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("label", { className: "mgp__label", children: "Target" }),
+              /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__toggle-row", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
                   "button",
                   {
                     className: `mgp__toggle-btn${!isThirdParty ? " mgp__toggle-btn--active" : ""}`,
@@ -24386,7 +24588,7 @@ function ModuleGeneratorPage() {
                     children: "user/"
                   }
                 ),
-                /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
                   "button",
                   {
                     className: `mgp__toggle-btn${isThirdParty ? " mgp__toggle-btn--active" : ""}`,
@@ -24395,9 +24597,9 @@ function ModuleGeneratorPage() {
                   }
                 )
               ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__hint", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__hint", children: [
                 "Writes to ",
-                /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("code", { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("code", { children: [
                   "app/code/",
                   isThirdParty ? "thirdparty" : "user",
                   "/",
@@ -24408,30 +24610,30 @@ function ModuleGeneratorPage() {
             ] })
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__card", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__card-label-row", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__card-label", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__card", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__card-label-row", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__card-label", children: [
               "Fields ",
-              /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "mgp__field-count", children: fields.length })
+              /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: "mgp__field-count", children: fields.length })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("button", { className: "mgp__add-btn", onClick: addField, children: "+ Add Field" })
+            /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("button", { className: "mgp__add-btn", onClick: addField, children: "+ Add Field" })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__field-list", children: fields.map((field, idx) => /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__field-item", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)(
+          /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__field-list", children: fields.map((field, idx) => /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__field-item", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)(
               "div",
               {
                 className: "mgp__field-header",
                 onClick: () => setExpandedId(expandedId === field.id ? null : field.id),
                 children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__field-header-left", children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: `mgp__type-pill mgp__type-pill--${field.type}`, children: field.type }),
-                    /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "mgp__field-name", children: field.name || /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "mgp__unnamed", children: "unnamed" }) }),
-                    field.searchable && /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "mgp__badge mgp__badge--blue", children: "searchable" }),
-                    field.required && /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "mgp__badge mgp__badge--red", children: "required" }),
-                    field.hasModule && /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "mgp__badge mgp__badge--purple", children: "module" })
+                  /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__field-header-left", children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: `mgp__type-pill mgp__type-pill--${field.type}`, children: field.type }),
+                    /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: "mgp__field-name", children: field.name || /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: "mgp__unnamed", children: "unnamed" }) }),
+                    field.searchable && /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: "mgp__badge mgp__badge--blue", children: "searchable" }),
+                    field.required && /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: "mgp__badge mgp__badge--red", children: "required" }),
+                    field.hasModule && /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: "mgp__badge mgp__badge--purple", children: "module" })
                   ] }),
-                  /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__field-header-right", children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
+                  /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__field-header-right", children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
                       "button",
                       {
                         className: "mgp__icon-btn",
@@ -24443,7 +24645,7 @@ function ModuleGeneratorPage() {
                         children: "\u2191"
                       }
                     ),
-                    /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
+                    /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
                       "button",
                       {
                         className: "mgp__icon-btn",
@@ -24455,7 +24657,7 @@ function ModuleGeneratorPage() {
                         children: "\u2193"
                       }
                     ),
-                    /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
+                    /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
                       "button",
                       {
                         className: "mgp__icon-btn mgp__icon-btn--red",
@@ -24466,16 +24668,16 @@ function ModuleGeneratorPage() {
                         children: "\u2715"
                       }
                     ),
-                    /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: `mgp__chevron${expandedId === field.id ? " mgp__chevron--open" : ""}`, children: "\u25BC" })
+                    /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: `mgp__chevron${expandedId === field.id ? " mgp__chevron--open" : ""}`, children: "\u25BC" })
                   ] })
                 ]
               }
             ),
-            expandedId === field.id && /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__field-editor", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__field-editor-grid", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__input-group", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("label", { className: "mgp__label", children: "Field Name" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
+            expandedId === field.id && /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__field-editor", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__field-editor-grid", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__input-group", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("label", { className: "mgp__label", children: "Field Name" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
                     "input",
                     {
                       className: "mgp__input",
@@ -24485,21 +24687,21 @@ function ModuleGeneratorPage() {
                     }
                   )
                 ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__input-group", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("label", { className: "mgp__label", children: "Type" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__input-group", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("label", { className: "mgp__label", children: "Type" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
                     "select",
                     {
                       className: "mgp__select",
                       value: field.type,
                       onChange: (e) => updateField(field.id, { type: e.target.value }),
-                      children: TYPE_OPTIONS.map((t) => /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("option", { value: t, children: t }, t))
+                      children: TYPE_OPTIONS.map((t) => /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("option", { value: t, children: t }, t))
                     }
                   )
                 ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__input-group", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("label", { className: "mgp__label", children: "Default Value" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__input-group", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("label", { className: "mgp__label", children: "Default Value" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
                     "input",
                     {
                       className: "mgp__input",
@@ -24510,13 +24712,13 @@ function ModuleGeneratorPage() {
                   )
                 ] })
               ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__checkbox-row", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__checkbox-row", children: [
                 ["searchable", "Searchable"],
                 ["required", "Required"],
                 ["editable", "Editable"],
                 ["hasModule", "Has Module"]
-              ].map(([key, label]) => /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("label", { className: "mgp__check-label", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
+              ].map(([key, label]) => /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("label", { className: "mgp__check-label", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
                   "input",
                   {
                     type: "checkbox",
@@ -24526,11 +24728,11 @@ function ModuleGeneratorPage() {
                 ),
                 label
               ] }, key)) }),
-              field.hasModule && /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__module-section", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__module-label", children: "Module Definition" }),
-                /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__input-group", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("label", { className: "mgp__label", children: "Component" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
+              field.hasModule && /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__module-section", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__module-label", children: "Module Definition" }),
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__input-group", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("label", { className: "mgp__label", children: "Component" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
                     "input",
                     {
                       className: "mgp__input",
@@ -24540,9 +24742,9 @@ function ModuleGeneratorPage() {
                     }
                   )
                 ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__input-group", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("label", { className: "mgp__label", children: "Data (JSON)" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__input-group", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("label", { className: "mgp__label", children: "Data (JSON)" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
                     "textarea",
                     {
                       className: "mgp__textarea",
@@ -24557,37 +24759,37 @@ function ModuleGeneratorPage() {
           ] }, field.id)) })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__right", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__card mgp__card--dark", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__payload-header", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__card-label", children: "Generated Payload" }),
-            payload && /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("button", { className: "mgp__copy-btn", onClick: copyPayload, children: "Copy" })
+      /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__right", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__card mgp__card--dark", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__payload-header", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__card-label", children: "Generated Payload" }),
+            payload && /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("button", { className: "mgp__copy-btn", onClick: copyPayload, children: "Copy" })
           ] }),
-          payload ? /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("pre", { className: "mgp__pre", children: payload }) : /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__payload-empty", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__payload-empty-icon" }),
-            /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__payload-empty-text", children: "Fill in the module details and click Generate Module to see the output here." })
+          payload ? /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("pre", { className: "mgp__pre", children: payload }) : /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__payload-empty", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__payload-empty-icon" }),
+            /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__payload-empty-text", children: "Fill in the module details and click Generate Module to see the output here." })
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__card mgp__card--dark", style: { marginTop: 16 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__card-label", children: "Schema Preview" }),
-          /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__schema-list", children: namedFields.length > 0 ? namedFields.map((f) => /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__schema-row", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__schema-left", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__card mgp__card--dark", style: { marginTop: 16 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__card-label", children: "Schema Preview" }),
+          /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__schema-list", children: namedFields.length > 0 ? namedFields.map((f) => /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__schema-row", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__schema-left", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
                 "div",
                 {
                   className: "mgp__schema-dot",
                   style: { background: TYPE_COLORS[f.type] }
                 }
               ),
-              /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "mgp__schema-name", children: f.name })
+              /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: "mgp__schema-name", children: f.name })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)("div", { className: "mgp__schema-right", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "mgp__schema-type", style: { color: TYPE_COLORS[f.type] }, children: f.type }),
-              f.searchable && /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "mgp__schema-badge mgp__schema-badge--s", children: "S" }),
-              f.required && /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "mgp__schema-badge mgp__schema-badge--r", children: "R" }),
-              f.hasModule && /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("span", { className: "mgp__schema-badge mgp__schema-badge--m", children: "M" })
+            /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "mgp__schema-right", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: "mgp__schema-type", style: { color: TYPE_COLORS[f.type] }, children: f.type }),
+              f.searchable && /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: "mgp__schema-badge mgp__schema-badge--s", children: "S" }),
+              f.required && /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: "mgp__schema-badge mgp__schema-badge--r", children: "R" }),
+              f.hasModule && /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { className: "mgp__schema-badge mgp__schema-badge--m", children: "M" })
             ] })
-          ] }, f.id)) : /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("div", { className: "mgp__schema-empty", children: "No named fields yet." }) })
+          ] }, f.id)) : /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "mgp__schema-empty", children: "No named fields yet." }) })
         ] })
       ] })
     ] })
@@ -24600,24 +24802,24 @@ registerComponent({
 });
 
 // app/web/thirdparty/autocontent/list/index.tsx
-var import_react25 = __toESM(require_react());
-var import_jsx_runtime39 = __toESM(require_jsx_runtime());
+var import_react27 = __toESM(require_react());
+var import_jsx_runtime42 = __toESM(require_jsx_runtime());
 var AutoContentList = ({ data }) => {
   const { apiUrl, listUrl, searchFields = [], columns = [] } = data;
   const addUrl = listUrl + "/add";
   const editUrl = listUrl + "/:id";
-  const [filters, setFilters] = (0, import_react25.useState)(
+  const [filters, setFilters] = (0, import_react27.useState)(
     () => Object.fromEntries(searchFields.map((f) => [f.key, ""]))
   );
-  const [results, setResults] = (0, import_react25.useState)([]);
-  const [loading, setLoading] = (0, import_react25.useState)(false);
-  const [error, setError] = (0, import_react25.useState)(null);
-  const [page, setPage] = (0, import_react25.useState)(1);
-  const [hasMore, setHasMore] = (0, import_react25.useState)(true);
-  const [selected, setSelected] = (0, import_react25.useState)(/* @__PURE__ */ new Set());
-  const [deleting, setDeleting] = (0, import_react25.useState)(false);
+  const [results, setResults] = (0, import_react27.useState)([]);
+  const [loading, setLoading] = (0, import_react27.useState)(false);
+  const [error, setError] = (0, import_react27.useState)(null);
+  const [page, setPage] = (0, import_react27.useState)(1);
+  const [hasMore, setHasMore] = (0, import_react27.useState)(true);
+  const [selected, setSelected] = (0, import_react27.useState)(/* @__PURE__ */ new Set());
+  const [deleting, setDeleting] = (0, import_react27.useState)(false);
   const PAGE_SIZE = 20;
-  const buildApiUrl = (0, import_react25.useCallback)((p) => {
+  const buildApiUrl = (0, import_react27.useCallback)((p) => {
     const params = new URLSearchParams();
     params.set("page", String(p));
     params.set("size", String(PAGE_SIZE));
@@ -24625,7 +24827,7 @@ var AutoContentList = ({ data }) => {
     if (Object.keys(activeFilters).length > 0) params.set("filter", JSON.stringify(activeFilters));
     return `${apiUrl}?${params.toString()}`;
   }, [apiUrl, filters]);
-  const fetchResults = (0, import_react25.useCallback)(async (p) => {
+  const fetchResults = (0, import_react27.useCallback)(async (p) => {
     setLoading(true);
     setError(null);
     setSelected(/* @__PURE__ */ new Set());
@@ -24642,7 +24844,7 @@ var AutoContentList = ({ data }) => {
       setLoading(false);
     }
   }, [buildApiUrl]);
-  (0, import_react25.useEffect)(() => {
+  (0, import_react27.useEffect)(() => {
     fetchResults(page);
   }, [page, fetchResults]);
   const handleSearch = (e) => {
@@ -24676,27 +24878,27 @@ var AutoContentList = ({ data }) => {
     }
   };
   const allSelected = results.length > 0 && results.every((r) => selected.has(r.id));
-  return /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("div", { className: "cf-auto-list", children: /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("div", { className: "cf-auto-list__inner", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("header", { className: "cf-auto-list__header", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("div", { className: "cf-auto-list__title-group", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("h1", { children: apiUrl.split("/").pop()?.toUpperCase() || "Entries" }),
-        /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("p", { children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("div", { className: "cf-auto-list", children: /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("div", { className: "cf-auto-list__inner", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("header", { className: "cf-auto-list__header", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("div", { className: "cf-auto-list__title-group", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("h1", { children: apiUrl.split("/").pop()?.toUpperCase() || "Entries" }),
+        /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("p", { children: [
           results.length,
           " records found"
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("div", { className: "cf-auto-list__header-actions", children: [
-        selected.size > 0 && /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("button", { onClick: handleDeleteSelected, disabled: deleting, className: "cf-auto-list__btn cf-auto-list__btn--danger", children: deleting ? "..." : `Delete ${selected.size}` }),
-        /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("a", { href: addUrl, className: "cf-auto-list__btn cf-auto-list__btn--primary", children: "+ New Entry" })
+      /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("div", { className: "cf-auto-list__header-actions", children: [
+        selected.size > 0 && /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("button", { onClick: handleDeleteSelected, disabled: deleting, className: "cf-auto-list__btn cf-auto-list__btn--danger", children: deleting ? "..." : `Delete ${selected.size}` }),
+        /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("a", { href: addUrl, className: "cf-auto-list__btn cf-auto-list__btn--primary", children: "+ New Entry" })
       ] })
     ] }),
-    searchFields.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("form", { className: "cf-auto-list__filters", onSubmit: handleSearch, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("div", { className: "cf-auto-list__filter-grid", children: searchFields.map((field) => /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("div", { className: "cf-auto-list__control", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("label", { children: field.label }),
-        field.type === "select" ? /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("select", { value: filters[field.key], onChange: (e) => handleFilterChange(field.key, e.target.value), children: [
-          /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("option", { value: "", children: "All" }),
-          field.options?.map((opt) => /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("option", { value: opt.value, children: opt.label }, opt.value))
-        ] }) : /* @__PURE__ */ (0, import_jsx_runtime39.jsx)(
+    searchFields.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("form", { className: "cf-auto-list__filters", onSubmit: handleSearch, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("div", { className: "cf-auto-list__filter-grid", children: searchFields.map((field) => /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("div", { className: "cf-auto-list__control", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("label", { children: field.label }),
+        field.type === "select" ? /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("select", { value: filters[field.key], onChange: (e) => handleFilterChange(field.key, e.target.value), children: [
+          /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("option", { value: "", children: "All" }),
+          field.options?.map((opt) => /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("option", { value: opt.value, children: opt.label }, opt.value))
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime42.jsx)(
           "input",
           {
             type: field.type || "text",
@@ -24706,37 +24908,37 @@ var AutoContentList = ({ data }) => {
           }
         )
       ] }, field.key)) }),
-      /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("div", { className: "cf-auto-list__filter-btns", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("button", { type: "submit", className: "cf-auto-list__btn", children: "Apply" }),
-        /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("button", { type: "button", className: "cf-auto-list__btn-link", onClick: () => {
+      /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("div", { className: "cf-auto-list__filter-btns", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("button", { type: "submit", className: "cf-auto-list__btn", children: "Apply" }),
+        /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("button", { type: "button", className: "cf-auto-list__btn-link", onClick: () => {
           setFilters(Object.fromEntries(searchFields.map((f) => [f.key, ""])));
           setPage(1);
           setTimeout(() => fetchResults(1), 0);
         }, children: "Reset" })
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("div", { className: "cf-auto-list__body", children: [
-      error && /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("div", { className: "cf-auto-list__error", children: error }),
-      /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("div", { className: "cf-auto-list__table-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("table", { className: "cf-auto-list__table", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("tr", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("th", { className: "w-checkbox", children: /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("input", { type: "checkbox", checked: allSelected, onChange: toggleSelectAll }) }),
-          columns.map((col) => /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("th", { children: col.label }, col.key)),
-          /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("th", { className: "w-actions", children: "Actions" })
+    /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("div", { className: "cf-auto-list__body", children: [
+      error && /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("div", { className: "cf-auto-list__error", children: error }),
+      /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("div", { className: "cf-auto-list__table-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("table", { className: "cf-auto-list__table", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("tr", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("th", { className: "w-checkbox", children: /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("input", { type: "checkbox", checked: allSelected, onChange: toggleSelectAll }) }),
+          columns.map((col) => /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("th", { children: col.label }, col.key)),
+          /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("th", { className: "w-actions", children: "Actions" })
         ] }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("tbody", { children: loading ? /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("td", { colSpan: columns.length + 2, className: "cf-auto-list__loading", children: "Loading records..." }) }) : results.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("td", { colSpan: columns.length + 2, className: "cf-auto-list__empty", children: "No data found." }) }) : results.map((row) => /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("tr", { className: selected.has(row.id) ? "is-selected" : "", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("td", { children: /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("input", { type: "checkbox", checked: selected.has(row.id), onChange: () => toggleSelect(row.id) }) }),
-          columns.map((col) => /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("td", { children: String(row[col.key] ?? "-") }, col.key)),
-          /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("td", { children: /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("a", { href: editUrl.replace(":id", row.id), className: "cf-auto-list__edit-link", children: "Edit" }) })
+        /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("tbody", { children: loading ? /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("td", { colSpan: columns.length + 2, className: "cf-auto-list__loading", children: "Loading records..." }) }) : results.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("td", { colSpan: columns.length + 2, className: "cf-auto-list__empty", children: "No data found." }) }) : results.map((row) => /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("tr", { className: selected.has(row.id) ? "is-selected" : "", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("td", { children: /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("input", { type: "checkbox", checked: selected.has(row.id), onChange: () => toggleSelect(row.id) }) }),
+          columns.map((col) => /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("td", { children: String(row[col.key] ?? "-") }, col.key)),
+          /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("td", { children: /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("a", { href: editUrl.replace(":id", row.id), className: "cf-auto-list__edit-link", children: "Edit" }) })
         ] }, row.id)) })
       ] }) })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("footer", { className: "cf-auto-list__footer", children: /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("div", { className: "cf-auto-list__pagination", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("button", { disabled: page <= 1, onClick: () => setPage((p) => p - 1), children: "Previous" }),
-      /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("span", { className: "cf-auto-list__page-indicator", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("footer", { className: "cf-auto-list__footer", children: /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("div", { className: "cf-auto-list__pagination", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("button", { disabled: page <= 1, onClick: () => setPage((p) => p - 1), children: "Previous" }),
+      /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("span", { className: "cf-auto-list__page-indicator", children: [
         "Page ",
         page
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("button", { disabled: !hasMore, onClick: () => setPage((p) => p + 1), children: "Next" })
+      /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("button", { disabled: !hasMore, onClick: () => setPage((p) => p + 1), children: "Next" })
     ] }) })
   ] }) });
 };
@@ -24746,10 +24948,159 @@ registerComponent({
   component: AutoContentList
 });
 
+// app/web/thirdparty/cms/blog-page.tsx
+var import_react28 = __toESM(require_react());
+var import_jsx_runtime43 = __toESM(require_jsx_runtime());
+var INITIAL_BATCH = 8;
+var LOAD_MORE_COUNT = 4;
+var BlogPage = () => {
+  const [entries, setEntries] = (0, import_react28.useState)([]);
+  const [visibleCount, setVisibleCount] = (0, import_react28.useState)(INITIAL_BATCH);
+  const [isInitialLoading, setIsInitialLoading] = (0, import_react28.useState)(true);
+  const [isStreaming, setIsStreaming] = (0, import_react28.useState)(false);
+  const [searchQuery, setSearchQuery] = (0, import_react28.useState)("");
+  const [activeCategory, setActiveCategory] = (0, import_react28.useState)("All");
+  const [activeTag, setActiveTag] = (0, import_react28.useState)(null);
+  const loaderRef = (0, import_react28.useRef)(null);
+  (0, import_react28.useEffect)(() => {
+    const fetchBlogIndex = async () => {
+      setIsInitialLoading(true);
+      setIsStreaming(true);
+      try {
+        const response = await fetch("/content/blog/index.ndjson");
+        if (!response.body) return;
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let remainingText = "";
+        let chunkResults = [];
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          remainingText += decoder.decode(value, { stream: true });
+          const lines = remainingText.split("\n");
+          remainingText = lines.pop() || "";
+          for (const line of lines) {
+            if (line.trim()) {
+              try {
+                chunkResults.push(JSON.parse(line));
+              } catch (e) {
+                console.error("Parse error", e);
+              }
+            }
+          }
+          if (chunkResults.length >= 10) {
+            setEntries((prev) => [...prev, ...chunkResults]);
+            chunkResults = [];
+            setIsInitialLoading(false);
+          }
+        }
+        if (chunkResults.length > 0) {
+          setEntries((prev) => [...prev, ...chunkResults]);
+        }
+      } catch (err) {
+        console.error("Stream error:", err);
+      } finally {
+        setIsInitialLoading(false);
+        setIsStreaming(false);
+      }
+    };
+    fetchBlogIndex();
+  }, []);
+  const { categories, allTags } = (0, import_react28.useMemo)(() => {
+    const catMap = { "All": entries.length };
+    const tagMap = {};
+    entries.forEach((entry) => {
+      if (entry.category) catMap[entry.category] = (catMap[entry.category] || 0) + 1;
+      if (entry.tags) entry.tags.forEach((t) => tagMap[t] = (tagMap[t] || 0) + 1);
+    });
+    return {
+      categories: Object.entries(catMap).sort(([a], [b]) => a.localeCompare(b)),
+      allTags: Object.entries(tagMap).sort(([a], [b]) => a.localeCompare(b))
+    };
+  }, [entries]);
+  const filteredEntries = (0, import_react28.useMemo)(() => {
+    return entries.filter((post) => {
+      const matchesSearch = !searchQuery || [post.pageTitle, post.pageDescription, post.keywords].some(
+        (f) => f?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      const matchesCategory = activeCategory === "All" || post.category === activeCategory;
+      const matchesTag = !activeTag || post.tags?.includes(activeTag);
+      return matchesSearch && matchesCategory && matchesTag;
+    });
+  }, [searchQuery, activeCategory, activeTag, entries]);
+  const handleObserver = (0, import_react28.useCallback)((entities) => {
+    const target = entities[0];
+    if (target.isIntersecting) {
+      setVisibleCount((prev) => prev + LOAD_MORE_COUNT);
+    }
+  }, []);
+  (0, import_react28.useEffect)(() => {
+    const option = { root: null, rootMargin: "20px", threshold: 1 };
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (loaderRef.current) observer.observe(loaderRef.current);
+    return () => observer.disconnect();
+  }, [handleObserver]);
+  (0, import_react28.useEffect)(() => setVisibleCount(INITIAL_BATCH), [searchQuery, activeCategory, activeTag]);
+  const currentVisibleData = filteredEntries.slice(0, visibleCount);
+  if (isInitialLoading) return /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("div", { className: "blog-index loading-state", children: /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("div", { className: "spinner" }) });
+  return /* @__PURE__ */ (0, import_jsx_runtime43.jsxs)("div", { className: "blog-index", children: [
+    isStreaming && /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("div", { className: "streaming-indicator", children: "Syncing articles..." }),
+    /* @__PURE__ */ (0, import_jsx_runtime43.jsxs)("header", { className: "blog-header", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("h1", { children: "Blog" }),
+      /* @__PURE__ */ (0, import_jsx_runtime43.jsxs)("div", { className: "filter-controls", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("div", { className: "search-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime43.jsx)(
+          "input",
+          {
+            type: "text",
+            placeholder: "Search...",
+            value: searchQuery,
+            onChange: (e) => setSearchQuery(e.target.value),
+            className: "search-input"
+          }
+        ) }),
+        /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("select", { className: "category-select", value: activeCategory, onChange: (e) => setActiveCategory(e.target.value), children: categories.map(([name, count]) => /* @__PURE__ */ (0, import_jsx_runtime43.jsxs)("option", { value: name, children: [
+          name,
+          " (",
+          count,
+          ")"
+        ] }, name)) })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime43.jsxs)("div", { className: "tag-cloud", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("button", { className: !activeTag ? "active" : "", onClick: () => setActiveTag(null), children: "#all" }),
+        allTags.map(([tag, count]) => /* @__PURE__ */ (0, import_jsx_runtime43.jsxs)("button", { className: activeTag === tag ? "active" : "", onClick: () => setActiveTag(tag), children: [
+          "#",
+          tag,
+          " ",
+          /* @__PURE__ */ (0, import_jsx_runtime43.jsxs)("small", { children: [
+            "(",
+            count,
+            ")"
+          ] })
+        ] }, tag))
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("div", { className: "blog-grid", children: currentVisibleData.map((post) => /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("article", { className: "blog-card", children: /* @__PURE__ */ (0, import_jsx_runtime43.jsxs)("div", { className: "card-inner", children: [
+      post.category && /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("span", { className: "category-label", children: post.category }),
+      /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("h3", { children: post.pageTitle }),
+      /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("p", { children: post.pageDescription || "Explore this article to learn more about our latest insights and project updates..." }),
+      /* @__PURE__ */ (0, import_jsx_runtime43.jsxs)("div", { className: "card-footer", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("div", { className: "tags-list", children: post.tags?.slice(0, 2).map((t) => /* @__PURE__ */ (0, import_jsx_runtime43.jsxs)("span", { className: "tag-pill", children: [
+          "#",
+          t
+        ] }, t)) }),
+        /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("a", { href: `/blog/${post.id}`, className: "read-link", children: "Read More" })
+      ] })
+    ] }) }, post.id)) }),
+    visibleCount < filteredEntries.length && /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("div", { ref: loaderRef, className: "infinite-loader", children: /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("div", { className: "dot-pulse" }) }),
+    filteredEntries.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("div", { className: "empty-state", children: /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("p", { children: "No matches found for your current filters." }) })
+  ] });
+};
+registerComponent({ component: BlogPage, name: "Blog/Index", defaults: {} });
+
 // app/web/thirdparty/page.tsx
-var import_jsx_runtime40 = __toESM(require_jsx_runtime());
+var import_jsx_runtime44 = __toESM(require_jsx_runtime());
 var Page = () => {
-  return /* @__PURE__ */ (0, import_jsx_runtime40.jsx)(WsListener, { children: /* @__PURE__ */ (0, import_jsx_runtime40.jsx)(ConfigProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime40.jsx)(RouterProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime40.jsx)(ThemeLoader, { children: /* @__PURE__ */ (0, import_jsx_runtime40.jsx)(Canvas, {}) }) }) }) });
+  return /* @__PURE__ */ (0, import_jsx_runtime44.jsx)(WsListener, { children: /* @__PURE__ */ (0, import_jsx_runtime44.jsx)(ConfigProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime44.jsx)(RouterProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime44.jsx)(ThemeLoader, { children: /* @__PURE__ */ (0, import_jsx_runtime44.jsx)(Canvas, {}) }) }) }) });
 };
 
 // app/web/themes/default/header/config.json
@@ -24769,14 +25120,14 @@ var config_default2 = {
 };
 
 // app/web/themes/default/header/header.tsx
-var import_jsx_runtime41 = __toESM(require_jsx_runtime());
+var import_jsx_runtime45 = __toESM(require_jsx_runtime());
 var Header = () => {
   const { path } = useRouter();
   const config = useModuleConfig(config_default2.key, config_default2.config);
   const isExternal = (to) => to.startsWith("http");
-  return /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("header", { className: "theme-header border-bottom shadow-sm", children: /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: "container d-flex justify-content-between align-items-center py-3", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: "nav-logo h4 mb-0 fw-bold text-uppercase", children: config.siteTitle }),
-    /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("nav", { className: "nav nav-tabs border-0", children: config?.links?.map((item) => isExternal(item.to) ? /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("header", { className: "theme-header border-bottom shadow-sm", children: /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)("div", { className: "container d-flex justify-content-between align-items-center py-3", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("div", { className: "nav-logo h4 mb-0 fw-bold text-uppercase", children: config.siteTitle }),
+    /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("nav", { className: "nav nav-tabs border-0", children: config?.links?.map((item) => isExternal(item.to) ? /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)(
       "a",
       {
         href: item.to,
@@ -24784,19 +25135,19 @@ var Header = () => {
         target: "_blank",
         rel: "noopener noreferrer",
         children: [
-          item.icon ? /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("i", { className: item.icon }) : null,
-          item.label ? /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { children: item.label }) : null
+          item.icon ? /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("i", { className: item.icon }) : null,
+          item.label ? /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("span", { children: item.label }) : null
         ]
       },
       item.to
-    ) : /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)(
+    ) : /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)(
       "button",
       {
         className: `nav-link border-0 ${path === item.to ? "active" : ""}`,
         type: "button",
         children: [
-          item.icon ? /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("i", { className: item.icon }) : null,
-          item.label ? /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("span", { children: item.label }) : null
+          item.icon ? /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("i", { className: item.icon }) : null,
+          item.label ? /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("span", { children: item.label }) : null
         ]
       },
       item.to
@@ -24824,19 +25175,19 @@ var config_default3 = {
 };
 
 // app/web/themes/default/footer/index.tsx
-var import_jsx_runtime42 = __toESM(require_jsx_runtime());
+var import_jsx_runtime46 = __toESM(require_jsx_runtime());
 var Footer = () => {
   const config = useModuleConfig(config_default3.key, config_default3.config);
   const visibleSocials = config.socials.filter((s) => s.href.trim() !== "");
-  return /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("footer", { className: "theme-footer border-top mt-auto py-4 bg-light", children: /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("div", { className: "container", children: /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("div", { className: "footer-content d-flex flex-column flex-md-row justify-content-between align-items-center", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime42.jsxs)("p", { className: "mb-0 text-muted", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("footer", { className: "theme-footer border-top mt-auto py-4 bg-light", children: /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("div", { className: "container", children: /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("div", { className: "footer-content d-flex flex-column flex-md-row justify-content-between align-items-center", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("p", { className: "mb-0 text-muted", children: [
       "\xA9 ",
       (/* @__PURE__ */ new Date()).getFullYear(),
       " \u2014",
       " ",
-      /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("span", { className: "fw-semibold", children: config.copyrightName })
+      /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("span", { className: "fw-semibold", children: config.copyrightName })
     ] }),
-    visibleSocials.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("div", { className: "footer-socials d-flex gap-3 mt-3 mt-md-0", children: visibleSocials.map((social) => /* @__PURE__ */ (0, import_jsx_runtime42.jsx)(
+    visibleSocials.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("div", { className: "footer-socials d-flex gap-3 mt-3 mt-md-0", children: visibleSocials.map((social) => /* @__PURE__ */ (0, import_jsx_runtime46.jsx)(
       "a",
       {
         href: social.href,
@@ -24856,22 +25207,22 @@ registerComponent({
 });
 
 // app/web/themes/default/index.tsx
-var import_jsx_runtime43 = __toESM(require_jsx_runtime());
+var import_jsx_runtime47 = __toESM(require_jsx_runtime());
 var DefaultTheme = ({ children }) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime43.jsxs)("div", { className: "theme-default", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime43.jsx)(Header, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime43.jsx)("main", { className: "theme-content", children }),
-    /* @__PURE__ */ (0, import_jsx_runtime43.jsx)(Footer, {})
+  return /* @__PURE__ */ (0, import_jsx_runtime47.jsxs)("div", { className: "theme-default", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime47.jsx)(Header, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime47.jsx)("main", { className: "theme-content", children }),
+    /* @__PURE__ */ (0, import_jsx_runtime47.jsx)(Footer, {})
   ] });
 };
 registerTheme("default", DefaultTheme);
 
 // app/web/themes/@admin/header/index.tsx
-var import_react29 = __toESM(require_react());
+var import_react32 = __toESM(require_react());
 
 // app/web/themes/@admin/components/vcs-status/index.tsx
-var import_react26 = __toESM(require_react());
-var import_jsx_runtime44 = __toESM(require_jsx_runtime());
+var import_react29 = __toESM(require_react());
+var import_jsx_runtime48 = __toESM(require_jsx_runtime());
 var statusIcons = {
   modified: "M",
   added: "A",
@@ -24881,10 +25232,10 @@ var statusIcons = {
   other: "\u2022"
 };
 var VcsStatusBar = () => {
-  const [data, setData] = (0, import_react26.useState)(null);
-  const [error, setError] = (0, import_react26.useState)(null);
-  const [loading, setLoading] = (0, import_react26.useState)(true);
-  const fetchData = (0, import_react26.useCallback)(async () => {
+  const [data, setData] = (0, import_react29.useState)(null);
+  const [error, setError] = (0, import_react29.useState)(null);
+  const [loading, setLoading] = (0, import_react29.useState)(true);
+  const fetchData = (0, import_react29.useCallback)(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -24897,34 +25248,34 @@ var VcsStatusBar = () => {
       setLoading(false);
     }
   }, []);
-  (0, import_react26.useEffect)(() => {
+  (0, import_react29.useEffect)(() => {
     fetchData();
   }, [fetchData]);
   if (loading) {
-    return /* @__PURE__ */ (0, import_jsx_runtime44.jsx)("div", { className: "cf-vcs", children: /* @__PURE__ */ (0, import_jsx_runtime44.jsx)("span", { className: "cf-vcs__spinner" }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "cf-vcs", children: /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("span", { className: "cf-vcs__spinner" }) });
   }
   if (error || !data) {
-    return /* @__PURE__ */ (0, import_jsx_runtime44.jsxs)("div", { className: `cf-vcs ${error ? "cf-vcs--error" : ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime44.jsx)("span", { children: error || "No Data" }),
-      /* @__PURE__ */ (0, import_jsx_runtime44.jsx)("button", { className: "cf-vcs__refresh", onClick: fetchData, children: "\u21BA" })
+    return /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: `cf-vcs ${error ? "cf-vcs--error" : ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("span", { children: error || "No Data" }),
+      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("button", { className: "cf-vcs__refresh", onClick: fetchData, children: "\u21BA" })
     ] });
   }
   const { status, lastCommit } = data;
   const hasChanges = status.changeCount > 0;
   const timestamp = lastCommit ? new Date(lastCommit.timestamp).toLocaleString() : "";
-  return /* @__PURE__ */ (0, import_jsx_runtime44.jsxs)("div", { className: `cf-vcs ${hasChanges ? "cf-vcs--dirty" : "cf-vcs--clean"}`, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime44.jsxs)("div", { className: "cf-vcs__section", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime44.jsxs)("span", { className: "cf-vcs__branch", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime44.jsx)("span", { className: "cf-vcs__branch-icon", children: "\u2387" }),
+  return /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: `cf-vcs ${hasChanges ? "cf-vcs--dirty" : "cf-vcs--clean"}`, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: "cf-vcs__section", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("span", { className: "cf-vcs__branch", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("span", { className: "cf-vcs__branch-icon", children: "\u2387" }),
         " ",
         status.branch
       ] }),
-      (status.ahead > 0 || status.behind > 0) && /* @__PURE__ */ (0, import_jsx_runtime44.jsxs)("span", { className: "cf-vcs__sync", children: [
+      (status.ahead > 0 || status.behind > 0) && /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("span", { className: "cf-vcs__sync", children: [
         status.ahead > 0 && `\u2191${status.ahead}`,
         status.behind > 0 && `\u2193${status.behind}`
       ] })
     ] }),
-    hasChanges && /* @__PURE__ */ (0, import_jsx_runtime44.jsx)("div", { className: "cf-vcs__section", children: /* @__PURE__ */ (0, import_jsx_runtime44.jsxs)(
+    hasChanges && /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "cf-vcs__section", children: /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)(
       "span",
       {
         className: "cf-vcs__changes",
@@ -24935,23 +25286,23 @@ var VcsStatusBar = () => {
         ]
       }
     ) }),
-    lastCommit && /* @__PURE__ */ (0, import_jsx_runtime44.jsxs)("div", { className: "cf-vcs__section cf-vcs__commit", title: `${lastCommit.message}
+    lastCommit && /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: "cf-vcs__section cf-vcs__commit", title: `${lastCommit.message}
 
 ${timestamp}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime44.jsx)("span", { className: "cf-vcs__commit-hash", children: lastCommit.shortHash }),
-      /* @__PURE__ */ (0, import_jsx_runtime44.jsx)("span", { className: "cf-vcs__commit-message", children: lastCommit.message })
+      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("span", { className: "cf-vcs__commit-hash", children: lastCommit.shortHash }),
+      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("span", { className: "cf-vcs__commit-message", children: lastCommit.message })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime44.jsx)("button", { className: "cf-vcs__refresh", onClick: fetchData, title: "Refresh Status", children: "\u21BA" })
+    /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("button", { className: "cf-vcs__refresh", onClick: fetchData, title: "Refresh Status", children: "\u21BA" })
   ] });
 };
 
 // app/web/themes/@admin/components/command-search/index.tsx
-var import_react28 = __toESM(require_react());
+var import_react31 = __toESM(require_react());
 
 // app/web/thirdparty/hooks/use-hotkey.ts
-var import_react27 = __toESM(require_react());
+var import_react30 = __toESM(require_react());
 function useHotKey(keys, callback) {
-  (0, import_react27.useEffect)(() => {
+  (0, import_react30.useEffect)(() => {
     const modifiers = {
       ctrl: "ctrlKey",
       shift: "shiftKey",
@@ -24975,20 +25326,20 @@ function useHotKey(keys, callback) {
 }
 
 // app/web/themes/@admin/components/command-search/index.tsx
-var import_jsx_runtime45 = __toESM(require_jsx_runtime());
+var import_jsx_runtime49 = __toESM(require_jsx_runtime());
 var SEARCHABLE_INDICES = {
   page: ["pageTitle"]
 };
 var CommandSearch = ({ navigation: navigation2 }) => {
-  const [query, setQuery] = (0, import_react28.useState)("");
-  const [isSearching, setIsSearching] = (0, import_react28.useState)(false);
-  const [results, setResults] = (0, import_react28.useState)([]);
-  const [showOverlay, setShowOverlay] = (0, import_react28.useState)(false);
-  const [selectedResult, setSelectedResult] = (0, import_react28.useState)(null);
-  const inputRef = (0, import_react28.useRef)(null);
+  const [query, setQuery] = (0, import_react31.useState)("");
+  const [isSearching, setIsSearching] = (0, import_react31.useState)(false);
+  const [results, setResults] = (0, import_react31.useState)([]);
+  const [showOverlay, setShowOverlay] = (0, import_react31.useState)(false);
+  const [selectedResult, setSelectedResult] = (0, import_react31.useState)(null);
+  const inputRef = (0, import_react31.useRef)(null);
   useHotKey(["ctrl", "k"], () => inputRef.current?.focus());
   useHotKey(["meta", "k"], () => inputRef.current?.focus());
-  const flattenedNav = (0, import_react28.useMemo)(() => {
+  const flattenedNav = (0, import_react31.useMemo)(() => {
     const flat = [];
     const recurse = (items) => {
       items.forEach((item) => {
@@ -25001,7 +25352,7 @@ var CommandSearch = ({ navigation: navigation2 }) => {
     recurse(navigation2);
     return flat;
   }, [navigation2]);
-  (0, import_react28.useEffect)(() => {
+  (0, import_react31.useEffect)(() => {
     if (query.length < 2) {
       setResults([]);
       setShowOverlay(false);
@@ -25082,10 +25433,10 @@ var CommandSearch = ({ navigation: navigation2 }) => {
     setShowOverlay(false);
     setSelectedResult(null);
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)("div", { className: "command-search-container", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)("div", { className: "command-search", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("span", { className: "search-icon", children: isSearching ? "\u231B" : "\u26B2" }),
-      /* @__PURE__ */ (0, import_jsx_runtime45.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", { className: "command-search-container", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", { className: "command-search", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("span", { className: "search-icon", children: isSearching ? "\u231B" : "\u26B2" }),
+      /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(
         "input",
         {
           ref: inputRef,
@@ -25098,34 +25449,34 @@ var CommandSearch = ({ navigation: navigation2 }) => {
           }
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("kbd", { className: "key-hint", children: "\u2318K" })
+      /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("kbd", { className: "key-hint", children: "\u2318K" })
     ] }),
-    showOverlay && results.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("div", { className: "search-results-overlay", children: selectedResult ? /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)("div", { className: "action-prompt", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)("p", { children: [
+    showOverlay && results.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("div", { className: "search-results-overlay", children: selectedResult ? /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", { className: "action-prompt", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("p", { children: [
         "Action for ",
-        /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("strong", { children: selectedResult.label })
+        /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("strong", { children: selectedResult.label })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)("div", { className: "btn-group", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("button", { onClick: () => handleAction("view", selectedResult), children: "View in New Tab" }),
-        /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)("button", { onClick: () => handleAction("edit", selectedResult), className: "primary", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", { className: "btn-group", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("button", { onClick: () => handleAction("view", selectedResult), children: "View in New Tab" }),
+        /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("button", { onClick: () => handleAction("edit", selectedResult), className: "primary", children: [
           "Edit ",
           selectedResult.contentType || "Item"
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("button", { onClick: () => setSelectedResult(null), className: "ghost", children: "Cancel" })
+        /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("button", { onClick: () => setSelectedResult(null), className: "ghost", children: "Cancel" })
       ] })
-    ] }) : /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("ul", { className: "search-results-list", children: results.map((res, i) => /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("li", { onClick: () => setSelectedResult(res), children: /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)("div", { className: "res-info", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("span", { className: "res-label", children: res.label }),
-      /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("span", { className: "res-tag", children: res.type === "page" ? "Live on Page" : res.contentType || "Menu" })
+    ] }) : /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("ul", { className: "search-results-list", children: results.map((res, i) => /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("li", { onClick: () => setSelectedResult(res), children: /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", { className: "res-info", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("span", { className: "res-label", children: res.label }),
+      /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("span", { className: "res-tag", children: res.type === "page" ? "Live on Page" : res.contentType || "Menu" })
     ] }) }, `${res.type}-${i}`)) }) }) : null
   ] });
 };
 
 // app/web/themes/@admin/header/index.tsx
-var import_jsx_runtime46 = __toESM(require_jsx_runtime());
+var import_jsx_runtime50 = __toESM(require_jsx_runtime());
 var AdminHeader = () => {
-  const [isSaving, setIsSaving] = (0, import_react29.useState)(false);
-  const [navigation2, setNavigation] = (0, import_react29.useState)([]);
-  (0, import_react29.useEffect)(() => {
+  const [isSaving, setIsSaving] = (0, import_react32.useState)(false);
+  const [navigation2, setNavigation] = (0, import_react32.useState)([]);
+  (0, import_react32.useEffect)(() => {
     const fetchNav = async () => {
       try {
         const response = await fetch("/en-admin/nav.json");
@@ -25137,7 +25488,7 @@ var AdminHeader = () => {
     };
     fetchNav();
   }, []);
-  (0, import_react29.useEffect)(() => {
+  (0, import_react32.useEffect)(() => {
     const ws = new WebSocket(`ws://${window.location.host}/ws`);
     ws.onmessage = (event) => {
       if (event.data === "SAVING_START") setIsSaving(true);
@@ -25145,51 +25496,51 @@ var AdminHeader = () => {
     };
     return () => ws.close();
   }, []);
-  const RenderNavItems = ({ items, noBack }) => /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("ul", { className: "nav-list", children: [
-    !noBack ? /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("a", { href: "/", className: "nav-link", children: "\u2190 Back" }) }) : null,
-    items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("li", { className: "nav-item-wrapper", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("a", { href: item.href || "#", className: "nav-link", children: [
+  const RenderNavItems = ({ items, noBack }) => /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("ul", { className: "nav-list", children: [
+    !noBack ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("a", { href: "/", className: "nav-link", children: "\u2190 Back" }) }) : null,
+    items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("li", { className: "nav-item-wrapper", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("a", { href: item.href || "#", className: "nav-link", children: [
         item.label,
-        item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("span", { className: "chevron", children: "\u25BE" }) : null
+        item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { className: "chevron", children: "\u25BE" }) : null
       ] }),
-      item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("div", { className: "nav-dropdown", children: /* @__PURE__ */ (0, import_jsx_runtime46.jsx)(RenderNavItems, { items: item.children, noBack: true }) }) : null
+      item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "nav-dropdown", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(RenderNavItems, { items: item.children, noBack: true }) }) : null
     ] }, index))
   ] });
-  return /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("header", { className: "platform-header", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("div", { className: "header-left", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("div", { className: "workspace-switcher", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("div", { className: "logo-box", children: "CF" }),
-        /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("div", { className: "label-group", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("span", { className: "title", children: "CodeFolio" }),
-          /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("span", { className: "status", children: "Dev Mode" })
+  return /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("header", { className: "platform-header", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "header-left", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "workspace-switcher", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "logo-box", children: "CF" }),
+        /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "label-group", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { className: "title", children: "CodeFolio" }),
+          /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { className: "status", children: "Dev Mode" })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("nav", { className: "dynamic-nav", children: navigation2.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime46.jsx)(RenderNavItems, { items: navigation2 }) : /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("div", { className: "nav-skeleton" }) })
+      /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("nav", { className: "dynamic-nav", children: navigation2.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(RenderNavItems, { items: navigation2 }) : /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "nav-skeleton" }) })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("div", { className: "header-center", children: /* @__PURE__ */ (0, import_jsx_runtime46.jsx)(CommandSearch, { navigation: navigation2 }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("div", { className: "header-right", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("div", { className: "system-indicators", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("div", { className: `save-status ${isSaving ? "is-saving" : ""}`, children: isSaving ? "Syncing..." : "Synced" }),
-        /* @__PURE__ */ (0, import_jsx_runtime46.jsx)(VcsStatusBar, {})
+    /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "header-center", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(CommandSearch, { navigation: navigation2 }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "header-right", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "system-indicators", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: `save-status ${isSaving ? "is-saving" : ""}`, children: isSaving ? "Syncing..." : "Synced" }),
+        /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(VcsStatusBar, {})
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("button", { className: "deploy-btn", children: "Ship Changes" }),
-      /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("div", { className: "profile-pill", children: /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("img", { src: "https://api.dicebear.com/7.x/shapes/svg?seed=noir", alt: "User" }) })
+      /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("button", { className: "deploy-btn", children: "Ship Changes" }),
+      /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "profile-pill", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("img", { src: "https://api.dicebear.com/7.x/shapes/svg?seed=noir", alt: "User" }) })
     ] })
   ] });
 };
 
 // app/web/themes/@admin/components/config/footer/index.tsx
-var import_react30 = __toESM(require_react());
-var import_jsx_runtime47 = __toESM(require_jsx_runtime());
+var import_react33 = __toESM(require_react());
+var import_jsx_runtime51 = __toESM(require_jsx_runtime());
 var FooterConfigEditor = ({ data }) => {
   const cfgKey = "footer";
   const initialSocials = data.socials ? Array.isArray(data.socials) ? data.socials : Object.values(data.socials) : [];
-  const [socials, setSocials] = (0, import_react30.useState)(initialSocials);
+  const [socials, setSocials] = (0, import_react33.useState)(initialSocials);
   const addSocial = () => setSocials([...socials, { label: "", href: "" }]);
   const removeSocial = (index) => setSocials(socials.filter((_, i) => i !== index));
-  return /* @__PURE__ */ (0, import_jsx_runtime47.jsxs)("div", { className: "cf-footer-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime47.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Footer" }),
-    /* @__PURE__ */ (0, import_jsx_runtime47.jsx)("div", { className: "cf-footer-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime47.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "cf-footer-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Footer" }),
+    /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "cf-footer-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(
       Field,
       {
         name: `${cfgKey}[copyrightName]`,
@@ -25199,16 +25550,16 @@ var FooterConfigEditor = ({ data }) => {
         required: true
       }
     ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime47.jsx)("div", { className: "cf-footer-editor__divider" }),
-    /* @__PURE__ */ (0, import_jsx_runtime47.jsxs)("div", { className: "cf-footer-editor__socials", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime47.jsxs)("div", { className: "cf-footer-editor__socials-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime47.jsx)("label", { className: "cf-footer-editor__label", children: "Social Media" }),
-        /* @__PURE__ */ (0, import_jsx_runtime47.jsx)("button", { type: "button", className: "cf-footer-editor__add-btn", onClick: addSocial, children: "+ Add Social" })
+    /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "cf-footer-editor__divider" }),
+    /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "cf-footer-editor__socials", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "cf-footer-editor__socials-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("label", { className: "cf-footer-editor__label", children: "Social Media" }),
+        /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("button", { type: "button", className: "cf-footer-editor__add-btn", onClick: addSocial, children: "+ Add Social" })
       ] }),
-      socials.map((social, index) => /* @__PURE__ */ (0, import_jsx_runtime47.jsxs)("div", { className: "cf-footer-editor__social-row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime47.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime47.jsx)(Field, { name: `${cfgKey}[socials][${index}][label]`, kind: "input", label: "Platform", defaultValue: social.label }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime47.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime47.jsx)(Field, { name: `${cfgKey}[socials][${index}][href]`, kind: "input", label: "URL", defaultValue: social.href }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime47.jsx)("button", { type: "button", className: "cf-footer-editor__remove-btn", onClick: () => removeSocial(index), children: "\xD7" })
+      socials.map((social, index) => /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "cf-footer-editor__social-row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(Field, { name: `${cfgKey}[socials][${index}][label]`, kind: "input", label: "Platform", defaultValue: social.label }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(Field, { name: `${cfgKey}[socials][${index}][href]`, kind: "input", label: "URL", defaultValue: social.href }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("button", { type: "button", className: "cf-footer-editor__remove-btn", onClick: () => removeSocial(index), children: "\xD7" })
       ] }, index))
     ] })
   ] });
@@ -25220,70 +25571,13 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/header/index.tsx
-var import_react32 = __toESM(require_react());
-
-// app/web/themes/@admin/components/page-picker/index.tsx
-var import_react31 = __toESM(require_react());
-var import_jsx_runtime48 = __toESM(require_jsx_runtime());
-var PageSearchPicker = ({ onSelect }) => {
-  const [query, setQuery] = (0, import_react31.useState)("");
-  const [results, setResults] = (0, import_react31.useState)([]);
-  const [searching, setSearching] = (0, import_react31.useState)(false);
-  (0, import_react31.useEffect)(() => {
-    if (query.length < 2) {
-      setResults([]);
-      return;
-    }
-    const timer = setTimeout(async () => {
-      setSearching(true);
-      try {
-        const filter = JSON.stringify({ pageTitle: query });
-        const res = await fetch(`/api/page?filter=${filter}&size=5`);
-        const json = await res.json();
-        if (json.ok) setResults(json.results);
-      } catch (err) {
-        console.error("Search failed", err);
-      } finally {
-        setSearching(false);
-      }
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [query]);
-  return /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: "cf-page-picker", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: "cf-page-picker__input-wrapper", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)(
-        "input",
-        {
-          type: "text",
-          placeholder: "Type to search pages...",
-          value: query,
-          onChange: (e) => setQuery(e.target.value),
-          className: "cf-page-picker__input"
-        }
-      ),
-      searching && /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "cf-page-picker__spinner" })
-    ] }),
-    results.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("ul", { className: "cf-page-picker__results", children: results.map((page) => /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("li", { className: "cf-page-picker__item", onClick: () => {
-      onSelect(page);
-      setQuery("");
-      setResults([]);
-    }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("span", { className: "cf-page-picker__title", children: page.pageTitle }),
-      /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("span", { className: "cf-page-picker__path", children: [
-        "/page/",
-        page.id
-      ] })
-    ] }, page.id)) })
-  ] });
-};
-
-// app/web/themes/@admin/components/config/header/index.tsx
-var import_jsx_runtime49 = __toESM(require_jsx_runtime());
+var import_react34 = __toESM(require_react());
+var import_jsx_runtime52 = __toESM(require_jsx_runtime());
 var HeaderConfigEditor = ({ data }) => {
   const cfgKey = "header";
-  const [isSearching, setIsSearching] = (0, import_react32.useState)(false);
+  const [isSearching, setIsSearching] = (0, import_react34.useState)(false);
   const initialLinks = data.links ? Array.isArray(data.links) ? data.links : Object.values(data.links) : [];
-  const [links, setLinks] = (0, import_react32.useState)(initialLinks);
+  const [links, setLinks] = (0, import_react34.useState)(initialLinks);
   const addCustomLink = () => {
     setLinks([...links, { to: "", label: "New Link", icon: "" }]);
   };
@@ -25298,9 +25592,9 @@ var HeaderConfigEditor = ({ data }) => {
   const removeLink = (index) => {
     setLinks(links.filter((_, i) => i !== index));
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", { className: "cf-header-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Header" }),
-    /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("div", { className: "cf-header-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-header-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Header" }),
+    /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-header-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
       Field,
       {
         name: `${cfgKey}[siteTitle]`,
@@ -25311,12 +25605,12 @@ var HeaderConfigEditor = ({ data }) => {
         required: true
       }
     ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("div", { className: "cf-header-editor__divider" }),
-    /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", { className: "cf-header-editor__links", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", { className: "cf-header-editor__links-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("label", { className: "cf-header-editor__label", children: "Navigation & Social Icons" }),
-        /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", { className: "cf-header-editor__actions", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-header-editor__divider" }),
+    /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-header-editor__links", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-header-editor__links-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("label", { className: "cf-header-editor__label", children: "Navigation & Social Icons" }),
+        /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-header-editor__actions", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
             "button",
             {
               type: "button",
@@ -25325,7 +25619,7 @@ var HeaderConfigEditor = ({ data }) => {
               children: isSearching ? "Cancel" : "+ Add Existing Page"
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
             "button",
             {
               type: "button",
@@ -25336,9 +25630,9 @@ var HeaderConfigEditor = ({ data }) => {
           )
         ] })
       ] }),
-      isSearching && /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("div", { className: "cf-header-editor__search-container", children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(PageSearchPicker, { onSelect: addPageLink }) }),
-      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", { className: "cf-header-editor__link-row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(
+      isSearching && /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-header-editor__search-container", children: /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(PageSearchPicker, { onSelect: addPageLink }) }),
+      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-header-editor__link-row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
           Field,
           {
             name: `${cfgKey}[links][${index}][to]`,
@@ -25348,7 +25642,7 @@ var HeaderConfigEditor = ({ data }) => {
             required: true
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
           Field,
           {
             name: `${cfgKey}[links][${index}][label]`,
@@ -25357,7 +25651,7 @@ var HeaderConfigEditor = ({ data }) => {
             defaultValue: link.label || ""
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
           Field,
           {
             name: `${cfgKey}[links][${index}][icon]`,
@@ -25367,7 +25661,7 @@ var HeaderConfigEditor = ({ data }) => {
             placeholder: "fab fa-github"
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
           "button",
           {
             type: "button",
@@ -25391,20 +25685,20 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/homepage/index.tsx
-var import_react33 = __toESM(require_react());
-var import_jsx_runtime50 = __toESM(require_jsx_runtime());
+var import_react35 = __toESM(require_react());
+var import_jsx_runtime53 = __toESM(require_jsx_runtime());
 var HomepageEditor = ({ data }) => {
   const cfgKey = "homepage";
-  const [selectedPage, setSelectedPage] = (0, import_react33.useState)(data.homepage);
+  const [selectedPage, setSelectedPage] = (0, import_react35.useState)(data.homepage);
   const handlePageSelect = (page) => {
     setSelectedPage(`/page/${page.id}`);
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "cf-homepage-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/HomepageEditor" }),
-    /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "cf-homepage-editor__group", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("label", { className: "cf-header-editor__label", children: "Default Homepage" }),
-      /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("p", { className: "cf-homepage-editor__help", children: "Select the page that visitors see when they first arrive at your site." }),
-      /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", { className: "cf-homepage-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/HomepageEditor" }),
+    /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", { className: "cf-homepage-editor__group", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("label", { className: "cf-header-editor__label", children: "Default Homepage" }),
+      /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("p", { className: "cf-homepage-editor__help", children: "Select the page that visitors see when they first arrive at your site." }),
+      /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(
         "input",
         {
           type: "hidden",
@@ -25412,10 +25706,10 @@ var HomepageEditor = ({ data }) => {
           value: selectedPage
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "cf-homepage-editor__picker-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(PageSearchPicker, { onSelect: handlePageSelect }) }),
-      selectedPage && /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "cf-homepage-editor__current", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("div", { className: "cf-homepage-editor__picker-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(PageSearchPicker, { onSelect: handlePageSelect }) }),
+      selectedPage && /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", { className: "cf-homepage-editor__current", children: [
         "Currently selected: ",
-        /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("code", { children: selectedPage })
+        /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("code", { children: selectedPage })
       ] })
     ] })
   ] });
@@ -25430,19 +25724,19 @@ registerComponent({
 });
 
 // app/web/themes/@admin/index.tsx
-var import_jsx_runtime51 = __toESM(require_jsx_runtime());
+var import_jsx_runtime54 = __toESM(require_jsx_runtime());
 var AdminThemeWrapper = (props) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "codefolio-default-admin", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(AdminHeader, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "content", children: props.children })
+  return /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "codefolio-default-admin", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(AdminHeader, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("div", { className: "content", children: props.children })
   ] });
 };
 registerTheme("@admin", AdminThemeWrapper);
 
 // app/web/index.tsx
-var import_jsx_runtime52 = __toESM(require_jsx_runtime());
+var import_jsx_runtime55 = __toESM(require_jsx_runtime());
 var root = (0, import_client.createRoot)(document.getElementById("root"));
-root.render(/* @__PURE__ */ (0, import_jsx_runtime52.jsx)(Page, {}));
+root.render(/* @__PURE__ */ (0, import_jsx_runtime55.jsx)(Page, {}));
 /*! Bundled license information:
 
 scheduler/cjs/scheduler.development.js:
