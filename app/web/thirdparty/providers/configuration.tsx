@@ -1,4 +1,5 @@
 import { createContext, FC, PropsWithChildren, useContext, useEffect, useMemo, useState } from "react";
+import { fetchContent } from "../utils/fetch-content";
 
 /**
  * Top-level application configuration object fetched from `/build/config.json`.
@@ -75,7 +76,7 @@ export const ConfigProvider: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     const loadConfig = async () => {
       try {
-        const res = await fetch("/build/config.json?cache=" + (window as any).__CACHE_KEY__);
+        const res = await fetchContent("/build/config.json?cache=" + (window as any).__CACHE_KEY__);
         if (!res.ok) throw new Error("Failed to load config.json");
         const data: AppConfig = await res.json();
         setConfig(data);

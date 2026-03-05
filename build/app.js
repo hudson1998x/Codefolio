@@ -21722,6 +21722,18 @@ var import_client = __toESM(require_client());
 
 // app/web/thirdparty/providers/configuration.tsx
 var import_react = __toESM(require_react());
+
+// app/web/thirdparty/utils/fetch-content.ts
+var fetchContent = (path, body) => {
+  const isGithubPages = location.hostname.includes("github.io");
+  if (isGithubPages) {
+    const repo = location.pathname.split("/")[1];
+    return fetch(`/${repo}/${path.replace(/^\/+/, "")}`);
+  }
+  return fetch(path, body);
+};
+
+// app/web/thirdparty/providers/configuration.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime());
 var ConfigContext = (0, import_react.createContext)(null);
 var useConfig = () => {
@@ -21736,7 +21748,7 @@ var ConfigProvider = ({ children }) => {
   (0, import_react.useEffect)(() => {
     const loadConfig = async () => {
       try {
-        const res = await fetch("/build/config.json?cache=" + window.__CACHE_KEY__);
+        const res = await fetchContent("/build/config.json?cache=" + window.__CACHE_KEY__);
         if (!res.ok) throw new Error("Failed to load config.json");
         const data = await res.json();
         setConfig(data);
@@ -21774,16 +21786,6 @@ var config_default = {
     component: "Admin/Config/HomepageEditor",
     homepage: "/page/1"
   }
-};
-
-// app/web/thirdparty/utils/fetch-content.ts
-var fetchContent = (path, body) => {
-  const isGithubPages = location.hostname.includes("github.io");
-  if (isGithubPages) {
-    const repo = location.pathname.split("/")[1];
-    return fetch(`/${repo}/${path.replace(/^\/+/, "")}`);
-  }
-  return fetch(path, body);
 };
 
 // app/web/thirdparty/router.tsx

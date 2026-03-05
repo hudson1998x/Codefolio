@@ -363,14 +363,27 @@ export class HttpService {
       <html>
         <head>
           <title>SPA App</title>
-          <link rel="stylesheet" href="/build/app.css?cache=${this.cacheKey}" />
         </head>
         <body>
           <div id="root"></div>
+
           <script>
+            const isGithubPages = location.hostname.endsWith("github.io");
+            const repo = location.pathname.split("/")[1];
+            const BASE = isGithubPages ? "/" + repo : "";
+
             window.__CACHE_KEY__ = "${this.cacheKey}";
+
+            const css = document.createElement("link");
+            css.rel = "stylesheet";
+            css.href = BASE + "/build/app.css?cache=" + window.__CACHE_KEY__;
+            document.head.appendChild(css);
+
+            const js = document.createElement("script");
+            js.type = "module";
+            js.src = BASE + "/build/app.js?cache=" + window.__CACHE_KEY__;
+            document.body.appendChild(js);
           </script>
-          <script type="module" src="/build/app.js?cache=${this.cacheKey}"></script>
         </body>
       </html>
     `;
