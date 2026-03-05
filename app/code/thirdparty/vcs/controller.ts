@@ -1,7 +1,7 @@
 /** @jsx h */
 /** @jsxFrag Fragment */
 import { Controller } from "@decorators/controller";
-import { Get } from "@decorators/routes";
+import { Get, Post } from "@decorators/routes";
 import { CanvasNode } from "../frontend/types";
 import { VcsService } from "./service";
 import { Container } from "@decorators/di-container";

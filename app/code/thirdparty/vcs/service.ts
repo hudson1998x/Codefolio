@@ -221,4 +221,23 @@ export class VcsService {
       return { ahead: 0, behind: 0 };
     }
   }
+
+  public async deploy(message: string): Promise<void> {
+    try {
+      // 1. Stage all changes
+      await execAsync("git add .");
+      
+      // 2. Commit with the provided message
+      // Using double quotes and escaping to handle special characters in the message
+      const escapedMessage = message.replace(/"/g, '\\"');
+      await execAsync(`git commit -m "${escapedMessage}"`);
+      
+      // 3. Push to current branch
+      const branch = await this.getBranch();
+      await execAsync(`git push origin ${branch}`);
+    } catch (error) {
+      console.error("Git Deploy Error:", error);
+      throw new Error(error.stderr || "Failed to deploy to Git");
+    }
+  }
 }

@@ -5,6 +5,7 @@ import { VcsStatusBar } from '../components/vcs-status';
 import { Link } from '@router';
 import { CommandSearch } from '../components/command-search';
 import { getSafeUrl } from 'app/web/thirdparty/utils/safe-url';
+import { GitCommitAndPush } from '../components/git-commit-and-push';
 
 /** Navigation Interface */
 interface NavConfig {
@@ -85,7 +86,7 @@ export const AdminHeader = () => {
           </div>
           <VcsStatusBar />
         </div>
-        <button className="deploy-btn">Ship Changes</button>
+        <GitCommitAndPush />
         <div className="profile-pill">
           <img src="https://api.dicebear.com/7.x/shapes/svg?seed=noir" alt="User" />
         </div>

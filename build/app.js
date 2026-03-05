@@ -1328,7 +1328,7 @@ var require_react_dom_development = __commonJS({
         return dispatcher;
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React19 = require_react(), Internals = {
+      var React20 = require_react(), Internals = {
         d: {
           f: noop,
           r: function() {
@@ -1346,7 +1346,7 @@ var require_react_dom_development = __commonJS({
         },
         p: 0,
         findDOMNode: null
-      }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React19.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+      }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React20.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
       "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
         "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
       );
@@ -2881,7 +2881,7 @@ var require_react_dom_client_development = __commonJS({
         "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
       }
       function validateOptionProps(element, props) {
-        null == props.value && ("object" === typeof props.children && null !== props.children ? React19.Children.forEach(props.children, function(child) {
+        null == props.value && ("object" === typeof props.children && null !== props.children ? React20.Children.forEach(props.children, function(child) {
           null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           ));
@@ -18513,14 +18513,14 @@ var require_react_dom_client_development = __commonJS({
         ));
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var Scheduler = require_scheduler(), React19 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+      var Scheduler = require_scheduler(), React20 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
       /* @__PURE__ */ Symbol.for("react.scope");
       var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity");
       /* @__PURE__ */ Symbol.for("react.legacy_hidden");
       /* @__PURE__ */ Symbol.for("react.tracing_marker");
       var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel");
       /* @__PURE__ */ Symbol.for("react.view_transition");
-      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React19.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React20.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -21308,7 +21308,7 @@ var require_react_dom_client_development = __commonJS({
         }
       };
       (function() {
-        var isomorphicReactPackageVersion = React19.version;
+        var isomorphicReactPackageVersion = React20.version;
         if ("19.2.4" !== isomorphicReactPackageVersion)
           throw Error(
             'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.4\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -21662,18 +21662,18 @@ var require_react_jsx_runtime_development = __commonJS({
       function isValidElement(object) {
         return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
       }
-      var React19 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React19.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+      var React20 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React20.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
         return null;
       };
-      React19 = {
+      React20 = {
         react_stack_bottom_frame: function(callStackForError) {
           return callStackForError();
         }
       };
       var specialPropKeyWarningShown;
       var didWarnAboutElementRef = {};
-      var unknownOwnerDebugStack = React19.react_stack_bottom_frame.bind(
-        React19,
+      var unknownOwnerDebugStack = React20.react_stack_bottom_frame.bind(
+        React20,
         UnknownOwner
       )();
       var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -25270,7 +25270,7 @@ var DefaultTheme = ({ children }) => {
 registerTheme("default", DefaultTheme);
 
 // app/web/themes/@admin/header/index.tsx
-var import_react32 = __toESM(require_react());
+var import_react33 = __toESM(require_react());
 
 // app/web/themes/@admin/components/vcs-status/index.tsx
 var import_react29 = __toESM(require_react());
@@ -25523,12 +25523,141 @@ var CommandSearch = ({ navigation: navigation2 }) => {
   ] });
 };
 
-// app/web/themes/@admin/header/index.tsx
+// app/web/themes/@admin/components/git-commit-and-push/index.tsx
+var import_react32 = __toESM(require_react());
 var import_jsx_runtime50 = __toESM(require_jsx_runtime());
-var AdminHeader = () => {
-  const [isSaving, setIsSaving] = (0, import_react32.useState)(false);
-  const [navigation2, setNavigation] = (0, import_react32.useState)([]);
+var GitCommitAndPush = () => {
+  const [isOpen, setIsOpen] = (0, import_react32.useState)(false);
+  const [message, setMessage] = (0, import_react32.useState)("");
+  const [prefix, setPrefix] = (0, import_react32.useState)("feat");
+  const [isDeploying, setIsDeploying] = (0, import_react32.useState)(false);
+  const [lastError, setLastError] = (0, import_react32.useState)(null);
+  const [status, setStatus] = (0, import_react32.useState)(null);
+  const dropdownRef = (0, import_react32.useRef)(null);
+  const fetchStatus = async () => {
+    try {
+      const res = await fetch("/content/en-admin/vcs/status.json");
+      if (!res.ok) throw new Error("API Sync Failed");
+      const data = await res.json();
+      setStatus(data.status);
+    } catch (e) {
+      console.error("VCS Sync Error:", e);
+    }
+  };
   (0, import_react32.useEffect)(() => {
+    fetchStatus();
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsOpen(false);
+        setLastError(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+  const handleDeploy = async () => {
+    if (!message.trim()) {
+      setLastError("Commit message is required");
+      return;
+    }
+    setIsDeploying(true);
+    setLastError(null);
+    try {
+      const response = await fetch("/api/git/deploy", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: `${prefix}: ${message.trim()}` })
+      });
+      const result = await response.json();
+      if (response.ok) {
+        setMessage("");
+        setIsOpen(false);
+        fetchStatus();
+      } else {
+        throw new Error(result.error || "Deploy failed");
+      }
+    } catch (error) {
+      setLastError(error.message || "Network error occurred");
+    } finally {
+      setIsDeploying(false);
+    }
+  };
+  const hasChanges = (status?.changeCount ?? 0) > 0;
+  return /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "git-deploy-container", ref: dropdownRef, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)(
+      "button",
+      {
+        className: `main-deploy-trigger ${isOpen ? "active" : ""}`,
+        onClick: () => setIsOpen(!isOpen),
+        disabled: isDeploying || !hasChanges && !isOpen,
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("i", { className: isDeploying ? "fas fa-circle-notch fa-spin" : "fas fa-rocket" }),
+          isDeploying ? "Deploying..." : "Deploy"
+        ]
+      }
+    ),
+    isOpen && /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: `deploy-dropdown ${lastError ? "has-error" : ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "dropdown-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { children: status?.branch || "master" }),
+        /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("span", { children: [
+          status?.changeCount,
+          " CHANGES"
+        ] })
+      ] }),
+      lastError && /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "error-banner", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("i", { className: "fas fa-exclamation-triangle" }),
+        lastError
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "form-row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)(
+          "select",
+          {
+            className: "prefix-select",
+            value: prefix,
+            onChange: (e) => setPrefix(e.target.value),
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("option", { value: "feat", children: "feat" }),
+              /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("option", { value: "fix", children: "fix" }),
+              /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("option", { value: "refactor", children: "ref" }),
+              /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("option", { value: "chore", children: "chore" }),
+              /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("option", { value: "docs", children: "docs" })
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(
+          "input",
+          {
+            className: "message-input",
+            autoFocus: true,
+            placeholder: "What's new?",
+            value: message,
+            onChange: (e) => {
+              setMessage(e.target.value);
+              if (lastError) setLastError(null);
+            },
+            onKeyDown: (e) => e.key === "Enter" && handleDeploy()
+          }
+        )
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(
+        "button",
+        {
+          className: "confirm-deploy-btn",
+          onClick: handleDeploy,
+          disabled: !message.trim() || isDeploying,
+          children: isDeploying ? "Running Git..." : "Confirm & Push"
+        }
+      )
+    ] })
+  ] });
+};
+
+// app/web/themes/@admin/header/index.tsx
+var import_jsx_runtime51 = __toESM(require_jsx_runtime());
+var AdminHeader = () => {
+  const [isSaving, setIsSaving] = (0, import_react33.useState)(false);
+  const [navigation2, setNavigation] = (0, import_react33.useState)([]);
+  (0, import_react33.useEffect)(() => {
     const fetchNav = async () => {
       try {
         const response = await fetch("/en-admin/nav.json");
@@ -25540,7 +25669,7 @@ var AdminHeader = () => {
     };
     fetchNav();
   }, []);
-  (0, import_react32.useEffect)(() => {
+  (0, import_react33.useEffect)(() => {
     const ws = new WebSocket(`ws://${window.location.host}/ws`);
     ws.onmessage = (event) => {
       if (event.data === "SAVING_START") setIsSaving(true);
@@ -25548,51 +25677,51 @@ var AdminHeader = () => {
     };
     return () => ws.close();
   }, []);
-  const RenderNavItems = ({ items, noBack }) => /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("ul", { className: "nav-list", children: [
-    !noBack ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("a", { href: getSafeUrl("/"), className: "nav-link", children: "\u2190 Back" }) }) : null,
-    items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("li", { className: "nav-item-wrapper", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("a", { href: item.href || "#", className: "nav-link", children: [
+  const RenderNavItems = ({ items, noBack }) => /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("ul", { className: "nav-list", children: [
+    !noBack ? /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("a", { href: getSafeUrl("/"), className: "nav-link", children: "\u2190 Back" }) }) : null,
+    items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("li", { className: "nav-item-wrapper", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("a", { href: item.href || "#", className: "nav-link", children: [
         item.label,
-        item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { className: "chevron", children: "\u25BE" }) : null
+        item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "chevron", children: "\u25BE" }) : null
       ] }),
-      item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "nav-dropdown", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(RenderNavItems, { items: item.children, noBack: true }) }) : null
+      item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "nav-dropdown", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(RenderNavItems, { items: item.children, noBack: true }) }) : null
     ] }, index))
   ] });
-  return /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("header", { className: "platform-header", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "header-left", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "workspace-switcher", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "logo-box", children: "CF" }),
-        /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "label-group", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { className: "title", children: "CodeFolio" }),
-          /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { className: "status", children: "Dev Mode" })
+  return /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("header", { className: "platform-header", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "header-left", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "workspace-switcher", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "logo-box", children: "CF" }),
+        /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "label-group", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "title", children: "CodeFolio" }),
+          /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "status", children: "Dev Mode" })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("nav", { className: "dynamic-nav", children: navigation2.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(RenderNavItems, { items: navigation2 }) : /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "nav-skeleton" }) })
+      /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("nav", { className: "dynamic-nav", children: navigation2.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(RenderNavItems, { items: navigation2 }) : /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "nav-skeleton" }) })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "header-center", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(CommandSearch, { navigation: navigation2 }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "header-right", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "system-indicators", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: `save-status ${isSaving ? "is-saving" : ""}`, children: isSaving ? "Syncing..." : "Synced" }),
-        /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(VcsStatusBar, {})
+    /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "header-center", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(CommandSearch, { navigation: navigation2 }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "header-right", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "system-indicators", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: `save-status ${isSaving ? "is-saving" : ""}`, children: isSaving ? "Syncing..." : "Synced" }),
+        /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(VcsStatusBar, {})
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("button", { className: "deploy-btn", children: "Ship Changes" }),
-      /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "profile-pill", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("img", { src: "https://api.dicebear.com/7.x/shapes/svg?seed=noir", alt: "User" }) })
+      /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(GitCommitAndPush, {}),
+      /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "profile-pill", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("img", { src: "https://api.dicebear.com/7.x/shapes/svg?seed=noir", alt: "User" }) })
     ] })
   ] });
 };
 
 // app/web/themes/@admin/components/config/footer/index.tsx
-var import_react33 = __toESM(require_react());
-var import_jsx_runtime51 = __toESM(require_jsx_runtime());
+var import_react34 = __toESM(require_react());
+var import_jsx_runtime52 = __toESM(require_jsx_runtime());
 var FooterConfigEditor = ({ data }) => {
   const cfgKey = "footer";
   const initialSocials = data.socials ? Array.isArray(data.socials) ? data.socials : Object.values(data.socials) : [];
-  const [socials, setSocials] = (0, import_react33.useState)(initialSocials);
+  const [socials, setSocials] = (0, import_react34.useState)(initialSocials);
   const addSocial = () => setSocials([...socials, { label: "", href: "" }]);
   const removeSocial = (index) => setSocials(socials.filter((_, i) => i !== index));
-  return /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "cf-footer-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Footer" }),
-    /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "cf-footer-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-footer-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Footer" }),
+    /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-footer-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
       Field,
       {
         name: `${cfgKey}[copyrightName]`,
@@ -25602,16 +25731,16 @@ var FooterConfigEditor = ({ data }) => {
         required: true
       }
     ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "cf-footer-editor__divider" }),
-    /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "cf-footer-editor__socials", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "cf-footer-editor__socials-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("label", { className: "cf-footer-editor__label", children: "Social Media" }),
-        /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("button", { type: "button", className: "cf-footer-editor__add-btn", onClick: addSocial, children: "+ Add Social" })
+    /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-footer-editor__divider" }),
+    /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-footer-editor__socials", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-footer-editor__socials-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("label", { className: "cf-footer-editor__label", children: "Social Media" }),
+        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("button", { type: "button", className: "cf-footer-editor__add-btn", onClick: addSocial, children: "+ Add Social" })
       ] }),
-      socials.map((social, index) => /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "cf-footer-editor__social-row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(Field, { name: `${cfgKey}[socials][${index}][label]`, kind: "input", label: "Platform", defaultValue: social.label }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(Field, { name: `${cfgKey}[socials][${index}][href]`, kind: "input", label: "URL", defaultValue: social.href }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("button", { type: "button", className: "cf-footer-editor__remove-btn", onClick: () => removeSocial(index), children: "\xD7" })
+      socials.map((social, index) => /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-footer-editor__social-row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(Field, { name: `${cfgKey}[socials][${index}][label]`, kind: "input", label: "Platform", defaultValue: social.label }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(Field, { name: `${cfgKey}[socials][${index}][href]`, kind: "input", label: "URL", defaultValue: social.href }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("button", { type: "button", className: "cf-footer-editor__remove-btn", onClick: () => removeSocial(index), children: "\xD7" })
       ] }, index))
     ] })
   ] });
@@ -25623,13 +25752,13 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/header/index.tsx
-var import_react34 = __toESM(require_react());
-var import_jsx_runtime52 = __toESM(require_jsx_runtime());
+var import_react35 = __toESM(require_react());
+var import_jsx_runtime53 = __toESM(require_jsx_runtime());
 var HeaderConfigEditor = ({ data }) => {
   const cfgKey = "header";
-  const [isSearching, setIsSearching] = (0, import_react34.useState)(false);
+  const [isSearching, setIsSearching] = (0, import_react35.useState)(false);
   const initialLinks = data.links ? Array.isArray(data.links) ? data.links : Object.values(data.links) : [];
-  const [links, setLinks] = (0, import_react34.useState)(initialLinks);
+  const [links, setLinks] = (0, import_react35.useState)(initialLinks);
   const addCustomLink = () => {
     setLinks([...links, { to: "", label: "New Link", icon: "" }]);
   };
@@ -25644,9 +25773,9 @@ var HeaderConfigEditor = ({ data }) => {
   const removeLink = (index) => {
     setLinks((prev) => [...prev.slice(0, index), ...prev.slice(index + 1)]);
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-header-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Header" }),
-    /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-header-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", { className: "cf-header-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Header" }),
+    /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("div", { className: "cf-header-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(
       Field,
       {
         name: `${cfgKey}[siteTitle]`,
@@ -25657,12 +25786,12 @@ var HeaderConfigEditor = ({ data }) => {
         required: true
       }
     ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-header-editor__divider" }),
-    /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-header-editor__links", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-header-editor__links-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("label", { className: "cf-header-editor__label", children: "Navigation & Social Icons" }),
-        /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-header-editor__actions", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("div", { className: "cf-header-editor__divider" }),
+    /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", { className: "cf-header-editor__links", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", { className: "cf-header-editor__links-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("label", { className: "cf-header-editor__label", children: "Navigation & Social Icons" }),
+        /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", { className: "cf-header-editor__actions", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(
             "button",
             {
               type: "button",
@@ -25671,7 +25800,7 @@ var HeaderConfigEditor = ({ data }) => {
               children: isSearching ? "Cancel" : "+ Add Existing Page"
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(
             "button",
             {
               type: "button",
@@ -25682,9 +25811,9 @@ var HeaderConfigEditor = ({ data }) => {
           )
         ] })
       ] }),
-      isSearching && /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-header-editor__search-container", children: /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(PageSearchPicker, { onSelect: addPageLink }) }),
-      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime52.jsxs)("div", { className: "cf-header-editor__link-row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
+      isSearching && /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("div", { className: "cf-header-editor__search-container", children: /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(PageSearchPicker, { onSelect: addPageLink }) }),
+      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", { className: "cf-header-editor__link-row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(
           Field,
           {
             name: `${cfgKey}[links][${index}][to]`,
@@ -25694,7 +25823,7 @@ var HeaderConfigEditor = ({ data }) => {
             required: true
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(
           Field,
           {
             name: `${cfgKey}[links][${index}][label]`,
@@ -25703,7 +25832,7 @@ var HeaderConfigEditor = ({ data }) => {
             defaultValue: link.label || ""
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(
           Field,
           {
             name: `${cfgKey}[links][${index}][icon]`,
@@ -25713,7 +25842,7 @@ var HeaderConfigEditor = ({ data }) => {
             placeholder: "fab fa-github"
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(
           "button",
           {
             type: "button",
@@ -25737,20 +25866,20 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/homepage/index.tsx
-var import_react35 = __toESM(require_react());
-var import_jsx_runtime53 = __toESM(require_jsx_runtime());
+var import_react36 = __toESM(require_react());
+var import_jsx_runtime54 = __toESM(require_jsx_runtime());
 var HomepageEditor = ({ data }) => {
   const cfgKey = "homepage";
-  const [selectedPage, setSelectedPage] = (0, import_react35.useState)(data.homepage);
+  const [selectedPage, setSelectedPage] = (0, import_react36.useState)(data.homepage);
   const handlePageSelect = (page) => {
     setSelectedPage(`/page/${page.id}`);
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", { className: "cf-homepage-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/HomepageEditor" }),
-    /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", { className: "cf-homepage-editor__group", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("label", { className: "cf-header-editor__label", children: "Default Homepage" }),
-      /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("p", { className: "cf-homepage-editor__help", children: "Select the page that visitors see when they first arrive at your site." }),
-      /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "cf-homepage-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/HomepageEditor" }),
+    /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "cf-homepage-editor__group", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("label", { className: "cf-header-editor__label", children: "Default Homepage" }),
+      /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("p", { className: "cf-homepage-editor__help", children: "Select the page that visitors see when they first arrive at your site." }),
+      /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(
         "input",
         {
           type: "hidden",
@@ -25758,10 +25887,10 @@ var HomepageEditor = ({ data }) => {
           value: selectedPage
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("div", { className: "cf-homepage-editor__picker-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(PageSearchPicker, { onSelect: handlePageSelect }) }),
-      selectedPage && /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", { className: "cf-homepage-editor__current", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("div", { className: "cf-homepage-editor__picker-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(PageSearchPicker, { onSelect: handlePageSelect }) }),
+      selectedPage && /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "cf-homepage-editor__current", children: [
         "Currently selected: ",
-        /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("code", { children: selectedPage })
+        /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("code", { children: selectedPage })
       ] })
     ] })
   ] });
@@ -25776,13 +25905,13 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/themeselector/index.tsx
-var import_react36 = __toESM(require_react());
-var import_jsx_runtime54 = __toESM(require_jsx_runtime());
+var import_react37 = __toESM(require_react());
+var import_jsx_runtime55 = __toESM(require_jsx_runtime());
 var ThemeSelector = ({ data }) => {
-  const [themes, setThemes] = (0, import_react36.useState)([]);
-  const [selected, setSelected] = (0, import_react36.useState)(data.theme || "default");
-  const [loading, setLoading] = (0, import_react36.useState)(true);
-  (0, import_react36.useEffect)(() => {
+  const [themes, setThemes] = (0, import_react37.useState)([]);
+  const [selected, setSelected] = (0, import_react37.useState)(data.theme || "default");
+  const [loading, setLoading] = (0, import_react37.useState)(true);
+  (0, import_react37.useEffect)(() => {
     const fetchThemes = async () => {
       try {
         const res = await fetch("/content/en-admin/configuration/themes");
@@ -25804,17 +25933,17 @@ var ThemeSelector = ({ data }) => {
     );
     if (inputEl) inputEl.value = themeName;
   };
-  if (loading) return /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("p", { children: "Loading themes..." });
-  if (!themes.length) return /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("p", { children: "No themes found." });
-  return /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "cf-theme-selector", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("input", { type: "hidden", name: "theme", value: selected }),
-    /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("div", { className: "cf-theme-selector__grid", children: themes.map((theme) => /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)(
+  if (loading) return /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("p", { children: "Loading themes..." });
+  if (!themes.length) return /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("p", { children: "No themes found." });
+  return /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)("div", { className: "cf-theme-selector", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("input", { type: "hidden", name: "theme", value: selected }),
+    /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("div", { className: "cf-theme-selector__grid", children: themes.map((theme) => /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)(
       "div",
       {
         className: `cf-theme-selector__item ${selected === theme.key ? "selected" : ""}`,
         onClick: () => handleSelect(theme.name),
         children: [
-          theme.previewImage && /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(
+          theme.previewImage && /* @__PURE__ */ (0, import_jsx_runtime55.jsx)(
             "img",
             {
               className: "cf-theme-selector__preview",
@@ -25822,10 +25951,10 @@ var ThemeSelector = ({ data }) => {
               alt: `${theme.name} preview`
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "cf-theme-selector__info", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("strong", { children: theme.name }),
-            /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("small", { children: theme.vendor }),
-            /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("span", { className: "cf-theme-selector__version", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)("div", { className: "cf-theme-selector__info", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("strong", { children: theme.name }),
+            /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("small", { children: theme.vendor }),
+            /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)("span", { className: "cf-theme-selector__version", children: [
               theme.version.major,
               ".",
               theme.version.minor,
@@ -25833,7 +25962,7 @@ var ThemeSelector = ({ data }) => {
               theme.version.patch
             ] })
           ] }),
-          selected === theme.name && /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("span", { className: "cf-theme-selector__selected-badge", children: "\u2714" })
+          selected === theme.name && /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("span", { className: "cf-theme-selector__selected-badge", children: "\u2714" })
         ]
       },
       theme.name
@@ -25850,19 +25979,19 @@ registerComponent({
 });
 
 // app/web/themes/@admin/index.tsx
-var import_jsx_runtime55 = __toESM(require_jsx_runtime());
+var import_jsx_runtime56 = __toESM(require_jsx_runtime());
 var AdminThemeWrapper = (props) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)("div", { className: "codefolio-default-admin", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime55.jsx)(AdminHeader, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("div", { className: "content", children: props.children })
+  return /* @__PURE__ */ (0, import_jsx_runtime56.jsxs)("div", { className: "codefolio-default-admin", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime56.jsx)(AdminHeader, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime56.jsx)("div", { className: "content", children: props.children })
   ] });
 };
 registerTheme("@admin", AdminThemeWrapper);
 
 // app/web/index.tsx
-var import_jsx_runtime56 = __toESM(require_jsx_runtime());
+var import_jsx_runtime57 = __toESM(require_jsx_runtime());
 var root = (0, import_client.createRoot)(document.getElementById("root"));
-root.render(/* @__PURE__ */ (0, import_jsx_runtime56.jsx)(Page, {}));
+root.render(/* @__PURE__ */ (0, import_jsx_runtime57.jsx)(Page, {}));
 /*! Bundled license information:
 
 scheduler/cjs/scheduler.development.js:
