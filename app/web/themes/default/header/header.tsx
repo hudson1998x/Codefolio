@@ -5,6 +5,7 @@ import { useRouter } from "@router";
 import './style.scss';
 
 import headerDefaults from './config.json';
+import { getSafeUrl } from "app/web/thirdparty/utils/safe-url";
 
 /**
  * Represents a single navigation link in the {@link Header}.
@@ -78,7 +79,7 @@ export const Header: React.FC = () => {
     <header className="theme-header border-bottom shadow-sm">
       <div className="container d-flex justify-content-between align-items-center py-3">
         <div className="nav-logo h4 mb-0 fw-bold text-uppercase">
-          {config.siteTitle}
+          <a href={getSafeUrl('/')}>{config.siteTitle}</a>
         </div>
 
         <nav className="nav nav-tabs border-0">
@@ -95,14 +96,15 @@ export const Header: React.FC = () => {
                 {item.label ? <span>{item.label}</span>  : null}
               </a>
             ) : (
-              <button
+              <a
                 key={item.to}
-                className={`nav-link border-0 ${path === item.to ? "active" : ""}`}
-                type="button"
+                href={getSafeUrl(item.to)}
+                className="nav-link border-0"
+                rel="noopener noreferrer"
               >
                 {item.icon  ? <i className={item.icon} /> : null}
                 {item.label ? <span>{item.label}</span>  : null}
-              </button>
+              </a>
             )
           ))}
         </nav>

@@ -25165,7 +25165,7 @@ var Header = () => {
   const config = useModuleConfig(config_default2.key, config_default2.config);
   const isExternal = (to) => to.startsWith("http");
   return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("header", { className: "theme-header border-bottom shadow-sm", children: /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)("div", { className: "container d-flex justify-content-between align-items-center py-3", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("div", { className: "nav-logo h4 mb-0 fw-bold text-uppercase", children: config.siteTitle }),
+    /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("div", { className: "nav-logo h4 mb-0 fw-bold text-uppercase", children: /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("a", { href: getSafeUrl("/"), children: config.siteTitle }) }),
     /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("nav", { className: "nav nav-tabs border-0", children: config?.links?.map((item) => isExternal(item.to) ? /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)(
       "a",
       {
@@ -25180,10 +25180,11 @@ var Header = () => {
       },
       item.to
     ) : /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)(
-      "button",
+      "a",
       {
-        className: `nav-link border-0 ${path === item.to ? "active" : ""}`,
-        type: "button",
+        href: getSafeUrl(item.to),
+        className: "nav-link border-0",
+        rel: "noopener noreferrer",
         children: [
           item.icon ? /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("i", { className: item.icon }) : null,
           item.label ? /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("span", { children: item.label }) : null
