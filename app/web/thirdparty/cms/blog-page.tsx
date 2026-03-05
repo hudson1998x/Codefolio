@@ -1,6 +1,7 @@
 import { registerComponent } from "@components/registry";
 import { FC, useEffect, useState, useMemo, useRef, useCallback } from "react";
 import './style.scss';
+import { fetchContent } from "../utils/fetch-content";
 
 interface BlogEntry {
   id: number;
@@ -35,7 +36,7 @@ const BlogPage: FC<{}> = () => {
       setIsStreaming(true);
       
       try {
-        const response = await fetch('/content/blog/index.ndjson');
+        const response = await fetchContent('/content/blog/index.ndjson');
         if (!response.body) return;
 
         const reader = response.body.getReader();

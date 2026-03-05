@@ -2163,9 +2163,9 @@ var require_react_dom_client_development = __commonJS({
                 if ("string" === typeof entry.name) {
                   var JSCompiler_temp_const = info;
                   a: {
-                    var name = entry.name, env = entry.env, location = entry.debugLocation;
-                    if (null != location) {
-                      var childStack = formatOwnerStack(location), idx = childStack.lastIndexOf("\n"), lastLine = -1 === idx ? childStack : childStack.slice(idx + 1);
+                    var name = entry.name, env = entry.env, location2 = entry.debugLocation;
+                    if (null != location2) {
+                      var childStack = formatOwnerStack(location2), idx = childStack.lastIndexOf("\n"), lastLine = -1 === idx ? childStack : childStack.slice(idx + 1);
                       if (-1 !== lastLine.indexOf(name)) {
                         var JSCompiler_inline_result = "\n" + lastLine;
                         break a;
@@ -21776,6 +21776,16 @@ var config_default = {
   }
 };
 
+// app/web/thirdparty/utils/fetch-content.ts
+var fetchContent = (path, body) => {
+  const isGithubPages = location.hostname.includes("github.io");
+  if (isGithubPages) {
+    const repo = location.pathname.split("/")[1];
+    return fetch(`/${repo}/${path.replace(/^\/+/, "")}`);
+  }
+  return fetch(path, body);
+};
+
 // app/web/thirdparty/router.tsx
 var import_jsx_runtime2 = __toESM(require_jsx_runtime());
 var useRouter = () => {
@@ -21787,7 +21797,7 @@ var useRouter = () => {
     try {
       let normalized = pathname === "/" ? homepage.homepage + (isAdmin ? "/page.json" : ".json") : `${pathname.replace(/\/$/, "")}/` + (isAdmin ? "page.json" : ".json");
       normalized = normalized.replace("/.json", ".json");
-      const res = await fetch(`/content${normalized}`);
+      const res = await fetchContent(`/content${normalized}`);
       if (!res.ok) throw new Error("404");
       const rawData = await res.json();
       let processedContent;
@@ -21821,7 +21831,7 @@ var useRouter = () => {
     } catch (err) {
       console.warn(`Path ${pathname} not found, falling back to 404.`);
       try {
-        const errorRes = await fetch(`/content/404/page.json`);
+        const errorRes = await fetchContent(`/content/404/page.json`);
         const errorData = await errorRes.json();
         setPageContent(errorData);
       } catch {
@@ -23011,7 +23021,7 @@ var Form = ({ data, children, onValues, onSuccess, onError }) => {
         ;
         values = processed;
       }
-      const res = await fetch(endpoint, {
+      const res = await fetchContent(endpoint, {
         method: method.toUpperCase(),
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values)
@@ -23485,11 +23495,11 @@ registerComponent({
 // app/web/thirdparty/components/maps/index.tsx
 var import_jsx_runtime27 = __toESM(require_jsx_runtime());
 var GoogleMaps = ({ data }) => {
-  const { location, apiKey, aspectRatio = "16/9", zoom = "14", className } = data;
-  if (!location || !apiKey) {
+  const { location: location2, apiKey, aspectRatio = "16/9", zoom = "14", className } = data;
+  if (!location2 || !apiKey) {
     return /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: `cf-maps cf-maps--error ${className}`, style: { aspectRatio }, children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { children: !apiKey ? "API key required" : "Please enter a location" }) });
   }
-  const src = `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${encodeURIComponent(location)}&zoom=${zoom}`;
+  const src = `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${encodeURIComponent(location2)}&zoom=${zoom}`;
   return /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: `cf-maps ${className}`, style: { aspectRatio }, children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
     "iframe",
     {
@@ -24967,7 +24977,7 @@ var BlogPage = () => {
       setIsInitialLoading(true);
       setIsStreaming(true);
       try {
-        const response = await fetch("/content/blog/index.ndjson");
+        const response = await fetchContent("/content/blog/index.ndjson");
         if (!response.body) return;
         const reader = response.body.getReader();
         const decoder = new TextDecoder();

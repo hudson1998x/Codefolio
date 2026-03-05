@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { registerComponent, CodefolioProps } from "../registry";
 import './style.scss'
+import { fetchContent } from "../../utils/fetch-content";
 
 /**
  * Configuration data for the Form component.
@@ -183,7 +184,7 @@ const Form: React.FC<FormProps> = ({ data, children, onValues, onSuccess, onErro
         values = processed;
       }
 
-      const res = await fetch(endpoint, {
+      const res = await fetchContent(endpoint, {
         method: method.toUpperCase(),
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),

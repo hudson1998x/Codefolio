@@ -2,6 +2,7 @@ import { useConfig, useModuleConfig } from '@config';
 import React, { createContext, useContext, ReactNode, PropsWithChildren, FC } from 'react';
 import { useEffect, useState, useCallback } from 'react';
 import homepageconfig from './configs/homepage-config/config.json'
+import { fetchContent } from './utils/fetch-content';
 
 /**
  * Unified Page Content Interface
@@ -35,7 +36,7 @@ export const useRouter = () => {
 
       normalized = normalized.replace('/.json', '.json')
 
-      const res = await fetch(`/content${normalized}`);
+      const res = await fetchContent(`/content${normalized}`);
       if (!res.ok) throw new Error("404");
 
       const rawData = await res.json();
@@ -82,7 +83,7 @@ export const useRouter = () => {
     } catch (err) {
       console.warn(`Path ${pathname} not found, falling back to 404.`);
       try {
-        const errorRes = await fetch(`/content/404/page.json`);
+        const errorRes = await fetchContent(`/content/404/page.json`);
         const errorData = await errorRes.json();
         setPageContent(errorData);
       } catch {
