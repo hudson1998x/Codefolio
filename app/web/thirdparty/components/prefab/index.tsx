@@ -26,8 +26,6 @@ export const Prefab: React.FC<{ data: any }> = ({ data }) => {
     }
   }, [data?.prefabJson]);
 
-  console.log({ data })
-
   return (
     <div className="codefolio-prefab-render">
       <Canvas manualNodes={nodes} />

@@ -19,7 +19,6 @@ export const PrefabEditor: React.FC<{
 
   useEffect(() => {
     onChange(stringifiedValue);
-    console.log('Called change')
   }, [stringifiedValue])
 
   

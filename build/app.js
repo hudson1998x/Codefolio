@@ -22545,7 +22545,6 @@ var PrefabEditor = ({ value, onChange }) => {
   }, [value]);
   (0, import_react7.useEffect)(() => {
     onChange(stringifiedValue);
-    console.log("Called change");
   }, [stringifiedValue]);
   return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "prefab-field-editor", children: [
     /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "prefab-field-editor__help", children: "Editing Nested Template Structure:" }),
@@ -24177,7 +24176,6 @@ var Prefab = ({ data }) => {
       return [];
     }
   }, [data?.prefabJson]);
-  console.log({ data });
   return /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("div", { className: "codefolio-prefab-render", children: /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(Canvas2, { manualNodes: nodes }) });
 };
 registerComponent({
