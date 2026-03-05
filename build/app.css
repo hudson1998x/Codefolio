@@ -419,6 +419,7 @@
 .editor-overlay {
   position: fixed;
   inset: 0;
+  top: 52px;
   background: #f1f5f9;
   display: flex;
   padding: 20px;
