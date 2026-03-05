@@ -373,6 +373,8 @@ export class HttpService {
           <title>Loading... | ${config?.website?.title ?? 'Untitled website'}</title>
           <meta name="description" content="${config?.website?.description ?? 'No description available'}"/>
           <meta name="keywords" content="${config?.website?.keywords ?? ''}"/>
+          <!-- Caching is handled by the app instead !-->
+          <meta http-equiv="Cache-Control" content="no-cache">
         </head>
         <body>
           <div id="root"></div>
