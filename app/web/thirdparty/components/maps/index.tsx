@@ -3,10 +3,33 @@ import { registerComponent } from "../registry";
 import './style.scss';
 
 export interface GoogleMapsData {
+  /**
+   * The place name or address to display on the map
+   * (e.g. `"London, UK"` or `"10 Downing Street, London"`).
+   */
   location: string;
+
+  /**
+   * Google Maps Embed API key. Must have the Maps Embed API enabled
+   * in the Google Cloud Console. Required — renders an error state when absent.
+   */
   apiKey: string;
+
+  /**
+   * CSS `aspect-ratio` value applied to the map wrapper (e.g. `"16/9"`, `"4/3"`, `"1/1"`).
+   * @default "16/9"
+   */
   aspectRatio: string;
+
+  /**
+   * Initial zoom level passed to the Maps Embed API (0–21, where 0 is world view).
+   * @default "14"
+   */
   zoom: string;
+
+  /**
+   * Additional CSS class name(s) to apply to the map wrapper element.
+   */
   className: string;
 }
 

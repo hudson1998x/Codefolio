@@ -2,12 +2,42 @@ import React from "react";
 import { registerComponent } from "../registry";
 import './style.scss';
 
+/**
+ * Configuration data for the YouTube component.
+ */
 export interface YouTubeData {
+  /**
+   * Any valid YouTube video URL. Supports the following formats:
+   * - Standard: `youtube.com/watch?v=ID`
+   * - Short: `youtu.be/ID`
+   * - Embed: `youtube.com/embed/ID`
+   * - Shorts: `youtube.com/shorts/ID`
+   *
+   * Renders an error state if the URL is missing or unrecognised.
+   */
   url: string;
+
+  /**
+   * CSS `aspect-ratio` value applied to the embed wrapper (e.g. `"16/9"`, `"4/3"`, `"1/1"`).
+   * @default "16/9"
+   */
   aspectRatio: string;
+
+  /**
+   * Additional CSS class name(s) to apply to the embed wrapper element.
+   */
   className: string;
 }
 
+/**
+ * Extracts the video ID from any recognised YouTube URL format.
+ *
+ * Supports standard watch URLs, short `youtu.be` links, embed paths,
+ * Shorts, and legacy `/v/` paths.
+ *
+ * @param urlStr - The raw YouTube URL string to parse.
+ * @returns The extracted video ID, or `null` if the URL is invalid or unrecognised.
+ */
 const getYouTubeID = (urlStr: string): string | null => {
   if (!urlStr) return null;
 
@@ -35,6 +65,19 @@ const getYouTubeID = (urlStr: string): string | null => {
   return null;
 };
 
+/**
+ * Renders a YouTube video as a privacy-enhanced iframe embed (`youtube-nocookie.com`).
+ *
+ * @remarks
+ * Accepts any common YouTube URL format — the video ID is extracted automatically.
+ * Renders a styled error state when the URL is absent or cannot be parsed.
+ * Autoplay and related video suggestions are disabled by default via embed parameters.
+ *
+ * @example
+ * ```tsx
+ * <YouTube data={{ url: "https://youtu.be/dQw4w9WgXcQ", aspectRatio: "16/9", className: "" }} />
+ * ```
+ */
 export const YouTube: React.FC<{ data: YouTubeData }> = ({ data }) => {
   const { url, aspectRatio = "16/9", className } = data;
   const videoId = getYouTubeID(url);

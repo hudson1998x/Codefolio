@@ -38,10 +38,34 @@ const VARIANT_LABELS: Record<AlertVariant, string> = {
 };
 
 export interface AlertData {
+  /**
+   * Controls the colour treatment, icon, and default title of the alert.
+   * Falls back to `"info"` if an unrecognised value is provided.
+   * @default "info"
+   */
   variant: AlertVariant | string;
+
+  /**
+   * Heading text displayed in the alert header.
+   * Defaults to the variant's label (e.g. `"Warning"`) when left empty.
+   */
   title: string;
+
+  /**
+   * Body text rendered below the header. Omitted from the DOM when empty.
+   */
   message: string;
+
+  /**
+   * Whether to display the variant icon to the left of the title.
+   * Accepts `"true"` or `"false"` as a string.
+   * @default "true"
+   */
   showIcon: string;
+
+  /**
+   * Additional CSS class name(s) to apply to the alert wrapper element.
+   */
   className: string;
 }
 

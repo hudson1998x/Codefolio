@@ -3,9 +3,30 @@ import './style.scss';
 import { registerComponent } from "@components/registry";
 
 export interface FigmaEmbedData {
+  /**
+   * The public Figma file, design, or prototype URL to embed.
+   * Must be a `figma.com/file`, `figma.com/design`, or `figma.com/proto` URL
+   * with sharing set to "Anyone with the link can view".
+   */
   url: string;
+
+  /**
+   * Height of the embed iframe in pixels.
+   * @default "600"
+   */
   height: string;
+
+  /**
+   * Whether to show the "Open in Figma" button overlay once the embed has loaded,
+   * and as a fallback link when the embed is blocked.
+   * Accepts `"true"` or `"false"` as a string.
+   * @default "true"
+   */
   showOpenButton: string;
+
+  /**
+   * Additional CSS class name(s) to apply to the embed wrapper element.
+   */
   className: string;
 }
 
