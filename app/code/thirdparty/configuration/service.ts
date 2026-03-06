@@ -120,6 +120,11 @@ export class ConfigService implements OnInit {
   public async getConfig(): Promise<Record<string, any>> {
     if (this._cachedConfig) return this._cachedConfig;
 
+    if (!fs.existsSync('build'))
+    {
+      fs.mkdirSync('build');
+    }
+
     if (!fs.existsSync(CONFIG_PATH)) {
       fs.writeFileSync(CONFIG_PATH, "{}", { encoding: "utf-8" });
     }
