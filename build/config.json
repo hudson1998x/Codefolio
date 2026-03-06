@@ -27,6 +27,11 @@
         "icon": ""
       },
       {
+        "to": "/documents/1",
+        "label": "Getting Started",
+        "icon": ""
+      },
+      {
         "to": "https://github.com/hudson1998x/Codefolio",
         "label": "Repository",
         "icon": "fab fa-github"
@@ -38,8 +43,8 @@
     "homepage": "/page/1"
   },
   "theme": {
-    "component": "Admin/Config/ThemeSelector",
-    "theme": "default"
+    "theme": "default",
+    "component": "Admin/Config/ThemeSelector"
   },
   "website": {
     "title": "Codefolio",

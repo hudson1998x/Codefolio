@@ -4,6 +4,7 @@ import { FC, PropsWithChildren } from "react";
 import './pages/config/config.scss'
 import './pages/media-gallery'
 import './components/loader'
+import './components/documentation-selector'
 
 /**
  * Root layout wrapper for the CodeFolio admin interface.

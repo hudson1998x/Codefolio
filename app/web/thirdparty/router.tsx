@@ -111,6 +111,22 @@ export const useRouter = () => {
         processedContent = rawData;
       }
 
+      switch(getPageType(pathname))
+      {
+          case PageType.Documentation:
+            const children = [...processedContent.children!];
+            processedContent.children = [
+                {
+                    component: "Core/DocumentationPage",
+                    children,
+                    data: processedContent.data
+                }
+            ]
+          break;
+      }
+      
+      console.log(processedContent)
+
       setPageContent(processedContent);
 
     } catch (err) {
@@ -231,3 +247,19 @@ export const Link: FC<LinkProps> = ({ to, children, className, onClick }) => {
     </a>
   );
 };
+
+enum PageType 
+{
+    Documentation,
+    Default
+}
+
+const getPageType = (url: string):PageType => {
+
+    if (url.startsWith(getSafeUrl('/documents/')))
+    {
+        return PageType.Documentation;
+    }
+
+    return PageType.Default;
+}

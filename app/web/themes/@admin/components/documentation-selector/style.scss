@@ -1,0 +1,66 @@
+.documentation-selector-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: sans-serif;
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+
+    .selector-label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #333;
+    }
+
+    .selector-wrapper {
+        position: relative;
+
+        .selector-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.2s;
+
+            &:focus {
+                border-color: #007bff;
+            }
+        }
+
+        .results-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            max-height: 200px;
+            overflow-y: auto;
+
+            li {
+                padding: 10px 12px;
+                cursor: pointer;
+                font-size: 0.85rem;
+
+                &:hover {
+                    background-color: #f0f7ff;
+                    color: #007bff;
+                }
+
+                &.no-results {
+                    color: #999;
+                    cursor: default;
+                    font-style: italic;
+                }
+            }
+        }
+    }
+}

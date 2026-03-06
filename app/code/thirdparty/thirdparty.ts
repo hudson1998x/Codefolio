@@ -6,6 +6,7 @@ import './pages'
 import './dev'
 import './Prefab'
 import './Blog'
+import './Documents'
 
 // =================
 // Module imports

@@ -7,6 +7,7 @@ import './components/loader'
 import './dev/module-generator'
 import './autocontent/loader'
 import './cms/blog-page'
+import './pages/documentation'
 
 /**
  * `Page` is the application root — it composes the full provider stack and

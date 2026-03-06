@@ -3,6 +3,7 @@ import { Fragment, JSX } from "react/jsx-runtime";
 import { useRouter } from '@router';
 import { getComponent, registerComponent } from '../registry';
 import { CanvasNode } from "./types";
+import { Alert, AlertData } from "@components/alert";
 
 /**
  * Maps content JSON component names to their HTML fallback tag when no
