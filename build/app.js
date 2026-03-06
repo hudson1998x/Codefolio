@@ -23551,7 +23551,7 @@ var Image = ({
   return /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(
     "img",
     {
-      src,
+      src: getSafeUrl(src),
       alt,
       className: classes,
       loading: loading || "lazy",

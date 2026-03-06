@@ -1,6 +1,7 @@
 import React from "react";
 import { registerComponent, CodefolioProps } from "../registry";
 import './style.scss';
+import { getSafeUrl } from "../../utils/safe-url";
 
 /**
  * Fit strategy for the image, applied as `cf-img--{fit}`.
@@ -60,7 +61,7 @@ export const Image: React.FC<ImageProps> = ({
 
   return (
     <img
-      src={src}
+      src={getSafeUrl(src)}
       alt={alt}
       className={classes}
       loading={loading || "lazy"} // Default to lazy unless overridden
