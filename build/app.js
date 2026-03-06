@@ -21811,10 +21811,11 @@ var getSafeUrl = (url) => {
   }
   return clean;
 };
-var doesUrlStartWith = (url, prefix = "/documents/") => {
+var doesUrlStartWith = (url, prefix) => {
   if (window.location.hostname.endsWith("github.io")) {
     const repo = window.location.pathname.split("/")[1];
-    return url.startsWith(`/${repo}${prefix}`);
+    const fullPrefix = `/${repo}/${prefix.replace(/^\//, "")}`;
+    return url.startsWith(fullPrefix);
   }
   return url.startsWith(prefix);
 };
@@ -21882,7 +21883,6 @@ var useRouter = () => {
           ];
           break;
       }
-      console.log(processedContent);
       setPageContent(processedContent);
     } catch (err) {
       console.warn(`Path ${pathname} not found, falling back to 404.`);

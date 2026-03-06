@@ -124,8 +124,6 @@ export const useRouter = () => {
             ]
           break;
       }
-      
-      console.log(processedContent)
 
       setPageContent(processedContent);
 
