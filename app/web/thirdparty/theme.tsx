@@ -66,11 +66,16 @@ export const ThemeLoader: FC<PropsWithChildren> = ({ children }) => {
   const config = useConfig();
   const { path } = useRouter();
 
-  const themeName = config?.theme?.theme ?? (
+  let themeName = config?.theme?.theme ?? (
     path.startsWith('/en-admin/') || path === '/en-admin'
       ? "@admin"
       : "default"
   );
+
+  if (path.startsWith('/en-admin/'))
+  {
+    themeName = "@admin";
+  }
 
   const Theme = _themeRoots[themeName];
 
