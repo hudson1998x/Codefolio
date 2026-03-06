@@ -20,6 +20,8 @@ const DIRS_TO_DELETE = [
   ".git",
 ];
 
+const INITIAL_COMMIT_MESSAGE = "Codefolio: clean install performed, ready for use";
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function log(msg) {
@@ -75,8 +77,10 @@ function run(cmd, label) {
 
   console.log("");
 
-  // 3. Reinitialise git
+  // 3. Reinitialise git and make the initial commit
   run("git init", "Reinitialising git repository");
+  run("git add -A", "Staging all files");
+  run(`git commit -m "${INITIAL_COMMIT_MESSAGE}"`, "Creating initial commit");
   console.log("");
 
   // 4. Summary
@@ -88,6 +92,7 @@ function run(cmd, label) {
     console.log(`  ✔  ${dir}/ removed`);
   }
   console.log("  ✔  Git reinitialised");
+  console.log("  ✔  Initial commit created");
   console.log("─────────────────────────────────────────");
   console.log("");
   console.log("  Your repo is now a clean slate.");
