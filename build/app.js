@@ -21928,6 +21928,7 @@ var RouterProvider = ({ children }) => {
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(RouterContext.Provider, { value, children });
 };
 var getPageType = (url) => {
+  console.log({ url, result: doesUrlStartWith(url, "/documents/") });
   if (doesUrlStartWith(url, "/documents/")) {
     return 0 /* Documentation */;
   }
