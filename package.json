@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.2",
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/mime-types": "^3.0.1",
@@ -13,7 +13,8 @@
   },
   "scripts": {
     "start": "tsx --tsconfig app/code/tsconfig.json ./app.ts",
-    "codefolio:update": "node app/scripts/thirdparty/update.js"
+    "codefolio:update": "node app/scripts/thirdparty/update.js",
+    "codefolio:factoryreset": "node app/scripts/thirdparty/factory-reset.js"
   },
   "dependencies": {
     "express": "^5.2.1",
