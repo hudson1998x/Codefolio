@@ -21815,6 +21815,7 @@ var doesUrlStartWith = (url, prefix) => {
   if (window.location.hostname.endsWith("github.io")) {
     const repo = window.location.pathname.split("/")[1];
     const fullPrefix = `/${repo}/${prefix.replace(/^\//, "")}`;
+    console.log({ repo, fullPrefix });
     return url.startsWith(fullPrefix);
   }
   return url.startsWith(prefix);
