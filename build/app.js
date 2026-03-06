@@ -21815,8 +21815,7 @@ var doesUrlStartWith = (url, prefix) => {
   if (window.location.hostname.endsWith("github.io")) {
     const repo = window.location.pathname.split("/")[1];
     const fullPrefix = `/${repo}/${prefix.replace(/^\//, "")}`;
-    console.log({ repo, fullPrefix });
-    return url.startsWith(fullPrefix);
+    return url.startsWith(fullPrefix) || url.startsWith(prefix);
   }
   return url.startsWith(prefix);
 };
@@ -21929,7 +21928,6 @@ var RouterProvider = ({ children }) => {
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(RouterContext.Provider, { value, children });
 };
 var getPageType = (url) => {
-  console.log({ url, result: doesUrlStartWith(url, "/documents/") });
   if (doesUrlStartWith(url, "/documents/")) {
     return 0 /* Documentation */;
   }

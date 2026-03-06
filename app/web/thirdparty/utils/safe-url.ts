@@ -42,10 +42,7 @@ export const doesUrlStartWith = (url: string, prefix: string): boolean => {
   if (window.location.hostname.endsWith("github.io")) {
     const repo = window.location.pathname.split("/")[1];
     const fullPrefix = `/${repo}/${prefix.replace(/^\//, "")}`;
-
-    console.log({ repo, fullPrefix })
-
-    return url.startsWith(fullPrefix);
+    return url.startsWith(fullPrefix) || url.startsWith(prefix);
   }
 
   return url.startsWith(prefix);
