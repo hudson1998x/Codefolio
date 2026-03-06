@@ -25493,35 +25493,51 @@ var DocumentationPage = ({ children, data }) => {
   const [isLoading, setIsLoading] = (0, import_react33.useState)(true);
   const [isSidebarOpen, setSidebarOpen] = (0, import_react33.useState)(true);
   (0, import_react33.useEffect)(() => {
-    const fetchDocs = async () => {
+    const loadStaticDocs = async () => {
       setIsLoading(true);
+      const results = [];
       try {
-        const queryFilter = filter ? JSON.stringify({ pageTitle: filter }) : "{}";
-        const response = await fetch(
-          `/api/documents?size=200&filter=${encodeURIComponent(queryFilter)}`
-        );
-        const json = await response.json();
-        if (json.ok) {
-          setDocs(json.results);
+        const response = await fetchContent("/content/documents/index.ndjson");
+        const reader = response.body?.getReader();
+        const decoder = new TextDecoder();
+        if (!reader) return;
+        let partialChunk = "";
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          const chunk = partialChunk + decoder.decode(value, { stream: true });
+          const lines = chunk.split("\n");
+          partialChunk = lines.pop() || "";
+          for (const line of lines) {
+            if (line.trim()) {
+              try {
+                results.push(JSON.parse(line));
+              } catch (e) {
+                console.warn("Failed to parse ndjson line", e);
+              }
+            }
+          }
         }
+        setDocs(results);
       } catch (err) {
-        console.error("Docs failed to load", err);
+        console.error("Static docs failed to load", err);
       } finally {
         setIsLoading(false);
       }
     };
-    const debounceTimer = setTimeout(() => {
-      fetchDocs();
-    }, 300);
-    return () => clearTimeout(debounceTimer);
-  }, [filter]);
-  const renderTree = (parentId = null, level = 0) => {
-    const childrenNodes = docs.filter((doc) => (doc.parentId || null) === parentId);
-    const nodesToRender = filter && parentId === null && childrenNodes.length === 0 ? docs : childrenNodes;
-    if (nodesToRender.length === 0) return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "tree-group", children: nodesToRender.map((doc) => /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: "tree-item-container", children: [
+    loadStaticDocs();
+  }, []);
+  const filteredTree = docs.filter((doc) => {
+    if (!filter) return true;
+    const search = filter.toLowerCase();
+    return doc.pageTitle?.toLowerCase().includes(search) || doc.keywords?.toLowerCase().includes(search);
+  });
+  const renderTree = (parentId = "0", level = 0) => {
+    const childrenNodes = filteredTree.filter((doc) => String(doc.parentPage) === String(parentId));
+    if (childrenNodes.length === 0) return null;
+    return /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "tree-group", children: childrenNodes.map((doc) => /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: "tree-item-container", children: [
       /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("a", { href: `/documents/${doc.id}`, className: `nav-link level-${level}`, children: doc.pageTitle }),
-      !filter && renderTree(doc.id, level + 1)
+      renderTree(doc.id, level + 1)
     ] }, doc.id)) });
   };
   return /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: `doc-container ${isSidebarOpen ? "sb-open" : "sb-closed"}`, children: [
@@ -25532,22 +25548,19 @@ var DocumentationPage = ({ children, data }) => {
           "input",
           {
             type: "text",
-            placeholder: "Search documentation...",
+            placeholder: "Filter documentation...",
             value: filter,
             onChange: (e) => setFilter(e.target.value)
           }
         ) })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("nav", { className: "sb-nav", children: isLoading ? /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "sb-loading-state", children: "Updating..." }) : renderTree(null) })
+      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("nav", { className: "sb-nav", children: isLoading ? /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "sb-loading-state", children: "Streaming docs..." }) : renderTree("0") })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("main", { className: "doc-main", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("header", { className: "doc-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("button", { className: "btn-toggle", onClick: () => setSidebarOpen(!isSidebarOpen), children: /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("path", { d: "M3 12h18M3 6h18M3 18h18" }) }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "header-tags", children: data?.tags ? data.tags.split(",").map((tag) => /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("span", { className: "tag-badge", children: tag.trim() }, tag)) : /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("span", { className: "tag-badge", children: "v1.0.0" }) })
-      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("header", { className: "doc-header", children: /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("button", { className: "btn-toggle", onClick: () => setSidebarOpen(!isSidebarOpen), children: /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("path", { d: "M3 12h18M3 6h18M3 18h18" }) }) }) }),
       /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: "doc-body", children: [
         /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("header", { className: "body-intro", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("h1", { children: data.title || "Documentation" }),
+          /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("h1", { children: data.title || "Untitled Page" }),
           data.pageDescription && /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("p", { className: "description", children: data.pageDescription })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("article", { className: "prose", children })

@@ -1,12 +1,14 @@
 import { CodefolioProps, registerComponent } from "@components/registry";
-import React, { FC, useState, useEffect, useMemo } from "react";
+import React, { FC, useState, useEffect } from "react";
 import './style.scss';
+import { fetchContent } from "../../utils/fetch-content";
+
 
 interface DocNode {
     id: number;
     pageTitle: string;
-    parentId?: number;
-    [key: string]: any; // Allow for other queryable fields
+    parentPage: string | number; // String '0' in your ndjson
+    [key: string]: any;
 }
 
 export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
@@ -16,55 +18,72 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
     const [isSidebarOpen, setSidebarOpen] = useState(true);
 
     useEffect(() => {
-        const fetchDocs = async () => {
+        const loadStaticDocs = async () => {
             setIsLoading(true);
+            const results: DocNode[] = [];
+            
             try {
-                // Since your backend supports partial matches on any field:
-                // We'll target 'pageTitle', but you could add more keys to this object
-                const queryFilter = filter ? JSON.stringify({ pageTitle: filter }) : "{}";
+                const response = await fetchContent('/content/documents/index.ndjson');
+                const reader = response.body?.getReader();
+                const decoder = new TextDecoder();
                 
-                const response = await fetch(
-                    `/api/documents?size=200&filter=${encodeURIComponent(queryFilter)}`
-                );
-                const json = await response.json();
-                
-                if (json.ok) {
-                    setDocs(json.results);
+                if (!reader) return;
+
+                let partialChunk = "";
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = partialChunk + decoder.decode(value, { stream: true });
+                    const lines = chunk.split("\n");
+                    
+                    // Keep the last partial line
+                    partialChunk = lines.pop() || "";
+
+                    for (const line of lines) {
+                        if (line.trim()) {
+                            try {
+                                results.push(JSON.parse(line));
+                            } catch (e) {
+                                console.warn("Failed to parse ndjson line", e);
+                            }
+                        }
+                    }
                 }
+                setDocs(results);
             } catch (err) {
-                console.error("Docs failed to load", err);
+                console.error("Static docs failed to load", err);
             } finally {
                 setIsLoading(false);
             }
         };
 
-        const debounceTimer = setTimeout(() => {
-            fetchDocs();
-        }, 300);
+        loadStaticDocs();
+    }, []);
 
-        return () => clearTimeout(debounceTimer);
-    }, [filter]); // This correctly triggers the re-fetch
+    // client-side filtering since we are in a static context
+    const filteredTree = docs.filter(doc => {
+        if (!filter) return true;
+        const search = filter.toLowerCase();
+        return (
+            doc.pageTitle?.toLowerCase().includes(search) ||
+            doc.keywords?.toLowerCase().includes(search)
+        );
+    });
 
-    const renderTree = (parentId: number | null = null, level = 0) => {
-        const childrenNodes = docs.filter(doc => (doc.parentId || null) === parentId);
+    const renderTree = (parentId: string | number = "0", level = 0) => {
+        const childrenNodes = filteredTree.filter(doc => String(doc.parentPage) === String(parentId));
         
-        // If we are filtering and have no direct children, we might still want to 
-        // show orphans if the API returned them as a flat list during search.
-        const nodesToRender = (filter && parentId === null && childrenNodes.length === 0) 
-            ? docs 
-            : childrenNodes;
-
-        if (nodesToRender.length === 0) return null;
+        if (childrenNodes.length === 0) return null;
 
         return (
             <div className="tree-group">
-                {nodesToRender.map(doc => (
+                {childrenNodes.map(doc => (
                     <div key={doc.id} className="tree-item-container">
                         <a href={`/documents/${doc.id}`} className={`nav-link level-${level}`}>
                             {doc.pageTitle}
                         </a>
-                        {/* Only recurse if we aren't in a flat search result view */}
-                        {!filter && renderTree(doc.id, level + 1)}
+                        {renderTree(doc.id, level + 1)}
                     </div>
                 ))}
             </div>
@@ -79,7 +98,7 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
                     <div className="sb-search">
                         <input 
                             type="text" 
-                            placeholder="Search documentation..." 
+                            placeholder="Filter documentation..." 
                             value={filter}
                             onChange={(e) => setFilter(e.target.value)}
                         />
@@ -88,9 +107,9 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
                 
                 <nav className="sb-nav">
                     {isLoading ? (
-                        <div className="sb-loading-state">Updating...</div>
+                        <div className="sb-loading-state">Streaming docs...</div>
                     ) : (
-                        renderTree(null)
+                        renderTree("0")
                     )}
                 </nav>
             </aside>
@@ -102,16 +121,11 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
                             <path d="M3 12h18M3 6h18M3 18h18"/>
                         </svg>
                     </button>
-                    <div className="header-tags">
-                        {data?.tags ? data.tags.split(',').map((tag: string) => (
-                            <span key={tag} className="tag-badge">{tag.trim()}</span>
-                        )) : <span className="tag-badge">v1.0.0</span>}
-                    </div>
                 </header>
                 
                 <div className="doc-body">
                     <header className="body-intro">
-                        <h1>{data.title || "Documentation"}</h1>
+                        <h1>{data.title || "Untitled Page"}</h1>
                         {data.pageDescription && <p className="description">{data.pageDescription}</p>}
                     </header>
                     <article className="prose">
