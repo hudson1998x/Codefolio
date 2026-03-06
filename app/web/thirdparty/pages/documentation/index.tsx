@@ -2,6 +2,7 @@ import { CodefolioProps, registerComponent } from "@components/registry";
 import React, { FC, useState, useEffect } from "react";
 import './style.scss';
 import { fetchContent } from "../../utils/fetch-content";
+import { getSafeUrl } from "../../utils/safe-url";
 
 
 interface DocNode {
@@ -80,7 +81,7 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
             <div className="tree-group">
                 {childrenNodes.map(doc => (
                     <div key={doc.id} className="tree-item-container">
-                        <a href={`/documents/${doc.id}`} className={`nav-link level-${level}`}>
+                        <a href={getSafeUrl(`/documents/${doc.id}`)} className={`nav-link level-${level}`}>
                             {doc.pageTitle}
                         </a>
                         {renderTree(doc.id, level + 1)}

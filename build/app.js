@@ -25536,7 +25536,7 @@ var DocumentationPage = ({ children, data }) => {
     const childrenNodes = filteredTree.filter((doc) => String(doc.parentPage) === String(parentId));
     if (childrenNodes.length === 0) return null;
     return /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "tree-group", children: childrenNodes.map((doc) => /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: "tree-item-container", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("a", { href: `/documents/${doc.id}`, className: `nav-link level-${level}`, children: doc.pageTitle }),
+      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("a", { href: getSafeUrl(`/documents/${doc.id}`), className: `nav-link level-${level}`, children: doc.pageTitle }),
       renderTree(doc.id, level + 1)
     ] }, doc.id)) });
   };
