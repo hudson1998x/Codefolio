@@ -375,6 +375,7 @@ export class HttpService {
           <meta name="keywords" content="${config?.website?.keywords ?? ''}"/>
           <!-- Caching is handled by the app instead !-->
           <meta http-equiv="Cache-Control" content="no-cache">
+          <meta name="viewport" content="initial-scale=1.0,width=device-width"/>
         </head>
         <body>
           <div id="root"></div>
