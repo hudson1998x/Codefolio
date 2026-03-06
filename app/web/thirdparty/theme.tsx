@@ -72,11 +72,11 @@ export const ThemeLoader: FC<PropsWithChildren> = ({ children }) => {
       : "default"
   );
 
-  if (path.startsWith('/en-admin/'))
+  if (path.startsWith('/en-admin/') || path == '/en-admin')
   {
     themeName = "@admin";
   }
-
+  
   const Theme = _themeRoots[themeName];
 
   if (!Theme) {
