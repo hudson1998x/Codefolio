@@ -1,7 +1,7 @@
 {
   "pageTitle": "User Guide",
   "pageDescription": "Getting started with CodeFolio as a user. ",
-  "content": "[]",
+  "content": "[{\"id\":\"0cad00a1-dc01-4115-8e8c-c9ffe58ae75c\",\"component\":\"Text\",\"data\":{\"content\":\"Welcome to the user guides section. This area is designed to help you get set up and familiar with how CodeFolio works, from the initial installation to building and managing your site.\",\"tag\":\"p\",\"align\":\"left\",\"weight\":\"regular\",\"color\":\"\",\"fontSize\":\"\",\"fontFamily\":\"Inter, sans-serif\",\"lineHeight\":\"\",\"letterSpacing\":\"\",\"marginBottom\":\"\",\"className\":\"\"},\"children\":[]},{\"id\":\"3efc1893-5cde-499d-a17a-719b076a0f67\",\"component\":\"Text\",\"data\":{\"content\":\"To begin, select one of the guides listed in the sidebar on the left. Each page walks through a specific part of the process step by step, so you can follow along and get your project running smoothly.\",\"tag\":\"p\",\"align\":\"left\",\"weight\":\"regular\",\"color\":\"\",\"fontSize\":\"\",\"fontFamily\":\"Inter, sans-serif\",\"lineHeight\":\"\",\"letterSpacing\":\"\",\"marginBottom\":\"\",\"className\":\"\"},\"children\":[]}]",
   "parentPage": "1",
   "keywords": "Getting started, CodeFolio documentation, developer docs, user guides",
   "tags": "User Guide",

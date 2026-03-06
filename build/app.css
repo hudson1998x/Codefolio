@@ -3465,7 +3465,62 @@
   flex: 1;
   overflow-y: auto;
 }
-.doc-container .doc-sidebar .sb-nav .nav-link {
+.doc-container .doc-sidebar .sb-nav .sb-loading-state {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding: 8px 0;
+}
+.doc-container .doc-sidebar .sb-nav .tree-group {
+  display: flex;
+  flex-direction: column;
+}
+.doc-container .doc-sidebar .sb-nav .tree-item-container {
+  display: flex;
+  flex-direction: column;
+}
+.doc-container .doc-sidebar .sb-nav .nav-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.doc-container .doc-sidebar .sb-nav .nav-row.level-0 {
+  padding-left: 0;
+}
+.doc-container .doc-sidebar .sb-nav .nav-row.level-1 {
+  margin-left: 4px;
+  padding-left: 8px;
+  border-left: 1px solid var(--border-light);
+}
+.doc-container .doc-sidebar .sb-nav .nav-row.level-2 {
+  margin-left: 4px;
+  padding-left: 20px;
+  border-left: 1px solid var(--border-light);
+}
+.doc-container .doc-sidebar .sb-nav .nav-row.level-3 {
+  margin-left: 4px;
+  padding-left: 32px;
+  border-left: 1px solid var(--border-light);
+}
+.doc-container .doc-sidebar .sb-nav .nav-row .collapse-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: color 0.2s, transform 0.2s;
+  transform: rotate(90deg);
+}
+.doc-container .doc-sidebar .sb-nav .nav-row .collapse-btn.is-collapsed {
+  transform: rotate(0deg);
+}
+.doc-container .doc-sidebar .sb-nav .nav-row .collapse-btn:hover {
+  color: var(--accent-blue);
+}
+.doc-container .doc-sidebar .sb-nav .nav-row .nav-link {
+  flex: 1;
   display: block;
   padding: 8px 0;
   font-size: 14px;
@@ -3473,19 +3528,8 @@
   text-decoration: none;
   transition: color 0.2s;
 }
-.doc-container .doc-sidebar .sb-nav .nav-link:hover {
+.doc-container .doc-sidebar .sb-nav .nav-row .nav-link:hover {
   color: var(--accent-blue);
-}
-.doc-container .doc-sidebar .sb-nav .nav-link.level-1 {
-  padding-left: 16px;
-  border-left: 1px solid var(--border-light);
-  margin-left: 4px;
-  padding-left: 12px;
-}
-.doc-container .doc-sidebar .sb-nav .nav-link.level-2 {
-  padding-left: 28px;
-  border-left: 1px solid var(--border-light);
-  margin-left: 4px;
 }
 .doc-container .doc-main {
   flex: 1;

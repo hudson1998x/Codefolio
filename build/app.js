@@ -25492,6 +25492,8 @@ var DocumentationPage = ({ children, data }) => {
   const [filter, setFilter] = (0, import_react33.useState)("");
   const [isLoading, setIsLoading] = (0, import_react33.useState)(true);
   const [isSidebarOpen, setSidebarOpen] = (0, import_react33.useState)(true);
+  const [collapsed, setCollapsed] = (0, import_react33.useState)(/* @__PURE__ */ new Set());
+  const [initialised, setInitialised] = (0, import_react33.useState)(false);
   (0, import_react33.useEffect)(() => {
     const loadStaticDocs = async () => {
       setIsLoading(true);
@@ -25527,19 +25529,78 @@ var DocumentationPage = ({ children, data }) => {
     };
     loadStaticDocs();
   }, []);
-  const filteredTree = docs.filter((doc) => {
-    if (!filter) return true;
-    const search = filter.toLowerCase();
-    return doc.pageTitle?.toLowerCase().includes(search) || doc.keywords?.toLowerCase().includes(search);
-  });
-  const renderTree = (parentId = "0", level = 0) => {
-    const childrenNodes = filteredTree.filter((doc) => String(doc.parentPage) === String(parentId));
+  (0, import_react33.useEffect)(() => {
+    if (initialised || docs.length === 0) return;
+    const rootNodes = docs.filter((d) => String(d.parentPage) === "0");
+    const allWithChildren = new Set(
+      docs.filter((d) => docs.some((c) => String(c.parentPage) === String(d.id))).map((d) => d.id)
+    );
+    const initialCollapsed = new Set(allWithChildren);
+    if (rootNodes[0]) initialCollapsed.delete(rootNodes[0].id);
+    setCollapsed(initialCollapsed);
+    setInitialised(true);
+  }, [docs, initialised]);
+  const toggleCollapsed = (0, import_react33.useCallback)((id) => {
+    setCollapsed((prev) => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  }, []);
+  const hasChildren = (0, import_react33.useCallback)(
+    (id) => docs.some((d) => String(d.parentPage) === String(id)),
+    [docs]
+  );
+  const getVisibleIds = (0, import_react33.useCallback)((search) => {
+    if (!search) return /* @__PURE__ */ new Set();
+    const matched = new Set(
+      docs.filter(
+        (doc) => doc.pageTitle?.toLowerCase().includes(search) || doc.keywords?.toLowerCase().includes(search)
+      ).map((doc) => doc.id)
+    );
+    const visible = new Set(matched);
+    const addAncestors = (parentPage) => {
+      if (String(parentPage) === "0") return;
+      const parent = docs.find((d) => String(d.id) === String(parentPage));
+      if (!parent) return;
+      visible.add(parent.id);
+      addAncestors(parent.parentPage);
+    };
+    matched.forEach((id) => {
+      const node = docs.find((d) => d.id === id);
+      if (node) addAncestors(node.parentPage);
+    });
+    return visible;
+  }, [docs]);
+  const renderTree = (parentId = "0", level = 0, visibleIds2) => {
+    const isFiltering = !!filter;
+    const childrenNodes = docs.filter((doc) => {
+      if (String(doc.parentPage) !== String(parentId)) return false;
+      if (!isFiltering) return true;
+      return visibleIds2?.has(doc.id);
+    });
     if (childrenNodes.length === 0) return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "tree-group", children: childrenNodes.map((doc) => /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: "tree-item-container", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("a", { href: getSafeUrl(`/documents/${doc.id}`), className: `nav-link level-${level}`, children: doc.pageTitle }),
-      renderTree(doc.id, level + 1)
-    ] }, doc.id)) });
+    return /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "tree-group", children: childrenNodes.map((doc) => {
+      const nodeHasChildren = hasChildren(doc.id);
+      const isCollapsed = !isFiltering && collapsed.has(doc.id);
+      return /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: "tree-item-container", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: `nav-row level-${level}`, children: [
+          nodeHasChildren ? /* @__PURE__ */ (0, import_jsx_runtime48.jsx)(
+            "button",
+            {
+              className: `collapse-btn ${isCollapsed ? "is-collapsed" : ""}`,
+              onClick: () => toggleCollapsed(doc.id),
+              "aria-label": isCollapsed ? "Expand" : "Collapse",
+              children: /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("svg", { width: "10", height: "10", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.5", children: /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("path", { d: "M9 18l6-6-6-6" }) })
+            }
+          ) : /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("span", { className: "collapse-btn-spacer" }),
+          /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("a", { href: getSafeUrl(`/documents/${doc.id}`), className: "nav-link", children: doc.pageTitle })
+        ] }),
+        !isCollapsed && renderTree(doc.id, level + 1, visibleIds2)
+      ] }, doc.id);
+    }) });
   };
+  const visibleIds = getVisibleIds(filter.toLowerCase());
   return /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: `doc-container ${isSidebarOpen ? "sb-open" : "sb-closed"}`, children: [
     /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("aside", { className: "doc-sidebar", children: [
       /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: "sb-header-area", children: [
@@ -25554,7 +25615,7 @@ var DocumentationPage = ({ children, data }) => {
           }
         ) })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("nav", { className: "sb-nav", children: isLoading ? /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "sb-loading-state", children: "Streaming docs..." }) : renderTree("0") })
+      /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("nav", { className: "sb-nav", children: isLoading ? /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "sb-loading-state", children: "Streaming docs..." }) : renderTree("0", 0, visibleIds) })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("main", { className: "doc-main", children: [
       /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("header", { className: "doc-header", children: /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("button", { className: "btn-toggle", onClick: () => setSidebarOpen(!isSidebarOpen), children: /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("path", { d: "M3 12h18M3 6h18M3 18h18" }) }) }) }),
