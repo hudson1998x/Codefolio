@@ -256,7 +256,7 @@ enum PageType
 
 const getPageType = (url: string):PageType => {
 
-    if (doesUrlStartWith('/documents/'))
+    if (doesUrlStartWith(url, '/documents/'))
     {
         return PageType.Documentation;
     }
