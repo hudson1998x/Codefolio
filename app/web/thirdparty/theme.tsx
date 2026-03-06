@@ -63,7 +63,7 @@ export const registerTheme = (name: string, theme: FC<PropsWithChildren>) => {
  * ```
  */
 export const ThemeLoader: FC<PropsWithChildren> = ({ children }) => {
-  const { config } = useConfig();
+  const config = useConfig();
   const { path } = useRouter();
 
   const themeName = config?.theme?.theme ?? (
