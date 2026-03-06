@@ -37,3 +37,12 @@ export const getSafeUrl = (url: string): string => {
 
   return clean;
 };
+
+export const doesUrlStartWith = (url: string, prefix = "/documents/"): boolean => {
+  if (window.location.hostname.endsWith("github.io")) {
+    const repo = window.location.pathname.split("/")[1];
+    return url.startsWith(`/${repo}${prefix}`);
+  }
+
+  return url.startsWith(prefix);
+};

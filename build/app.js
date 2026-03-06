@@ -21811,6 +21811,13 @@ var getSafeUrl = (url) => {
   }
   return clean;
 };
+var doesUrlStartWith = (url, prefix = "/documents/") => {
+  if (window.location.hostname.endsWith("github.io")) {
+    const repo = window.location.pathname.split("/")[1];
+    return url.startsWith(`/${repo}${prefix}`);
+  }
+  return url.startsWith(prefix);
+};
 
 // app/web/thirdparty/router.tsx
 var import_jsx_runtime2 = __toESM(require_jsx_runtime());
@@ -21921,7 +21928,7 @@ var RouterProvider = ({ children }) => {
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(RouterContext.Provider, { value, children });
 };
 var getPageType = (url) => {
-  if (url.startsWith(getSafeUrl("/documents/"))) {
+  if (doesUrlStartWith("/documents/")) {
     return 0 /* Documentation */;
   }
   return 1 /* Default */;

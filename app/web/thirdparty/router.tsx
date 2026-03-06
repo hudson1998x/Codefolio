@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import homepageconfig from './configs/homepage-config/config.json'
 import websiteCfg from './configs/website-config/config.json'
 import { fetchContent } from './utils/fetch-content'
-import { getSafeUrl } from './utils/safe-url';
+import { doesUrlStartWith, getSafeUrl } from './utils/safe-url';
 
 /**
  * Unified Page Content Interface
@@ -256,7 +256,7 @@ enum PageType
 
 const getPageType = (url: string):PageType => {
 
-    if (url.startsWith(getSafeUrl('/documents/')))
+    if (doesUrlStartWith('/documents/'))
     {
         return PageType.Documentation;
     }
