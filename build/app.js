@@ -22402,7 +22402,7 @@ var MediaTreeNode = ({ node, onNodeClick, onRightClick, enablePreview, getFileIc
       setIsExpanded(!isExpanded);
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("li", { className: `tree-node ${node.type} ${enablePreview ? "as-grid-item" : "as-tree-item"}`, children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("li", { title: `/media/${node.path}`, className: `tree-node ${node.type} ${enablePreview ? "as-grid-item" : "as-tree-item"}`, children: [
     /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
       "div",
       {
@@ -23712,56 +23712,27 @@ registerComponent({
 
 // app/web/thirdparty/components/column/index.tsx
 var import_jsx_runtime27 = __toESM(require_jsx_runtime());
-var Link = ({
-  linkType = "internal",
-  url = "/page/1",
-  text = "Learn More",
-  target = "_self",
+var Column = ({
+  span = 6,
+  mobileSpan = 12,
   className,
   children
 }) => {
-  const classes = ["cf-link", className].filter(Boolean).join(" ");
-  return /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
-    "a",
-    {
-      href: url,
-      className: classes,
-      target,
-      rel: target === "_blank" ? "noopener noreferrer" : void 0,
-      children: text || children
-    }
-  );
+  const classes = [
+    "cf-col",
+    `cf-col--${span}`,
+    `cf-col-m--${mobileSpan}`,
+    className
+  ].filter(Boolean).join(" ");
+  return /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: classes, children });
 };
-var LinkCanvas = ({ data, children }) => /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Link, { ...data, children });
+var ColumnCanvas = ({ data, children }) => /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Column, { ...data, children });
 registerComponent({
-  name: "Anchor",
-  defaults: {
-    linkType: "internal",
-    url: "/page/1",
-    text: "Learn More",
-    target: "_self",
-    className: ""
-  },
-  component: LinkCanvas,
+  name: "Column",
+  defaults: { span: 6, mobileSpan: 12, className: "" },
+  component: ColumnCanvas,
   isCmsEditor: true,
-  category: "General",
-  icon: "fas fa-link",
-  fields: {
-    linkType: {
-      label: "Link Mode",
-      type: "select",
-      options: ["internal", "external"]
-    },
-    url: {
-      label: "Destination",
-      // We keep this as text by default, but our PropField will 
-      // check 'linkType' to decide if it shows the Picker.
-      type: "page-picker"
-    },
-    text: { label: "Link Text", type: "text" },
-    target: { label: "Open In", type: "select", options: ["_self", "_blank"] },
-    className: { label: "Custom Class", type: "text" }
-  }
+  category: "Layout"
 });
 
 // app/web/thirdparty/components/carousel-list/index.tsx

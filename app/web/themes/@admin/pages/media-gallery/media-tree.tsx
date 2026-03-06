@@ -37,7 +37,7 @@ const MediaTreeNode: React.FC<{
     };
 
     return (
-        <li className={`tree-node ${node.type} ${enablePreview ? 'as-grid-item' : 'as-tree-item'}`}>
+        <li title={`/media/${node.path}`} className={`tree-node ${node.type} ${enablePreview ? 'as-grid-item' : 'as-tree-item'}`}>
             <div 
                 className={`node-label ${!isExpanded ? 'collapsed' : ''}`}
                 onClick={(e) => node.type === 'directory' ? handleToggle(e as any) : onNodeClick(node)}

@@ -3442,7 +3442,7 @@
 
 /* app/web/themes/default/header/style.scss */
 .theme-header {
-  background-color: var(--bs-body-bg);
+  background-color: #fff;
   position: sticky;
   top: 0;
   z-index: 1020;
@@ -4287,11 +4287,15 @@
   font-size: 13px;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
   display: block;
 }
 .explorer-app .explorer-main-area .explorer-tree-sidebar .node-label:hover {
   background: #eee;
+}
+.explorer-app .explorer-main-area .explorer-tree-sidebar .node-label > * {
+  display: inline-block !important;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 .explorer-app .explorer-main-area .explorer-view.grid {
   flex: 1;
@@ -4900,11 +4904,14 @@
   margin-left: 14px;
 }
 .grid-layout .sub-grid {
-  display: flex;
+  display: flex !important;
   flex-wrap: wrap;
   gap: 10px;
   padding: 10px 0 10px 15px;
   border-left: 2px solid #f0f0f0;
+}
+.grid-layout .sub-grid li {
+  position: unset !important;
 }
 
 /* app/web/themes/@admin/components/config/footer/style.scss */

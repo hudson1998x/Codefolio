@@ -78,9 +78,14 @@
         font-size: 13px;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
         display: block;
         &:hover { background: #eee; }
+
+        > * {
+          display: inline-block !important;
+          margin-left:2px;
+          margin-right:2px;
+        }
       }
     }
 
@@ -654,10 +659,14 @@
 // We keep this flat or with very minimal indentation so thumbnails stay large
 .grid-layout {
   .sub-grid {
-    display: flex;
+    display: flex !important;
     flex-wrap: wrap;
     gap: 10px;
     padding: 10px 0 10px 15px; // Small nudge to show it's "inside"
     border-left: 2px solid #f0f0f0;
+
+    li {
+      position: unset !important;
+    }
   }
 }
