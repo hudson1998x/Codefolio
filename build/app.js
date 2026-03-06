@@ -26645,11 +26645,31 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/updates/update-status.tsx
+var import_react44 = __toESM(require_react());
 var import_jsx_runtime63 = __toESM(require_jsx_runtime());
 var AdminUpdates = ({ data }) => {
   const { currentVersion, latest } = data;
   const isUnknown = latest === "Unknown";
   const needsUpdate = !isUnknown && currentVersion !== latest;
+  const [updateState, setUpdateState] = (0, import_react44.useState)("idle");
+  const [errorMessage, setErrorMessage] = (0, import_react44.useState)(null);
+  const runUpdate = async () => {
+    setUpdateState("running");
+    setErrorMessage(null);
+    try {
+      const response = await fetch("/content/en-admin/update");
+      const result = await response.json();
+      if (result.success) {
+        setUpdateState("done");
+      } else {
+        setErrorMessage(result.message ?? "An unknown error occurred.");
+        setUpdateState("error");
+      }
+    } catch (e) {
+      setErrorMessage(e?.message ?? "Failed to reach the update endpoint.");
+      setUpdateState("error");
+    }
+  };
   return /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("div", { className: "admin-updates", children: [
     /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("header", { className: "admin-updates__header", children: [
       /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("h3", { className: "admin-updates__title", children: "System Status" }),
@@ -26668,9 +26688,22 @@ var AdminUpdates = ({ data }) => {
         /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { className: `admin-updates__badge ${isUnknown ? "is-pending" : "is-success"}`, children: isUnknown ? "Checking..." : `v${latest}` })
       ] })
     ] }),
-    needsUpdate && /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("button", { className: "admin-updates__button", children: [
+    needsUpdate && updateState === "idle" && /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("button", { className: "admin-updates__button", onClick: runUpdate, children: [
       "Update to v",
       latest
+    ] }),
+    updateState === "running" && /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("div", { className: "admin-updates__status is-running", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { className: "admin-updates__spinner" }),
+      /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { children: "Updating, please wait\u2026" })
+    ] }),
+    updateState === "done" && /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("div", { className: "admin-updates__status is-done", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { className: "admin-updates__status-icon", children: "\u2713" }),
+      /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { children: "Update complete. Please restart the process for changes to take effect." })
+    ] }),
+    updateState === "error" && /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("div", { className: "admin-updates__status is-error", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { className: "admin-updates__status-icon", children: "\u2715" }),
+      /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { children: errorMessage }),
+      /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("button", { className: "admin-updates__button is-retry", onClick: runUpdate, children: "Retry" })
     ] })
   ] });
 };
@@ -26686,19 +26719,19 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/documentation-selector/index.tsx
-var import_react44 = __toESM(require_react());
+var import_react45 = __toESM(require_react());
 var import_jsx_runtime64 = __toESM(require_jsx_runtime());
 var DocumentationSelector = (props) => {
   const { data } = props;
   const { label, name, value: initialValue } = data;
-  const [searchTerm, setSearchTerm] = (0, import_react44.useState)("");
-  const [results, setResults] = (0, import_react44.useState)([]);
-  const [selectedValue, setSelectedValue] = (0, import_react44.useState)(initialValue || "");
-  const [selectedParent, setSelectedParent] = (0, import_react44.useState)(null);
-  const [isOpen, setIsOpen] = (0, import_react44.useState)(false);
-  const [isLoading, setIsLoading] = (0, import_react44.useState)(false);
-  const wrapperRef = (0, import_react44.useRef)(null);
-  (0, import_react44.useEffect)(() => {
+  const [searchTerm, setSearchTerm] = (0, import_react45.useState)("");
+  const [results, setResults] = (0, import_react45.useState)([]);
+  const [selectedValue, setSelectedValue] = (0, import_react45.useState)(initialValue || "");
+  const [selectedParent, setSelectedParent] = (0, import_react45.useState)(null);
+  const [isOpen, setIsOpen] = (0, import_react45.useState)(false);
+  const [isLoading, setIsLoading] = (0, import_react45.useState)(false);
+  const wrapperRef = (0, import_react45.useRef)(null);
+  (0, import_react45.useEffect)(() => {
     const loadSelected = async () => {
       if (!selectedValue) return;
       setIsLoading(true);
@@ -26718,7 +26751,7 @@ var DocumentationSelector = (props) => {
     };
     loadSelected();
   }, [selectedValue]);
-  (0, import_react44.useEffect)(() => {
+  (0, import_react45.useEffect)(() => {
     const fetchDocs = async () => {
       if (!isOpen || !searchTerm) return;
       setIsLoading(true);
@@ -26736,7 +26769,7 @@ var DocumentationSelector = (props) => {
     const timeoutId = setTimeout(fetchDocs, 300);
     return () => clearTimeout(timeoutId);
   }, [searchTerm, isOpen]);
-  (0, import_react44.useEffect)(() => {
+  (0, import_react45.useEffect)(() => {
     const handleClickOutside = (event) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setIsOpen(false);

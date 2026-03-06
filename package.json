@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/mime-types": "^3.0.1",
@@ -12,7 +12,8 @@
     "tsx": "^4.21.0"
   },
   "scripts": {
-    "start": "tsx --tsconfig app/code/tsconfig.json ./app.ts"
+    "start": "tsx --tsconfig app/code/tsconfig.json ./app.ts",
+    "codefolio:update": "node app/scripts/thirdparty/update.js"
   },
   "dependencies": {
     "express": "^5.2.1",
