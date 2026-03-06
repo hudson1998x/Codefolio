@@ -11,9 +11,13 @@ class AdminDashboardController
     @AdminNavItem("Dashboard", undefined, 1)
     public async homepage(): Promise<CanvasNode>
     {
+
+        const currentPackageJson = require('package.json');
+        const repoPackageJson: any = await fetch('https://hudson1998x.github.io/Codefolio/package.json').then((resp) => resp.json());
+
         return canvasAsPage(
-            <ui-Section>
-                Welcome to your admin
+            <ui-Section className='dashboard'>
+                <ui-AdminUpdates currentVersion={currentPackageJson.version ?? 'Unknown'} latest={repoPackageJson?.version ?? 'Unknown'}/>
             </ui-Section>,
             {
                 pageTitle: 'Dashboard'

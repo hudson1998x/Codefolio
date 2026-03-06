@@ -26644,18 +26644,98 @@ registerComponent({
   component: ThemeSelector
 });
 
+// app/web/themes/@admin/components/updates/update-status.tsx
+var import_jsx_runtime63 = __toESM(require_jsx_runtime());
+var AdminUpdates = ({ data }) => {
+  const { currentVersion, latest } = data;
+  const isUnknown = latest === "Unknown";
+  const needsUpdate = !isUnknown && currentVersion !== latest;
+  return /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("div", { className: "admin-updates", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("header", { className: "admin-updates__header", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("h3", { className: "admin-updates__title", children: "System Status" }),
+      /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { className: `admin-updates__dot ${isUnknown ? "is-syncing" : "is-active"}` })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("div", { className: "admin-updates__content", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("div", { className: "admin-updates__row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { className: "admin-updates__label", children: "Current Version" }),
+        /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("span", { className: "admin-updates__value", children: [
+          "v",
+          currentVersion
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("div", { className: "admin-updates__row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { className: "admin-updates__label", children: "Latest Release" }),
+        /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { className: `admin-updates__badge ${isUnknown ? "is-pending" : "is-success"}`, children: isUnknown ? "Checking..." : `v${latest}` })
+      ] })
+    ] }),
+    needsUpdate && /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("button", { className: "admin-updates__button", children: [
+      "Update to v",
+      latest
+    ] })
+  ] });
+};
+registerComponent({
+  name: "AdminUpdates",
+  component: AdminUpdates,
+  defaults: {
+    data: {
+      currentVersion: "1.0.0",
+      latest: "Unknown"
+    }
+  }
+});
+
 // app/web/themes/@admin/components/documentation-selector/index.tsx
 var import_react44 = __toESM(require_react());
-var import_jsx_runtime63 = __toESM(require_jsx_runtime());
+var import_jsx_runtime64 = __toESM(require_jsx_runtime());
 var DocumentationSelector = (props) => {
   const { data } = props;
   const { label, name, value: initialValue } = data;
   const [searchTerm, setSearchTerm] = (0, import_react44.useState)("");
   const [results, setResults] = (0, import_react44.useState)([]);
   const [selectedValue, setSelectedValue] = (0, import_react44.useState)(initialValue || "");
-  const [selectedLabel, setSelectedLabel] = (0, import_react44.useState)("");
+  const [selectedParent, setSelectedParent] = (0, import_react44.useState)(null);
   const [isOpen, setIsOpen] = (0, import_react44.useState)(false);
+  const [isLoading, setIsLoading] = (0, import_react44.useState)(false);
   const wrapperRef = (0, import_react44.useRef)(null);
+  (0, import_react44.useEffect)(() => {
+    const loadSelected = async () => {
+      if (!selectedValue) return;
+      setIsLoading(true);
+      try {
+        const response = await fetchContent(`/content/documents/${selectedValue}.json`);
+        const data2 = await response.json();
+        const doc = data2?.data || data2;
+        if (doc) {
+          setSelectedParent(doc);
+          setSearchTerm(doc.pageTitle || doc.title || "");
+        }
+      } catch (err) {
+        console.error("Hydration failed", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadSelected();
+  }, [selectedValue]);
+  (0, import_react44.useEffect)(() => {
+    const fetchDocs = async () => {
+      if (!isOpen || !searchTerm) return;
+      setIsLoading(true);
+      const filter = JSON.stringify({ pageTitle: searchTerm });
+      try {
+        const response = await fetch(`/api/documents?filter=${encodeURIComponent(filter)}&size=10`);
+        const json = await response.json();
+        if (json.ok) setResults(json.results);
+      } catch (err) {
+        console.error("Search failed", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    const timeoutId = setTimeout(fetchDocs, 300);
+    return () => clearTimeout(timeoutId);
+  }, [searchTerm, isOpen]);
   (0, import_react44.useEffect)(() => {
     const handleClickOutside = (event) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
@@ -26665,45 +26745,57 @@ var DocumentationSelector = (props) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-  (0, import_react44.useEffect)(() => {
-    const fetchDocs = async () => {
-      if (!searchTerm.trim() && !isOpen) return;
-      const filter = JSON.stringify({ title: searchTerm });
-      try {
-        const response = await fetch(`/api/documents?filter=${encodeURIComponent(filter)}&size=10`);
-        const json = await response.json();
-        if (json.ok) setResults(json.results);
-      } catch (err) {
-        console.error("Failed to fetch documents", err);
-      }
-    };
-    const timeoutId = setTimeout(fetchDocs, 300);
-    return () => clearTimeout(timeoutId);
-  }, [searchTerm, isOpen]);
   const handleSelect = (doc) => {
-    const displayLabel = doc.title || doc.name || `ID: ${doc.id}`;
     setSelectedValue(doc.id);
-    setSelectedLabel(displayLabel);
-    setSearchTerm(displayLabel);
+    setSelectedParent(doc);
+    setSearchTerm(doc.pageTitle || doc.title || "");
     setIsOpen(false);
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("div", { className: "documentation-selector-container", ref: wrapperRef, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("label", { className: "selector-label", children: label }),
-    /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("div", { className: `selector-wrapper ${isOpen ? "is-open" : ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime63.jsx)(
-        "input",
-        {
-          type: "text",
-          className: "selector-input",
-          placeholder: "Search documentation...",
-          value: searchTerm,
-          onFocus: () => setIsOpen(true),
-          onChange: (e) => setSearchTerm(e.target.value)
-        }
-      ),
-      isOpen && /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("ul", { className: "results-dropdown", children: results.length > 0 ? results.map((doc) => /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("li", { onClick: () => handleSelect(doc), children: doc.title || doc.name || `Document #${doc.id}` }, doc.id)) : /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("li", { className: "no-results", children: "No documents found" }) })
+  const clearSelection = () => {
+    setSelectedValue("");
+    setSelectedParent(null);
+    setSearchTerm("");
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "documentation-selector-container", ref: wrapperRef, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "selector-header", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("label", { className: "selector-label", children: label }),
+      selectedParent && /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("span", { className: "selected-badge", children: [
+        "ID: ",
+        selectedValue
+      ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("input", { type: "hidden", name, value: selectedValue })
+    /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: `selector-wrapper ${isOpen ? "is-open" : ""} ${isLoading ? "is-loading" : ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "input-group", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime64.jsx)(
+          "input",
+          {
+            type: "text",
+            className: "selector-input",
+            placeholder: "Search documentation...",
+            value: searchTerm,
+            onFocus: () => setIsOpen(true),
+            onChange: (e) => setSearchTerm(e.target.value)
+          }
+        ),
+        searchTerm && /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("button", { type: "button", className: "clear-btn", onClick: clearSelection, children: "\xD7" })
+      ] }),
+      isOpen && /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("ul", { className: "results-dropdown", children: results.length > 0 ? results.map((doc) => /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)(
+        "li",
+        {
+          onClick: () => handleSelect(doc),
+          className: selectedValue === doc.id ? "is-selected" : "",
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("span", { className: "doc-id", children: [
+              "#",
+              doc.id
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { className: "doc-text", children: doc.pageTitle || doc.title })
+          ]
+        },
+        doc.id
+      )) : /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("li", { className: "no-results", children: isLoading ? "Searching..." : "No documents found" }) })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("input", { type: "hidden", name, value: selectedValue })
   ] });
 };
 registerComponent({
@@ -26716,19 +26808,19 @@ registerComponent({
 });
 
 // app/web/themes/@admin/index.tsx
-var import_jsx_runtime64 = __toESM(require_jsx_runtime());
+var import_jsx_runtime65 = __toESM(require_jsx_runtime());
 var AdminThemeWrapper = (props) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "codefolio-default-admin", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime64.jsx)(AdminHeader, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("div", { className: "content", children: props.children })
+  return /* @__PURE__ */ (0, import_jsx_runtime65.jsxs)("div", { className: "codefolio-default-admin", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime65.jsx)(AdminHeader, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime65.jsx)("div", { className: "content", children: props.children })
   ] });
 };
 registerTheme("@admin", AdminThemeWrapper);
 
 // app/web/index.tsx
-var import_jsx_runtime65 = __toESM(require_jsx_runtime());
+var import_jsx_runtime66 = __toESM(require_jsx_runtime());
 var root = (0, import_client.createRoot)(document.getElementById("root"));
-root.render(/* @__PURE__ */ (0, import_jsx_runtime65.jsx)(Page, {}));
+root.render(/* @__PURE__ */ (0, import_jsx_runtime66.jsx)(Page, {}));
 /*! Bundled license information:
 
 scheduler/cjs/scheduler.development.js:

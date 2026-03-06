@@ -1,1 +1,4 @@
 {"pageTitle":"Getting started.","pageDescription":"Information for users getting started with the platform either as a user or a plugin developer.","content":"[]","parentPage":"0","keywords":"Getting started, CodeFolio documentation, developer docs, user guides","tags":"","id":1}
+{"pageTitle":"User Guide","pageDescription":"Getting started with CodeFolio as a user. ","content":"[]","parentPage":"1","keywords":"Getting started, CodeFolio documentation, developer docs, user guides","tags":"User Guide","id":2}
+{"pageTitle":"Developer Guide","pageDescription":"Getting started with CodeFolio as a developer. ","content":"[]","parentPage":"1","keywords":"Getting started, CodeFolio documentation, developer docs","tags":"Developer Guide","id":3}
+{"pageTitle":"Installation","pageDescription":"Instructions on how to setup CodeFolio on your device locally. ","content":"[]","parentPage":"2","keywords":"","tags":"Developer Guide, User Guide","id":4}
