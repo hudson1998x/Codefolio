@@ -76,6 +76,58 @@ function copyRecursive(src, dest) {
   }
 }
 
+/**
+ * Reads the version field from a package.json file.
+ * Returns null if the file doesn't exist or has no version field.
+ */
+function readPackageVersion(pkgPath) {
+  if (!fs.existsSync(pkgPath)) return null;
+  try {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+    return pkg.version ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Updates the version field in the local package.json.
+ * Preserves all other fields and formatting.
+ */
+function syncPackageVersion(upstreamVersion) {
+  const localPkgPath = path.join(ROOT, "package.json");
+
+  if (!fs.existsSync(localPkgPath)) {
+    err("No local package.json found — skipping version sync.");
+    return { status: "skipped (no local package.json)" };
+  }
+
+  let localPkg;
+  try {
+    localPkg = JSON.parse(fs.readFileSync(localPkgPath, "utf8"));
+  } catch (e) {
+    err(`Failed to parse local package.json: ${e.message}`);
+    return { status: "skipped (parse error)" };
+  }
+
+  const previousVersion = localPkg.version ?? "(none)";
+
+  if (previousVersion === upstreamVersion) {
+    log(`package.json version already up to date (${upstreamVersion}).`);
+    return { status: `already up to date (${upstreamVersion})` };
+  }
+
+  localPkg.version = upstreamVersion;
+
+  try {
+    fs.writeFileSync(localPkgPath, JSON.stringify(localPkg, null, 2) + "\n", "utf8");
+    log(`package.json version updated: ${previousVersion} → ${upstreamVersion}`);
+    return { status: `updated ${previousVersion} → ${upstreamVersion}` };
+  } catch (e) {
+    abort("Failed to write updated package.json.", e);
+  }
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 (function main() {
@@ -116,10 +168,25 @@ function copyRecursive(src, dest) {
     }
   }
 
-  // 3. Clean up the temporary clone
+  // 3. Sync package.json version from upstream
+  log("Checking upstream package.json version…");
+  const upstreamPkgPath = path.join(TMP_DIR, "package.json");
+  const upstreamVersion = readPackageVersion(upstreamPkgPath);
+
+  let versionResult;
+  if (!upstreamVersion) {
+    err("No version found in upstream package.json — skipping version sync.");
+    versionResult = { path: "package.json (version)", status: "skipped (no upstream version)" };
+  } else {
+    log(`Upstream version: ${upstreamVersion}`);
+    const syncStatus = syncPackageVersion(upstreamVersion);
+    versionResult = { path: "package.json (version)", status: syncStatus.status };
+  }
+
+  // 4. Clean up the temporary clone
   cleanup();
 
-  // 4. Report summary
+  // 5. Report summary
   console.log("\n─────────────────────────────────────────");
   console.log("  Codefolio Update — Done");
   console.log("─────────────────────────────────────────");
@@ -127,5 +194,7 @@ function copyRecursive(src, dest) {
     const icon = r.status === "ok" ? "✔" : "⚠";
     console.log(`  ${icon}  ${r.path}  →  ${r.status}`);
   }
+  const vIcon = versionResult.status.startsWith("updated") ? "✔" : "⚠";
+  console.log(`  ${vIcon}  ${versionResult.path}  →  ${versionResult.status}`);
   console.log("─────────────────────────────────────────\n");
 })();
