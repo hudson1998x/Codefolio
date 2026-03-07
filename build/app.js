@@ -1328,7 +1328,7 @@ var require_react_dom_development = __commonJS({
         return dispatcher;
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React26 = require_react(), Internals = {
+      var React27 = require_react(), Internals = {
         d: {
           f: noop,
           r: function() {
@@ -1346,7 +1346,7 @@ var require_react_dom_development = __commonJS({
         },
         p: 0,
         findDOMNode: null
-      }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React26.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+      }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React27.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
       "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
         "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
       );
@@ -2881,7 +2881,7 @@ var require_react_dom_client_development = __commonJS({
         "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
       }
       function validateOptionProps(element, props) {
-        null == props.value && ("object" === typeof props.children && null !== props.children ? React26.Children.forEach(props.children, function(child) {
+        null == props.value && ("object" === typeof props.children && null !== props.children ? React27.Children.forEach(props.children, function(child) {
           null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           ));
@@ -18513,14 +18513,14 @@ var require_react_dom_client_development = __commonJS({
         ));
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var Scheduler = require_scheduler(), React26 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+      var Scheduler = require_scheduler(), React27 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
       /* @__PURE__ */ Symbol.for("react.scope");
       var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity");
       /* @__PURE__ */ Symbol.for("react.legacy_hidden");
       /* @__PURE__ */ Symbol.for("react.tracing_marker");
       var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel");
       /* @__PURE__ */ Symbol.for("react.view_transition");
-      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React26.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React27.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -21308,7 +21308,7 @@ var require_react_dom_client_development = __commonJS({
         }
       };
       (function() {
-        var isomorphicReactPackageVersion = React26.version;
+        var isomorphicReactPackageVersion = React27.version;
         if ("19.2.4" !== isomorphicReactPackageVersion)
           throw Error(
             'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.4\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -21662,18 +21662,18 @@ var require_react_jsx_runtime_development = __commonJS({
       function isValidElement(object) {
         return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
       }
-      var React26 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React26.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+      var React27 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React27.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
         return null;
       };
-      React26 = {
+      React27 = {
         react_stack_bottom_frame: function(callStackForError) {
           return callStackForError();
         }
       };
       var specialPropKeyWarningShown;
       var didWarnAboutElementRef = {};
-      var unknownOwnerDebugStack = React26.react_stack_bottom_frame.bind(
-        React26,
+      var unknownOwnerDebugStack = React27.react_stack_bottom_frame.bind(
+        React27,
         UnknownOwner
       )();
       var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -25696,6 +25696,9 @@ var Page = () => {
   return /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(WsListener, { children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(ConfigProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(RouterProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(ThemeLoader, { children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(Canvas, {}) }) }) }) });
 };
 
+// app/web/themes/default/header/header.tsx
+var import_react34 = __toESM(require_react());
+
 // app/web/themes/default/header/config.json
 var config_default3 = {
   key: "header",
@@ -25717,31 +25720,52 @@ var import_jsx_runtime50 = __toESM(require_jsx_runtime());
 var Header = () => {
   const { path } = useRouter();
   const config = useModuleConfig(config_default3.key, config_default3.config);
+  const [isMenuOpen, setIsMenuOpen] = (0, import_react34.useState)(false);
   const isExternal = (to) => to.startsWith("http");
-  return /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("header", { className: "theme-header border-bottom shadow-sm", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "container d-flex justify-content-between align-items-center py-3", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "nav-logo h4 mb-0 fw-bold text-uppercase", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("a", { href: getSafeUrl("/"), children: config.siteTitle }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("nav", { className: "nav nav-tabs border-0", children: config?.links?.map((item) => {
-      const isActive = path === item.to || path === item.to + "/";
-      const navClass = [
-        "nav-link border-0",
-        isActive ? "active" : "",
-        item.icon && item.label ? "iconised-label" : ""
-      ].join(" ");
-      return /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)(
-        "a",
-        {
-          href: isExternal(item.to) ? item.to : getSafeUrl(item.to),
-          className: navClass,
-          target: isExternal(item.to) ? "_blank" : void 0,
-          rel: "noopener noreferrer",
-          children: [
-            item.icon ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("i", { className: item.icon }) : null,
-            item.label ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { children: item.label }) : null
-          ]
-        },
-        item.to
-      );
-    }) })
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  (0, import_react34.useEffect)(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMenuOpen]);
+  const renderLink = (item, isMobile) => {
+    const isActive = path === item.to || path === item.to + "/";
+    const navClass = [
+      isMobile ? "mobile-nav-link" : "nav-link",
+      isActive ? "active" : "",
+      item.icon && item.label ? "iconised-label" : ""
+    ].join(" ");
+    return /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)(
+      "a",
+      {
+        href: isExternal(item.to) ? item.to : getSafeUrl(item.to),
+        className: navClass,
+        target: isExternal(item.to) ? "_blank" : void 0,
+        rel: "noopener noreferrer",
+        onClick: () => setIsMenuOpen(false),
+        children: [
+          item.icon && /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("i", { className: `${item.icon} ${item.label ? "me-2" : ""}` }),
+          item.label && /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { children: item.label })
+        ]
+      },
+      item.to
+    );
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("header", { className: "theme-header", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "container header-container", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "nav-logo", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("a", { href: getSafeUrl("/"), children: config.siteTitle }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("nav", { className: "nav-desktop d-none d-lg-flex", children: config?.links?.map((item) => renderLink(item, false)) }),
+    /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(
+      "button",
+      {
+        className: `menu-toggle d-lg-none ${isMenuOpen ? "active" : ""}`,
+        onClick: toggleMenu,
+        "aria-label": "Toggle Menu",
+        children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { className: "hamburger-box", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { className: "hamburger-inner" }) })
+      }
+    ),
+    /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: `mobile-menu-backdrop d-lg-none ${isMenuOpen ? "show" : ""}`, onClick: toggleMenu }),
+    /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("aside", { className: `mobile-menu-panel d-lg-none ${isMenuOpen ? "open" : ""}`, children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("nav", { className: "mobile-nav-list", children: config?.links?.map((item) => renderLink(item, true)) }) })
   ] }) });
 };
 registerComponent({
@@ -25808,10 +25832,10 @@ var DefaultTheme = ({ children }) => {
 registerTheme("default", DefaultTheme);
 
 // app/web/themes/@admin/header/index.tsx
-var import_react38 = __toESM(require_react());
+var import_react39 = __toESM(require_react());
 
 // app/web/themes/@admin/components/vcs-status/index.tsx
-var import_react34 = __toESM(require_react());
+var import_react35 = __toESM(require_react());
 var import_jsx_runtime53 = __toESM(require_jsx_runtime());
 var statusIcons = {
   modified: "M",
@@ -25822,10 +25846,10 @@ var statusIcons = {
   other: "\u2022"
 };
 var VcsStatusBar = () => {
-  const [data, setData] = (0, import_react34.useState)(null);
-  const [error, setError] = (0, import_react34.useState)(null);
-  const [loading, setLoading] = (0, import_react34.useState)(true);
-  const fetchData = (0, import_react34.useCallback)(async () => {
+  const [data, setData] = (0, import_react35.useState)(null);
+  const [error, setError] = (0, import_react35.useState)(null);
+  const [loading, setLoading] = (0, import_react35.useState)(true);
+  const fetchData = (0, import_react35.useCallback)(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -25838,7 +25862,7 @@ var VcsStatusBar = () => {
       setLoading(false);
     }
   }, []);
-  (0, import_react34.useEffect)(() => {
+  (0, import_react35.useEffect)(() => {
     fetchData();
   }, [fetchData]);
   if (loading) {
@@ -25887,12 +25911,12 @@ ${timestamp}`, children: [
 };
 
 // app/web/themes/@admin/components/command-search/index.tsx
-var import_react36 = __toESM(require_react());
+var import_react37 = __toESM(require_react());
 
 // app/web/thirdparty/hooks/use-hotkey.ts
-var import_react35 = __toESM(require_react());
+var import_react36 = __toESM(require_react());
 function useHotKey(keys, callback) {
-  (0, import_react35.useEffect)(() => {
+  (0, import_react36.useEffect)(() => {
     const modifiers = {
       ctrl: "ctrlKey",
       shift: "shiftKey",
@@ -25971,15 +25995,15 @@ var streamNdjson = async (key, source, queryLower, limit = 5) => {
   return results;
 };
 var CommandSearch = ({ navigation: navigation2 }) => {
-  const [query, setQuery] = (0, import_react36.useState)("");
-  const [isSearching, setIsSearching] = (0, import_react36.useState)(false);
-  const [results, setResults] = (0, import_react36.useState)([]);
-  const [showOverlay, setShowOverlay] = (0, import_react36.useState)(false);
-  const [selected, setSelected] = (0, import_react36.useState)(null);
-  const inputRef = (0, import_react36.useRef)(null);
+  const [query, setQuery] = (0, import_react37.useState)("");
+  const [isSearching, setIsSearching] = (0, import_react37.useState)(false);
+  const [results, setResults] = (0, import_react37.useState)([]);
+  const [showOverlay, setShowOverlay] = (0, import_react37.useState)(false);
+  const [selected, setSelected] = (0, import_react37.useState)(null);
+  const inputRef = (0, import_react37.useRef)(null);
   useHotKey(["ctrl", "k"], () => inputRef.current?.focus());
   useHotKey(["meta", "k"], () => inputRef.current?.focus());
-  const flattenedNav = (0, import_react36.useMemo)(() => {
+  const flattenedNav = (0, import_react37.useMemo)(() => {
     const flat = [];
     const recurse = (items) => {
       items.forEach((item) => {
@@ -25990,7 +26014,7 @@ var CommandSearch = ({ navigation: navigation2 }) => {
     recurse(navigation2);
     return flat;
   }, [navigation2]);
-  (0, import_react36.useEffect)(() => {
+  (0, import_react37.useEffect)(() => {
     if (query.length < 2) {
       setResults([]);
       setShowOverlay(false);
@@ -26079,16 +26103,16 @@ var CommandSearch = ({ navigation: navigation2 }) => {
 };
 
 // app/web/themes/@admin/components/git-commit-and-push/index.tsx
-var import_react37 = __toESM(require_react());
+var import_react38 = __toESM(require_react());
 var import_jsx_runtime55 = __toESM(require_jsx_runtime());
 var GitCommitAndPush = () => {
-  const [isOpen, setIsOpen] = (0, import_react37.useState)(false);
-  const [message, setMessage] = (0, import_react37.useState)("");
-  const [prefix, setPrefix] = (0, import_react37.useState)("feat");
-  const [isDeploying, setIsDeploying] = (0, import_react37.useState)(false);
-  const [lastError, setLastError] = (0, import_react37.useState)(null);
-  const [status, setStatus] = (0, import_react37.useState)(null);
-  const dropdownRef = (0, import_react37.useRef)(null);
+  const [isOpen, setIsOpen] = (0, import_react38.useState)(false);
+  const [message, setMessage] = (0, import_react38.useState)("");
+  const [prefix, setPrefix] = (0, import_react38.useState)("feat");
+  const [isDeploying, setIsDeploying] = (0, import_react38.useState)(false);
+  const [lastError, setLastError] = (0, import_react38.useState)(null);
+  const [status, setStatus] = (0, import_react38.useState)(null);
+  const dropdownRef = (0, import_react38.useRef)(null);
   const fetchStatus = async () => {
     try {
       const res = await fetch("/content/en-admin/vcs/status.json");
@@ -26099,7 +26123,7 @@ var GitCommitAndPush = () => {
       console.error("VCS Sync Error:", e);
     }
   };
-  (0, import_react37.useEffect)(() => {
+  (0, import_react38.useEffect)(() => {
     fetchStatus();
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -26210,9 +26234,9 @@ var GitCommitAndPush = () => {
 // app/web/themes/@admin/header/index.tsx
 var import_jsx_runtime56 = __toESM(require_jsx_runtime());
 var AdminHeader = () => {
-  const [isSaving, setIsSaving] = (0, import_react38.useState)(false);
-  const [navigation2, setNavigation] = (0, import_react38.useState)([]);
-  (0, import_react38.useEffect)(() => {
+  const [isSaving, setIsSaving] = (0, import_react39.useState)(false);
+  const [navigation2, setNavigation] = (0, import_react39.useState)([]);
+  (0, import_react39.useEffect)(() => {
     const fetchNav = async () => {
       try {
         const response = await fetch("/en-admin/nav.json");
@@ -26224,7 +26248,7 @@ var AdminHeader = () => {
     };
     fetchNav();
   }, []);
-  (0, import_react38.useEffect)(() => {
+  (0, import_react39.useEffect)(() => {
     const ws = new WebSocket(`ws://${window.location.host}/ws`);
     ws.onmessage = (event) => {
       if (event.data === "SAVING_START") setIsSaving(true);
@@ -26266,7 +26290,7 @@ var AdminHeader = () => {
 };
 
 // app/web/themes/@admin/pages/media-gallery/index.tsx
-var import_react39 = __toESM(require_react());
+var import_react40 = __toESM(require_react());
 
 // app/web/themes/@admin/pages/media-gallery/media-context-menu.tsx
 var import_jsx_runtime57 = __toESM(require_jsx_runtime());
@@ -26319,12 +26343,12 @@ var MediaContextMenu = ({
 // app/web/themes/@admin/pages/media-gallery/index.tsx
 var import_jsx_runtime58 = __toESM(require_jsx_runtime());
 var MediaGalleryPage = () => {
-  const [tree, setTree] = (0, import_react39.useState)([]);
-  const [history, setHistory] = (0, import_react39.useState)([]);
-  const [selectedNode, setSelectedNode] = (0, import_react39.useState)(null);
-  const [contextMenu, setContextMenu] = (0, import_react39.useState)(null);
-  const [uploadTarget, setUploadTarget] = (0, import_react39.useState)(null);
-  const [previewNode, setPreviewNode] = (0, import_react39.useState)(null);
+  const [tree, setTree] = (0, import_react40.useState)([]);
+  const [history, setHistory] = (0, import_react40.useState)([]);
+  const [selectedNode, setSelectedNode] = (0, import_react40.useState)(null);
+  const [contextMenu, setContextMenu] = (0, import_react40.useState)(null);
+  const [uploadTarget, setUploadTarget] = (0, import_react40.useState)(null);
+  const [previewNode, setPreviewNode] = (0, import_react40.useState)(null);
   const buildPaths = (nodes, parentPath = "") => nodes.map((node) => ({
     ...node,
     path: parentPath ? `${parentPath}/${node.name}` : node.name,
@@ -26339,11 +26363,11 @@ var MediaGalleryPage = () => {
       console.error("Failed to fetch media tree", err);
     }
   };
-  (0, import_react39.useEffect)(() => {
+  (0, import_react40.useEffect)(() => {
     refresh();
   }, []);
-  const currentFolder = (0, import_react39.useMemo)(() => history[history.length - 1] || null, [history]);
-  const currentItems = (0, import_react39.useMemo)(() => currentFolder ? currentFolder.children || [] : tree, [tree, currentFolder]);
+  const currentFolder = (0, import_react40.useMemo)(() => history[history.length - 1] || null, [history]);
+  const currentItems = (0, import_react40.useMemo)(() => currentFolder ? currentFolder.children || [] : tree, [tree, currentFolder]);
   const handleCreateFolder = async (targetNode) => {
     const name = prompt("Enter folder name:");
     if (!name) return;
@@ -26505,12 +26529,12 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/footer/index.tsx
-var import_react40 = __toESM(require_react());
+var import_react41 = __toESM(require_react());
 var import_jsx_runtime59 = __toESM(require_jsx_runtime());
 var FooterConfigEditor = ({ data }) => {
   const cfgKey = "footer";
   const initialSocials = data.socials ? Array.isArray(data.socials) ? data.socials : Object.values(data.socials) : [];
-  const [socials, setSocials] = (0, import_react40.useState)(initialSocials);
+  const [socials, setSocials] = (0, import_react41.useState)(initialSocials);
   const addSocial = () => setSocials([...socials, { label: "", href: "" }]);
   const removeSocial = (index) => setSocials(socials.filter((_, i) => i !== index));
   return /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("div", { className: "cf-footer-editor", children: [
@@ -26546,13 +26570,13 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/header/index.tsx
-var import_react41 = __toESM(require_react());
+var import_react42 = __toESM(require_react());
 var import_jsx_runtime60 = __toESM(require_jsx_runtime());
 var HeaderConfigEditor = ({ data }) => {
   const cfgKey = "header";
-  const [isSearching, setIsSearching] = (0, import_react41.useState)(false);
+  const [isSearching, setIsSearching] = (0, import_react42.useState)(false);
   const initialLinks = data.links ? Array.isArray(data.links) ? data.links : Object.values(data.links) : [];
-  const [links, setLinks] = (0, import_react41.useState)(initialLinks);
+  const [links, setLinks] = (0, import_react42.useState)(initialLinks);
   const addCustomLink = () => {
     setLinks([...links, { to: "", label: "New Link", icon: "" }]);
   };
@@ -26660,11 +26684,11 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/homepage/index.tsx
-var import_react42 = __toESM(require_react());
+var import_react43 = __toESM(require_react());
 var import_jsx_runtime61 = __toESM(require_jsx_runtime());
 var HomepageEditor = ({ data }) => {
   const cfgKey = "homepage";
-  const [selectedPage, setSelectedPage] = (0, import_react42.useState)(data.homepage);
+  const [selectedPage, setSelectedPage] = (0, import_react43.useState)(data.homepage);
   const handlePageSelect = (page) => {
     setSelectedPage(`/page/${page.id}`);
   };
@@ -26699,13 +26723,13 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/themeselector/index.tsx
-var import_react43 = __toESM(require_react());
+var import_react44 = __toESM(require_react());
 var import_jsx_runtime62 = __toESM(require_jsx_runtime());
 var ThemeSelector = ({ data }) => {
-  const [themes, setThemes] = (0, import_react43.useState)([]);
-  const [selected, setSelected] = (0, import_react43.useState)(data.theme || "default");
-  const [loading, setLoading] = (0, import_react43.useState)(true);
-  (0, import_react43.useEffect)(() => {
+  const [themes, setThemes] = (0, import_react44.useState)([]);
+  const [selected, setSelected] = (0, import_react44.useState)(data.theme || "default");
+  const [loading, setLoading] = (0, import_react44.useState)(true);
+  (0, import_react44.useEffect)(() => {
     const fetchThemes = async () => {
       try {
         const res = await fetch("/content/en-admin/configuration/themes");
@@ -26774,14 +26798,14 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/updates/update-status.tsx
-var import_react44 = __toESM(require_react());
+var import_react45 = __toESM(require_react());
 var import_jsx_runtime63 = __toESM(require_jsx_runtime());
 var AdminUpdates = ({ data }) => {
   const { currentVersion, latest } = data;
   const isUnknown = latest === "Unknown";
   const needsUpdate = !isUnknown && currentVersion !== latest;
-  const [updateState, setUpdateState] = (0, import_react44.useState)("idle");
-  const [errorMessage, setErrorMessage] = (0, import_react44.useState)(null);
+  const [updateState, setUpdateState] = (0, import_react45.useState)("idle");
+  const [errorMessage, setErrorMessage] = (0, import_react45.useState)(null);
   const runUpdate = async () => {
     setUpdateState("running");
     setErrorMessage(null);
@@ -26848,19 +26872,19 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/documentation-selector/index.tsx
-var import_react45 = __toESM(require_react());
+var import_react46 = __toESM(require_react());
 var import_jsx_runtime64 = __toESM(require_jsx_runtime());
 var DocumentationSelector = (props) => {
   const { data } = props;
   const { label, name, value: initialValue } = data;
-  const [searchTerm, setSearchTerm] = (0, import_react45.useState)("");
-  const [results, setResults] = (0, import_react45.useState)([]);
-  const [selectedValue, setSelectedValue] = (0, import_react45.useState)(initialValue || "");
-  const [selectedParent, setSelectedParent] = (0, import_react45.useState)(null);
-  const [isOpen, setIsOpen] = (0, import_react45.useState)(false);
-  const [isLoading, setIsLoading] = (0, import_react45.useState)(false);
-  const wrapperRef = (0, import_react45.useRef)(null);
-  (0, import_react45.useEffect)(() => {
+  const [searchTerm, setSearchTerm] = (0, import_react46.useState)("");
+  const [results, setResults] = (0, import_react46.useState)([]);
+  const [selectedValue, setSelectedValue] = (0, import_react46.useState)(initialValue || "");
+  const [selectedParent, setSelectedParent] = (0, import_react46.useState)(null);
+  const [isOpen, setIsOpen] = (0, import_react46.useState)(false);
+  const [isLoading, setIsLoading] = (0, import_react46.useState)(false);
+  const wrapperRef = (0, import_react46.useRef)(null);
+  (0, import_react46.useEffect)(() => {
     const loadSelected = async () => {
       if (!selectedValue) return;
       setIsLoading(true);
@@ -26880,7 +26904,7 @@ var DocumentationSelector = (props) => {
     };
     loadSelected();
   }, [selectedValue]);
-  (0, import_react45.useEffect)(() => {
+  (0, import_react46.useEffect)(() => {
     const fetchDocs = async () => {
       if (!isOpen || !searchTerm) return;
       setIsLoading(true);
@@ -26898,7 +26922,7 @@ var DocumentationSelector = (props) => {
     const timeoutId = setTimeout(fetchDocs, 300);
     return () => clearTimeout(timeoutId);
   }, [searchTerm, isOpen]);
-  (0, import_react45.useEffect)(() => {
+  (0, import_react46.useEffect)(() => {
     const handleClickOutside = (event) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setIsOpen(false);

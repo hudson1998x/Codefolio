@@ -1,98 +1,158 @@
-// Configuration Variables
-$header-height: 72px;
-$transition-speed: 0.25s;
-$nav-gap: 2rem;
+// Variables
+$header-height-mobile: 64px;
+$header-height-desktop: 80px;
+$transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$primary-color: var(--bs-primary, #007bff);
+$text-main: #1a202c;
+$text-muted: #64748b;
 
 .theme-header {
-  background-color: rgba(255, 255, 255, 0.8); // Frosted glass effect
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
-  z-index: 1020;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
-  transition: all $transition-speed ease;
+  width: 100%;
+  z-index: 1050;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 
-  .container {
-    height: $header-height;
+  .header-container {
+    height: $header-height-mobile;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (min-width: 992px) {
+      height: $header-height-desktop;
+    }
   }
 
-  // Wordmark / Logo
-  .nav-logo {
+  .nav-logo a {
     font-size: 1.25rem;
-    letter-spacing: -0.02em;
-    font-weight: 800; // Extra bold for that tech brand look
-    
-    a {
-      color: #1a202c;
-      text-decoration: none;
-      transition: opacity $transition-speed;
-      
-      &:hover {
-        opacity: 0.7;
-      }
+    font-weight: 800;
+    color: $text-main;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+  }
+}
+
+// --- Desktop Navigation ---
+.nav-desktop {
+  gap: 1.5rem;
+
+  .nav-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: $text-muted;
+    padding: 0.5rem 0;
+    position: relative;
+    text-decoration: none;
+    transition: color $transition;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: $primary-color;
+      transition: width $transition;
     }
+
+    &:hover, &.active {
+      color: $text-main;
+      &::after { width: 100%; }
+    }
+
+    &.active { color: $primary-color; }
+  }
+}
+
+// --- Mobile Hamburger Icon ---
+.menu-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  position: relative;
+  z-index: 1100;
+
+  .hamburger-box {
+    width: 24px;
+    height: 18px;
+    display: inline-block;
+    position: relative;
   }
 
-  // Navigation Links
-  .nav-tabs {
-    display: flex !important;
-    align-items: center;
-    gap: $nav-gap;
-    border: none !important; // Kill the bootstrap tab line
-
-    .nav-link {
-      padding: 0.5rem 0;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #64748b; // Muted slate
-      background: none !important;
-      border: none !important;
-      position: relative;
-      transition: color $transition-speed ease;
-
-      // The "Clean" Underline Indicator
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background-color: var(--bs-primary);
-        transition: width $transition-speed ease;
-      }
-
-      &.iconised-label {
-        display: flex;
-        align-items: center;
-        
-        i {
-          margin-right: 8px;
-          font-size: 1.1rem;
-        }
-      }
-
-      &:hover {
-        color: #1a202c;
-        
-        &::after {
-          width: 100%;
-        }
-      }
-
-      // Active State
-      &.active {
-        color: var(--bs-primary) !important;
-        
-        &::after {
-          width: 100%;
-          background-color: var(--bs-primary);
-        }
-      }
+  .hamburger-inner {
+    top: 50%;
+    transform: translateY(-50%);
+    &, &::before, &::after {
+      width: 24px;
+      height: 2px;
+      background-color: $text-main;
+      position: absolute;
+      transition: transform $transition, opacity $transition;
     }
+    &::before { content: ""; top: -8px; }
+    &::after { content: ""; bottom: -8px; }
+  }
+
+  &.active .hamburger-inner {
+    background-color: transparent;
+    &::before { transform: translateY(8px) rotate(45deg); }
+    &::after { transform: translateY(-8px) rotate(-45deg); }
+  }
+}
+
+// --- Mobile Drawer & Overlay ---
+.mobile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $transition;
+  &.show { opacity: 1; visibility: visible; }
+}
+
+.mobile-menu-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100vh;
+  background: white;
+  z-index: 1090;
+  padding: #{$header-height-mobile + 20px} 1.5rem 2rem;
+  box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+  transform: translateX(100%);
+  transition: transform $transition;
+
+  &.open { transform: translateX(0); }
+
+  .mobile-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mobile-nav-link {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: $text-main;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: background 0.2s;
+
+    &:active, &.active {
+      background: rgba($primary-color, 0.1);
+      color: $primary-color;
+    }
+    
+    i { width: 24px; text-align: center; }
   }
 }
