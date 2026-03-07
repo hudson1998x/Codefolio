@@ -23010,7 +23010,11 @@ var CanvasEditor = ({ data, onChange }) => {
       children: data?.label ?? ""
     }),
     /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("br", {}),
-    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Button, { type: "button", onClick: () => setIsOpen(true), children: "Visual Editor" }),
+    /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(Button, { type: "button", onClick: () => setIsOpen(true), children: [
+      /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("i", { className: "fas fa-pager" }),
+      " Visual Editor ",
+      /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("i", { className: "fas fa-pencil" })
+    ] }),
     isOpen && /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "editor-overlay", children: [
       /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("aside", { className: "panel-island side-nav", children: [
         /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "section-title", children: [
@@ -25913,15 +25917,65 @@ function useHotKey(keys, callback) {
 
 // app/web/themes/@admin/components/command-search/index.tsx
 var import_jsx_runtime54 = __toESM(require_jsx_runtime());
-var SEARCHABLE_INDICES = {
-  page: ["pageTitle"]
+var sources = /* @__PURE__ */ new Map();
+var addSearchableSource = (path, searchFields, editBase, viewBase) => {
+  const key = path.split("/").filter(Boolean).at(-2) ?? path;
+  sources.set(key, { path, searchFields, editBase, viewBase });
+};
+addSearchableSource("/content/blog/index.ndjson", ["pageTitle", "category", "keywords"], "/en-admin/blog", "/blog/");
+addSearchableSource("/content/documents/index.ndjson", ["pageTitle", "pageDescription", "keywords"], "/en-admin/documents", "/documents/");
+addSearchableSource("/content/page/index.ndjson", ["pageTitle", "pageDescription"], "/en-admin/page", "/page/");
+var streamNdjson = async (key, source, queryLower, limit = 5) => {
+  const results = [];
+  try {
+    const res = await fetch(source.path);
+    if (!res.ok || !res.body) return [];
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    outer: while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split("\n");
+      buffer = lines.pop() ?? "";
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+        try {
+          const record = JSON.parse(trimmed);
+          const matches = source.searchFields.some((field) => {
+            const val = record[field];
+            return val && String(val).toLowerCase().includes(queryLower);
+          });
+          if (matches) {
+            const id = record.id ?? record.slug;
+            results.push({
+              label: record.pageTitle || String(id),
+              href: `${source.viewBase}${id}`,
+              sourceKey: key,
+              id
+            });
+            if (results.length >= limit) {
+              reader.cancel();
+              break outer;
+            }
+          }
+        } catch {
+        }
+      }
+    }
+  } catch (e) {
+    console.error(`NDJSON stream failed [${key}]:`, e);
+  }
+  return results;
 };
 var CommandSearch = ({ navigation: navigation2 }) => {
   const [query, setQuery] = (0, import_react36.useState)("");
   const [isSearching, setIsSearching] = (0, import_react36.useState)(false);
   const [results, setResults] = (0, import_react36.useState)([]);
   const [showOverlay, setShowOverlay] = (0, import_react36.useState)(false);
-  const [selectedResult, setSelectedResult] = (0, import_react36.useState)(null);
+  const [selected, setSelected] = (0, import_react36.useState)(null);
   const inputRef = (0, import_react36.useRef)(null);
   useHotKey(["ctrl", "k"], () => inputRef.current?.focus());
   useHotKey(["meta", "k"], () => inputRef.current?.focus());
@@ -25929,9 +25983,7 @@ var CommandSearch = ({ navigation: navigation2 }) => {
     const flat = [];
     const recurse = (items) => {
       items.forEach((item) => {
-        if (item.href && item.href !== "#") {
-          flat.push({ label: item.label, href: item.href, type: "nav" });
-        }
+        if (item.href && item.href !== "#") flat.push({ label: item.label, href: item.href, sourceKey: "nav" });
         if (item.children) recurse(item.children);
       });
     };
@@ -25947,61 +25999,26 @@ var CommandSearch = ({ navigation: navigation2 }) => {
     const handler = setTimeout(async () => {
       setIsSearching(true);
       setShowOverlay(true);
-      const queryLower = query.toLowerCase();
-      try {
-        const indexKeys = Object.keys(SEARCHABLE_INDICES);
-        const [navMatches, pageMatches, ...apiResultsStack] = await Promise.all([
-          // 1. Local Nav
-          Promise.resolve(flattenedNav.filter((p) => p.label.toLowerCase().includes(queryLower))),
-          // 2. DOM Search
-          Promise.resolve((() => {
-            const elements = document.querySelectorAll("h1, h2, h3, .cf-section__title, label, button");
-            const matches = [];
-            elements.forEach((el, idx) => {
-              const text = el.textContent?.trim() || "";
-              if (text.toLowerCase().includes(queryLower)) {
-                if (!el.id) el.id = `search-ref-${idx}`;
-                matches.push({ label: text, type: "page", elementId: el.id, href: window.location.pathname });
-              }
-            });
-            return matches;
-          })()),
-          // 3. Configurable Multi-API Stack
-          ...indexKeys.map(async (type) => {
-            try {
-              const fields = SEARCHABLE_INDICES[type];
-              const filterObj = {};
-              fields.forEach((field) => {
-                filterObj[field] = query;
-              });
-              const filter = JSON.stringify(filterObj);
-              const res = await fetch(`/api/${type}?filter=${filter}&size=3`);
-              const json = await res.json();
-              if (!json.ok) return [];
-              return json.results.map((r) => ({
-                // Try each field from config as a potential label, fallback to ID
-                label: r[fields[0]] || r.name || r.title || `ID: ${r.id}`,
-                href: `/${type}/${r.id}`,
-                id: r.id,
-                type: "db",
-                contentType: type
-              }));
-            } catch (e) {
-              return [];
-            }
-          })
-        ]);
-        setResults([...navMatches, ...pageMatches, ...apiResultsStack.flat()]);
-      } catch (err) {
-        console.error("Search stack failed", err);
-      } finally {
-        setIsSearching(false);
-      }
+      const q = query.toLowerCase();
+      const navMatches = flattenedNav.filter((r) => r.label.toLowerCase().includes(q));
+      const domMatches = [];
+      document.querySelectorAll("h1, h2, h3, .cf-section__title, label, button").forEach((el, idx) => {
+        const text = el.textContent?.trim() || "";
+        if (text.toLowerCase().includes(q)) {
+          if (!el.id) el.id = `search-ref-${idx}`;
+          domMatches.push({ label: text, sourceKey: "dom", elementId: el.id, href: window.location.pathname });
+        }
+      });
+      const sourceMatches = await Promise.all(
+        Array.from(sources.entries()).map(([key, source]) => streamNdjson(key, source, q))
+      );
+      setResults([...navMatches, ...domMatches, ...sourceMatches.flat()]);
+      setIsSearching(false);
     }, 300);
     return () => clearTimeout(handler);
   }, [query, flattenedNav]);
   const handleAction = (actionType, res) => {
-    if (res.type === "page" && res.elementId) {
+    if (res.sourceKey === "dom" && res.elementId) {
       const el = document.getElementById(res.elementId);
       el?.scrollIntoView({ behavior: "smooth", block: "center" });
       el?.classList.add("search-highlight-flash");
@@ -26010,14 +26027,18 @@ var CommandSearch = ({ navigation: navigation2 }) => {
     if (actionType === "view") {
       window.open(res.href, "_blank");
     } else {
-      let editPath = res.href;
-      if (res.type === "db") editPath = `/en-admin/${res.contentType}/${res.id}`;
-      if (res.type === "page") editPath = `${res.href}?edit=true#${res.elementId}`;
+      const source = sources.get(res.sourceKey);
+      const editPath = source ? `${source.editBase}/${res.id}` : res.href;
       window.location.pathname = editPath;
     }
     setQuery("");
     setShowOverlay(false);
-    setSelectedResult(null);
+    setSelected(null);
+  };
+  const getTag = (res) => {
+    if (res.sourceKey === "dom") return "Live on Page";
+    if (res.sourceKey === "nav") return "Menu";
+    return res.sourceKey.charAt(0).toUpperCase() + res.sourceKey.slice(1);
   };
   return /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "command-search-container", children: [
     /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "command-search", children: [
@@ -26031,29 +26052,29 @@ var CommandSearch = ({ navigation: navigation2 }) => {
           value: query,
           onChange: (e) => {
             setQuery(e.target.value);
-            setSelectedResult(null);
+            setSelected(null);
           }
         }
       ),
       /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("kbd", { className: "key-hint", children: "\u2318K" })
     ] }),
-    showOverlay && results.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("div", { className: "search-results-overlay", children: selectedResult ? /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "action-prompt", children: [
+    showOverlay && results.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("div", { className: "search-results-overlay", children: selected ? /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "action-prompt", children: [
       /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("p", { children: [
         "Action for ",
-        /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("strong", { children: selectedResult.label })
+        /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("strong", { children: selected.label })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "btn-group", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("button", { onClick: () => handleAction("view", selectedResult), children: "View in New Tab" }),
-        /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("button", { onClick: () => handleAction("edit", selectedResult), className: "primary", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("button", { onClick: () => handleAction("view", selected), children: "View in New Tab" }),
+        /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("button", { onClick: () => handleAction("edit", selected), className: "primary", children: [
           "Edit ",
-          selectedResult.contentType || "Item"
+          selected.sourceKey
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("button", { onClick: () => setSelectedResult(null), className: "ghost", children: "Cancel" })
+        /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("button", { onClick: () => setSelected(null), className: "ghost", children: "Cancel" })
       ] })
-    ] }) : /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("ul", { className: "search-results-list", children: results.map((res, i) => /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("li", { onClick: () => setSelectedResult(res), children: /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "res-info", children: [
+    ] }) : /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("ul", { className: "search-results-list", children: results.map((res, i) => /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("li", { onClick: () => setSelected(res), children: /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "res-info", children: [
       /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("span", { className: "res-label", children: res.label }),
-      /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("span", { className: "res-tag", children: res.type === "page" ? "Live on Page" : res.contentType || "Menu" })
-    ] }) }, `${res.type}-${i}`)) }) }) : null
+      /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("span", { className: "res-tag", children: getTag(res) })
+    ] }) }, `${res.sourceKey}-${i}`)) }) })
   ] });
 };
 

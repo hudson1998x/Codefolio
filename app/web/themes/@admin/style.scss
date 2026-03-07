@@ -1,0 +1,99 @@
+// Variables for easy tweaking
+$bg-color: #ffffff;
+$input-bg: #f9fafb;
+$border-color: #e5e7eb;
+$text-main: #111827;
+$text-muted: #6b7280;
+$radius: 8px;
+
+.cf-section__content {
+  max-width: 500px;
+  padding: 2rem;
+  background: $bg-color;
+  border-radius: 12px;
+  font-family: 'Inter', system-ui, sans-serif;
+
+  span {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-main;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.cf-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  .cf-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cf-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text-muted;
+  }
+
+  .cf-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: $input-bg;
+    border: 1px solid $border-color;
+    border-radius: $radius;
+    color: $text-main;
+    font-size: 1rem;
+    box-sizing: border-box; // Ensures padding doesn't break width
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+
+    &:focus {
+      outline: none;
+      background-color: #fff;
+    }
+  }
+
+  .cf-textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .cf-btn {
+    span {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #fff; 
+        margin-bottom: unset;;
+    }
+  }
+
+  .cf-btn--primary {
+    cursor: pointer;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: $radius;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+.form-title > span {
+    margin-bottom:20px;
+    display: block;
+    margin-top:-10px;
+}

@@ -5,6 +5,7 @@ import './pages/config/config.scss'
 import './pages/media-gallery'
 import './components/loader'
 import './components/documentation-selector'
+import './style.scss'
 
 /**
  * Root layout wrapper for the CodeFolio admin interface.

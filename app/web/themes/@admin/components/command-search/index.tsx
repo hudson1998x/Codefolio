@@ -1,42 +1,120 @@
-import { FC, useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useHotKey } from '@hooks/use-hotkey';
 import './style.scss';
 
-interface NavConfig {
+interface SearchResult {
   label: string;
-  href?: string;
-  type: 'nav' | 'page' | 'db';
-  elementId?: string;
+  href: string;
+  sourceKey: string;
   id?: number | string;
-  contentType?: string;
+  elementId?: string;
 }
 
-/** * Configurable Search Indices
- * Key: API endpoint name
- * Value: Array of fields the backend should filter by
+interface NdjsonSource {
+  path: string;
+  searchFields: string[];
+  editBase: string;
+  viewBase: string;
+}
+
+const sources: Map<string, NdjsonSource> = new Map();
+
+const addSearchableSource = (
+  path: string,
+  searchFields: string[],
+  editBase: string,
+  viewBase: string
+) => {
+  // Derive a stable key from the path e.g. '/content/blog/index.ndjson' => 'blog'
+  const key = path.split('/').filter(Boolean).at(-2) ?? path;
+  sources.set(key, { path, searchFields, editBase, viewBase });
+};
+
+// --- Register sources here ---
+addSearchableSource('/content/blog/index.ndjson',      ['pageTitle', 'category', 'keywords'],      '/en-admin/blog',      '/blog/');
+addSearchableSource('/content/documents/index.ndjson', ['pageTitle', 'pageDescription', 'keywords'], '/en-admin/documents', '/documents/');
+addSearchableSource('/content/page/index.ndjson',      ['pageTitle', 'pageDescription'],            '/en-admin/page',      '/page/');
+
+/**
+ * Stream an NDJSON file line by line, cancelling once `limit` results are found.
  */
-const SEARCHABLE_INDICES: Record<string, string[]> = {
-  page: ['pageTitle']
+const streamNdjson = async (
+  key: string,
+  source: NdjsonSource,
+  queryLower: string,
+  limit = 5
+): Promise<SearchResult[]> => {
+  const results: SearchResult[] = [];
+
+  try {
+    const res = await fetch(source.path);
+    if (!res.ok || !res.body) return [];
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    outer: while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop() ?? '';
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+
+        try {
+          const record = JSON.parse(trimmed);
+          const matches = source.searchFields.some(field => {
+            const val = record[field];
+            return val && String(val).toLowerCase().includes(queryLower);
+          });
+
+          if (matches) {
+            const id = record.id ?? record.slug;
+            results.push({
+              label: record.pageTitle || String(id),
+              href: `${source.viewBase}${id}`,
+              sourceKey: key,
+              id
+            });
+
+            if (results.length >= limit) {
+              reader.cancel();
+              break outer;
+            }
+          }
+        } catch {
+          // Malformed line — skip
+        }
+      }
+    }
+  } catch (e) {
+    console.error(`NDJSON stream failed [${key}]:`, e);
+  }
+
+  return results;
 };
 
 export const CommandSearch = ({ navigation }: { navigation: any[] }) => {
   const [query, setQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
-  const [results, setResults] = useState<NavConfig[]>([]);
+  const [results, setResults] = useState<SearchResult[]>([]);
   const [showOverlay, setShowOverlay] = useState(false);
-  const [selectedResult, setSelectedResult] = useState<NavConfig | null>(null);
+  const [selected, setSelected] = useState<SearchResult | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useHotKey(['ctrl', 'k'], () => inputRef.current?.focus());
   useHotKey(['meta', 'k'], () => inputRef.current?.focus());
 
   const flattenedNav = useMemo(() => {
-    const flat: NavConfig[] = [];
+    const flat: SearchResult[] = [];
     const recurse = (items: any[]) => {
       items.forEach(item => {
-        if (item.href && item.href !== '#') {
-          flat.push({ label: item.label, href: item.href, type: 'nav' });
-        }
+        if (item.href && item.href !== '#') flat.push({ label: item.label, href: item.href, sourceKey: 'nav' });
         if (item.children) recurse(item.children);
       });
     };
@@ -54,70 +132,32 @@ export const CommandSearch = ({ navigation }: { navigation: any[] }) => {
     const handler = setTimeout(async () => {
       setIsSearching(true);
       setShowOverlay(true);
-      const queryLower = query.toLowerCase();
+      const q = query.toLowerCase();
 
-      try {
-        const indexKeys = Object.keys(SEARCHABLE_INDICES);
+      const navMatches = flattenedNav.filter(r => r.label.toLowerCase().includes(q));
 
-        const [navMatches, pageMatches, ...apiResultsStack] = await Promise.all([
-          // 1. Local Nav
-          Promise.resolve(flattenedNav.filter(p => p.label.toLowerCase().includes(queryLower))),
+      const domMatches: SearchResult[] = [];
+      document.querySelectorAll('h1, h2, h3, .cf-section__title, label, button').forEach((el, idx) => {
+        const text = el.textContent?.trim() || '';
+        if (text.toLowerCase().includes(q)) {
+          if (!el.id) el.id = `search-ref-${idx}`;
+          domMatches.push({ label: text, sourceKey: 'dom', elementId: el.id, href: window.location.pathname });
+        }
+      });
 
-          // 2. DOM Search
-          Promise.resolve((() => {
-            const elements = document.querySelectorAll('h1, h2, h3, .cf-section__title, label, button');
-            const matches: NavConfig[] = [];
-            elements.forEach((el, idx) => {
-              const text = el.textContent?.trim() || '';
-              if (text.toLowerCase().includes(queryLower)) {
-                if (!el.id) el.id = `search-ref-${idx}`;
-                matches.push({ label: text, type: 'page', elementId: el.id, href: window.location.pathname });
-              }
-            });
-            return matches;
-          })()),
+      const sourceMatches = await Promise.all(
+        Array.from(sources.entries()).map(([key, source]) => streamNdjson(key, source, q))
+      );
 
-          // 3. Configurable Multi-API Stack
-          ...indexKeys.map(async (type) => {
-            try {
-              // Construct filter object based on specified fields
-              const fields = SEARCHABLE_INDICES[type];
-              const filterObj: Record<string, string> = {};
-              fields.forEach(field => { filterObj[field] = query; });
-
-              const filter = JSON.stringify(filterObj);
-              const res = await fetch(`/api/${type}?filter=${filter}&size=3`);
-              const json = await res.json();
-              
-              if (!json.ok) return [];
-
-              return json.results.map((r: any) => ({
-                // Try each field from config as a potential label, fallback to ID
-                label: r[fields[0]] || r.name || r.title || `ID: ${r.id}`,
-                href: `/${type}/${r.id}`,
-                id: r.id,
-                type: 'db',
-                contentType: type
-              }));
-            } catch (e) {
-              return [];
-            }
-          })
-        ]);
-
-        setResults([...navMatches, ...pageMatches, ...apiResultsStack.flat()]);
-      } catch (err) {
-        console.error("Search stack failed", err);
-      } finally {
-        setIsSearching(false);
-      }
+      setResults([...navMatches, ...domMatches, ...sourceMatches.flat()]);
+      setIsSearching(false);
     }, 300);
 
     return () => clearTimeout(handler);
   }, [query, flattenedNav]);
 
-  const handleAction = (actionType: 'view' | 'edit', res: NavConfig) => {
-    if (res.type === 'page' && res.elementId) {
+  const handleAction = (actionType: 'view' | 'edit', res: SearchResult) => {
+    if (res.sourceKey === 'dom' && res.elementId) {
       const el = document.getElementById(res.elementId);
       el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       el?.classList.add('search-highlight-flash');
@@ -127,16 +167,24 @@ export const CommandSearch = ({ navigation }: { navigation: any[] }) => {
     if (actionType === 'view') {
       window.open(res.href, '_blank');
     } else {
-      let editPath = res.href;
-      if (res.type === 'db') editPath = `/en-admin/${res.contentType}/${res.id}`;
-      if (res.type === 'page') editPath = `${res.href}?edit=true#${res.elementId}`;
-      
-      window.location.pathname = editPath!;
+      const source = sources.get(res.sourceKey);
+      const editPath = source
+        ? `${source.editBase}/${res.id}`
+        : res.href;
+
+      window.location.pathname = editPath;
     }
 
     setQuery('');
     setShowOverlay(false);
-    setSelectedResult(null);
+    setSelected(null);
+  };
+
+  const getTag = (res: SearchResult) => {
+    if (res.sourceKey === 'dom') return 'Live on Page';
+    if (res.sourceKey === 'nav') return 'Menu';
+    // Capitalise the source key for display e.g. 'blog' => 'Blog'
+    return res.sourceKey.charAt(0).toUpperCase() + res.sourceKey.slice(1);
   };
 
   return (
@@ -150,41 +198,39 @@ export const CommandSearch = ({ navigation }: { navigation: any[] }) => {
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
-            setSelectedResult(null);
+            setSelected(null);
           }}
         />
         <kbd className="key-hint">⌘K</kbd>
       </div>
 
-      {showOverlay && results.length > 0 ? (
+      {showOverlay && results.length > 0 && (
         <div className="search-results-overlay">
-          {selectedResult ? (
+          {selected ? (
             <div className="action-prompt">
-              <p>Action for <strong>{selectedResult.label}</strong></p>
+              <p>Action for <strong>{selected.label}</strong></p>
               <div className="btn-group">
-                <button onClick={() => handleAction('view', selectedResult)}>View in New Tab</button>
-                <button onClick={() => handleAction('edit', selectedResult)} className="primary">
-                  Edit {selectedResult.contentType || 'Item'}
+                <button onClick={() => handleAction('view', selected)}>View in New Tab</button>
+                <button onClick={() => handleAction('edit', selected)} className="primary">
+                  Edit {selected.sourceKey}
                 </button>
-                <button onClick={() => setSelectedResult(null)} className="ghost">Cancel</button>
+                <button onClick={() => setSelected(null)} className="ghost">Cancel</button>
               </div>
             </div>
           ) : (
             <ul className="search-results-list">
               {results.map((res, i) => (
-                <li key={`${res.type}-${i}`} onClick={() => setSelectedResult(res)}>
+                <li key={`${res.sourceKey}-${i}`} onClick={() => setSelected(res)}>
                   <div className="res-info">
                     <span className="res-label">{res.label}</span>
-                    <span className="res-tag">
-                      {res.type === 'page' ? 'Live on Page' : res.contentType || 'Menu'}
-                    </span>
+                    <span className="res-tag">{getTag(res)}</span>
                   </div>
                 </li>
               ))}
             </ul>
           )}
         </div>
-      ) : null}
+      )}
     </div>
   );
 };

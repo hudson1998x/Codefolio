@@ -218,7 +218,9 @@ export const CanvasEditor: React.FC<CodefolioProps<{ value: string; name: string
         data?.label ?? ''}
       </span>
       <br />
-      <Button type="button" onClick={() => setIsOpen(true)}>Visual Editor</Button>
+      <Button type="button" onClick={() => setIsOpen(true)}>
+        <i className='fas fa-pager'/> Visual Editor <i className='fas fa-pencil'/>
+      </Button>
 
       {isOpen && (
         <div className="editor-overlay">
