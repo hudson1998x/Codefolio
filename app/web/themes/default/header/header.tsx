@@ -3,6 +3,7 @@ import { registerComponent } from '@components/registry';
 import { useModuleConfig } from '@config';
 import { useRouter } from "@router";
 import { getSafeUrl } from "app/web/thirdparty/utils/safe-url";
+import { HeaderSearch } from './search';
 import headerDefaults from './config.json';
 import './style.scss';
 
@@ -57,19 +58,21 @@ export const Header: React.FC = () => {
   return (
     <header className="theme-header">
       <div className="container header-container">
+
         {/* Logo */}
         <div className="nav-logo">
           <a href={getSafeUrl('/')}>{config.siteTitle}</a>
         </div>
 
-        {/* Desktop Navigation (Hidden on Mobile) */}
+        {/* Desktop Navigation + Search (Hidden on Mobile) */}
         <nav className="nav-desktop d-none d-lg-flex">
           {config?.links?.map((item) => renderLink(item, false))}
+          <HeaderSearch />
         </nav>
 
         {/* Hamburger Toggle (Visible on Mobile) */}
-        <button 
-          className={`menu-toggle d-lg-none ${isMenuOpen ? 'active' : ''}`} 
+        <button
+          className={`menu-toggle d-lg-none ${isMenuOpen ? 'active' : ''}`}
           onClick={toggleMenu}
           aria-label="Toggle Menu"
         >
@@ -81,10 +84,14 @@ export const Header: React.FC = () => {
         {/* Mobile Menu Overlay */}
         <div className={`mobile-menu-backdrop d-lg-none ${isMenuOpen ? 'show' : ''}`} onClick={toggleMenu} />
         <aside className={`mobile-menu-panel d-lg-none ${isMenuOpen ? 'open' : ''}`}>
+          <div className="mobile-search-wrap">
+            <HeaderSearch onNavigate={() => setIsMenuOpen(false)} />
+          </div>
           <nav className="mobile-nav-list">
             {config?.links?.map((item) => renderLink(item, true))}
           </nav>
         </aside>
+
       </div>
     </header>
   );
