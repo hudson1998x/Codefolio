@@ -14,6 +14,7 @@ const BlueprintNodeInner: React.FC<{
   const edgeRef = useRef<HTMLDivElement>(null);
   const miniRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
+  const deleteRef = useRef<HTMLButtonElement>(null);
 
   const cbRef = useRef({ onDrop, onMove, onEdit, onDelete });
   useEffect(() => { cbRef.current = { onDrop, onMove, onEdit, onDelete }; });
@@ -23,7 +24,8 @@ const BlueprintNodeInner: React.FC<{
     const edge = edgeRef.current;
     const mini = miniRef.current;
     const header = headerRef.current;
-    if (!card || !edge || !mini || !header) return;
+    const deleteBtn = deleteRef.current;
+    if (!card || !edge || !mini || !header || !deleteBtn) return;
 
     const nodeId = node.id;
 
@@ -68,6 +70,11 @@ const BlueprintNodeInner: React.FC<{
       cbRef.current.onEdit(nodeId);
     };
 
+    const onDeleteClick = (e: MouseEvent) => {
+      e.stopPropagation();
+      cbRef.current.onDelete(nodeId);
+    };
+
     header.draggable = true;
     header.addEventListener('dragstart', onDragStart);
     header.addEventListener('dragend', onDragEnd);
@@ -78,6 +85,7 @@ const BlueprintNodeInner: React.FC<{
     mini.addEventListener('dragleave', onMiniDragLeave);
     mini.addEventListener('drop', onMiniDrop);
     card.addEventListener('click', onCardClick);
+    deleteBtn.addEventListener('click', onDeleteClick);
 
     return () => {
       header.removeEventListener('dragstart', onDragStart);
@@ -89,6 +97,7 @@ const BlueprintNodeInner: React.FC<{
       mini.removeEventListener('dragleave', onMiniDragLeave);
       mini.removeEventListener('drop', onMiniDrop);
       card.removeEventListener('click', onCardClick);
+      deleteBtn.removeEventListener('click', onDeleteClick);
     };
   }, [node.id]);
 
@@ -114,9 +123,9 @@ const BlueprintNodeInner: React.FC<{
           )}
         </span>
         <button
+          ref={deleteRef}
           type="button"
           className="delete-trigger"
-          onClick={(e) => { e.stopPropagation(); onDelete(node.id); }}
         >
           <i className="fas fa-trash-alt" />
         </button>

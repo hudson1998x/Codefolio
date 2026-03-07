@@ -22734,6 +22734,7 @@ var BlueprintNodeInner = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }
   const edgeRef = (0, import_react14.useRef)(null);
   const miniRef = (0, import_react14.useRef)(null);
   const headerRef = (0, import_react14.useRef)(null);
+  const deleteRef = (0, import_react14.useRef)(null);
   const cbRef = (0, import_react14.useRef)({ onDrop, onMove, onEdit, onDelete });
   (0, import_react14.useEffect)(() => {
     cbRef.current = { onDrop, onMove, onEdit, onDelete };
@@ -22743,7 +22744,8 @@ var BlueprintNodeInner = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }
     const edge = edgeRef.current;
     const mini = miniRef.current;
     const header = headerRef.current;
-    if (!card || !edge || !mini || !header) return;
+    const deleteBtn = deleteRef.current;
+    if (!card || !edge || !mini || !header || !deleteBtn) return;
     const nodeId = node.id;
     const onDragStart = (e) => {
       e.stopPropagation();
@@ -22786,6 +22788,10 @@ var BlueprintNodeInner = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }
       e.stopPropagation();
       cbRef.current.onEdit(nodeId);
     };
+    const onDeleteClick = (e) => {
+      e.stopPropagation();
+      cbRef.current.onDelete(nodeId);
+    };
     header.draggable = true;
     header.addEventListener("dragstart", onDragStart);
     header.addEventListener("dragend", onDragEnd);
@@ -22796,6 +22802,7 @@ var BlueprintNodeInner = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }
     mini.addEventListener("dragleave", onMiniDragLeave);
     mini.addEventListener("drop", onMiniDrop);
     card.addEventListener("click", onCardClick);
+    deleteBtn.addEventListener("click", onDeleteClick);
     return () => {
       header.removeEventListener("dragstart", onDragStart);
       header.removeEventListener("dragend", onDragEnd);
@@ -22806,6 +22813,7 @@ var BlueprintNodeInner = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }
       mini.removeEventListener("dragleave", onMiniDragLeave);
       mini.removeEventListener("drop", onMiniDrop);
       card.removeEventListener("click", onCardClick);
+      deleteBtn.removeEventListener("click", onDeleteClick);
     };
   }, [node.id]);
   return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
@@ -22824,12 +22832,9 @@ var BlueprintNodeInner = ({ node, onDrop, onMove, onEdit, onDelete, isSelected }
           /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
             "button",
             {
+              ref: deleteRef,
               type: "button",
               className: "delete-trigger",
-              onClick: (e) => {
-                e.stopPropagation();
-                onDelete(node.id);
-              },
               children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("i", { className: "fas fa-trash-alt" })
             }
           )
