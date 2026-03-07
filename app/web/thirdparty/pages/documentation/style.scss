@@ -12,6 +12,7 @@
     font-family: var(--font-main);
     background: #fff;
 
+    // --- Sidebar Section ---
     .doc-sidebar {
         width: 260px;
         height: 100vh;
@@ -33,7 +34,6 @@
 
         .sb-search {
             margin-bottom: 32px;
-
             input {
                 width: 100%;
                 border: none;
@@ -42,59 +42,27 @@
                 font-size: 14px;
                 outline: none;
                 transition: border-color 0.2s;
-
-                &:focus {
-                    border-bottom-color: var(--accent-blue);
-                }
+                &:focus { border-bottom-color: var(--accent-blue); }
             }
         }
 
         .sb-nav {
             flex: 1;
             overflow-y: auto;
-
-            .sb-loading-state {
-                font-size: 13px;
-                color: var(--text-secondary);
-                padding: 8px 0;
-            }
-
-            .tree-group {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .tree-item-container {
-                display: flex;
-                flex-direction: column;
-            }
-
+            
             .nav-row {
                 display: flex;
                 align-items: center;
                 gap: 4px;
-
-                &.level-0 {
-                    padding-left: 0;
-                }
-
-                &.level-1 {
+                
+                &[class*="level-"] {
                     margin-left: 4px;
-                    padding-left: 8px;
                     border-left: 1px solid var(--border-light);
                 }
-
-                &.level-2 {
-                    margin-left: 4px;
-                    padding-left: 20px;
-                    border-left: 1px solid var(--border-light);
-                }
-
-                &.level-3 {
-                    margin-left: 4px;
-                    padding-left: 32px;
-                    border-left: 1px solid var(--border-light);
-                }
+                &.level-0 { padding-left: 0; border-left: none; }
+                &.level-1 { padding-left: 8px; }
+                &.level-2 { padding-left: 20px; }
+                &.level-3 { padding-left: 32px; }
 
                 .collapse-btn {
                     background: none;
@@ -104,17 +72,10 @@
                     color: var(--text-secondary);
                     display: flex;
                     align-items: center;
-                    flex-shrink: 0;
                     transition: color 0.2s, transform 0.2s;
                     transform: rotate(90deg);
-
-                    &.is-collapsed {
-                        transform: rotate(0deg);
-                    }
-
-                    &:hover {
-                        color: var(--accent-blue);
-                    }
+                    &.is-collapsed { transform: rotate(0deg); }
+                    &:hover { color: var(--accent-blue); }
                 }
 
                 .nav-link {
@@ -125,15 +86,13 @@
                     color: var(--text-secondary);
                     text-decoration: none;
                     transition: color 0.2s;
-
-                    &:hover {
-                        color: var(--accent-blue);
-                    }
+                    &:hover { color: var(--accent-blue); }
                 }
             }
         }
     }
 
+    // --- Main Content Area ---
     .doc-main {
         flex: 1;
         min-width: 0;
@@ -152,10 +111,7 @@
                 color: var(--text-secondary);
                 padding: 8px;
                 margin-left: -8px;
-
-                &:hover {
-                    color: var(--text-primary);
-                }
+                &:hover { color: var(--text-primary); }
             }
 
             .tag-badge {
@@ -175,7 +131,6 @@
 
             .body-intro {
                 margin-bottom: 48px;
-
                 h1 {
                     font-size: 44px;
                     font-weight: 700;
@@ -183,7 +138,6 @@
                     margin-bottom: 16px;
                     letter-spacing: -0.02em;
                 }
-
                 .description {
                     font-size: 18px;
                     line-height: 1.6;
@@ -196,22 +150,86 @@
                 font-size: 16px;
                 line-height: 1.8;
                 color: #3c4043;
-
                 h2 {
                     font-size: 28px;
                     margin: 48px 0 16px;
                     color: var(--text-primary);
                 }
+                p { margin-bottom: 24px; }
+            }
 
-                p {
+            // --- Integrated "In This Section" Block ---
+            .doc-child-directory {
+                margin-top: 64px;
+                padding-top: 40px;
+                border-top: 1px solid var(--border-light);
+
+                &__heading {
+                    font-size: 14px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    color: var(--text-primary);
                     margin-bottom: 24px;
+                }
+
+                &__list {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                    gap: 16px;
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                }
+
+                &__item {
+                    display: flex;
+                }
+
+                &__link {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    padding: 24px;
+                    text-decoration: none;
+                    background: #fff;
+                    border: 1px solid var(--border-light);
+                    border-radius: 8px;
+                    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+                    &:hover {
+                        border-color: var(--accent-blue);
+                        background-color: #f8fbff;
+                        transform: translateY(-2px);
+                        box-shadow: 0 8px 16px rgba(26, 115, 232, 0.06);
+
+                        .doc-child-directory__title {
+                            color: var(--accent-blue);
+                        }
+                    }
+                }
+
+                &__title {
+                    display: block;
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: var(--text-primary);
+                    margin-bottom: 8px;
+                    transition: color 0.2s;
+                }
+
+                &__desc {
+                    display: block;
+                    font-size: 14px;
+                    line-height: 1.5;
+                    color: var(--text-secondary);
                 }
             }
         }
     }
 }
 
-// Sidebar Hidden State
+// Sidebar Hidden Logic
 .sb-closed {
     .doc-sidebar {
         width: 0;
@@ -227,5 +245,8 @@
         background: white;
         z-index: 100;
         box-shadow: 20px 0 40px rgba(0, 0, 0, 0.05);
+    }
+    .doc-body .doc-child-directory__list {
+        grid-template-columns: 1fr;
     }
 }

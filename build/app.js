@@ -25653,6 +25653,7 @@ var DocumentationPage = ({ children, data }) => {
     }) });
   };
   const visibleIds = getVisibleIds(filter.toLowerCase());
+  const childPages = currentDocId !== null ? docs.filter((d) => String(d.parentPage) === String(currentDocId)) : [];
   return /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: `doc-container ${isSidebarOpen ? "sb-open" : "sb-closed"}`, children: [
     /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("aside", { className: "doc-sidebar", children: [
       /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: "sb-header-area", children: [
@@ -25676,7 +25677,14 @@ var DocumentationPage = ({ children, data }) => {
           /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("h1", { children: data.title || "Untitled Page" }),
           data.pageDescription && /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("p", { className: "description", children: data.pageDescription })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("article", { className: "prose", children })
+        /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("article", { className: "prose", children }),
+        childPages.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("nav", { className: "doc-child-directory", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("h2", { className: "doc-child-directory__heading", children: "In this section" }),
+          /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("ul", { className: "doc-child-directory__list", children: childPages.map((child) => /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("li", { className: "doc-child-directory__item", children: /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("a", { href: getSafeUrl(`/documents/${child.id}`), className: "doc-child-directory__link", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("span", { className: "doc-child-directory__title", children: child.pageTitle }),
+            child.pageDescription && /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("span", { className: "doc-child-directory__desc", children: child.pageDescription })
+          ] }) }, child.id)) })
+        ] })
       ] })
     ] })
   ] });

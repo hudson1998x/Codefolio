@@ -225,6 +225,11 @@ export const DocumentationPage: FC<CodefolioProps<{ title: string, pageDescripti
 
     const visibleIds = getVisibleIds(filter.toLowerCase());
 
+    // Direct children of the current page, shown as a directory at the bottom of the content area
+    const childPages = currentDocId !== null
+        ? docs.filter(d => String(d.parentPage) === String(currentDocId))
+        : [];
+
     return (
         <div className={`doc-container ${isSidebarOpen ? 'sb-open' : 'sb-closed'}`}>
             <aside className="doc-sidebar">
@@ -266,6 +271,24 @@ export const DocumentationPage: FC<CodefolioProps<{ title: string, pageDescripti
                     <article className="prose">
                         {children}
                     </article>
+
+                    {childPages.length > 0 && (
+                        <nav className="doc-child-directory">
+                            <h2 className="doc-child-directory__heading">In this section</h2>
+                            <ul className="doc-child-directory__list">
+                                {childPages.map(child => (
+                                    <li key={child.id} className="doc-child-directory__item">
+                                        <a href={getSafeUrl(`/documents/${child.id}`)} className="doc-child-directory__link">
+                                            <span className="doc-child-directory__title">{child.pageTitle}</span>
+                                            {child.pageDescription && (
+                                                <span className="doc-child-directory__desc">{child.pageDescription}</span>
+                                            )}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    )}
                 </div>
             </main>
         </div>
