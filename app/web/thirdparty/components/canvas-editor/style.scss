@@ -245,7 +245,7 @@ $doc-mobile-break: 768px;
         }
         &:active { cursor: grabbing; transform: scale(0.98); }
         i { font-size: 1rem; color: #64748b; width: 20px; text-align: center; flex-shrink: 0; }
-        span { font-size: 0.8rem; font-weight: 600; color: $text-main; text-align: left; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        span { margin-bottom:0; font-size: 0.8rem; font-weight: 600; color: $text-main; text-align: left; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       }
     }
   }
@@ -451,4 +451,10 @@ $doc-mobile-break: 768px;
 .close-visual {
   position: absolute; bottom: 30px; right: 30px; padding: 14px 28px; background: $accent; color: white; border-radius: $radius-md; border: none; font-weight: 700; cursor: pointer; box-shadow: 0 10px 25px rgba($accent, 0.3); transition: 0.2s; z-index: 100;
   &:hover { background: darken($accent, 5%); transform: translateY(-2px); }
+}
+
+.canvas-editor {
+  .cf-section__content span{
+    margin-bottom: unset Im !important;
+  }
 }

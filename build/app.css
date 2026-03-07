@@ -658,6 +658,7 @@
   flex-shrink: 0;
 }
 .editor-overlay .panel-island.side-nav .palette-grid .palette-item span {
+  margin-bottom: 0;
   font-size: 0.8rem;
   font-weight: 600;
   color: #1e293b;
@@ -1113,6 +1114,9 @@
 .close-visual:hover {
   background: rgb(34.6195121951, 114.4512195122, 244.8804878049);
   transform: translateY(-2px);
+}
+.canvas-editor .cf-section__content span {
+  margin-bottom: unset Im !important;
 }
 
 /* app/web/themes/@admin/components/page-picker/style.scss */
