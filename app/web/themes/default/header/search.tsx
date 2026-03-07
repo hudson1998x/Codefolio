@@ -107,7 +107,6 @@ const getTag = (sourceKey: string) =>
 // ---------------------------------------------------------------------------
 
 interface HeaderSearchProps {
-  /** Close the mobile menu when navigating, if applicable */
   onNavigate?: () => void;
 }
 
@@ -119,32 +118,13 @@ export const HeaderSearch: React.FC<HeaderSearchProps> = ({ onNavigate }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // ⌘K / Ctrl+K focus
+  // ⌘K / Ctrl+K focus + Escape dismiss — single consolidated listener
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         inputRef.current?.focus();
       }
-    };
-    document.addEventListener('keydown', handler);
-    return () => document.removeEventListener('keydown', handler);
-  }, []);
-
-  // Close on outside click
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
-  }, []);
-
-  // Close on Escape
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setOpen(false);
         setQuery('');
@@ -153,6 +133,23 @@ export const HeaderSearch: React.FC<HeaderSearchProps> = ({ onNavigate }) => {
     };
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
+  }, []);
+
+  // Close on outside click/tap — but only if the target is truly outside
+  useEffect(() => {
+    const handler = (e: MouseEvent | TouchEvent) => {
+      const target = ('touches' in e ? e.touches[0]?.target : e.target) as Node | null;
+      if (containerRef.current && target && !containerRef.current.contains(target)) {
+        setOpen(false);
+      }
+    };
+    // Use touchend for mobile so it doesn't fire before result tap resolves
+    document.addEventListener('mousedown', handler);
+    document.addEventListener('touchend', handler);
+    return () => {
+      document.removeEventListener('mousedown', handler);
+      document.removeEventListener('touchend', handler);
+    };
   }, []);
 
   // Debounced search
@@ -209,6 +206,8 @@ export const HeaderSearch: React.FC<HeaderSearchProps> = ({ onNavigate }) => {
         {query && !isSearching && (
           <button
             className="header-search__clear"
+            // Prevent this from triggering the outside-click handler
+            onMouseDown={e => e.stopPropagation()}
             onClick={() => { setQuery(''); setOpen(false); inputRef.current?.focus(); }}
             aria-label="Clear search"
           >
@@ -225,6 +224,8 @@ export const HeaderSearch: React.FC<HeaderSearchProps> = ({ onNavigate }) => {
               key={`${res.sourceKey}-${i}`}
               className="header-search__result"
               role="option"
+              // Prevent mousedown from firing the outside-click handler before onClick resolves
+              onMouseDown={e => e.preventDefault()}
               onClick={() => handleSelect(res)}
             >
               <span className="header-search__result-label">{res.label}</span>

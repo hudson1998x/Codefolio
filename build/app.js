@@ -25777,21 +25777,6 @@ var HeaderSearch = ({ onNavigate }) => {
         e.preventDefault();
         inputRef.current?.focus();
       }
-    };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, []);
-  (0, import_react34.useEffect)(() => {
-    const handler = (e) => {
-      if (containerRef.current && !containerRef.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
-  (0, import_react34.useEffect)(() => {
-    const handler = (e) => {
       if (e.key === "Escape") {
         setOpen(false);
         setQuery("");
@@ -25800,6 +25785,20 @@ var HeaderSearch = ({ onNavigate }) => {
     };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
+  }, []);
+  (0, import_react34.useEffect)(() => {
+    const handler = (e) => {
+      const target = "touches" in e ? e.touches[0]?.target : e.target;
+      if (containerRef.current && target && !containerRef.current.contains(target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    document.addEventListener("touchend", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("touchend", handler);
+    };
   }, []);
   (0, import_react34.useEffect)(() => {
     if (query.length < 2) {
@@ -25851,6 +25850,7 @@ var HeaderSearch = ({ onNavigate }) => {
         "button",
         {
           className: "header-search__clear",
+          onMouseDown: (e) => e.stopPropagation(),
           onClick: () => {
             setQuery("");
             setOpen(false);
@@ -25867,6 +25867,7 @@ var HeaderSearch = ({ onNavigate }) => {
       {
         className: "header-search__result",
         role: "option",
+        onMouseDown: (e) => e.preventDefault(),
         onClick: () => handleSelect(res),
         children: [
           /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { className: "header-search__result-label", children: res.label }),
