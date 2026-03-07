@@ -1,0 +1,263 @@
+// --- Dashboard Tokens ---
+$admin-bg: #fdfdfe;
+$admin-card-bg: #ffffff;
+$admin-accent: #1a73e8;
+$admin-accent-glow: rgba(26, 115, 232, 0.15);
+$admin-border: #f1f3f4;
+$admin-text-primary: #1f1f1f;
+$admin-text-secondary: #5f6368;
+$admin-radius: 12px;
+$admin-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+
+.admin-dashboard {
+  display: grid;
+  // 12-column grid allows for the 9/3 (75%/25%) split you need for the top row
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  padding: 32px;
+  background-color: $admin-bg;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  // --- Global Widget Shell ---
+  .admin-widget {
+    background: $admin-card-bg;
+    border: 1px solid $admin-border;
+    border-radius: $admin-radius;
+    padding: 24px;
+    box-shadow: $admin-shadow;
+    display: flex;
+    flex-direction: column;
+
+    &__label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: $admin-text-secondary;
+      margin-bottom: 20px;
+    }
+  }
+
+  // --- 1. Content Stats (Large Island) ---
+  .admin-content-stats {
+    grid-column: span 9;
+
+    &__grid {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    &__item {
+      flex: 1;
+      min-width: 110px;
+      padding: 16px;
+      border-radius: 10px;
+      background: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+      &:hover {
+        transform: translateY(-4px);
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      }
+    }
+
+    &__icon { font-size: 18px; margin-bottom: 8px; }
+    &__count { font-size: 24px; font-weight: 700; color: $admin-text-primary; }
+    &__name { font-size: 11px; font-weight: 600; color: $admin-text-secondary; }
+  }
+
+  // --- 2. Repository (The "Half-Size" Island) ---
+  .admin-site-stats {
+    grid-column: span 2;
+
+    &__grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 8px;
+      border-bottom: 1px solid $admin-border;
+      &:last-child { border-bottom: none; }
+    }
+
+    &__value {
+      font-size: 14px;
+      font-weight: 600;
+      color: $admin-text-primary;
+
+      &--branch {
+        font-family: 'SFMono-Regular', Consolas, monospace;
+        color: $admin-accent;
+        background: $admin-accent-glow;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+      }
+    }
+
+    &__key {
+      font-size: 10px;
+      color: $admin-text-secondary;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+  }
+
+  // --- 3. Activity Feed ---
+  .admin-activity-feed {
+    grid-column: span 4; // Give more room for commit messages
+
+    &__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__item {
+      display: grid;
+      grid-template-columns: 85px 1fr 100px;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba($admin-border, 0.5);
+      align-items: center;
+      &:last-child { border-bottom: none; }
+    }
+
+    &__badge {
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 3px 6px;
+      border-radius: 4px;
+      text-align: center;
+      &--page { background: #e8f0fe; color: #1967d2; }
+      &--blog { background: #fef7e0; color: #c26401; }
+      &--prefab { background: #f3e8fd; color: #9334e6; }
+      &--document { background: #e6f4ea; color: #137333; }
+      &--media { background: #feefe3; color: #d93025; }
+      &--misc { background: #f1f3f4; color: $admin-text-secondary; }
+    }
+
+    &__message {
+      font-size: 13px;
+      color: #3c4043;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__meta {
+      text-align: right;
+      font-size: 11px;
+      color: $admin-text-secondary;
+      .admin-activity-feed__hash { font-family: monospace; opacity: 0.5; display: block; }
+    }
+  }
+
+  // --- 4. Enhanced Commit Sparkline ---
+  .admin-commit-sparkline {
+    grid-column: span 5;
+
+    &__body {
+      padding: 10px 0;
+    }
+
+    &__stats {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+
+    &__stat {
+      &-value { font-size: 28px; font-weight: 800; color: $admin-text-primary; letter-spacing: -1px; }
+      &-label { font-size: 10px; font-weight: 700; color: $admin-text-secondary; text-transform: uppercase; }
+    }
+
+    &__svg {
+      width: 100%;
+      height: 60px;
+      color: $admin-accent;
+      filter: drop-shadow(0 2px 4px rgba(26, 115, 232, 0.2)); // Line glow
+      overflow: visible;
+
+      path {
+        transition: d 0.3s ease;
+      }
+    }
+
+    &__axis {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: $admin-text-secondary;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    &__bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 34px;
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid $admin-border;
+    }
+
+    &__bar {
+      flex: 1;
+      background: $admin-accent;
+      height: var(--bar-height);
+      opacity: 0.4;
+      border-radius: 2px 2px 0 0;
+      transition: all 0.2s ease;
+
+      &:hover {
+        opacity: 1;
+        transform: scaleY(1.1);
+        background: lighten($admin-accent, 10%);
+      }
+      &--empty { height: 3px; opacity: 0.1; }
+    }
+  }
+}
+
+// --- Loading State Shimmer ---
+.admin-dashboard--loading {
+  .admin-widget {
+    position: relative;
+    overflow: hidden;
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+      animation: shimmer 1.5s infinite;
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@media (max-width: 1200px) {
+  .admin-dashboard {
+    grid-template-columns: 1fr;
+    .admin-widget { grid-column: span 12 !important; }
+  }
+}

@@ -26714,18 +26714,322 @@ registerComponent({
   defaults: {}
 });
 
-// app/web/themes/@admin/components/config/footer/index.tsx
+// app/web/themes/@admin/components/updates/update-status.tsx
 var import_react42 = __toESM(require_react());
 var import_jsx_runtime60 = __toESM(require_jsx_runtime());
+var AdminUpdates = ({ data }) => {
+  const { currentVersion, latest } = data;
+  const isUnknown = latest === "Unknown";
+  const needsUpdate = !isUnknown && currentVersion !== latest;
+  const [updateState, setUpdateState] = (0, import_react42.useState)("idle");
+  const [errorMessage, setErrorMessage] = (0, import_react42.useState)(null);
+  const runUpdate = async () => {
+    setUpdateState("running");
+    setErrorMessage(null);
+    try {
+      const response = await fetch("/content/en-admin/update");
+      const result = await response.json();
+      if (result.success) {
+        setUpdateState("done");
+      } else {
+        setErrorMessage(result.message ?? "An unknown error occurred.");
+        setUpdateState("error");
+      }
+    } catch (e) {
+      setErrorMessage(e?.message ?? "Failed to reach the update endpoint.");
+      setUpdateState("error");
+    }
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("div", { className: "admin-updates", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("header", { className: "admin-updates__header", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("h3", { className: "admin-updates__title", children: "System Status" }),
+      /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("span", { className: `admin-updates__dot ${isUnknown ? "is-syncing" : "is-active"}` })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("div", { className: "admin-updates__content", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("div", { className: "admin-updates__row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("span", { className: "admin-updates__label", children: "Current Version" }),
+        /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("span", { className: "admin-updates__value", children: [
+          "v",
+          currentVersion
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("div", { className: "admin-updates__row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("span", { className: "admin-updates__label", children: "Latest Release" }),
+        /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("span", { className: `admin-updates__badge ${isUnknown ? "is-pending" : "is-success"}`, children: isUnknown ? "Checking..." : `v${latest}` })
+      ] })
+    ] }),
+    needsUpdate && updateState === "idle" && /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("button", { className: "admin-updates__button", onClick: runUpdate, children: [
+      "Update to v",
+      latest
+    ] }),
+    updateState === "running" && /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("div", { className: "admin-updates__status is-running", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("span", { className: "admin-updates__spinner" }),
+      /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("span", { children: "Updating, please wait\u2026" })
+    ] }),
+    updateState === "done" && /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("div", { className: "admin-updates__status is-done", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("span", { className: "admin-updates__status-icon", children: "\u2713" }),
+      /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("span", { children: "Update complete. Please restart the process for changes to take effect." })
+    ] }),
+    updateState === "error" && /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("div", { className: "admin-updates__status is-error", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("span", { className: "admin-updates__status-icon", children: "\u2715" }),
+      /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("span", { children: errorMessage }),
+      /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("button", { className: "admin-updates__button is-retry", onClick: runUpdate, children: "Retry" })
+    ] })
+  ] });
+};
+registerComponent({
+  name: "AdminUpdates",
+  component: AdminUpdates,
+  defaults: {
+    data: {
+      currentVersion: "1.0.0",
+      latest: "Unknown"
+    }
+  }
+});
+
+// app/web/themes/@admin/pages/dashboard/index.tsx
+var import_react43 = __toESM(require_react());
+
+// app/web/themes/@admin/pages/dashboard/content-stats.tsx
+var import_jsx_runtime61 = __toESM(require_jsx_runtime());
+var ITEMS = [
+  { key: "pages", label: "Pages", icon: "fas fa-pager" },
+  { key: "blogs", label: "Blog Posts", icon: "fas fa-rss" },
+  { key: "prefabs", label: "Prefabs", icon: "fas fa-cubes" },
+  { key: "documents", label: "Documents", icon: "fas fa-file-contract" },
+  { key: "media", label: "Media", icon: "fas fa-image" }
+];
+var AdminContentStats = ({ stats }) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime61.jsxs)("div", { className: "admin-widget admin-content-stats", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("p", { className: "admin-widget__label", children: "Content" }),
+    /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("div", { className: "admin-content-stats__grid", children: ITEMS.map(({ key, label, icon }) => /* @__PURE__ */ (0, import_jsx_runtime61.jsxs)("div", { className: "admin-content-stats__item", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("span", { className: "admin-content-stats__icon", children: /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("i", { className: icon }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("span", { className: "admin-content-stats__count", children: stats[key] }),
+      /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("span", { className: "admin-content-stats__name", children: label })
+    ] }, key)) })
+  ] });
+};
+registerComponent({
+  name: "AdminContentStats",
+  component: AdminContentStats,
+  defaults: {}
+});
+
+// app/web/themes/@admin/pages/dashboard/site-stats.tsx
+var import_jsx_runtime62 = __toESM(require_jsx_runtime());
+function formatDate(iso) {
+  if (!iso) return "\u2014";
+  return new Date(iso).toLocaleDateString(void 0, {
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+  });
+}
+function daysAgo(iso) {
+  if (!iso) return "";
+  const diff = Date.now() - new Date(iso).getTime();
+  const days = Math.floor(diff / (1e3 * 60 * 60 * 24));
+  if (days === 0) return "today";
+  if (days === 1) return "1 day ago";
+  return `${days} days ago`;
+}
+var AdminSiteStats = ({ stats }) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime62.jsxs)("div", { className: "admin-widget admin-site-stats", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("p", { className: "admin-widget__label", children: "Repository" }),
+    /* @__PURE__ */ (0, import_jsx_runtime62.jsxs)("div", { className: "admin-site-stats__grid", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime62.jsxs)("div", { className: "admin-site-stats__item", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("span", { className: "admin-site-stats__value", children: stats.totalCommits }),
+        /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("span", { className: "admin-site-stats__key", children: "Total commits" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime62.jsxs)("div", { className: "admin-site-stats__item", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("span", { className: "admin-site-stats__value admin-site-stats__value--branch", children: stats.branch }),
+        /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("span", { className: "admin-site-stats__key", children: "Branch" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime62.jsxs)("div", { className: "admin-site-stats__item", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("span", { className: "admin-site-stats__value", children: formatDate(stats.createdAt) }),
+        /* @__PURE__ */ (0, import_jsx_runtime62.jsxs)("span", { className: "admin-site-stats__key", children: [
+          "Created \xB7 ",
+          daysAgo(stats.createdAt)
+        ] })
+      ] })
+    ] })
+  ] });
+};
+registerComponent({
+  name: "AdminSiteStats",
+  component: AdminSiteStats,
+  defaults: {}
+});
+
+// app/web/themes/@admin/pages/dashboard/activity-feed.tsx
+var import_jsx_runtime63 = __toESM(require_jsx_runtime());
+function inferType(files) {
+  if (!files.length) return { label: "misc", mod: "misc" };
+  const path = files[0].toLowerCase();
+  if (path.includes("/pages/")) return { label: "page", mod: "page" };
+  if (path.includes("/blogs/")) return { label: "blog", mod: "blog" };
+  if (path.includes("/prefabs/")) return { label: "prefab", mod: "prefab" };
+  if (path.includes("/documents/")) return { label: "document", mod: "document" };
+  if (path.includes("/media/")) return { label: "media", mod: "media" };
+  return { label: "misc", mod: "misc" };
+}
+var AdminActivityFeed = ({ entries }) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("div", { className: "admin-widget admin-activity-feed", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("p", { className: "admin-widget__label", children: "Recent Activity" }),
+    /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("ol", { className: "admin-activity-feed__list", children: entries.map((entry) => {
+      const { label, mod } = inferType(entry.files);
+      return /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("li", { className: "admin-activity-feed__item", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { className: `admin-activity-feed__badge admin-activity-feed__badge--${mod}`, children: label }),
+        /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { className: "admin-activity-feed__message", children: entry.message }),
+        /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("span", { className: "admin-activity-feed__meta", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("code", { className: "admin-activity-feed__hash", children: entry.shortHash }),
+          /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { className: "admin-activity-feed__time", children: entry.timeAgo })
+        ] })
+      ] }, entry.hash);
+    }) })
+  ] });
+};
+registerComponent({
+  name: "AdminActivityFeed",
+  component: AdminActivityFeed,
+  defaults: {}
+});
+
+// app/web/themes/@admin/pages/dashboard/commit-sparkline.tsx
+var import_jsx_runtime64 = __toESM(require_jsx_runtime());
+function formatShortDate(iso) {
+  return new Date(iso).toLocaleDateString(void 0, { month: "short", day: "numeric" });
+}
+var AdminCommitSparkline = ({ frequency }) => {
+  const max = Math.max(...frequency.map((d) => d.count), 1);
+  const total = frequency.reduce((sum, d) => sum + d.count, 0);
+  const activeDays = frequency.filter((d) => d.count > 0).length;
+  const width = 100;
+  const height = 28;
+  const step = width / (frequency.length - 1);
+  const points = frequency.map((d, i) => {
+    const x = i * step;
+    const y = height - d.count / max * height;
+    return `${x},${y}`;
+  });
+  const linePath = `M ${points.join(" L ")}`;
+  const areaPath = `M 0,${height} L ${points.join(" L ")} L ${width},${height} Z`;
+  return /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "admin-widget admin-commit-sparkline", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("p", { className: "admin-widget__label", children: "Commit Activity \xB7 last 30 days" }),
+    /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "admin-commit-sparkline__body", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "admin-commit-sparkline__stats", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "admin-commit-sparkline__stat", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { className: "admin-commit-sparkline__stat-value", children: total }),
+          /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { className: "admin-commit-sparkline__stat-label", children: "commits" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "admin-commit-sparkline__stat", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { className: "admin-commit-sparkline__stat-value", children: activeDays }),
+          /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { className: "admin-commit-sparkline__stat-label", children: "active days" })
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)(
+        "svg",
+        {
+          className: "admin-commit-sparkline__svg",
+          viewBox: `0 0 ${width} ${height}`,
+          preserveAspectRatio: "none",
+          "aria-hidden": "true",
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("defs", { children: /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("linearGradient", { id: "sparkline-fill", x1: "0", y1: "0", x2: "0", y2: "1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("stop", { offset: "0%", stopColor: "currentColor", stopOpacity: "0.15" }),
+              /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("stop", { offset: "100%", stopColor: "currentColor", stopOpacity: "0" })
+            ] }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("path", { d: areaPath, fill: "url(#sparkline-fill)" }),
+            /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("path", { d: linePath, fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinejoin: "round", strokeLinecap: "round" })
+          ]
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "admin-commit-sparkline__axis", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { children: formatShortDate(frequency[0].date) }),
+        /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { children: formatShortDate(frequency[frequency.length - 1].date) })
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("div", { className: "admin-commit-sparkline__bars", "aria-label": "Daily commit counts", children: frequency.map((d) => /* @__PURE__ */ (0, import_jsx_runtime64.jsx)(
+      "div",
+      {
+        className: `admin-commit-sparkline__bar${d.count === 0 ? " admin-commit-sparkline__bar--empty" : ""}`,
+        style: { "--bar-height": `${d.count / max * 100}%` },
+        title: `${formatShortDate(d.date)}: ${d.count} commit${d.count !== 1 ? "s" : ""}`
+      },
+      d.date
+    )) })
+  ] });
+};
+registerComponent({
+  name: "AdminCommitSparkline",
+  component: AdminCommitSparkline,
+  defaults: {}
+});
+
+// app/web/themes/@admin/pages/dashboard/index.tsx
+var import_jsx_runtime65 = __toESM(require_jsx_runtime());
+function useDashboardData() {
+  const [version, setVersion] = (0, import_react43.useState)(null);
+  const [contentStats, setContentStats] = (0, import_react43.useState)(null);
+  const [recentActivity, setRecentActivity] = (0, import_react43.useState)([]);
+  const [commitFrequency, setCommitFrequency] = (0, import_react43.useState)([]);
+  const [siteStats, setSiteStats] = (0, import_react43.useState)(null);
+  const [loading, setLoading] = (0, import_react43.useState)(true);
+  (0, import_react43.useEffect)(() => {
+    Promise.all([
+      fetch("/content/en-admin/version.json").then((r) => r.json()),
+      fetch("/content/en-admin/content-stats.json").then((r) => r.json()),
+      fetch("/content/en-admin/recent-activity.json").then((r) => r.json()),
+      fetch("/content/en-admin/commit-frequency.json").then((r) => r.json()),
+      fetch("/content/en-admin/site-stats.json").then((r) => r.json())
+    ]).then(([version2, contentStats2, recentActivity2, commitFrequency2, siteStats2]) => {
+      setVersion(version2);
+      setContentStats(contentStats2);
+      setRecentActivity(recentActivity2);
+      setCommitFrequency(commitFrequency2);
+      setSiteStats(siteStats2);
+    }).finally(() => setLoading(false));
+  }, []);
+  return { version, contentStats, recentActivity, commitFrequency, siteStats, loading };
+}
+var AdminDashboard = () => {
+  const { version, contentStats, recentActivity, commitFrequency, siteStats, loading } = useDashboardData();
+  if (loading) return /* @__PURE__ */ (0, import_jsx_runtime65.jsx)("div", { className: "admin-dashboard admin-dashboard--loading" });
+  return /* @__PURE__ */ (0, import_jsx_runtime65.jsxs)("div", { className: "admin-dashboard", children: [
+    version && /* @__PURE__ */ (0, import_jsx_runtime65.jsx)(
+      AdminUpdates,
+      {
+        data: {
+          currentVersion: version.current,
+          latest: version.latest
+        }
+      }
+    ),
+    contentStats && /* @__PURE__ */ (0, import_jsx_runtime65.jsx)(AdminContentStats, { stats: contentStats }),
+    siteStats && /* @__PURE__ */ (0, import_jsx_runtime65.jsx)(AdminSiteStats, { stats: siteStats }),
+    recentActivity.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime65.jsx)(AdminActivityFeed, { entries: recentActivity }),
+    commitFrequency.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime65.jsx)(AdminCommitSparkline, { frequency: commitFrequency })
+  ] });
+};
+registerComponent({
+  name: "AdminDashboard",
+  component: AdminDashboard,
+  defaults: {}
+});
+
+// app/web/themes/@admin/components/config/footer/index.tsx
+var import_react44 = __toESM(require_react());
+var import_jsx_runtime66 = __toESM(require_jsx_runtime());
 var FooterConfigEditor = ({ data }) => {
   const cfgKey = "footer";
   const initialSocials = data.socials ? Array.isArray(data.socials) ? data.socials : Object.values(data.socials) : [];
-  const [socials, setSocials] = (0, import_react42.useState)(initialSocials);
+  const [socials, setSocials] = (0, import_react44.useState)(initialSocials);
   const addSocial = () => setSocials([...socials, { label: "", href: "" }]);
   const removeSocial = (index) => setSocials(socials.filter((_, i) => i !== index));
-  return /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("div", { className: "cf-footer-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Footer" }),
-    /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("div", { className: "cf-footer-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime60.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime66.jsxs)("div", { className: "cf-footer-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Footer" }),
+    /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("div", { className: "cf-footer-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(
       Field,
       {
         name: `${cfgKey}[copyrightName]`,
@@ -26735,16 +27039,16 @@ var FooterConfigEditor = ({ data }) => {
         required: true
       }
     ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("div", { className: "cf-footer-editor__divider" }),
-    /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("div", { className: "cf-footer-editor__socials", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("div", { className: "cf-footer-editor__socials-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("label", { className: "cf-footer-editor__label", children: "Social Media" }),
-        /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("button", { type: "button", className: "cf-footer-editor__add-btn", onClick: addSocial, children: "+ Add Social" })
+    /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("div", { className: "cf-footer-editor__divider" }),
+    /* @__PURE__ */ (0, import_jsx_runtime66.jsxs)("div", { className: "cf-footer-editor__socials", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime66.jsxs)("div", { className: "cf-footer-editor__socials-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("label", { className: "cf-footer-editor__label", children: "Social Media" }),
+        /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("button", { type: "button", className: "cf-footer-editor__add-btn", onClick: addSocial, children: "+ Add Social" })
       ] }),
-      socials.map((social, index) => /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("div", { className: "cf-footer-editor__social-row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime60.jsx)(Field, { name: `${cfgKey}[socials][${index}][label]`, kind: "input", label: "Platform", defaultValue: social.label }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime60.jsx)(Field, { name: `${cfgKey}[socials][${index}][href]`, kind: "input", label: "URL", defaultValue: social.href }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("button", { type: "button", className: "cf-footer-editor__remove-btn", onClick: () => removeSocial(index), children: "\xD7" })
+      socials.map((social, index) => /* @__PURE__ */ (0, import_jsx_runtime66.jsxs)("div", { className: "cf-footer-editor__social-row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(Field, { name: `${cfgKey}[socials][${index}][label]`, kind: "input", label: "Platform", defaultValue: social.label }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(Field, { name: `${cfgKey}[socials][${index}][href]`, kind: "input", label: "URL", defaultValue: social.href }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("button", { type: "button", className: "cf-footer-editor__remove-btn", onClick: () => removeSocial(index), children: "\xD7" })
       ] }, index))
     ] })
   ] });
@@ -26756,13 +27060,13 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/header/index.tsx
-var import_react43 = __toESM(require_react());
-var import_jsx_runtime61 = __toESM(require_jsx_runtime());
+var import_react45 = __toESM(require_react());
+var import_jsx_runtime67 = __toESM(require_jsx_runtime());
 var HeaderConfigEditor = ({ data }) => {
   const cfgKey = "header";
-  const [isSearching, setIsSearching] = (0, import_react43.useState)(false);
+  const [isSearching, setIsSearching] = (0, import_react45.useState)(false);
   const initialLinks = data.links ? Array.isArray(data.links) ? data.links : Object.values(data.links) : [];
-  const [links, setLinks] = (0, import_react43.useState)(initialLinks);
+  const [links, setLinks] = (0, import_react45.useState)(initialLinks);
   const addCustomLink = () => {
     setLinks([...links, { to: "", label: "New Link", icon: "" }]);
   };
@@ -26777,9 +27081,9 @@ var HeaderConfigEditor = ({ data }) => {
   const removeLink = (index) => {
     setLinks((prev) => [...prev.slice(0, index), ...prev.slice(index + 1)]);
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime61.jsxs)("div", { className: "cf-header-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Header" }),
-    /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("div", { className: "cf-header-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime61.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)("div", { className: "cf-header-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Header" }),
+    /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: "cf-header-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(
       Field,
       {
         name: `${cfgKey}[siteTitle]`,
@@ -26790,12 +27094,12 @@ var HeaderConfigEditor = ({ data }) => {
         required: true
       }
     ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("div", { className: "cf-header-editor__divider" }),
-    /* @__PURE__ */ (0, import_jsx_runtime61.jsxs)("div", { className: "cf-header-editor__links", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime61.jsxs)("div", { className: "cf-header-editor__links-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("label", { className: "cf-header-editor__label", children: "Navigation & Social Icons" }),
-        /* @__PURE__ */ (0, import_jsx_runtime61.jsxs)("div", { className: "cf-header-editor__actions", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime61.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: "cf-header-editor__divider" }),
+    /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)("div", { className: "cf-header-editor__links", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)("div", { className: "cf-header-editor__links-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("label", { className: "cf-header-editor__label", children: "Navigation & Social Icons" }),
+        /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)("div", { className: "cf-header-editor__actions", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(
             "button",
             {
               type: "button",
@@ -26804,7 +27108,7 @@ var HeaderConfigEditor = ({ data }) => {
               children: isSearching ? "Cancel" : "+ Add Existing Page"
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime61.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(
             "button",
             {
               type: "button",
@@ -26815,9 +27119,9 @@ var HeaderConfigEditor = ({ data }) => {
           )
         ] })
       ] }),
-      isSearching && /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("div", { className: "cf-header-editor__search-container", children: /* @__PURE__ */ (0, import_jsx_runtime61.jsx)(PageSearchPicker, { onSelect: addPageLink }) }),
-      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime61.jsxs)("div", { className: "cf-header-editor__link-row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime61.jsx)(
+      isSearching && /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: "cf-header-editor__search-container", children: /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(PageSearchPicker, { onSelect: addPageLink }) }),
+      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)("div", { className: "cf-header-editor__link-row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(
           Field,
           {
             name: `${cfgKey}[links][${index}][to]`,
@@ -26827,7 +27131,7 @@ var HeaderConfigEditor = ({ data }) => {
             required: true
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime61.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(
           Field,
           {
             name: `${cfgKey}[links][${index}][label]`,
@@ -26836,7 +27140,7 @@ var HeaderConfigEditor = ({ data }) => {
             defaultValue: link.label || ""
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime61.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(
           Field,
           {
             name: `${cfgKey}[links][${index}][icon]`,
@@ -26846,7 +27150,7 @@ var HeaderConfigEditor = ({ data }) => {
             placeholder: "fab fa-github"
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime61.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(
           "button",
           {
             type: "button",
@@ -26870,20 +27174,20 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/homepage/index.tsx
-var import_react44 = __toESM(require_react());
-var import_jsx_runtime62 = __toESM(require_jsx_runtime());
+var import_react46 = __toESM(require_react());
+var import_jsx_runtime68 = __toESM(require_jsx_runtime());
 var HomepageEditor = ({ data }) => {
   const cfgKey = "homepage";
-  const [selectedPage, setSelectedPage] = (0, import_react44.useState)(data.homepage);
+  const [selectedPage, setSelectedPage] = (0, import_react46.useState)(data.homepage);
   const handlePageSelect = (page) => {
     setSelectedPage(`/page/${page.id}`);
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime62.jsxs)("div", { className: "cf-homepage-editor", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/HomepageEditor" }),
-    /* @__PURE__ */ (0, import_jsx_runtime62.jsxs)("div", { className: "cf-homepage-editor__group", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("label", { className: "cf-header-editor__label", children: "Default Homepage" }),
-      /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("p", { className: "cf-homepage-editor__help", children: "Select the page that visitors see when they first arrive at your site." }),
-      /* @__PURE__ */ (0, import_jsx_runtime62.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime68.jsxs)("div", { className: "cf-homepage-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/HomepageEditor" }),
+    /* @__PURE__ */ (0, import_jsx_runtime68.jsxs)("div", { className: "cf-homepage-editor__group", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("label", { className: "cf-header-editor__label", children: "Default Homepage" }),
+      /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("p", { className: "cf-homepage-editor__help", children: "Select the page that visitors see when they first arrive at your site." }),
+      /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(
         "input",
         {
           type: "hidden",
@@ -26891,10 +27195,10 @@ var HomepageEditor = ({ data }) => {
           value: selectedPage
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("div", { className: "cf-homepage-editor__picker-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime62.jsx)(PageSearchPicker, { onSelect: handlePageSelect }) }),
-      selectedPage && /* @__PURE__ */ (0, import_jsx_runtime62.jsxs)("div", { className: "cf-homepage-editor__current", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("div", { className: "cf-homepage-editor__picker-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(PageSearchPicker, { onSelect: handlePageSelect }) }),
+      selectedPage && /* @__PURE__ */ (0, import_jsx_runtime68.jsxs)("div", { className: "cf-homepage-editor__current", children: [
         "Currently selected: ",
-        /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("code", { children: selectedPage })
+        /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("code", { children: selectedPage })
       ] })
     ] })
   ] });
@@ -26909,13 +27213,13 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/config/themeselector/index.tsx
-var import_react45 = __toESM(require_react());
-var import_jsx_runtime63 = __toESM(require_jsx_runtime());
+var import_react47 = __toESM(require_react());
+var import_jsx_runtime69 = __toESM(require_jsx_runtime());
 var ThemeSelector = ({ data }) => {
-  const [themes, setThemes] = (0, import_react45.useState)([]);
-  const [selected, setSelected] = (0, import_react45.useState)(data.theme || "default");
-  const [loading, setLoading] = (0, import_react45.useState)(true);
-  (0, import_react45.useEffect)(() => {
+  const [themes, setThemes] = (0, import_react47.useState)([]);
+  const [selected, setSelected] = (0, import_react47.useState)(data.theme || "default");
+  const [loading, setLoading] = (0, import_react47.useState)(true);
+  (0, import_react47.useEffect)(() => {
     const fetchThemes = async () => {
       try {
         const res = await fetch("/content/en-admin/configuration/themes");
@@ -26937,18 +27241,18 @@ var ThemeSelector = ({ data }) => {
     );
     if (inputEl) inputEl.value = themeName;
   };
-  if (loading) return /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("p", { children: "Loading themes..." });
-  if (!themes.length) return /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("p", { children: "No themes found." });
-  return /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("div", { className: "cf-theme-selector", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("input", { type: "hidden", name: "theme[theme]", value: selected }),
-    /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("input", { type: "hidden", name: "theme[component]", value: "Admin/Config/ThemeSelector" }),
-    /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("div", { className: "cf-theme-selector__grid", children: themes.map((theme) => /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)(
+  if (loading) return /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("p", { children: "Loading themes..." });
+  if (!themes.length) return /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("p", { children: "No themes found." });
+  return /* @__PURE__ */ (0, import_jsx_runtime69.jsxs)("div", { className: "cf-theme-selector", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("input", { type: "hidden", name: "theme[theme]", value: selected }),
+    /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("input", { type: "hidden", name: "theme[component]", value: "Admin/Config/ThemeSelector" }),
+    /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("div", { className: "cf-theme-selector__grid", children: themes.map((theme) => /* @__PURE__ */ (0, import_jsx_runtime69.jsxs)(
       "div",
       {
         className: `cf-theme-selector__item ${selected === theme.key ? "selected" : ""}`,
         onClick: () => handleSelect(theme.name),
         children: [
-          theme.previewImage && /* @__PURE__ */ (0, import_jsx_runtime63.jsx)(
+          theme.previewImage && /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
             "img",
             {
               className: "cf-theme-selector__preview",
@@ -26956,10 +27260,10 @@ var ThemeSelector = ({ data }) => {
               alt: `${theme.name} preview`
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("div", { className: "cf-theme-selector__info", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("strong", { children: theme.name }),
-            /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("small", { children: theme.vendor }),
-            /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("span", { className: "cf-theme-selector__version", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime69.jsxs)("div", { className: "cf-theme-selector__info", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("strong", { children: theme.name }),
+            /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("small", { children: theme.vendor }),
+            /* @__PURE__ */ (0, import_jsx_runtime69.jsxs)("span", { className: "cf-theme-selector__version", children: [
               theme.version.major,
               ".",
               theme.version.minor,
@@ -26967,7 +27271,7 @@ var ThemeSelector = ({ data }) => {
               theme.version.patch
             ] })
           ] }),
-          selected === theme.name && /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { className: "cf-theme-selector__selected-badge", children: "\u2714" })
+          selected === theme.name && /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("span", { className: "cf-theme-selector__selected-badge", children: "\u2714" })
         ]
       },
       theme.name
@@ -26983,94 +27287,20 @@ registerComponent({
   component: ThemeSelector
 });
 
-// app/web/themes/@admin/components/updates/update-status.tsx
-var import_react46 = __toESM(require_react());
-var import_jsx_runtime64 = __toESM(require_jsx_runtime());
-var AdminUpdates = ({ data }) => {
-  const { currentVersion, latest } = data;
-  const isUnknown = latest === "Unknown";
-  const needsUpdate = !isUnknown && currentVersion !== latest;
-  const [updateState, setUpdateState] = (0, import_react46.useState)("idle");
-  const [errorMessage, setErrorMessage] = (0, import_react46.useState)(null);
-  const runUpdate = async () => {
-    setUpdateState("running");
-    setErrorMessage(null);
-    try {
-      const response = await fetch("/content/en-admin/update");
-      const result = await response.json();
-      if (result.success) {
-        setUpdateState("done");
-      } else {
-        setErrorMessage(result.message ?? "An unknown error occurred.");
-        setUpdateState("error");
-      }
-    } catch (e) {
-      setErrorMessage(e?.message ?? "Failed to reach the update endpoint.");
-      setUpdateState("error");
-    }
-  };
-  return /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "admin-updates", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("header", { className: "admin-updates__header", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("h3", { className: "admin-updates__title", children: "System Status" }),
-      /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { className: `admin-updates__dot ${isUnknown ? "is-syncing" : "is-active"}` })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "admin-updates__content", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "admin-updates__row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { className: "admin-updates__label", children: "Current Version" }),
-        /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("span", { className: "admin-updates__value", children: [
-          "v",
-          currentVersion
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "admin-updates__row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { className: "admin-updates__label", children: "Latest Release" }),
-        /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { className: `admin-updates__badge ${isUnknown ? "is-pending" : "is-success"}`, children: isUnknown ? "Checking..." : `v${latest}` })
-      ] })
-    ] }),
-    needsUpdate && updateState === "idle" && /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("button", { className: "admin-updates__button", onClick: runUpdate, children: [
-      "Update to v",
-      latest
-    ] }),
-    updateState === "running" && /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "admin-updates__status is-running", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { className: "admin-updates__spinner" }),
-      /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { children: "Updating, please wait\u2026" })
-    ] }),
-    updateState === "done" && /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "admin-updates__status is-done", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { className: "admin-updates__status-icon", children: "\u2713" }),
-      /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { children: "Update complete. Please restart the process for changes to take effect." })
-    ] }),
-    updateState === "error" && /* @__PURE__ */ (0, import_jsx_runtime64.jsxs)("div", { className: "admin-updates__status is-error", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { className: "admin-updates__status-icon", children: "\u2715" }),
-      /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("span", { children: errorMessage }),
-      /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("button", { className: "admin-updates__button is-retry", onClick: runUpdate, children: "Retry" })
-    ] })
-  ] });
-};
-registerComponent({
-  name: "AdminUpdates",
-  component: AdminUpdates,
-  defaults: {
-    data: {
-      currentVersion: "1.0.0",
-      latest: "Unknown"
-    }
-  }
-});
-
 // app/web/themes/@admin/components/documentation-selector/index.tsx
-var import_react47 = __toESM(require_react());
-var import_jsx_runtime65 = __toESM(require_jsx_runtime());
+var import_react48 = __toESM(require_react());
+var import_jsx_runtime70 = __toESM(require_jsx_runtime());
 var DocumentationSelector = (props) => {
   const { data } = props;
   const { label, name, value: initialValue } = data;
-  const [searchTerm, setSearchTerm] = (0, import_react47.useState)("");
-  const [results, setResults] = (0, import_react47.useState)([]);
-  const [selectedValue, setSelectedValue] = (0, import_react47.useState)(initialValue || "");
-  const [selectedParent, setSelectedParent] = (0, import_react47.useState)(null);
-  const [isOpen, setIsOpen] = (0, import_react47.useState)(false);
-  const [isLoading, setIsLoading] = (0, import_react47.useState)(false);
-  const wrapperRef = (0, import_react47.useRef)(null);
-  (0, import_react47.useEffect)(() => {
+  const [searchTerm, setSearchTerm] = (0, import_react48.useState)("");
+  const [results, setResults] = (0, import_react48.useState)([]);
+  const [selectedValue, setSelectedValue] = (0, import_react48.useState)(initialValue || "");
+  const [selectedParent, setSelectedParent] = (0, import_react48.useState)(null);
+  const [isOpen, setIsOpen] = (0, import_react48.useState)(false);
+  const [isLoading, setIsLoading] = (0, import_react48.useState)(false);
+  const wrapperRef = (0, import_react48.useRef)(null);
+  (0, import_react48.useEffect)(() => {
     const loadSelected = async () => {
       if (!selectedValue) return;
       setIsLoading(true);
@@ -27090,7 +27320,7 @@ var DocumentationSelector = (props) => {
     };
     loadSelected();
   }, [selectedValue]);
-  (0, import_react47.useEffect)(() => {
+  (0, import_react48.useEffect)(() => {
     const fetchDocs = async () => {
       if (!isOpen || !searchTerm) return;
       setIsLoading(true);
@@ -27108,7 +27338,7 @@ var DocumentationSelector = (props) => {
     const timeoutId = setTimeout(fetchDocs, 300);
     return () => clearTimeout(timeoutId);
   }, [searchTerm, isOpen]);
-  (0, import_react47.useEffect)(() => {
+  (0, import_react48.useEffect)(() => {
     const handleClickOutside = (event) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setIsOpen(false);
@@ -27128,17 +27358,17 @@ var DocumentationSelector = (props) => {
     setSelectedParent(null);
     setSearchTerm("");
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime65.jsxs)("div", { className: "documentation-selector-container", ref: wrapperRef, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime65.jsxs)("div", { className: "selector-header", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime65.jsx)("label", { className: "selector-label", children: label }),
-      selectedParent && /* @__PURE__ */ (0, import_jsx_runtime65.jsxs)("span", { className: "selected-badge", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: "documentation-selector-container", ref: wrapperRef, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: "selector-header", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("label", { className: "selector-label", children: label }),
+      selectedParent && /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("span", { className: "selected-badge", children: [
         "ID: ",
         selectedValue
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime65.jsxs)("div", { className: `selector-wrapper ${isOpen ? "is-open" : ""} ${isLoading ? "is-loading" : ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime65.jsxs)("div", { className: "input-group", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime65.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: `selector-wrapper ${isOpen ? "is-open" : ""} ${isLoading ? "is-loading" : ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: "input-group", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(
           "input",
           {
             type: "text",
@@ -27149,25 +27379,25 @@ var DocumentationSelector = (props) => {
             onChange: (e) => setSearchTerm(e.target.value)
           }
         ),
-        searchTerm && /* @__PURE__ */ (0, import_jsx_runtime65.jsx)("button", { type: "button", className: "clear-btn", onClick: clearSelection, children: "\xD7" })
+        searchTerm && /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("button", { type: "button", className: "clear-btn", onClick: clearSelection, children: "\xD7" })
       ] }),
-      isOpen && /* @__PURE__ */ (0, import_jsx_runtime65.jsx)("ul", { className: "results-dropdown", children: results.length > 0 ? results.map((doc) => /* @__PURE__ */ (0, import_jsx_runtime65.jsxs)(
+      isOpen && /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("ul", { className: "results-dropdown", children: results.length > 0 ? results.map((doc) => /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)(
         "li",
         {
           onClick: () => handleSelect(doc),
           className: selectedValue === doc.id ? "is-selected" : "",
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime65.jsxs)("span", { className: "doc-id", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("span", { className: "doc-id", children: [
               "#",
               doc.id
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime65.jsx)("span", { className: "doc-text", children: doc.pageTitle || doc.title })
+            /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("span", { className: "doc-text", children: doc.pageTitle || doc.title })
           ]
         },
         doc.id
-      )) : /* @__PURE__ */ (0, import_jsx_runtime65.jsx)("li", { className: "no-results", children: isLoading ? "Searching..." : "No documents found" }) })
+      )) : /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("li", { className: "no-results", children: isLoading ? "Searching..." : "No documents found" }) })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime65.jsx)("input", { type: "hidden", name, value: selectedValue })
+    /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("input", { type: "hidden", name, value: selectedValue })
   ] });
 };
 registerComponent({
@@ -27180,19 +27410,19 @@ registerComponent({
 });
 
 // app/web/themes/@admin/index.tsx
-var import_jsx_runtime66 = __toESM(require_jsx_runtime());
+var import_jsx_runtime71 = __toESM(require_jsx_runtime());
 var AdminThemeWrapper = (props) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime66.jsxs)("div", { className: "codefolio-default-admin", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(AdminHeader, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("div", { className: "content", children: props.children })
+  return /* @__PURE__ */ (0, import_jsx_runtime71.jsxs)("div", { className: "codefolio-default-admin", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime71.jsx)(AdminHeader, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime71.jsx)("div", { className: "content", children: props.children })
   ] });
 };
 registerTheme("@admin", AdminThemeWrapper);
 
 // app/web/index.tsx
-var import_jsx_runtime67 = __toESM(require_jsx_runtime());
+var import_jsx_runtime72 = __toESM(require_jsx_runtime());
 var root = (0, import_client.createRoot)(document.getElementById("root"));
-root.render(/* @__PURE__ */ (0, import_jsx_runtime67.jsx)(Page, {}));
+root.render(/* @__PURE__ */ (0, import_jsx_runtime72.jsx)(Page, {}));
 /*! Bundled license information:
 
 scheduler/cjs/scheduler.development.js:

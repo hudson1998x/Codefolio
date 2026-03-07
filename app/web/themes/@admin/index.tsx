@@ -3,6 +3,7 @@ import { AdminHeader } from "./header";
 import { FC, PropsWithChildren } from "react";
 import './pages/config/config.scss'
 import './pages/media-gallery'
+import './pages/dashboard'
 import './components/loader'
 import './components/documentation-selector'
 import './style.scss'

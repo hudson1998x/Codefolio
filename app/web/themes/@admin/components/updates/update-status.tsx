@@ -4,7 +4,7 @@ import "./style.scss";
 
 type UpdateState = "idle" | "running" | "done" | "error";
 
-const AdminUpdates: FC<CodefolioProps> = ({ data }) => {
+export const AdminUpdates: FC<CodefolioProps> = ({ data }) => {
   const { currentVersion, latest } = data;
   const isUnknown = latest === "Unknown";
   const needsUpdate = !isUnknown && currentVersion !== latest;
