@@ -12,6 +12,7 @@
 import { createRoot } from "react-dom/client";
 import { Page } from "./thirdparty/page";
 import './themes/';
+import './user/index'
 
 const root = createRoot(document.getElementById("root")!);
 
