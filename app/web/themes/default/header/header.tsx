@@ -70,7 +70,7 @@ interface HeaderConfig {
  * ```
  */
 export const Header: React.FC = () => {
-  const { path } = useRouter();
+  const { path } = useRouter(); // This hook gives us the current URL
   const config = useModuleConfig<HeaderConfig>(headerDefaults.key, headerDefaults.config);
 
   const isExternal = (to: string) => to.startsWith("http");
@@ -83,30 +83,30 @@ export const Header: React.FC = () => {
         </div>
 
         <nav className="nav nav-tabs border-0">
-          {config?.links?.map((item: Link) => (
-            isExternal(item.to) ? (
+          {config?.links?.map((item: Link) => {
+            // 1. Check if this specific link is the current active route
+            const isActive = path === item.to || path === item.to + '/';
+            
+            // 2. Build the class string dynamically
+            const navClass = [
+              "nav-link border-0",
+              isActive ? "active" : "",
+              item.icon && item.label ? "iconised-label" : ""
+            ].join(" ");
+
+            return (
               <a
                 key={item.to}
-                href={item.to}
-                className={"nav-link border-0" + (Boolean(item.icon && item.label) ? ' iconised-label' : '')}
-                target="_blank"
+                href={isExternal(item.to) ? item.to : getSafeUrl(item.to)}
+                className={navClass}
+                target={isExternal(item.to) ? "_blank" : undefined}
                 rel="noopener noreferrer"
               >
-                {item.icon  ? <i className={item.icon} /> : null}
-                {item.label ? <span>{item.label}</span>  : null}
+                {item.icon ? <i className={item.icon} /> : null}
+                {item.label ? <span>{item.label}</span> : null}
               </a>
-            ) : (
-              <a
-                key={item.to}
-                href={getSafeUrl(item.to)}
-                className={"nav-link border-0" + (Boolean(item.icon && item.label) ? ' iconised-label' : '')}
-                rel="noopener noreferrer"
-              >
-                {item.icon  ? <i className={item.icon} /> : null}
-                {item.label ? <span>{item.label}</span>  : null}
-              </a>
-            )
-          ))}
+            );
+          })}
         </nav>
       </div>
     </header>

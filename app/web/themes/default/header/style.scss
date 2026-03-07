@@ -1,45 +1,97 @@
-// Header styling for the Default Theme
+// Configuration Variables
+$header-height: 72px;
+$transition-speed: 0.25s;
+$nav-gap: 2rem;
+
 .theme-header {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8); // Frosted glass effect
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 1020;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+  transition: all $transition-speed ease;
 
-  .nav-logo {
-    letter-spacing: 1px;
-    color: var(--bs-primary);
+  .container {
+    height: $header-height;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
+  // Wordmark / Logo
+  .nav-logo {
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    font-weight: 800; // Extra bold for that tech brand look
+    
+    a {
+      color: #1a202c;
+      text-decoration: none;
+      transition: opacity $transition-speed;
+      
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  // Navigation Links
   .nav-tabs {
-    // Requirement: Ensure tabs/container are displayed even if empty
     display: flex !important;
-    min-width: 200px; 
-    min-height: 45px;
-    align-items: flex-end;
+    align-items: center;
+    gap: $nav-gap;
+    border: none !important; // Kill the bootstrap tab line
 
     .nav-link {
-      color: var(--bs-secondary);
+      padding: 0.5rem 0;
+      font-size: 0.95rem;
       font-weight: 500;
-      transition: color 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
-      border-radius: 0;
-      background: transparent;
+      color: #64748b; // Muted slate
+      background: none !important;
+      border: none !important;
+      position: relative;
+      transition: color $transition-speed ease;
 
-      &.iconised-label 
-      {
+      // The "Clean" Underline Indicator
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--bs-primary);
+        transition: width $transition-speed ease;
+      }
+
+      &.iconised-label {
+        display: flex;
+        align-items: center;
+        
         i {
-          margin-right: 5px;
+          margin-right: 8px;
+          font-size: 1.1rem;
         }
       }
 
       &:hover {
-        color: var(--bs-dark);
-        border-bottom: 2px solid var(--bs-gray-400);
+        color: #1a202c;
+        
+        &::after {
+          width: 100%;
+        }
       }
 
+      // Active State
       &.active {
         color: var(--bs-primary) !important;
-        background-color: transparent !important;
-        border-bottom: 2px solid var(--bs-primary) !important;
+        
+        &::after {
+          width: 100%;
+          background-color: var(--bs-primary);
+        }
       }
     }
   }

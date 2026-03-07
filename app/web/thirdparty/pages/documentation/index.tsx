@@ -7,11 +7,31 @@ import { getSafeUrl } from "../../utils/safe-url";
 interface DocNode {
     id: number;
     pageTitle: string;
-    parentPage: string | number;
+    parentPage: string | number; // "0" = root level
     [key: string]: any;
 }
 
-export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
+// Extracts the document ID from URLs of the form /documents/:id
+const getCurrentDocId = (): number | null => {
+    const match = window.location.pathname.match(/\/documents\/(\d+)/);
+    return match ? parseInt(match[1], 10) : null;
+};
+
+// Walks up the parentPage chain from a given doc ID, collecting all ancestor IDs.
+// Used to ensure the sidebar path to the active page is fully expanded on load.
+const getAncestorIds = (docs: DocNode[], startId: number): Set<number> => {
+    const ancestors = new Set<number>();
+    let current = docs.find(d => d.id === startId);
+    while (current && String(current.parentPage) !== "0") {
+        const parent = docs.find(d => String(d.id) === String(current!.parentPage));
+        if (!parent) break;
+        ancestors.add(parent.id);
+        current = parent;
+    }
+    return ancestors;
+};
+
+export const DocumentationPage: FC<CodefolioProps<{ title: string, pageDescription: string }>> = ({ children, data }) => {
     const [docs, setDocs] = useState<DocNode[]>([]);
     const [filter, setFilter] = useState("");
     const [isLoading, setIsLoading] = useState(true);
@@ -19,6 +39,11 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
     const [collapsed, setCollapsed] = useState<Set<number>>(new Set());
     const [initialised, setInitialised] = useState(false);
 
+    // Captured once on mount — never changes during the page lifecycle
+    const [currentDocId] = useState<number | null>(() => getCurrentDocId());
+
+    // Streams the NDJSON doc index line-by-line, parsing each entry as it arrives
+    // rather than waiting for the full payload to land
     useEffect(() => {
         const loadStaticDocs = async () => {
             setIsLoading(true);
@@ -31,6 +56,7 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
 
                 if (!reader) return;
 
+                // Keep a rolling buffer for lines that span chunk boundaries
                 let partialChunk = "";
                 while (true) {
                     const { done, value } = await reader.read();
@@ -38,6 +64,7 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
 
                     const chunk = partialChunk + decoder.decode(value, { stream: true });
                     const lines = chunk.split("\n");
+                    // The last element may be an incomplete line — carry it forward
                     partialChunk = lines.pop() || "";
 
                     for (const line of lines) {
@@ -61,7 +88,10 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
         loadStaticDocs();
     }, []);
 
-    // Once docs load, collapse everything except the first root-level node
+    // Runs once after docs are loaded. Sets up the initial collapsed state:
+    // - All nodes with children are collapsed by default
+    // - The first root node is expanded as a sensible starting point
+    // - Any ancestor of the current page is expanded so the active item is always visible
     useEffect(() => {
         if (initialised || docs.length === 0) return;
 
@@ -72,13 +102,23 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
                 .map(d => d.id)
         );
 
-        // Collapse all nodes that have children, except the first root node
         const initialCollapsed = new Set(allWithChildren);
+
+        // Always show the first root section open on initial load
         if (rootNodes[0]) initialCollapsed.delete(rootNodes[0].id);
+
+        // Ensure the full path to the current page is expanded
+        if (currentDocId !== null) {
+            const ancestors = getAncestorIds(docs, currentDocId);
+            ancestors.forEach(id => initialCollapsed.delete(id));
+
+            // Also expand the current node if it has children
+            initialCollapsed.delete(currentDocId);
+        }
 
         setCollapsed(initialCollapsed);
         setInitialised(true);
-    }, [docs, initialised]);
+    }, [docs, initialised, currentDocId]);
 
     const toggleCollapsed = useCallback((id: number) => {
         setCollapsed(prev => {
@@ -92,8 +132,9 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
         docs.some(d => String(d.parentPage) === String(id)),
     [docs]);
 
-    // Build the full set of IDs that should be visible when filtering:
-    // matched nodes + all their ancestors up to root
+    // Returns the set of doc IDs that should be visible when a filter is active.
+    // Includes both matched nodes and all their ancestors, so the tree path
+    // to each result is always shown.
     const getVisibleIds = useCallback((search: string): Set<number> => {
         if (!search) return new Set();
 
@@ -124,6 +165,8 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
         return visible;
     }, [docs]);
 
+    // Recursively renders the sidebar tree from a given parent ID.
+    // When filtering, collapse state is ignored — all matched paths are shown fully expanded.
     const renderTree = (
         parentId: string | number = "0",
         level = 0,
@@ -143,8 +186,9 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
             <div className="tree-group">
                 {childrenNodes.map(doc => {
                     const nodeHasChildren = hasChildren(doc.id);
-                    // When filtering, never hide children — expand everything in the matched path
+                    // Filtering always overrides collapse — show the full matched path
                     const isCollapsed = !isFiltering && collapsed.has(doc.id);
+                    const isActive = doc.id === currentDocId;
 
                     return (
                         <div key={doc.id} className="tree-item-container">
@@ -162,7 +206,11 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
                                 ) : (
                                     <span className="collapse-btn-spacer" />
                                 )}
-                                <a href={getSafeUrl(`/documents/${doc.id}`)} className="nav-link">
+                                <a
+                                    href={getSafeUrl(`/documents/${doc.id}`)}
+                                    className={`nav-link${isActive ? " is-active" : ""}`}
+                                    aria-current={isActive ? "page" : undefined}
+                                >
                                     {doc.pageTitle}
                                 </a>
                             </div>
@@ -227,5 +275,8 @@ export const DocumentationPage: FC<CodefolioProps> = ({ children, data }) => {
 registerComponent({
     name: 'Core/DocumentationPage',
     component: DocumentationPage,
-    defaults: {}
+    defaults: {
+        title: 'Untitled',
+        pageDescription: 'No description'
+    }
 });

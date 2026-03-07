@@ -1,0 +1,87 @@
+// Theme Variables
+$color-heading: #1a202c;
+$color-body: #4a5568;
+$max-content-width: 1000px;
+$section-padding: 6rem;
+$mobile-break: 768px;
+
+.codefolio-prefab-render {
+  padding: $section-padding 1.5rem;
+  overflow: hidden;
+
+  .cf-grid {
+    max-width: $max-content-width;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center; // Vertically centers text and image
+
+    @media (min-width: $mobile-break) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem; // Large gap creates the "clean" feel
+    }
+
+    // --- Specific Layout Logic ---
+    
+    &.text-left-image-right {
+      flex-direction: column-reverse; // Image on top for mobile
+      @media (min-width: $mobile-break) {
+        flex-direction: row;
+      }
+    }
+
+    &.image-left-text-right {
+      // Flex-direction column (default) keeps image on top for mobile
+      @media (min-width: $mobile-break) {
+        // No change needed for desktop grid
+      }
+    }
+  }
+
+  // --- Content Styling ---
+
+  .cf-col {
+    width: 100%;
+  }
+
+  .cf-typography {
+    &.tag-h3 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: $color-heading;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    &.tag-p {
+      font-size: 1.125rem;
+      line-height: 1.75;
+      color: $color-body;
+    }
+  }
+
+  // --- The Image "Clean Up" ---
+
+  .cf-img {
+    display: block;
+    width: 100%;
+    max-width: 500px; // Prevents the image from being "yacky" and huge
+    margin: 0 auto;
+    height: auto;
+    border-radius: 12px;
+    
+    // Soft UI shadow
+    box-shadow: 
+      0 10px 15px -3px rgba(0, 0, 0, 0.05),
+      0 4px 6px -2px rgba(0, 0, 0, 0.02);
+    
+    // Smooth entrance
+    transition: transform 0.3s ease-in-out;
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+}

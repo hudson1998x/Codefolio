@@ -89,8 +89,12 @@ export const CanvasEditor: React.FC<CodefolioProps<{ value: string; name: string
           if (key === 'prefabJson' && typeof val === 'string') {
             try { 
               const parsed = JSON.parse(val); 
-              processed = Array.isArray(parsed) ? parsed : [parsed];
+              // Deep clone the parsed result to ensure full isolation
+              processed = structuredClone(Array.isArray(parsed) ? parsed : [parsed]);
             } catch { processed = val; }
+          } else {
+            // Deep clone any value being stored to prevent shared references
+            try { processed = structuredClone(val); } catch { processed = val; }
           }
           return { ...n, data: { ...n.data, [key]: processed } };
         }
@@ -100,28 +104,28 @@ export const CanvasEditor: React.FC<CodefolioProps<{ value: string; name: string
     });
   }, [selectedId]);
 
-const addNode = (name: string, targetId?: NodeId, position: 'before' | 'inside' = 'inside', prefabData?: any) => {
-  const def = getComponent(name);
-  
-  let finalData = {};
+  const addNode = (name: string, targetId?: NodeId, position: 'before' | 'inside' = 'inside', prefabData?: any) => {
+    const def = getComponent(name);
+    
+    let finalData = {};
 
-  if (name === "Prefab" && prefabData) {
-    // This data is already a fresh copy because it was parsed from the DragEvent string
-    finalData = {
-      prefabName: prefabData.prefabName || '',
-      prefabJson: prefabData.prefabJson || []
+    if (name === "Prefab" && prefabData) {
+      // Deep clone the entire prefabData to fully isolate this node's data
+      // from the drag event source and from any other Prefab nodes
+      finalData = {
+        prefabName: prefabData.prefabName || '',
+        prefabJson: structuredClone(prefabData.prefabJson || [])
+      };
+    } else {
+      finalData = def?.defaults ? structuredClone(def.defaults) : {};
+    }
+
+    const newNode: CanvasNode = {
+      id: crypto.randomUUID(),
+      component: name,
+      data: finalData,
+      children: [],
     };
-  } else {
-    // For regular components, keep your existing structuredClone
-    finalData = def?.defaults ? structuredClone(def.defaults) : {};
-  }
-
-  const newNode: CanvasNode = {
-    id: crypto.randomUUID(),
-    component: name,
-    data: finalData,
-    children: [],
-  };
 
     setNodes(prev => {
       const treeClone = structuredClone(prev);
@@ -136,16 +140,14 @@ const addNode = (name: string, targetId?: NodeId, position: 'before' | 'inside' 
           }
           return { ...n, children: insert(n.children) };
         });
-        // Handle 'before' logic here if needed, omitted for brevity
       };
       
-      // Simple push if no specific target logic hit
       if (position === 'before') {
-          const idx = treeClone.findIndex(n => n.id === targetId);
-          if (idx > -1) {
-              treeClone.splice(idx, 0, newNode);
-              return treeClone;
-          }
+        const idx = treeClone.findIndex(n => n.id === targetId);
+        if (idx > -1) {
+          treeClone.splice(idx, 0, newNode);
+          return treeClone;
+        }
       }
 
       return insert(treeClone);
@@ -211,7 +213,6 @@ const addNode = (name: string, targetId?: NodeId, position: 'before' | 'inside' 
     <div className="canvas-editor">
       <input type="hidden" name={data.name} value={getSerializedNodes()} />
       <span className="editor-label">
-        
         {
         // @ts-ignore TODO: Alter type definition to allow optional label. 
         data?.label ?? ''}
@@ -248,18 +249,15 @@ const addNode = (name: string, targetId?: NodeId, position: 'before' | 'inside' 
             <div className="section-title" style={{marginTop: '2rem'}}><i className="fas fa-layer-group" /> Prefabs</div>
             <div className="palette-grid">
               {prefabs.map(p => (
-                // Inside your prefabs.map in the sidebar
                 <div 
                   key={p.id} 
                   className="palette-item prefab-item" 
                   draggable 
                   onDragStart={(e) => {
-                    // PASS ONLY THE SERIALIZED STRING
-                    // This makes it impossible for the Canvas to "reach back" to the Sidebar
                     e.dataTransfer.setData("componentName", "Prefab");
                     e.dataTransfer.setData("prefabData", JSON.stringify({
                       prefabName: p.prefabName,
-                      prefabJson: p.prefabJson // This gets flattened to a string here
+                      prefabJson: p.prefabJson
                     }));
                   }}
                 >
@@ -296,7 +294,7 @@ const addNode = (name: string, targetId?: NodeId, position: 'before' | 'inside' 
                     <div className="editing-badge">{activeNode.component}</div>
                     {Object.keys(activeDef?.fields || activeDef?.defaults || {}).map(key => (
                       <PropField
-                        key={key}
+                        key={`${selectedId}-${key}`}   // <-- was just key={key}
                         propKey={key}
                         value={activeNode.data[key]}
                         meta={activeDef?.fields?.[key]}

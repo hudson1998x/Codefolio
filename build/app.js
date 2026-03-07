@@ -21974,9 +21974,12 @@ var registerTheme = (name, theme) => {
   _themeRoots[name] = theme;
 };
 var ThemeLoader = ({ children }) => {
-  const { config } = useConfig();
+  const config = useConfig();
   const { path } = useRouter();
-  const themeName = config?.theme?.theme ?? (path.startsWith("/en-admin/") || path === "/en-admin" ? "@admin" : "default");
+  let themeName = config?.theme?.theme ?? (path.startsWith("/en-admin/") || path === "/en-admin" ? "@admin" : "default");
+  if (path.startsWith("/en-admin/") || path == "/en-admin") {
+    themeName = "@admin";
+  }
   const Theme = _themeRoots[themeName];
   if (!Theme) {
     console.warn(`Theme "${themeName}" not found, falling back to default`);
@@ -22615,11 +22618,23 @@ var PropField = ({ propKey, value, meta, onChange }) => {
   const label = meta?.label || propKey.replace(/([A-Z])/g, " $1").trim();
   const type = meta?.type || "text";
   const [jsonError, setJsonError] = (0, import_react13.useState)(null);
+  const isMounted = (0, import_react13.useRef)(true);
+  (0, import_react13.useEffect)(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+  const safeOnChange = (val) => {
+    if (isMounted.current) onChange(val);
+  };
   const handleJsonChange = (val) => {
-    onChange(val);
     try {
       if (val && typeof val === "string" && val.trim() !== "") {
-        JSON.parse(val);
+        const parsed = JSON.parse(val);
+        safeOnChange(parsed);
+      } else {
+        safeOnChange(val);
       }
       setJsonError(null);
     } catch (e) {
@@ -22628,34 +22643,35 @@ var PropField = ({ propKey, value, meta, onChange }) => {
   };
   const renderField = () => {
     if (type === "image-uploader") {
-      return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(ImageUploader, { value, onChange });
+      return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(ImageUploader, { value, onChange: safeOnChange });
     }
     if (type === "prefab-editor") {
-      return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(PrefabEditor, { value, onChange: handleJsonChange });
+      return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(PrefabEditor, { value, onChange: safeOnChange });
     }
     if (type === "page-picker") {
-      return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(LinkPicker, { value, onChange });
+      return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(LinkPicker, { value, onChange: safeOnChange });
     }
     if (type === "select" && meta?.options) {
-      return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("select", { value: value || "", onChange: (e) => onChange(e.target.value), children: meta.options.map((opt) => /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("option", { value: opt, children: opt }, opt)) });
+      return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("select", { value: value || "", onChange: (e) => safeOnChange(e.target.value), children: meta.options.map((opt) => /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("option", { value: opt, children: opt }, opt)) });
     }
     if (type === "textarea") {
       return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
         "textarea",
         {
           value: value || "",
-          onChange: (e) => onChange(e.target.value),
+          onChange: (e) => safeOnChange(e.target.value),
           rows: 6
         }
       );
     }
     if (type === "json") {
+      const displayValue = typeof value === "string" ? value : JSON.stringify(value, null, 2);
       return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "json-field", children: [
         /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
           "textarea",
           {
             className: `json-field__textarea ${jsonError ? "has-error" : "is-valid"}`,
-            value: typeof value === "string" ? value : JSON.stringify(value, null, 2),
+            value: displayValue,
             onChange: (e) => handleJsonChange(e.target.value),
             rows: 10,
             spellCheck: false
@@ -22672,7 +22688,7 @@ var PropField = ({ propKey, value, meta, onChange }) => {
           {
             type: "button",
             className: `toggle ${isActive ? "active" : ""}`,
-            onClick: () => onChange(!isActive ? "true" : "false"),
+            onClick: () => safeOnChange(!isActive ? "true" : "false"),
             children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "toggle-thumb" })
           }
         ),
@@ -22684,7 +22700,7 @@ var PropField = ({ propKey, value, meta, onChange }) => {
       {
         type: "text",
         value: value || "",
-        onChange: (e) => onChange(e.target.value)
+        onChange: (e) => safeOnChange(e.target.value)
       }
     );
   };
@@ -22873,7 +22889,13 @@ var CanvasEditor = ({ data, onChange }) => {
           if (key === "prefabJson" && typeof val === "string") {
             try {
               const parsed = JSON.parse(val);
-              processed = Array.isArray(parsed) ? parsed : [parsed];
+              processed = structuredClone(Array.isArray(parsed) ? parsed : [parsed]);
+            } catch {
+              processed = val;
+            }
+          } else {
+            try {
+              processed = structuredClone(val);
             } catch {
               processed = val;
             }
@@ -22891,7 +22913,7 @@ var CanvasEditor = ({ data, onChange }) => {
     if (name === "Prefab" && prefabData) {
       finalData = {
         prefabName: prefabData.prefabName || "",
-        prefabJson: prefabData.prefabJson || []
+        prefabJson: structuredClone(prefabData.prefabJson || [])
       };
     } else {
       finalData = def?.defaults ? structuredClone(def.defaults) : {};
@@ -23007,28 +23029,24 @@ var CanvasEditor = ({ data, onChange }) => {
           /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("i", { className: "fas fa-layer-group" }),
           " Prefabs"
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "palette-grid", children: prefabs.map((p) => (
-          // Inside your prefabs.map in the sidebar
-          /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
-            "div",
-            {
-              className: "palette-item prefab-item",
-              draggable: true,
-              onDragStart: (e) => {
-                e.dataTransfer.setData("componentName", "Prefab");
-                e.dataTransfer.setData("prefabData", JSON.stringify({
-                  prefabName: p.prefabName,
-                  prefabJson: p.prefabJson
-                  // This gets flattened to a string here
-                }));
-              },
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("i", { className: "fas fa-clone" }),
-                /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { children: p.prefabName })
-              ]
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "palette-grid", children: prefabs.map((p) => /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+          "div",
+          {
+            className: "palette-item prefab-item",
+            draggable: true,
+            onDragStart: (e) => {
+              e.dataTransfer.setData("componentName", "Prefab");
+              e.dataTransfer.setData("prefabData", JSON.stringify({
+                prefabName: p.prefabName,
+                prefabJson: p.prefabJson
+              }));
             },
-            p.id
-          )
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("i", { className: "fas fa-clone" }),
+              /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { children: p.prefabName })
+            ]
+          },
+          p.id
         )) })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("main", { className: "workspace-container", onClick: () => setSelectedId(null), children: [
@@ -23059,7 +23077,7 @@ var CanvasEditor = ({ data, onChange }) => {
                 meta: activeDef?.fields?.[key],
                 onChange: (val) => updateNodeData(key, val)
               },
-              key
+              `${selectedId}-${key}`
             ))
           ] }) : /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "empty-hint", children: "Select a block to edit" }) })
         ] }),
@@ -25487,6 +25505,21 @@ registerComponent({ component: BlogPage, name: "Blog/Index", defaults: {} });
 // app/web/thirdparty/pages/documentation/index.tsx
 var import_react33 = __toESM(require_react());
 var import_jsx_runtime48 = __toESM(require_jsx_runtime());
+var getCurrentDocId = () => {
+  const match = window.location.pathname.match(/\/documents\/(\d+)/);
+  return match ? parseInt(match[1], 10) : null;
+};
+var getAncestorIds = (docs, startId) => {
+  const ancestors = /* @__PURE__ */ new Set();
+  let current = docs.find((d) => d.id === startId);
+  while (current && String(current.parentPage) !== "0") {
+    const parent = docs.find((d) => String(d.id) === String(current.parentPage));
+    if (!parent) break;
+    ancestors.add(parent.id);
+    current = parent;
+  }
+  return ancestors;
+};
 var DocumentationPage = ({ children, data }) => {
   const [docs, setDocs] = (0, import_react33.useState)([]);
   const [filter, setFilter] = (0, import_react33.useState)("");
@@ -25494,6 +25527,7 @@ var DocumentationPage = ({ children, data }) => {
   const [isSidebarOpen, setSidebarOpen] = (0, import_react33.useState)(true);
   const [collapsed, setCollapsed] = (0, import_react33.useState)(/* @__PURE__ */ new Set());
   const [initialised, setInitialised] = (0, import_react33.useState)(false);
+  const [currentDocId] = (0, import_react33.useState)(() => getCurrentDocId());
   (0, import_react33.useEffect)(() => {
     const loadStaticDocs = async () => {
       setIsLoading(true);
@@ -25537,9 +25571,14 @@ var DocumentationPage = ({ children, data }) => {
     );
     const initialCollapsed = new Set(allWithChildren);
     if (rootNodes[0]) initialCollapsed.delete(rootNodes[0].id);
+    if (currentDocId !== null) {
+      const ancestors = getAncestorIds(docs, currentDocId);
+      ancestors.forEach((id) => initialCollapsed.delete(id));
+      initialCollapsed.delete(currentDocId);
+    }
     setCollapsed(initialCollapsed);
     setInitialised(true);
-  }, [docs, initialised]);
+  }, [docs, initialised, currentDocId]);
   const toggleCollapsed = (0, import_react33.useCallback)((id) => {
     setCollapsed((prev) => {
       const next = new Set(prev);
@@ -25583,6 +25622,7 @@ var DocumentationPage = ({ children, data }) => {
     return /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("div", { className: "tree-group", children: childrenNodes.map((doc) => {
       const nodeHasChildren = hasChildren(doc.id);
       const isCollapsed = !isFiltering && collapsed.has(doc.id);
+      const isActive = doc.id === currentDocId;
       return /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: "tree-item-container", children: [
         /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", { className: `nav-row level-${level}`, children: [
           nodeHasChildren ? /* @__PURE__ */ (0, import_jsx_runtime48.jsx)(
@@ -25594,7 +25634,15 @@ var DocumentationPage = ({ children, data }) => {
               children: /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("svg", { width: "10", height: "10", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.5", children: /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("path", { d: "M9 18l6-6-6-6" }) })
             }
           ) : /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("span", { className: "collapse-btn-spacer" }),
-          /* @__PURE__ */ (0, import_jsx_runtime48.jsx)("a", { href: getSafeUrl(`/documents/${doc.id}`), className: "nav-link", children: doc.pageTitle })
+          /* @__PURE__ */ (0, import_jsx_runtime48.jsx)(
+            "a",
+            {
+              href: getSafeUrl(`/documents/${doc.id}`),
+              className: `nav-link${isActive ? " is-active" : ""}`,
+              "aria-current": isActive ? "page" : void 0,
+              children: doc.pageTitle
+            }
+          )
         ] }),
         !isCollapsed && renderTree(doc.id, level + 1, visibleIds2)
       ] }, doc.id);
@@ -25632,7 +25680,10 @@ var DocumentationPage = ({ children, data }) => {
 registerComponent({
   name: "Core/DocumentationPage",
   component: DocumentationPage,
-  defaults: {}
+  defaults: {
+    title: "Untitled",
+    pageDescription: "No description"
+  }
 });
 
 // app/web/thirdparty/page.tsx
@@ -25665,32 +25716,28 @@ var Header = () => {
   const isExternal = (to) => to.startsWith("http");
   return /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("header", { className: "theme-header border-bottom shadow-sm", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)("div", { className: "container d-flex justify-content-between align-items-center py-3", children: [
     /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("div", { className: "nav-logo h4 mb-0 fw-bold text-uppercase", children: /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("a", { href: getSafeUrl("/"), children: config.siteTitle }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("nav", { className: "nav nav-tabs border-0", children: config?.links?.map((item) => isExternal(item.to) ? /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)(
-      "a",
-      {
-        href: item.to,
-        className: "nav-link border-0" + (Boolean(item.icon && item.label) ? " iconised-label" : ""),
-        target: "_blank",
-        rel: "noopener noreferrer",
-        children: [
-          item.icon ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("i", { className: item.icon }) : null,
-          item.label ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { children: item.label }) : null
-        ]
-      },
-      item.to
-    ) : /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)(
-      "a",
-      {
-        href: getSafeUrl(item.to),
-        className: "nav-link border-0" + (Boolean(item.icon && item.label) ? " iconised-label" : ""),
-        rel: "noopener noreferrer",
-        children: [
-          item.icon ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("i", { className: item.icon }) : null,
-          item.label ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { children: item.label }) : null
-        ]
-      },
-      item.to
-    )) })
+    /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("nav", { className: "nav nav-tabs border-0", children: config?.links?.map((item) => {
+      const isActive = path === item.to || path === item.to + "/";
+      const navClass = [
+        "nav-link border-0",
+        isActive ? "active" : "",
+        item.icon && item.label ? "iconised-label" : ""
+      ].join(" ");
+      return /* @__PURE__ */ (0, import_jsx_runtime50.jsxs)(
+        "a",
+        {
+          href: isExternal(item.to) ? item.to : getSafeUrl(item.to),
+          className: navClass,
+          target: isExternal(item.to) ? "_blank" : void 0,
+          rel: "noopener noreferrer",
+          children: [
+            item.icon ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("i", { className: item.icon }) : null,
+            item.label ? /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("span", { children: item.label }) : null
+          ]
+        },
+        item.to
+      );
+    }) })
   ] }) });
 };
 registerComponent({

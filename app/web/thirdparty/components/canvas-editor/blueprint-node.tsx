@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { CanvasNode, NodeId } from "./types";
 
-
-
 export const BlueprintNode: React.FC<{
   node: CanvasNode;
   onDrop: (compName: string, targetId?: NodeId, position?: 'before' | 'inside', prefabData?: any) => void;
@@ -24,11 +22,9 @@ export const BlueprintNode: React.FC<{
     e.stopPropagation();
     setIsOverTop(false);
     setIsOverInside(false);
-
     const dragId = e.dataTransfer.getData("dragNodeId");
     const compName = e.dataTransfer.getData("componentName");
     const rawPrefab = e.dataTransfer.getData("prefabData");
-
     if (dragId) {
       onMove(dragId, node.id, position);
     } else if (compName) {
@@ -55,7 +51,6 @@ export const BlueprintNode: React.FC<{
         onDragLeave={() => setIsOverTop(false)}
         onDrop={(e) => handleUniversalDrop(e, 'before')}
       />
-
       <div className="island-header">
         <span className="type-badge">
           <i className={`fas ${node.component === 'Prefab' ? 'fa-clone' : 'fa-grip-vertical'} drag-handle`} /> {node.component}
@@ -68,7 +63,6 @@ export const BlueprintNode: React.FC<{
           <i className="fas fa-trash-alt" />
         </button>
       </div>
-
       <div className="island-body">
         {node.children.map(child => (
           <BlueprintNode
