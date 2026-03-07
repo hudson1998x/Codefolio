@@ -17,7 +17,7 @@ const REPO_URL = "https://github.com/hudson1998x/Codefolio.git";
 
 /** Paths (relative to repo root) to sync into the current project. */
 const SYNC_PATHS = [
-  "app/web/themes/admin",
+  "app/web/themes/@admin",
   "app/web/themes/default",
   "app/web/thirdparty",
   "app/code/thirdparty",
