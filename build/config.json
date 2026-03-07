@@ -27,13 +27,13 @@
         "icon": ""
       },
       {
-        "to": "blog",
-        "label": "Blog",
+        "to": "/documents/1",
+        "label": "Getting Started",
         "icon": ""
       },
       {
-        "to": "/documents/1",
-        "label": "Getting Started",
+        "to": "/page/4",
+        "label": "Contributors",
         "icon": ""
       },
       {
