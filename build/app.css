@@ -4048,6 +4048,7 @@
   right: 0;
   width: 280px;
   height: 100vh;
+  display: none !important;
   background: white;
   z-index: 1090;
   padding: 84px 1.5rem 2rem;
@@ -4060,6 +4061,7 @@
 }
 .mobile-menu-panel.open {
   transform: translateX(0);
+  display: block !important;
 }
 .mobile-menu-panel .mobile-search-wrap {
   margin-bottom: 1.25rem;
@@ -6583,8 +6585,10 @@
 }
 
 /* app/web/themes/@admin/style.scss */
-.cf-section__content {
+.codefolio-default-admin .cf-section__content {
   max-width: 500px;
+}
+.codefolio-default-admin .cf-section__content {
   padding: 2rem;
   background: #ffffff;
   border-radius: 12px;
@@ -6593,28 +6597,28 @@
     system-ui,
     sans-serif;
 }
-.cf-section__content span {
+.codefolio-default-admin .cf-section__content span {
   font-size: 1.25rem;
   font-weight: 600;
   color: #111827;
   margin-bottom: 1.5rem;
 }
-.cf-form {
+.codefolio-default-admin .cf-form {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
-.cf-form .cf-field {
+.codefolio-default-admin .cf-form .cf-field {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-.cf-form .cf-label {
+.codefolio-default-admin .cf-form .cf-label {
   font-size: 0.875rem;
   font-weight: 500;
   color: #6b7280;
 }
-.cf-form .cf-input {
+.codefolio-default-admin .cf-form .cf-input {
   width: 100%;
   padding: 0.75rem 1rem;
   background-color: #f9fafb;
@@ -6624,24 +6628,24 @@
   font-size: 1rem;
   box-sizing: border-box;
 }
-.cf-form .cf-input::placeholder {
+.codefolio-default-admin .cf-form .cf-input::placeholder {
   color: #9ca3af;
 }
-.cf-form .cf-input:focus {
+.codefolio-default-admin .cf-form .cf-input:focus {
   outline: none;
   background-color: #fff;
 }
-.cf-form .cf-textarea {
+.codefolio-default-admin .cf-form .cf-textarea {
   resize: vertical;
   min-height: 100px;
 }
-.cf-form .cf-btn span {
+.codefolio-default-admin .cf-form .cf-btn span {
   font-size: 0.9rem;
   font-weight: 600;
   color: #fff;
   margin-bottom: unset;
 }
-.cf-form .cf-btn--primary {
+.codefolio-default-admin .cf-form .cf-btn--primary {
   cursor: pointer;
   color: white;
   padding: 0.75rem 1.5rem;
@@ -6651,13 +6655,13 @@
   font-size: 0.875rem;
   margin-top: 0.5rem;
 }
-.cf-form .cf-btn--primary:hover {
+.codefolio-default-admin .cf-form .cf-btn--primary:hover {
   transform: translateY(-1px);
 }
-.cf-form .cf-btn--primary:active {
+.codefolio-default-admin .cf-form .cf-btn--primary:active {
   transform: translateY(0);
 }
-.form-title > span {
+.codefolio-default-admin .form-title > span {
   margin-bottom: 20px;
   display: block;
   margin-top: -10px;

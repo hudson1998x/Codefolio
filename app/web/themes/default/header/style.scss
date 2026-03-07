@@ -165,6 +165,7 @@ $text-muted: #64748b;
   right: 0;
   width: 280px;
   height: 100vh;
+  display: none !important;
   background: white;
   z-index: 1090;
   padding: #{$header-height-mobile + 20px} 1.5rem 2rem;
@@ -175,7 +176,7 @@ $text-muted: #64748b;
   flex-direction: column;
   gap: 0;
 
-  &.open { transform: translateX(0); }
+  &.open { transform: translateX(0); display: block !important; }
 
   .mobile-search-wrap {
     margin-bottom: 1.25rem;
