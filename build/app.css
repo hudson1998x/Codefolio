@@ -3823,7 +3823,7 @@
 
 /* app/web/themes/default/components.scss */
 .codefolio-prefab-render {
-  padding: 6rem 1.5rem;
+  padding: 6rem 0;
   overflow: hidden;
 }
 .codefolio-prefab-render .cf-grid {
@@ -3901,6 +3901,7 @@
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
+  padding: 2rem;
 }
 .theme-default .tabs-container,
 .theme-default .nav-tabs {
