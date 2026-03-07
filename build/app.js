@@ -25715,9 +25715,9 @@ var addSearchableSource = (path, searchFields, viewBase) => {
   const key = path.split("/").filter(Boolean).at(-2) ?? path;
   sources.set(key, { path, searchFields, viewBase });
 };
-addSearchableSource("/content/blog/index.ndjson", ["pageTitle", "category", "keywords"], "/blog/");
-addSearchableSource("/content/documents/index.ndjson", ["pageTitle", "pageDescription", "keywords"], "/documents/");
-addSearchableSource("/content/page/index.ndjson", ["pageTitle", "pageDescription"], "/page/");
+addSearchableSource(getSafeUrl("/content/blog/index.ndjson"), ["pageTitle", "category", "keywords"], "/blog/");
+addSearchableSource(getSafeUrl("/content/documents/index.ndjson"), ["pageTitle", "pageDescription", "keywords"], "/documents/");
+addSearchableSource(getSafeUrl("/content/page/index.ndjson"), ["pageTitle", "pageDescription"], "/page/");
 var streamNdjson = async (key, source, queryLower, limit = 5) => {
   const results = [];
   try {

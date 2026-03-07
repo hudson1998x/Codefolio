@@ -30,9 +30,9 @@ export const addSearchableSource = (
 };
 
 // Register your content sources here
-addSearchableSource('/content/blog/index.ndjson',      ['pageTitle', 'category', 'keywords'],        '/blog/');
-addSearchableSource('/content/documents/index.ndjson', ['pageTitle', 'pageDescription', 'keywords'], '/documents/');
-addSearchableSource('/content/page/index.ndjson',      ['pageTitle', 'pageDescription'],             '/page/');
+addSearchableSource(getSafeUrl('/content/blog/index.ndjson'),      ['pageTitle', 'category', 'keywords'],        '/blog/');
+addSearchableSource(getSafeUrl('/content/documents/index.ndjson'), ['pageTitle', 'pageDescription', 'keywords'], '/documents/');
+addSearchableSource(getSafeUrl('/content/page/index.ndjson'),      ['pageTitle', 'pageDescription'],             '/page/');
 
 // ---------------------------------------------------------------------------
 // Streaming search
