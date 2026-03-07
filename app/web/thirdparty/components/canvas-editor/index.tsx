@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, createElement, Fragment, ReactNode, useCallback } from "react";
+import React, { useState, useMemo, useEffect, useCallback, useReducer } from "react";
 import { registerComponent, CodefolioProps, getAllComponents, getComponent, FieldMeta } from "../registry";
 import { Button } from "@components/button";
 import './style.scss';
@@ -6,11 +6,10 @@ import { Canvas } from "./canvas";
 import { CanvasNode, NodeId, Prefab } from "./types";
 import { PropField } from "./propfield";
 import { BlueprintNode } from "./blueprint-node";
+import { DragState } from "./drag-state";
 
-// --- Main Visual Editor ---
-
-export const CanvasEditor: React.FC<CodefolioProps<{ value: string; name: string }> & { 
-  onChange?: (val: string) => void 
+export const CanvasEditor: React.FC<CodefolioProps<{ value: string; name: string }> & {
+  onChange?: (val: string) => void
 }> = ({ data, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [nodes, setNodes] = useState<CanvasNode[]>(() => {
@@ -20,36 +19,32 @@ export const CanvasEditor: React.FC<CodefolioProps<{ value: string; name: string
   const [activeCategory, setActiveCategory] = useState("All");
   const [search, setSearch] = useState("");
   const [prefabs, setPrefabs] = useState<Prefab[]>([]);
+  const [, forceRender] = useReducer(x => x + 1, 0);
 
   const getSerializedNodes = useCallback(() => JSON.stringify(nodes), [nodes]);
 
   useEffect(() => {
     if (onChange) {
       const serialized = getSerializedNodes();
-      if (serialized !== data.value) {
-        onChange(serialized);
-      }
+      if (serialized !== data.value) onChange(serialized);
     }
   }, [nodes, onChange, data.value, getSerializedNodes]);
 
   const handleFinish = () => {
-    if (onChange) {
-      onChange(getSerializedNodes());
-    }
+    if (onChange) onChange(getSerializedNodes());
     setIsOpen(false);
   };
 
-  const cmsComponents = useMemo(() => {
-    return getAllComponents().filter((c: any) => c.isCmsEditor === true);
-  }, []);
+  const cmsComponents = useMemo(() =>
+    getAllComponents().filter((c: any) => c.isCmsEditor === true),
+  []);
 
   useEffect(() => {
-    if (isOpen) {
-      fetch('/api/prefab?size=50')
-        .then(res => res.json())
-        .then(res => { if (res.ok) setPrefabs(res.results); })
-        .catch(err => console.error("Prefab fetch error", err));
-    }
+    if (!isOpen) return;
+    fetch('/api/prefab?size=50')
+      .then(res => res.json())
+      .then(res => { if (res.ok) setPrefabs(res.results); })
+      .catch(err => console.error("Prefab fetch error", err));
   }, [isOpen]);
 
   const categories = useMemo(() => {
@@ -74,152 +69,145 @@ export const CanvasEditor: React.FC<CodefolioProps<{ value: string; name: string
         if (found) return found;
       }
     };
-    return find(nodes) || null;
+    return find(nodes) ?? null;
   }, [nodes, selectedId]);
 
-  const activeDef = useMemo(() => activeNode ? getComponent(activeNode.component) : null, [activeNode]);
+  const activeDef = useMemo(() =>
+    activeNode ? getComponent(activeNode.component) : null,
+  [activeNode]);
 
   const updateNodeData = useCallback((key: string, val: any) => {
     if (!selectedId) return;
-    setNodes(currentNodes => {
-      const newTree: CanvasNode[] = structuredClone(currentNodes);
-      const map = (list: CanvasNode[]): CanvasNode[] => list.map(n => {
-        if (n.id === selectedId) {
-          let processed = val;
-          if (key === 'prefabJson' && typeof val === 'string') {
-            try { 
-              const parsed = JSON.parse(val); 
-              // Deep clone the parsed result to ensure full isolation
-              processed = structuredClone(Array.isArray(parsed) ? parsed : [parsed]);
-            } catch { processed = val; }
-          } else {
-            // Deep clone any value being stored to prevent shared references
-            try { processed = structuredClone(val); } catch { processed = val; }
+    setNodes(curr => {
+      const map = (list: CanvasNode[]): CanvasNode[] => {
+        let changed = false;
+        const next = list.map(n => {
+          if (n.id === selectedId) {
+            changed = true;
+            let processed = val;
+            if (key === 'prefabJson' && typeof val === 'string') {
+              try {
+                const parsed = JSON.parse(val);
+                processed = structuredClone(Array.isArray(parsed) ? parsed : [parsed]);
+              } catch { processed = val; }
+            } else {
+              try { processed = structuredClone(val); } catch { processed = val; }
+            }
+            return { ...n, data: { ...n.data, [key]: processed } };
           }
-          return { ...n, data: { ...n.data, [key]: processed } };
-        }
-        return { ...n, children: map(n.children) };
-      });
-      return map(newTree);
+          const newChildren = map(n.children);
+          if (newChildren !== n.children) { changed = true; return { ...n, children: newChildren }; }
+          return n;
+        });
+        return changed ? next : list;
+      };
+      return map(curr);
     });
   }, [selectedId]);
 
-  const addNode = (name: string, targetId?: NodeId, position: 'before' | 'inside' = 'inside', prefabData?: any) => {
+  const addNode = useCallback((name: string, targetId?: NodeId, position: 'before' | 'inside' = 'inside', prefabData?: any) => {
     const def = getComponent(name);
-    
-    let finalData = {};
+    const finalData = name === "Prefab" && prefabData
+      ? { prefabName: prefabData.prefabName || '', prefabJson: structuredClone(prefabData.prefabJson || []) }
+      : def?.defaults ? structuredClone(def.defaults) : {};
 
-    if (name === "Prefab" && prefabData) {
-      // Deep clone the entire prefabData to fully isolate this node's data
-      // from the drag event source and from any other Prefab nodes
-      finalData = {
-        prefabName: prefabData.prefabName || '',
-        prefabJson: structuredClone(prefabData.prefabJson || [])
-      };
-    } else {
-      finalData = def?.defaults ? structuredClone(def.defaults) : {};
-    }
-
-    const newNode: CanvasNode = {
-      id: crypto.randomUUID(),
-      component: name,
-      data: finalData,
-      children: [],
-    };
+    const newNode: CanvasNode = { id: crypto.randomUUID(), component: name, data: finalData, children: [] };
 
     setNodes(prev => {
-      const treeClone = structuredClone(prev);
-      if (!targetId) return [...treeClone, newNode];
-      
+      if (!targetId) return [...prev, newNode];
       const insert = (list: CanvasNode[]): CanvasNode[] => {
-        return list.map(n => {
-          if (n.id === targetId) {
-            if (position === 'inside') {
-              return { ...n, children: [...n.children, newNode] };
-            }
-          }
-          return { ...n, children: insert(n.children) };
-        });
-      };
-      
-      if (position === 'before') {
-        const idx = treeClone.findIndex(n => n.id === targetId);
-        if (idx > -1) {
-          treeClone.splice(idx, 0, newNode);
-          return treeClone;
-        }
-      }
-
-      return insert(treeClone);
-    });
-    setSelectedId(newNode.id);
-  };
-
-  const moveNode = (dragId: NodeId, targetId?: NodeId, position: 'before' | 'inside' = 'inside') => {
-    if (dragId === targetId) return;
-    setNodes(prev => {
-      const treeClone = structuredClone(prev);
-      let nodeToMove: CanvasNode | null = null;
-      const pull = (list: CanvasNode[]): CanvasNode[] => list.reduce((acc, n) => {
-        if (n.id === dragId) { nodeToMove = n; return acc; }
-        acc.push({ ...n, children: pull(n.children) });
-        return acc;
-      }, [] as CanvasNode[]);
-
-      const treeWithoutNode = pull(treeClone);
-      if (!nodeToMove) return prev;
-      if (!targetId) return [...treeWithoutNode, nodeToMove];
-
-      const push = (list: CanvasNode[]): CanvasNode[] => {
-        let result: CanvasNode[] = [];
+        const result: CanvasNode[] = [];
         for (const n of list) {
           if (n.id === targetId) {
-            if (position === 'before') result.push(nodeToMove!);
-            if (position === 'inside') {
-              result.push({ ...n, children: [...n.children, nodeToMove!] });
-              continue;
-            }
+            if (position === 'before') result.push(newNode);
+            result.push({
+              ...n,
+              children: position === 'inside' ? [...n.children, newNode] : insert(n.children)
+            });
+          } else {
+            result.push({ ...n, children: insert(n.children) });
           }
-          result.push({ ...n, children: push(n.children) });
         }
         return result;
       };
-      return push(treeWithoutNode);
+      return insert(prev);
     });
-  };
+    setSelectedId(newNode.id);
+    forceRender();
+  }, []);
 
-  const deleteNode = (id: NodeId) => {
+  const moveNode = useCallback((dragId: NodeId, targetId?: NodeId, position: 'before' | 'inside' = 'inside') => {
+    if (dragId === targetId) return;
+    setNodes(prev => {
+      let nodeToMove: CanvasNode | null = null;
+      const pull = (list: CanvasNode[]): CanvasNode[] =>
+        list.reduce<CanvasNode[]>((acc, n) => {
+          if (n.id === dragId) { nodeToMove = n; return acc; }
+          acc.push({ ...n, children: pull(n.children) });
+          return acc;
+        }, []);
+
+      const trimmed = pull(prev);
+      if (!nodeToMove) return prev;
+      if (!targetId) return [...trimmed, nodeToMove];
+
+      const push = (list: CanvasNode[]): CanvasNode[] => {
+        const result: CanvasNode[] = [];
+        for (const n of list) {
+          if (n.id === targetId) {
+            if (position === 'before') result.push(nodeToMove!);
+            result.push({
+              ...n,
+              children: position === 'inside' ? [...n.children, nodeToMove!] : push(n.children)
+            });
+          } else {
+            result.push({ ...n, children: push(n.children) });
+          }
+        }
+        return result;
+      };
+      return push(trimmed);
+    });
+    forceRender();
+  }, []);
+
+  const deleteNode = useCallback((id: NodeId) => {
     setNodes(prev => {
       const remove = (list: CanvasNode[]): CanvasNode[] =>
         list.filter(n => n.id !== id).map(n => ({ ...n, children: remove(n.children) }));
-      return remove(structuredClone(prev));
+      return remove(prev);
     });
-    if (selectedId === id) setSelectedId(null);
-  };
+    setSelectedId(s => s === id ? null : s);
+    forceRender();
+  }, []);
 
-  const handleWorkspaceDrop = (e: React.DragEvent) => {
-    const name = e.dataTransfer.getData("componentName");
-    const dragId = e.dataTransfer.getData("dragNodeId");
-    const rawPrefab = e.dataTransfer.getData("prefabData");
-    if (dragId) moveNode(dragId);
-    else if (name) {
-      let pData = undefined;
-      try { pData = rawPrefab ? JSON.parse(rawPrefab) : undefined; } catch(e) {}
-      addNode(name, undefined, 'inside', pData);
+  const handleEdit = useCallback((id: NodeId) => setSelectedId(id), []);
+
+  const handleBlueprintDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const payload = DragState.get();
+    DragState.clear();
+    if (!payload) return;
+    if (payload.type === 'node') {
+      moveNode(payload.dragId, undefined, 'inside');
+    } else {
+      addNode(payload.name, undefined, 'inside', payload.prefabData);
     }
-  };
+  }, [addNode, moveNode]);
+
+  const serialized = getSerializedNodes();
 
   return (
     <div className="canvas-editor">
-      <input type="hidden" name={data.name} value={getSerializedNodes()} />
+      <input type="hidden" name={data.name} value={serialized} />
       <span className="editor-label">
-        {
-        // @ts-ignore TODO: Alter type definition to allow optional label. 
-        data?.label ?? ''}
+        {/* @ts-ignore TODO: Alter type definition to allow optional label. */}
+        {data?.label ?? ''}
       </span>
       <br />
       <Button type="button" onClick={() => setIsOpen(true)}>
-        <i className='fas fa-pager'/> Visual Editor <i className='fas fa-pencil'/>
+        <i className='fas fa-pager' /> Visual Editor <i className='fas fa-pencil' />
       </Button>
 
       {isOpen && (
@@ -238,30 +226,43 @@ export const CanvasEditor: React.FC<CodefolioProps<{ value: string; name: string
                 ))}
               </div>
             )}
+
             <div className="palette-grid" style={{ height: 300, overflowX: 'hidden' }}>
               {filteredLibrary.map(c => (
-                <div key={c.name} className="palette-item" draggable onDragStart={(e) => {
-                   e.dataTransfer.setData("componentName", c.name);
-                }}>
+                <div
+                  key={c.name}
+                  className="palette-item"
+                  draggable
+                  onDragStart={(e) => {
+                    DragState.set({ type: 'component', name: c.name });
+                    e.dataTransfer.setData("text/plain", "drag");
+                    e.dataTransfer.effectAllowed = "copy";
+                  }}
+                  onDragEnd={() => DragState.clear()}
+                >
                   <i className={(c as any).icon || "fas fa-cube"} />
                   <span>{c.name}</span>
                 </div>
               ))}
             </div>
-            <div className="section-title" style={{marginTop: '2rem'}}><i className="fas fa-layer-group" /> Prefabs</div>
+
+            <div className="section-title" style={{ marginTop: '2rem' }}><i className="fas fa-layer-group" /> Prefabs</div>
             <div className="palette-grid">
               {prefabs.map(p => (
-                <div 
-                  key={p.id} 
-                  className="palette-item prefab-item" 
-                  draggable 
+                <div
+                  key={p.id}
+                  className="palette-item prefab-item"
+                  draggable
                   onDragStart={(e) => {
-                    e.dataTransfer.setData("componentName", "Prefab");
-                    e.dataTransfer.setData("prefabData", JSON.stringify({
-                      prefabName: p.prefabName,
-                      prefabJson: p.prefabJson
-                    }));
+                    DragState.set({
+                      type: 'component',
+                      name: 'Prefab',
+                      prefabData: { prefabName: p.prefabName, prefabJson: p.prefabJson }
+                    });
+                    e.dataTransfer.setData("text/plain", "drag");
+                    e.dataTransfer.effectAllowed = "copy";
                   }}
+                  onDragEnd={() => DragState.clear()}
                 >
                   <i className="fas fa-clone" />
                   <span>{p.prefabName}</span>
@@ -271,18 +272,22 @@ export const CanvasEditor: React.FC<CodefolioProps<{ value: string; name: string
           </aside>
 
           <main className="workspace-container" onClick={() => setSelectedId(null)}>
-            <section className="workspace-pane blueprint" onDragOver={e => e.preventDefault()} onDrop={handleWorkspaceDrop}>
+            <section
+              className="workspace-pane blueprint"
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={handleBlueprintDrop}
+            >
               <div className="pane-label">Structure</div>
               <div className="tree-content">
                 {nodes.map(n => (
-                  <BlueprintNode 
-                    key={n.id} 
-                    node={n} 
-                    onDrop={addNode} 
-                    onMove={moveNode} 
-                    onEdit={(id) => setSelectedId(id)} 
-                    onDelete={deleteNode} 
-                    isSelected={selectedId === n.id} 
+                  <BlueprintNode
+                    key={n.id}
+                    node={n}
+                    onDrop={addNode}
+                    onMove={moveNode}
+                    onEdit={handleEdit}
+                    onDelete={deleteNode}
+                    isSelected={selectedId === n.id}
                   />
                 ))}
               </div>
@@ -296,7 +301,7 @@ export const CanvasEditor: React.FC<CodefolioProps<{ value: string; name: string
                     <div className="editing-badge">{activeNode.component}</div>
                     {Object.keys(activeDef?.fields || activeDef?.defaults || {}).map(key => (
                       <PropField
-                        key={`${selectedId}-${key}`}   // <-- was just key={key}
+                        key={`${selectedId}-${key}`}
                         propKey={key}
                         value={activeNode.data[key]}
                         meta={activeDef?.fields?.[key]}
@@ -312,7 +317,7 @@ export const CanvasEditor: React.FC<CodefolioProps<{ value: string; name: string
               <div className="pane-label">Live Preview</div>
               <div className="preview-frame">
                 <div className="canvas-wrapper">
-                  <Canvas manualNodes={nodes} key={getSerializedNodes().length} />
+                  <Canvas manualNodes={nodes} key={serialized} />
                 </div>
                 <button className="close-visual" onClick={handleFinish}>FINISH & SYNC</button>
               </div>

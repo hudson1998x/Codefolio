@@ -908,6 +908,13 @@
 .blueprint-island .island-header .type-badge .drag-handle:hover {
   color: #3b82f6;
 }
+.blueprint-island .island-header .type-badge-preview {
+  font-size: 0.7rem;
+  display: inline-block;
+  position: relative;
+  top: 13px;
+  left: 5px;
+}
 .blueprint-island .island-header .delete-trigger {
   background: transparent;
   border: none;
@@ -2443,6 +2450,82 @@
   font-size: 13px;
   border: 1px solid #e2e8f0;
   border-radius: 4px;
+}
+
+/* app/web/thirdparty/components/list/style.scss */
+.cf-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.cf-list__title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: inherit;
+}
+.cf-list__ul,
+.cf-list__ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style-position: outside;
+}
+.cf-list__dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 0.75rem;
+  row-gap: 0.25rem;
+}
+.cf-list__item {
+  display: flex;
+  flex-direction: column;
+  padding: 0.25rem 0;
+}
+.cf-list__label {
+  line-height: 1.5;
+}
+.cf-list__detail {
+  font-size: 0.875em;
+  color: color-mix(in srgb, currentColor 60%, transparent);
+  margin-top: 0.125rem;
+}
+.cf-list__term {
+  font-weight: 600;
+  margin: 0;
+  align-self: baseline;
+}
+.cf-list__detail:where(dd) {
+  margin-inline-start: 0;
+}
+.cf-list--divided .cf-list__item + .cf-list__item {
+  border-top: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+}
+.cf-list--divided .cf-list__term {
+  border-top: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  padding-top: 0.375rem;
+}
+.cf-list--none .cf-list__ul {
+  padding-left: 0;
+  list-style: none;
+}
+.cf-list--inline .cf-list__ul {
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.cf-list--inline .cf-list__item {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0;
+}
+.cf-list--inline.cf-list--divided .cf-list__item + .cf-list__item {
+  border-top: none;
+  padding-left: 0.5rem;
+  border-left: 1px solid color-mix(in srgb, currentColor 15%, transparent);
 }
 
 /* app/web/thirdparty/dev/module-generator/style.scss */
@@ -4868,7 +4951,7 @@
 }
 .site-config > .cf-section__inner {
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   display: flex;
   flex-direction: column;
 }
@@ -4887,6 +4970,11 @@
   flex-direction: column;
   gap: 24px;
   width: 100%;
+}
+@media screen and (min-width: 900px) {
+  .site-config > .cf-section__inner > .cf-section__content {
+    min-width: 900px;
+  }
 }
 .site-config > .cf-section__inner > .cf-section__content > .cf-section:first-child {
   margin-bottom: 8px;

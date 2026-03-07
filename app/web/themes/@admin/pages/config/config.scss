@@ -12,7 +12,7 @@
 
   > .cf-section__inner {
     width: 100%;
-    max-width: 800px; // Optimized width for single-column readability
+    max-width: 900px; // Optimized width for single-column readability
     display: flex;
     flex-direction: column;
 
@@ -35,6 +35,10 @@
       flex-direction: column; // Force one after another
       gap: 24px;              // Consistent vertical spacing
       width: 100%;
+
+      @media screen and (min-width: 900px) {
+        min-width:900px;
+      }
 
       // 3. FULL WIDTH SAVE BAR
       // Stays at the top and keeps the button right-aligned

@@ -22,7 +22,12 @@
     "siteTitle": "CodeFolio",
     "links": [
       {
-        "to": "/blog",
+        "to": "/page/3",
+        "label": "CodeFolio: The Vision",
+        "icon": ""
+      },
+      {
+        "to": "blog",
         "label": "Blog",
         "icon": ""
       },
@@ -43,8 +48,8 @@
     "homepage": "/page/1"
   },
   "theme": {
-    "component": "Admin/Config/ThemeSelector",
-    "theme": "default"
+    "theme": "default",
+    "component": "Admin/Config/ThemeSelector"
   },
   "website": {
     "title": "Codefolio",
