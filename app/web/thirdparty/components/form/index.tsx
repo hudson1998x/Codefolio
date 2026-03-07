@@ -22,6 +22,11 @@ export interface FormData {
    * Additional CSS class name(s) to apply to the form element.
    */
   className: string;
+
+  /**
+   * when this is true, a redirect to the newly created content occurs.
+   */
+  isAutoForm?: boolean;
 }
 
 /**
@@ -197,6 +202,12 @@ const Form: React.FC<FormProps> = ({ data, children, onValues, onSuccess, onErro
       setStatus({ type: 'success', msg: 'Update successful!' });
       formRef.current.setAttribute("data-state", "success");
       onSuccess?.(json);
+
+      if (data.isAutoForm)
+      {
+        const entity = location.pathname.split('/')[2];
+        location.href = '/en-admin/' + entity + '/' + json.entity.id
+      }
 
       // Reset message after 3 seconds
       setTimeout(() => setStatus({ type: 'idle' }), 3000);

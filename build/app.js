@@ -23447,6 +23447,10 @@ var Form = ({ data, children, onValues, onSuccess, onError }) => {
       setStatus({ type: "success", msg: "Update successful!" });
       formRef.current.setAttribute("data-state", "success");
       onSuccess?.(json);
+      if (data.isAutoForm) {
+        const entity = location.pathname.split("/")[2];
+        location.href = "/en-admin/" + entity + "/" + json.entity.id;
+      }
       setTimeout(() => setStatus({ type: "idle" }), 3e3);
     } catch (err) {
       const error = err instanceof Error ? err : new Error(String(err));
