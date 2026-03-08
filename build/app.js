@@ -22225,6 +22225,11 @@ var addPickerSource = (path, searchFields, viewBase) => {
 addPickerSource(getSafeUrl("/content/page/index.ndjson"), ["pageTitle", "pageDescription"], "/page/");
 addPickerSource(getSafeUrl("/content/blog/index.ndjson"), ["pageTitle", "category", "keywords"], "/blog/");
 addPickerSource(getSafeUrl("/content/documents/index.ndjson"), ["pageTitle", "pageDescription", "keywords"], "/documents/");
+var staticPages = [
+  { label: "Projects", href: getSafeUrl("/projects"), sourceKey: "static" },
+  { label: "Blog", href: getSafeUrl("/blog"), sourceKey: "static" },
+  { label: "Documents", href: getSafeUrl("/documents"), sourceKey: "static" }
+];
 var resolveValue = async (value) => {
   if (!value || value === "0" || value === "") return null;
   const parts = value.replace(/^\//, "").split("/");
@@ -22304,10 +22309,15 @@ var PageSearchPicker = ({ onSelect }) => {
       setSearching(true);
       try {
         const q = query.toLowerCase();
-        const sourceMatches = await Promise.all(
-          Array.from(sources.entries()).map(([key, source]) => streamNdjson(key, source, q))
-        );
-        setResults(sourceMatches.flat());
+        const [sourceMatches, staticMatches] = await Promise.all([
+          Promise.all(
+            Array.from(sources.entries()).map(([key, source]) => streamNdjson(key, source, q))
+          ),
+          Promise.resolve(
+            staticPages.filter((p) => p.label.toLowerCase().includes(q)).map((p) => ({ id: p.href, pageTitle: p.label, sourceKey: p.sourceKey, href: p.href }))
+          )
+        ]);
+        setResults([...staticMatches, ...sourceMatches.flat()]);
       } catch (err) {
         console.error("Search failed", err);
       } finally {

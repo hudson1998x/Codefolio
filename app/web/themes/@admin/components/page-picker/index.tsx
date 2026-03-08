@@ -25,6 +25,26 @@ addPickerSource(getSafeUrl('/content/blog/index.ndjson'),      ['pageTitle', 'ca
 addPickerSource(getSafeUrl('/content/documents/index.ndjson'), ['pageTitle', 'pageDescription', 'keywords'], '/documents/');
 
 // ---------------------------------------------------------------------------
+// Static (non-entity) pages — extend this array to add more
+// ---------------------------------------------------------------------------
+
+export interface StaticPage {
+    label: string;
+    href: string;
+    sourceKey: string;
+}
+
+export const staticPages: StaticPage[] = [
+    { label: 'Projects',  href: getSafeUrl('/projects'),  sourceKey: 'static' },
+    { label: 'Blog',      href: getSafeUrl('/blog'),      sourceKey: 'static' },
+    { label: 'Documents', href: getSafeUrl('/documents'), sourceKey: 'static' },
+];
+
+export const addStaticPage = (label: string, href: string, sourceKey = 'static') => {
+    staticPages.push({ label, href: getSafeUrl(href), sourceKey });
+};
+
+// ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
@@ -144,10 +164,17 @@ export const PageSearchPicker: FC<PagePickerProps> = ({ onSelect }) => {
             setSearching(true);
             try {
                 const q = query.toLowerCase();
-                const sourceMatches = await Promise.all(
-                    Array.from(sources.entries()).map(([key, source]) => streamNdjson(key, source, q))
-                );
-                setResults(sourceMatches.flat());
+                const [sourceMatches, staticMatches] = await Promise.all([
+                    Promise.all(
+                        Array.from(sources.entries()).map(([key, source]) => streamNdjson(key, source, q))
+                    ),
+                    Promise.resolve(
+                        staticPages
+                            .filter(p => p.label.toLowerCase().includes(q))
+                            .map(p => ({ id: p.href, pageTitle: p.label, sourceKey: p.sourceKey, href: p.href }))
+                    ),
+                ]);
+                setResults([...staticMatches, ...sourceMatches.flat()]);
             } catch (err) {
                 console.error("Search failed", err);
             } finally {
