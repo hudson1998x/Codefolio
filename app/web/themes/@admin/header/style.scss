@@ -173,6 +173,7 @@ aside.user-nav {
   display: flex;
   flex-direction: column;
   transition: transform 0.4s $snap;
+  z-index:99999;
 
   nav.dynamic-nav {
     flex: 1;
@@ -294,16 +295,16 @@ aside.user-nav {
 
 // Global Layout Logic based on Body Attribute
 body[admin-nav-open='true'] {
-  main {
+  .content {
     margin-left: $sidebar-w;
-    transition: margin-left 0.4s $snap;
+    transition: margin-left 50ms $snap;
   }
 }
 
 body[admin-nav-open='false'] {
-  main {
+  .content {
     margin-left: 0;
-    transition: margin-left 0.4s $snap;
+    transition: margin-left 50ms $snap;
   }
   aside.user-nav {
     transform: translateX(-$sidebar-w);

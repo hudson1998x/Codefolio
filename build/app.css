@@ -4846,6 +4846,7 @@ aside.user-nav {
   display: flex;
   flex-direction: column;
   transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 99999;
 }
 aside.user-nav nav.dynamic-nav {
   flex: 1;
@@ -4959,13 +4960,13 @@ aside.user-nav nav.dynamic-nav::-webkit-scrollbar-thumb {
     transform: translateX(100%);
   }
 }
-body[admin-nav-open=true] main {
+body[admin-nav-open=true] .content {
   margin-left: 260px;
-  transition: margin-left 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: margin-left 50ms cubic-bezier(0.19, 1, 0.22, 1);
 }
-body[admin-nav-open=false] main {
+body[admin-nav-open=false] .content {
   margin-left: 0;
-  transition: margin-left 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: margin-left 50ms cubic-bezier(0.19, 1, 0.22, 1);
 }
 body[admin-nav-open=false] aside.user-nav {
   transform: translateX(-260px);
