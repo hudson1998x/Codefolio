@@ -26692,7 +26692,7 @@ var CommandSearch = ({ navigation: navigation2 }) => {
     setShowOverlay(false);
     setSelected(null);
   };
-  const getTag3 = (res) => {
+  const getTag4 = (res) => {
     if (res.sourceKey === "dom") return "Live on Page";
     if (res.sourceKey === "nav") return "Menu";
     return res.sourceKey.charAt(0).toUpperCase() + res.sourceKey.slice(1);
@@ -26730,7 +26730,7 @@ var CommandSearch = ({ navigation: navigation2 }) => {
       ] })
     ] }) : /* @__PURE__ */ (0, import_jsx_runtime57.jsx)("ul", { className: "search-results-list", children: results.map((res, i) => /* @__PURE__ */ (0, import_jsx_runtime57.jsx)("li", { onClick: () => setSelected(res), children: /* @__PURE__ */ (0, import_jsx_runtime57.jsxs)("div", { className: "res-info", children: [
       /* @__PURE__ */ (0, import_jsx_runtime57.jsx)("span", { className: "res-label", children: res.label }),
-      /* @__PURE__ */ (0, import_jsx_runtime57.jsx)("span", { className: "res-tag", children: getTag3(res) })
+      /* @__PURE__ */ (0, import_jsx_runtime57.jsx)("span", { className: "res-tag", children: getTag4(res) })
     ] }) }, `${res.sourceKey}-${i}`)) }) })
   ] });
 };
@@ -27828,29 +27828,81 @@ registerComponent({
 // app/web/themes/@admin/components/config/homepage/index.tsx
 var import_react47 = __toESM(require_react());
 var import_jsx_runtime70 = __toESM(require_jsx_runtime());
+var resolveHref = async (href) => {
+  if (!href || href === "") return null;
+  const parts = href.replace(/^\//, "").split("/");
+  if (parts.length < 2) return null;
+  const [type, id] = parts;
+  try {
+    const res = await fetch(getSafeUrl(`/content/${type}/${id}.json`));
+    if (!res.ok) return null;
+    const record = await res.json();
+    return {
+      pageTitle: record.pageTitle || record.projectTitle || id,
+      sourceKey: type,
+      href: getSafeUrl(`/${type}/${id}`)
+    };
+  } catch {
+    return null;
+  }
+};
+var getTag3 = (sourceKey) => sourceKey.charAt(0).toUpperCase() + sourceKey.slice(1);
 var HomepageEditor = ({ data }) => {
   const cfgKey = "homepage";
-  const [selectedPage, setSelectedPage] = (0, import_react47.useState)(data.homepage);
-  const handlePageSelect = (page) => {
-    setSelectedPage(`/page/${page.id}`);
-  };
+  const [currentValue, setCurrentValue] = (0, import_react47.useState)(data.homepage ?? "");
+  const [selected, setSelected] = (0, import_react47.useState)(null);
+  const [resolving, setResolving] = (0, import_react47.useState)(false);
+  (0, import_react47.useEffect)(() => {
+    if (!data.homepage || data.homepage === "") return;
+    setResolving(true);
+    resolveHref(data.homepage).then((result) => {
+      if (result) {
+        setSelected(result);
+        setCurrentValue(result.href);
+      }
+      setResolving(false);
+    });
+  }, [data.homepage]);
   return /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: "cf-homepage-editor", children: [
     /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/HomepageEditor" }),
+    /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("input", { type: "hidden", name: `${cfgKey}[homepage]`, value: currentValue }),
     /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: "cf-homepage-editor__group", children: [
       /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("label", { className: "cf-header-editor__label", children: "Default Homepage" }),
       /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("p", { className: "cf-homepage-editor__help", children: "Select the page that visitors see when they first arrive at your site." }),
-      /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(
-        "input",
-        {
-          type: "hidden",
-          name: `${cfgKey}[homepage]`,
-          value: selectedPage
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("div", { className: "cf-homepage-editor__picker-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(PageSearchPicker, { onSelect: handlePageSelect }) }),
-      selectedPage && /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: "cf-homepage-editor__current", children: [
-        "Currently selected: ",
-        /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("code", { children: selectedPage })
+      /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: "cf-homepage-editor__picker-wrapper", children: [
+        resolving && /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: "cf-page-picker-input__selected", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("div", { className: "cf-page-picker__spinner" }),
+          /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("span", { className: "cf-page-picker-input__selected-label", children: "Loading\u2026" })
+        ] }),
+        !resolving && selected && /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: "cf-page-picker-input__selected", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("span", { className: `cf-page-picker__tag cf-page-picker__tag--${selected.sourceKey}`, children: getTag3(selected.sourceKey) }),
+          /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("span", { className: "cf-page-picker-input__selected-label", children: selected.pageTitle }),
+          /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(
+            "button",
+            {
+              type: "button",
+              className: "cf-page-picker-input__clear",
+              onClick: () => {
+                setCurrentValue("");
+                setSelected(null);
+              },
+              children: "\xD7"
+            }
+          )
+        ] }),
+        !resolving && !selected && /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(
+          PageSearchPicker,
+          {
+            onSelect: (page) => {
+              setCurrentValue(page.href);
+              setSelected({
+                pageTitle: page.pageTitle,
+                sourceKey: page.sourceKey,
+                href: page.href
+              });
+            }
+          }
+        )
       ] })
     ] })
   ] });
@@ -27859,7 +27911,7 @@ registerComponent({
   name: "Admin/Config/HomepageEditor",
   defaults: {
     component: "Admin/Config/HomepageEditor",
-    homepage: "/page/1"
+    homepage: ""
   },
   component: HomepageEditor
 });
