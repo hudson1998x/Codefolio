@@ -6435,6 +6435,35 @@
   z-index: 10;
 }
 
+/* app/web/themes/@admin/components/config/sociallinks/style.scss */
+.cf-social-link-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.cf-social-link-editor__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+.cf-social-link-editor__row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.cf-social-link-editor__icon {
+  width: 1.25rem;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--admin-text-muted, #666);
+  padding-top: 1.35rem;
+}
+.cf-social-link-editor__field {
+  flex: 1;
+  min-width: 0;
+}
+
 /* app/web/themes/@admin/components/config/themeselector/style.scss */
 .cf-theme-selector {
   width: 100%;

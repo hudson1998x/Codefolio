@@ -1,0 +1,13 @@
+{
+    "key": "social-links",
+    "config": {
+        "component": "Admin/Config/SocialLinkEditor",
+        "github": null,
+        "stackoverflow": null,
+        "reddit": null,
+        "linkedin": null,
+        "discord": null,
+        "dev": null,
+        "hackernews": null
+    }
+}

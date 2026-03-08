@@ -47,6 +47,16 @@
     "component": "Admin/Config/HomepageEditor",
     "homepage": "/page/1"
   },
+  "social-links": {
+    "component": "Admin/Config/SocialLinkEditor",
+    "github": null,
+    "stackoverflow": null,
+    "reddit": null,
+    "linkedin": null,
+    "discord": null,
+    "dev": null,
+    "hackernews": null
+  },
   "theme": {
     "component": "Admin/Config/ThemeSelector",
     "theme": "default"
