@@ -3,7 +3,7 @@ import { AdminController } from "../content/admincontroller";
 import { Page } from "./entity";
 import { PageService } from "./service";
 import { Controller } from "@decorators/controller";
-
+import { CanvasNode } from "../frontend/types";
 /**
  * Admin controller for the {@link Page} entity, mounted at `content/en-admin/page`.
  *

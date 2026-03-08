@@ -44,11 +44,11 @@ const subscriberMap: Record<string, Subscriber<unknown>[]> = {};
  * });
  * ```
  */
-export const subscribe = (eventName: string, callback: Subscriber<unknown>) => {
+export const subscribe = <T>(eventName: string, callback: Subscriber<T>) => {
   if (!subscriberMap[eventName]) {
     subscriberMap[eventName] = [];
   }
-  subscriberMap[eventName].push(callback);
+  subscriberMap[eventName].push(callback as Subscriber<unknown>);
 };
 
 /**

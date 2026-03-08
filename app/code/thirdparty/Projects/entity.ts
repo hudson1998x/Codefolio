@@ -29,7 +29,8 @@ export class Projects extends Content
         module: {
             component: 'PageSelector',
             data: {
-                name: 'documentationUrl'
+                name: 'documentationUrl',
+                label: 'Link to documentation'
             },
             children: []
         }

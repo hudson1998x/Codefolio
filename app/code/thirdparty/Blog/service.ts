@@ -14,6 +14,12 @@ export class BlogService extends ContentService<Blog> implements OnInit
     public async onInit()
     {
         await super.onInit();
+        this.registerAdminNavEntry({
+            label: "Blog",
+            href: "/en-admin/blog",
+            key: "blog",
+            parent: "Content Management"
+        })
 
         if (!fs.existsSync('content/blog.json'))
         {

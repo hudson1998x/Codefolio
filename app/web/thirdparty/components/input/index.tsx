@@ -179,6 +179,7 @@ interface SearchableSelectProps {
   value: string;
   placeholder?: string;
   disabled?: boolean;
+  name?: string;
   onChange: (value: string) => void;
   onBlur: () => void;
 }
@@ -189,6 +190,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
   value,
   placeholder = "Select...",
   disabled,
+  name,
   onChange,
   onBlur,
 }) => {
@@ -250,6 +252,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
       aria-controls={`${id}-listbox`}
       onClick={handleOpen}
     >
+      <input type={'hidden'} name={name} value={value}/>
       <div className="cf-select__trigger">
         <span className={`cf-select__value ${!selected ? "cf-select__value--placeholder" : ""}`}>
           {selected ? selected.label : placeholder}
@@ -333,6 +336,7 @@ export const Field: React.FC<FieldProps> = (props) => {
           disabled={disabled}
           onChange={handleChange}
           onBlur={handleBlur}
+          name={props.name}
         />
       </FieldWrapper>
     );

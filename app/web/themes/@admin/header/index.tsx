@@ -45,7 +45,7 @@ export const AdminHeader = () => {
 
   const RenderNavItems = ({ items, noBack }: { items: NavConfig[], noBack?: boolean }) => (
     <ul className="nav-list">
-      {!noBack ? <li className='nav-item-wrapper'><a href={getSafeUrl('/')} className="nav-link">&larr; Back</a></li> : null}
+      {!noBack ? <li className='nav-item-wrapper'><a href={getSafeUrl('/')} className="nav-link" target='_blank'>Visit Website</a></li> : null}
       {items.map((item, index) => (
         <li key={index} className="nav-item-wrapper">
           <a href={item.href || '#'} className="nav-link">

@@ -1,7 +1,8 @@
 import { Service } from "@decorators/service";
-import { OnInit } from "@decorators/di-container";
+import { Container, OnInit } from "@decorators/di-container";
 import fs from "fs";
 import path from "path";
+import { AdminNavService } from "../adminnav";
 
 const CONFIG_PATH    = path.join(process.cwd(), "build/config.json");
 const COMPONENTS_DIR = path.join(process.cwd(), "app/web");
@@ -37,6 +38,16 @@ export class ConfigService implements OnInit {
 
     await this.setConfig(merged);
     console.log(`✅ Config initialised — ${Object.keys(defaults).length} module(s) discovered`);
+
+    
+    const adminNavService: AdminNavService = Container.resolve(AdminNavService);
+
+    adminNavService.add({
+        label: 'Configuration',
+        href: '/en-admin/configuration/edit',
+        key: 'config'
+    })    
+    
   }
 
   /**

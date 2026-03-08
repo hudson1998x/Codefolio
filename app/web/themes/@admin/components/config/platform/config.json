@@ -1,0 +1,7 @@
+{
+    "key": "platformConfig",
+    "config": {
+        "component": "Admin/Config/Platform",
+        "mode": "portfolio"
+    }
+}

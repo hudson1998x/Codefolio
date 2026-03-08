@@ -23411,6 +23411,7 @@ var SearchableSelect = ({
   value,
   placeholder = "Select...",
   disabled,
+  name,
   onChange,
   onBlur
 }) => {
@@ -23479,6 +23480,7 @@ var SearchableSelect = ({
       "aria-controls": `${id}-listbox`,
       onClick: handleOpen,
       children: [
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("input", { type: "hidden", name, value }),
         /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "cf-select__trigger", children: [
           /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: `cf-select__value ${!selected ? "cf-select__value--placeholder" : ""}`, children: selected ? selected.label : placeholder }),
           /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "cf-select__chevron", "aria-hidden": true, children: "\u25BE" })
@@ -23552,7 +23554,8 @@ var Field = (props) => {
         placeholder,
         disabled,
         onChange: handleChange,
-        onBlur: handleBlur
+        onBlur: handleBlur,
+        name: props.name
       }
     ) });
   }
@@ -26900,7 +26903,7 @@ var AdminHeader = () => {
     return () => ws.close();
   }, []);
   const RenderNavItems = ({ items, noBack }) => /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("ul", { className: "nav-list", children: [
-    !noBack ? /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("a", { href: getSafeUrl("/"), className: "nav-link", children: "\u2190 Back" }) }) : null,
+    !noBack ? /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("a", { href: getSafeUrl("/"), className: "nav-link", target: "_blank", children: "Visit Website" }) }) : null,
     items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("li", { className: "nav-item-wrapper", children: [
       /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("a", { href: item.href || "#", className: "nav-link", children: [
         item.label,
@@ -28034,9 +28037,55 @@ registerComponent({
   component: AdminSocialLinkEditor
 });
 
+// app/web/themes/@admin/components/config/platform/config.json
+var config_default5 = {
+  key: "platformConfig",
+  config: {
+    component: "Admin/Config/Platform",
+    mode: "portfolio"
+  }
+};
+
+// app/web/themes/@admin/components/config/platform/index.tsx
+var import_jsx_runtime72 = __toESM(require_jsx_runtime());
+var PlatformConfig = () => {
+  const userCfg = useModuleConfig(config_default5.key, config_default5.config);
+  return /* @__PURE__ */ (0, import_jsx_runtime72.jsxs)("div", { className: "platform-config", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("input", { type: "hidden", name: `${config_default5.key}[component]`, value: "Admin/Config/Platform" }),
+    /* @__PURE__ */ (0, import_jsx_runtime72.jsx)(
+      Field,
+      {
+        label: "Platform Mode",
+        kind: "select",
+        name: `${config_default5.key}[mode]`,
+        options: [
+          {
+            label: "Portfolio",
+            value: "portfolio"
+          },
+          {
+            label: "Documentation",
+            value: "documentation"
+          },
+          {
+            label: "Static application",
+            value: "static_app"
+          }
+        ],
+        defaultValue: userCfg.mode
+      }
+    )
+  ] });
+};
+registerComponent({
+  name: "Admin/Config/Platform",
+  component: PlatformConfig,
+  defaults: config_default5.config
+});
+
 // app/web/themes/@admin/components/config/themeselector/index.tsx
 var import_react48 = __toESM(require_react());
-var import_jsx_runtime72 = __toESM(require_jsx_runtime());
+var import_jsx_runtime73 = __toESM(require_jsx_runtime());
 var ThemeSelector = ({ data }) => {
   const [themes, setThemes] = (0, import_react48.useState)([]);
   const [selected, setSelected] = (0, import_react48.useState)(data.theme || "default");
@@ -28063,18 +28112,18 @@ var ThemeSelector = ({ data }) => {
     );
     if (inputEl) inputEl.value = themeName;
   };
-  if (loading) return /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("p", { children: "Loading themes..." });
-  if (!themes.length) return /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("p", { children: "No themes found." });
-  return /* @__PURE__ */ (0, import_jsx_runtime72.jsxs)("div", { className: "cf-theme-selector", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("input", { type: "hidden", name: "theme[theme]", value: selected }),
-    /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("input", { type: "hidden", name: "theme[component]", value: "Admin/Config/ThemeSelector" }),
-    /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("div", { className: "cf-theme-selector__grid", children: themes.map((theme) => /* @__PURE__ */ (0, import_jsx_runtime72.jsxs)(
+  if (loading) return /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("p", { children: "Loading themes..." });
+  if (!themes.length) return /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("p", { children: "No themes found." });
+  return /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "cf-theme-selector", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("input", { type: "hidden", name: "theme[theme]", value: selected }),
+    /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("input", { type: "hidden", name: "theme[component]", value: "Admin/Config/ThemeSelector" }),
+    /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("div", { className: "cf-theme-selector__grid", children: themes.map((theme) => /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)(
       "div",
       {
         className: `cf-theme-selector__item ${selected === theme.key ? "selected" : ""}`,
         onClick: () => handleSelect(theme.name),
         children: [
-          theme.previewImage && /* @__PURE__ */ (0, import_jsx_runtime72.jsx)(
+          theme.previewImage && /* @__PURE__ */ (0, import_jsx_runtime73.jsx)(
             "img",
             {
               className: "cf-theme-selector__preview",
@@ -28082,10 +28131,10 @@ var ThemeSelector = ({ data }) => {
               alt: `${theme.name} preview`
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime72.jsxs)("div", { className: "cf-theme-selector__info", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("strong", { children: theme.name }),
-            /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("small", { children: theme.vendor }),
-            /* @__PURE__ */ (0, import_jsx_runtime72.jsxs)("span", { className: "cf-theme-selector__version", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "cf-theme-selector__info", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("strong", { children: theme.name }),
+            /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("small", { children: theme.vendor }),
+            /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("span", { className: "cf-theme-selector__version", children: [
               theme.version.major,
               ".",
               theme.version.minor,
@@ -28093,7 +28142,7 @@ var ThemeSelector = ({ data }) => {
               theme.version.patch
             ] })
           ] }),
-          selected === theme.name && /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("span", { className: "cf-theme-selector__selected-badge", children: "\u2714" })
+          selected === theme.name && /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("span", { className: "cf-theme-selector__selected-badge", children: "\u2714" })
         ]
       },
       theme.name
@@ -28111,7 +28160,7 @@ registerComponent({
 
 // app/web/themes/@admin/components/documentation-selector/index.tsx
 var import_react49 = __toESM(require_react());
-var import_jsx_runtime73 = __toESM(require_jsx_runtime());
+var import_jsx_runtime74 = __toESM(require_jsx_runtime());
 var DocumentationSelector = (props) => {
   const { data } = props;
   const { label, name, value: initialValue } = data;
@@ -28180,17 +28229,17 @@ var DocumentationSelector = (props) => {
     setSelectedParent(null);
     setSearchTerm("");
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "documentation-selector-container", ref: wrapperRef, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "selector-header", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("label", { className: "selector-label", children: label }),
-      selectedParent && /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("span", { className: "selected-badge", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("div", { className: "documentation-selector-container", ref: wrapperRef, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("div", { className: "selector-header", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("label", { className: "selector-label", children: label }),
+      selectedParent && /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("span", { className: "selected-badge", children: [
         "ID: ",
         selectedValue
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: `selector-wrapper ${isOpen ? "is-open" : ""} ${isLoading ? "is-loading" : ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "input-group", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime73.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("div", { className: `selector-wrapper ${isOpen ? "is-open" : ""} ${isLoading ? "is-loading" : ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("div", { className: "input-group", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime74.jsx)(
           "input",
           {
             type: "text",
@@ -28201,25 +28250,25 @@ var DocumentationSelector = (props) => {
             onChange: (e) => setSearchTerm(e.target.value)
           }
         ),
-        searchTerm && /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("button", { type: "button", className: "clear-btn", onClick: clearSelection, children: "\xD7" })
+        searchTerm && /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("button", { type: "button", className: "clear-btn", onClick: clearSelection, children: "\xD7" })
       ] }),
-      isOpen && /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("ul", { className: "results-dropdown", children: results.length > 0 ? results.map((doc) => /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)(
+      isOpen && /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("ul", { className: "results-dropdown", children: results.length > 0 ? results.map((doc) => /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)(
         "li",
         {
           onClick: () => handleSelect(doc),
           className: selectedValue === doc.id ? "is-selected" : "",
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("span", { className: "doc-id", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("span", { className: "doc-id", children: [
               "#",
               doc.id
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("span", { className: "doc-text", children: doc.pageTitle || doc.title })
+            /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("span", { className: "doc-text", children: doc.pageTitle || doc.title })
           ]
         },
         doc.id
-      )) : /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("li", { className: "no-results", children: isLoading ? "Searching..." : "No documents found" }) })
+      )) : /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("li", { className: "no-results", children: isLoading ? "Searching..." : "No documents found" }) })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("input", { type: "hidden", name, value: selectedValue })
+    /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("input", { type: "hidden", name, value: selectedValue })
   ] });
 };
 registerComponent({
@@ -28232,19 +28281,19 @@ registerComponent({
 });
 
 // app/web/themes/@admin/index.tsx
-var import_jsx_runtime74 = __toESM(require_jsx_runtime());
+var import_jsx_runtime75 = __toESM(require_jsx_runtime());
 var AdminThemeWrapper = (props) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("div", { className: "codefolio-default-admin", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime74.jsx)(AdminHeader, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("div", { className: "content", children: props.children })
+  return /* @__PURE__ */ (0, import_jsx_runtime75.jsxs)("div", { className: "codefolio-default-admin", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime75.jsx)(AdminHeader, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime75.jsx)("div", { className: "content", children: props.children })
   ] });
 };
 registerTheme("@admin", AdminThemeWrapper);
 
 // app/web/index.tsx
-var import_jsx_runtime75 = __toESM(require_jsx_runtime());
+var import_jsx_runtime76 = __toESM(require_jsx_runtime());
 var root = (0, import_client.createRoot)(document.getElementById("root"));
-root.render(/* @__PURE__ */ (0, import_jsx_runtime75.jsx)(Page, {}));
+root.render(/* @__PURE__ */ (0, import_jsx_runtime76.jsx)(Page, {}));
 /*! Bundled license information:
 
 scheduler/cjs/scheduler.development.js:

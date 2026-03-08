@@ -6,6 +6,7 @@ import { publish } from "@events";
 import { Container } from "@decorators/di-container";
 import { HttpService } from "../http/service";
 import { toEntityLabel } from "./utils";
+import { AdminNavMenuItem, AdminNavService } from "../adminnav";
 
 const CONTENT_ROOT = path.resolve("content");
 
@@ -47,6 +48,12 @@ export abstract class ContentService<T extends { id?: number }> {
         return path.join(this.collectionDir, "index.ndjson");
     }
 
+    public async registerAdminNavEntry(navItem: AdminNavMenuItem)
+    {
+        const svc = Container.resolve(AdminNavService);
+        await svc.add(navItem);
+    }
+
     // ── Lifecycle ────────────────────────────────────────────────────────────
 
     /**
@@ -78,13 +85,6 @@ export abstract class ContentService<T extends { id?: number }> {
         }
 
         console.log(`📁 Collection ready: content/${this.getCollectionName()}`);
-
-        const httpService: HttpService = Container.resolve(HttpService);
-
-        httpService.addCustomNavEntry({
-            label: toEntityLabel(this.getCollectionName()),
-            href: '/en-admin/' + this.getCollectionName() + '/',
-        });
     }
 
     // ── Low-level helpers ────────────────────────────────────────────────────

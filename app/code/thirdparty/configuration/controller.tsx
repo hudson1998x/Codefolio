@@ -1,7 +1,6 @@
 import { Controller } from "@decorators/controller";
 import { Get, Post } from "@decorators/routes";
 import { CanvasNode } from "../frontend/types";
-import { AdminNavItem } from "@decorators/admin-nav";
 import { ConfigService } from "./service";
 import { Container } from "@decorators/di-container";
 import { Request, Response } from "express";
@@ -21,7 +20,6 @@ export class ConfigController
     }
 
     @Get("edit/page.json")
-    @AdminNavItem("Site Settings")
     public async editPage(): Promise<CanvasNode>
     {
         const data: Record<string, any> = await this.service.getConfig();

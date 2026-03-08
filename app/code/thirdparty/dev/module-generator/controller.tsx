@@ -2,7 +2,6 @@
 /** @jsxFrag Fragment */
 import { Controller } from "@decorators/controller";
 import { Get, Post } from "@decorators/routes";
-import { AdminNavItem } from "@decorators/admin-nav";
 import { CanvasNode } from "../../frontend/types";
 import { ModuleGenerator, ServiceEntityField } from "./service";
 import { Container } from "@decorators/di-container";
@@ -51,7 +50,6 @@ export class ModuleGenerationController
      * Registered as a nav item under the "Dev Tools" category.
      */
     @Get("add/page.json")
-    @AdminNavItem("Module Generator", "Dev Tools", 9999)
     public async addPage(): Promise<CanvasNode>
     {
         return (

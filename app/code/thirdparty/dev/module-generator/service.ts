@@ -1,6 +1,8 @@
 import { Service } from "@decorators/service";
 import { CanvasNode } from "../../frontend/types";
 import fs from 'fs'
+import { Container, OnInit } from "@decorators/di-container";
+import { AdminNavService } from "../../adminnav";
 
 export type ServiceEntityField = {
     name: string,
@@ -13,8 +15,20 @@ export type ServiceEntityField = {
 }
 
 @Service()
-export class ModuleGenerator
+export class ModuleGenerator implements OnInit
 {
+
+    public async onInit(): Promise<void> {
+        const navService = Container.resolve(AdminNavService);
+        await navService.add({
+            label: "Module Generator",
+            href: "en-admin/dev/generator/add",
+            key: "mod_gen",
+            parent: "Dev Tools",
+            sortOrder: 99999
+        })
+    }
+
     async createModule(name: string, fields: ServiceEntityField[], isThirdParty: boolean = false): Promise<void> 
     {
         console.log(`[DEV] (Auto Generation) - ${name}`)

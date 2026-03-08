@@ -1,7 +1,6 @@
 import { Controller } from "app/code/thirdparty/decorators/controller";
 import { Get } from "app/code/thirdparty/decorators/routes";
 import { CanvasNode } from "../frontend/types";
-import { AdminNavItem } from "app/code/thirdparty/decorators/admin-nav";
 import { canvasAsPage } from "../utils";
 import { exec } from "child_process";
 import { Container } from "@decorators/di-container";
@@ -13,7 +12,6 @@ class AdminDashboardController
     private vcs:VcsService = Container.resolve(VcsService)
 
     @Get("page.json")
-    @AdminNavItem("Dashboard", undefined, 1)
     public async homepage(): Promise<CanvasNode>
     {
         return canvasAsPage(
