@@ -26879,13 +26879,35 @@ var GitCommitAndPush = () => {
 
 // app/web/themes/@admin/header/index.tsx
 var import_jsx_runtime59 = __toESM(require_jsx_runtime());
-var NavItem = ({ item, noBack }) => {
-  const [isOpen, setIsOpen] = (0, import_react41.useState)(false);
+var getNavKey = (label, parentKey = "") => `${parentKey}/${label}`;
+var readLocalStorage = (key, fallback) => {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw !== null ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+};
+var writeLocalStorage = (key, value) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+  }
+};
+var NavItem = ({
+  item,
+  noBack,
+  parentKey,
+  openItems,
+  setOpenItems
+}) => {
   const hasChildren = !!item.children?.length;
+  const navKey = getNavKey(item.label, parentKey);
+  const isOpen = !!openItems[navKey];
   const handleClick = (e) => {
     if (hasChildren) {
       e.preventDefault();
-      setIsOpen(!isOpen);
+      setOpenItems((prev) => ({ ...prev, [navKey]: !prev[navKey] }));
     }
   };
   return /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("li", { className: "nav-item-wrapper", children: [
@@ -26901,18 +26923,54 @@ var NavItem = ({ item, noBack }) => {
         ]
       }
     ),
-    hasChildren && /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: `nav-dropdown ${isOpen ? "is-open" : ""}`, children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(RenderNavItems, { items: item.children, noBack: true }) })
+    hasChildren && /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: `nav-dropdown ${isOpen ? "is-open" : ""}`, children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(
+      RenderNavItems,
+      {
+        items: item.children,
+        noBack: true,
+        parentKey: navKey,
+        openItems,
+        setOpenItems
+      }
+    ) })
   ] });
 };
-var RenderNavItems = ({ items, noBack }) => /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("ul", { className: "nav-list", children: [
-  !noBack ? /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("a", { href: getSafeUrl("/"), className: "nav-link", target: "_blank", children: "Visit Website" }) }) : null,
-  items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(NavItem, { item, noBack }, index))
+var RenderNavItems = ({
+  items,
+  noBack,
+  parentKey = "",
+  openItems,
+  setOpenItems
+}) => /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("ul", { className: "nav-list", children: [
+  !noBack && /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("a", { href: getSafeUrl("/"), className: "nav-link", target: "_blank", children: "Visit Website" }) }),
+  items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(
+    NavItem,
+    {
+      item,
+      noBack,
+      parentKey,
+      openItems,
+      setOpenItems
+    },
+    index
+  ))
 ] });
 var AdminHeader = () => {
   const [isSaving, setIsSaving] = (0, import_react41.useState)(false);
   const [navigation2, setNavigation] = (0, import_react41.useState)([]);
-  const [navOpen, setNavOpen] = (0, import_react41.useState)(false);
-  document.body.setAttribute("admin-nav-open", String(navOpen));
+  const [navOpen, setNavOpen] = (0, import_react41.useState)(
+    () => readLocalStorage("admin-nav-open", false)
+  );
+  const [openItems, setOpenItems] = (0, import_react41.useState)(
+    () => readLocalStorage("admin-nav-open-items", {})
+  );
+  (0, import_react41.useEffect)(() => {
+    document.body.setAttribute("admin-nav-open", String(navOpen));
+    writeLocalStorage("admin-nav-open", navOpen);
+  }, [navOpen]);
+  (0, import_react41.useEffect)(() => {
+    writeLocalStorage("admin-nav-open-items", openItems);
+  }, [openItems]);
   (0, import_react41.useEffect)(() => {
     const fetchNav = async () => {
       try {
@@ -26955,7 +27013,14 @@ var AdminHeader = () => {
         /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: "profile-pill", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("img", { src: "https://api.dicebear.com/7.x/shapes/svg?seed=noir", alt: "User" }) })
       ] })
     ] }),
-    navOpen && /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("aside", { className: "user-nav", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("nav", { className: "dynamic-nav", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(RenderNavItems, { items: navigation2 }) }) })
+    navOpen && /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("aside", { className: "user-nav", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("nav", { className: "dynamic-nav", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(
+      RenderNavItems,
+      {
+        items: navigation2,
+        openItems,
+        setOpenItems
+      }
+    ) }) })
   ] });
 };
 

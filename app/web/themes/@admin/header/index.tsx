@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import './style.scss';
 import { useHotKey } from '@hooks/use-hotkey';
 import { VcsStatusBar } from '../components/vcs-status';
@@ -15,46 +15,103 @@ interface NavConfig {
   children?: NavConfig[];
 }
 
-/** Individual Nav Item with local collapse state */
-const NavItem = ({ item, noBack }: { item: NavConfig, noBack?: boolean }) => {
-  const [isOpen, setIsOpen] = useState(false);
+type OpenItemsMap = Record<string, boolean>;
+
+const getNavKey = (label: string, parentKey = ''): string => `${parentKey}/${label}`;
+
+const readLocalStorage = <T,>(key: string, fallback: T): T => {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw !== null ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+};
+
+const writeLocalStorage = (key: string, value: unknown) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch { /* ignore */ }
+};
+
+/** Individual Nav Item — open state lives in shared openItems map */
+const NavItem = ({
+  item,
+  noBack,
+  parentKey,
+  openItems,
+  setOpenItems,
+}: {
+  item: NavConfig;
+  noBack?: boolean;
+  parentKey: string;
+  openItems: OpenItemsMap;
+  setOpenItems: React.Dispatch<React.SetStateAction<OpenItemsMap>>;
+}) => {
   const hasChildren = !!item.children?.length;
+  const navKey = getNavKey(item.label, parentKey);
+  const isOpen = !!openItems[navKey];
 
   const handleClick = (e: React.MouseEvent) => {
     if (hasChildren) {
       e.preventDefault();
-      setIsOpen(!isOpen);
+      setOpenItems((prev) => ({ ...prev, [navKey]: !prev[navKey] }));
     }
   };
 
   return (
     <li className="nav-item-wrapper">
-      <a 
-        href={item.href || '#'} 
-        className={`nav-link ${isOpen ? 'is-active' : ''}`} 
+      <a
+        href={item.href || '#'}
+        className={`nav-link ${isOpen ? 'is-active' : ''}`}
         onClick={handleClick}
       >
         {item.label}
-        {hasChildren && <i className={`fas fa-${isOpen ? 'chevron-up' : 'chevron-down'}`}/>}
+        {hasChildren && <i className={`fas fa-${isOpen ? 'chevron-up' : 'chevron-down'}`} />}
       </a>
       {hasChildren && (
         <div className={`nav-dropdown ${isOpen ? 'is-open' : ''}`}>
-          <RenderNavItems items={item.children!} noBack={true} />
+          <RenderNavItems
+            items={item.children!}
+            noBack={true}
+            parentKey={navKey}
+            openItems={openItems}
+            setOpenItems={setOpenItems}
+          />
         </div>
       )}
     </li>
   );
 };
 
-const RenderNavItems = ({ items, noBack }: { items: NavConfig[], noBack?: boolean }) => (
+const RenderNavItems = ({
+  items,
+  noBack,
+  parentKey = '',
+  openItems,
+  setOpenItems,
+}: {
+  items: NavConfig[];
+  noBack?: boolean;
+  parentKey?: string;
+  openItems: OpenItemsMap;
+  setOpenItems: React.Dispatch<React.SetStateAction<OpenItemsMap>>;
+}) => (
   <ul className="nav-list">
-    {!noBack ? (
-      <li className='nav-item-wrapper'>
-        <a href={getSafeUrl('/')} className="nav-link" target='_blank'>Visit Website</a>
+    {!noBack && (
+      <li className="nav-item-wrapper">
+        <a href={getSafeUrl('/')} className="nav-link" target="_blank">Visit Website</a>
       </li>
-    ) : null}
+    )}
     {items.map((item, index) => (
-      <NavItem key={index} item={item} noBack={noBack} />
+      <NavItem
+        key={index}
+        item={item}
+        noBack={noBack}
+        parentKey={parentKey}
+        openItems={openItems}
+        setOpenItems={setOpenItems}
+      />
     ))}
   </ul>
 );
@@ -62,9 +119,23 @@ const RenderNavItems = ({ items, noBack }: { items: NavConfig[], noBack?: boolea
 export const AdminHeader = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [navigation, setNavigation] = useState<NavConfig[]>([]);
-  const [navOpen, setNavOpen] = useState<boolean>(false);
 
-  document.body.setAttribute("admin-nav-open", String(navOpen));
+  const [navOpen, setNavOpen] = useState<boolean>(() =>
+    readLocalStorage('admin-nav-open', false)
+  );
+
+  const [openItems, setOpenItems] = useState<OpenItemsMap>(() =>
+    readLocalStorage('admin-nav-open-items', {})
+  );
+
+  useEffect(() => {
+    document.body.setAttribute('admin-nav-open', String(navOpen));
+    writeLocalStorage('admin-nav-open', navOpen);
+  }, [navOpen]);
+
+  useEffect(() => {
+    writeLocalStorage('admin-nav-open-items', openItems);
+  }, [openItems]);
 
   // Fetch Nav Logic
   useEffect(() => {
@@ -94,8 +165,8 @@ export const AdminHeader = () => {
     <>
       <header className="platform-header">
         <div className="header-left">
-          <button className='menu-toggle' onClick={() => setNavOpen((current) => !current)}>
-            <i className='fas fa-bars'/>
+          <button className="menu-toggle" onClick={() => setNavOpen((current) => !current)}>
+            <i className="fas fa-bars" />
           </button>
           <div className="workspace-switcher">
             <div className="logo-box">CF</div>
@@ -123,11 +194,15 @@ export const AdminHeader = () => {
           </div>
         </div>
       </header>
-      
+
       {navOpen && (
-        <aside className='user-nav'>
+        <aside className="user-nav">
           <nav className="dynamic-nav">
-            <RenderNavItems items={navigation} />
+            <RenderNavItems
+              items={navigation}
+              openItems={openItems}
+              setOpenItems={setOpenItems}
+            />
           </nav>
         </aside>
       )}
