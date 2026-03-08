@@ -1,112 +1,230 @@
-// STANDALONE RULES (No @extend dependencies)
+// ---------------------------------------------------------------------------
+// Page Picker — styles aligned with HeaderSearch conventions
+// ---------------------------------------------------------------------------
+
+$pp-border-color:   rgba(0, 0, 0, 0.1);
+$pp-surface:        #ffffff;
+$pp-surface-hover:  #f8fafc;
+$pp-radius:         10px;
+$pp-radius-sm:      6px;
+$pp-shadow:         0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+$pp-primary:        #2563eb;
+$pp-text-main:      #1e293b;
+$pp-text-muted:     #64748b;
+$pp-transition:     0.2s ease;
 
 /* Unified Button Style */
 .cf-btn-secondary {
-  background: #ffffff;
-  border: 1px dashed #cbd5e1;
-  color: #2563eb; // Matches your --accent
+  background: $pp-surface;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  color: $pp-primary;
   padding: 0.4rem 0.8rem;
-  border-radius: 6px;
+  border-radius: $pp-radius-sm;
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all $pp-transition;
   margin-right: 0.5rem;
 
   &:hover {
-    background: #eff6ff;
-    border-color: #2563eb;
+    background: rgba($pp-primary, 0.06);
+    border-color: $pp-primary;
     border-style: solid;
   }
 }
 
-/* Page Picker Rule */
+/* Shared label */
+.cf-label {
+  display: block;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: $pp-text-muted !important;
+  margin-bottom: 0.4rem !important;
+}
+
+/* Page Picker */
 .cf-page-picker {
   position: relative;
   width: 100%;
-  margin-bottom: 1.5rem;
 
   &__input-wrapper {
-    position: relative;
     display: flex;
     align-items: center;
-  }
+    gap: 6px;
+    height: 36px;
+    padding: 0 10px;
+    background: rgba(0, 0, 0, 0.04);
+    border: 1.5px solid transparent;
+    border-radius: $pp-radius;
+    transition: background $pp-transition, border-color $pp-transition, box-shadow $pp-transition;
 
-  &__input {
-    width: 100%;
-    padding: 0.6rem 1rem;
-    background: #ffffff;
-    border: 1px solid #e2e8f0; // Matches your --border
-    border-radius: 8px;
-    font-size: 0.875rem;
-    color: #1e293b;
-    outline: none;
-    transition: all 0.2s ease;
-
-    &:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    &:focus-within {
+      background: $pp-surface;
+      border-color: rgba($pp-primary, 0.4);
+      box-shadow: 0 0 0 3px rgba($pp-primary, 0.1);
     }
   }
 
+  &__input {
+    flex: 1 !important;
+    min-width: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    outline: none !important;
+    font-size: 0.875rem !important;
+    color: $pp-text-main !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+
+    &::placeholder { color: $pp-text-muted !important; }
+  }
+
   &__spinner {
-    position: absolute;
-    right: 1rem;
-    width: 1rem;
-    height: 1rem;
-    border: 2px solid #f1f5f9;
-    border-top-color: #2563eb;
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba($pp-primary, 0.2);
+    border-top-color: $pp-primary;
     border-radius: 50%;
-    animation: cf-spin 0.6s linear infinite;
+    animation: cf-spin 0.7s linear infinite;
   }
 
   &__results {
     position: absolute;
-    top: calc(100% + 6px);
+    top: calc(100% + 8px);
     left: 0;
     right: 0;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-    list-style: none;
-    padding: 0.5rem;
+    z-index: 2000;
     margin: 0;
-    max-height: 200px;
+    padding: 6px;
+    list-style: none;
+    background: $pp-surface;
+    border: 1.5px solid $pp-border-color;
+    border-radius: $pp-radius;
+    box-shadow: $pp-shadow;
+    max-height: 280px;
     overflow-y: auto;
+    overscroll-behavior: contain;
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+
+    &::-webkit-scrollbar       { width: 4px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.15); border-radius: 2px; }
   }
 
   &__item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.6rem 0.8rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.15s ease;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    padding: 10px 12px !important;
+    border-radius: $pp-radius-sm !important;
+    cursor: pointer !important;
+    transition: background $pp-transition !important;
+    user-select: none !important;
+    margin: 0 !important;
 
     &:hover {
-      background: #eff6ff;
-      .cf-page-picker__title { color: #2563eb; }
+      background: $pp-surface-hover !important;
+
+      .cf-page-picker__title { color: $pp-primary !important; }
     }
   }
 
   &__title {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #334155;
-    transition: color 0.15s ease;
+    flex: 1 !important;
+    min-width: 0 !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    color: $pp-text-main !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    transition: color $pp-transition !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.4 !important;
   }
 
-  &__path {
-    font-size: 0.75rem;
-    font-family: ui-monospace, monospace;
-    color: #64748b;
-    background: #f8fafc;
-    padding: 0.125rem 0.4rem;
-    border-radius: 4px;
-    border: 1px solid #e2e8f0;
+  &__tag {
+    flex-shrink: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 2px 8px !important;
+    border-radius: 20px !important;
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    background: rgba(0, 0, 0, 0.06) !important;
+    color: $pp-text-muted !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+
+    &--page      { background: rgba($pp-primary, 0.08) !important; color: $pp-primary !important; }
+    &--blog      { background: rgba(0, 0, 0, 0.05) !important;     color: $pp-text-muted !important; }
+    &--documents { background: rgba(0, 0, 0, 0.05) !important;     color: $pp-text-muted !important; }
+  }
+}
+
+/* Page Picker Input (form-embedded variant) */
+.cf-page-picker-input {
+  display: flex;
+  flex-direction: column;
+
+  .cf-page-picker { margin-bottom: 0; }
+
+  &__selected {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 6px 0 10px;
+    background: rgba(0, 0, 0, 0.04);
+    border: 1.5px solid transparent;
+    border-radius: $pp-radius;
+    max-width: 100%;
+  }
+
+  &__selected-label {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    color: $pp-text-main !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  &__clear {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border: none;
+    background: rgba(0, 0, 0, 0.08);
+    color: $pp-text-muted;
+    border-radius: 50%;
+    font-size: 0.65rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background $pp-transition, color $pp-transition;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.15);
+      color: $pp-text-main;
+    }
   }
 }
 

@@ -8,6 +8,7 @@ import './Prefab'
 import './Blog'
 import './Documents'
 import './health'
+import './Projects'
 
 // =================
 // Module imports

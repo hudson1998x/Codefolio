@@ -68,7 +68,8 @@ export function pluralise(value: string): string {
         index:   "indices",
         matrix:  "matrices",
         vertex:  "vertices",
-        documents: "documents"
+        documents: "documents",
+        projects: "projects"
     };
 
     if (irregulars[lower]) {
