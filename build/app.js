@@ -25014,15 +25014,15 @@ var Anchor = ({
   className,
   children
 }) => {
-  const isExternal = url.startsWith("http");
+  const isExternal2 = url.startsWith("http");
   const classes = ["cf-anchor", className].filter(Boolean).join(" ");
   return /* @__PURE__ */ (0, import_jsx_runtime44.jsx)(
     "a",
     {
-      href: isExternal ? url : getSafeUrl(url),
+      href: isExternal2 ? url : getSafeUrl(url),
       className: classes,
       target,
-      rel: isExternal || target === "_blank" ? "noopener noreferrer" : void 0,
+      rel: isExternal2 || target === "_blank" ? "noopener noreferrer" : void 0,
       children: text || children
     }
   );
@@ -26347,7 +26347,7 @@ var Header = () => {
   const { path } = useRouter();
   const config = useModuleConfig(config_default3.key, config_default3.config);
   const [isMenuOpen, setIsMenuOpen] = (0, import_react36.useState)(false);
-  const isExternal = (to) => to.startsWith("http");
+  const isExternal2 = (to) => to.startsWith("http");
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   (0, import_react36.useEffect)(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
@@ -26365,9 +26365,9 @@ var Header = () => {
     return /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)(
       "a",
       {
-        href: isExternal(item.to) ? item.to : getSafeUrl(item.to),
+        href: isExternal2(item.to) ? item.to : getSafeUrl(item.to),
         className: navClass,
-        target: isExternal(item.to) ? "_blank" : void 0,
+        target: isExternal2(item.to) ? "_blank" : void 0,
         rel: "noopener noreferrer",
         onClick: () => setIsMenuOpen(false),
         children: [
@@ -26692,7 +26692,7 @@ var CommandSearch = ({ navigation: navigation2 }) => {
     setShowOverlay(false);
     setSelected(null);
   };
-  const getTag4 = (res) => {
+  const getTag5 = (res) => {
     if (res.sourceKey === "dom") return "Live on Page";
     if (res.sourceKey === "nav") return "Menu";
     return res.sourceKey.charAt(0).toUpperCase() + res.sourceKey.slice(1);
@@ -26730,7 +26730,7 @@ var CommandSearch = ({ navigation: navigation2 }) => {
       ] })
     ] }) : /* @__PURE__ */ (0, import_jsx_runtime57.jsx)("ul", { className: "search-results-list", children: results.map((res, i) => /* @__PURE__ */ (0, import_jsx_runtime57.jsx)("li", { onClick: () => setSelected(res), children: /* @__PURE__ */ (0, import_jsx_runtime57.jsxs)("div", { className: "res-info", children: [
       /* @__PURE__ */ (0, import_jsx_runtime57.jsx)("span", { className: "res-label", children: res.label }),
-      /* @__PURE__ */ (0, import_jsx_runtime57.jsx)("span", { className: "res-tag", children: getTag4(res) })
+      /* @__PURE__ */ (0, import_jsx_runtime57.jsx)("span", { className: "res-tag", children: getTag5(res) })
     ] }) }, `${res.sourceKey}-${i}`)) }) })
   ] });
 };
@@ -27625,6 +27625,67 @@ registerComponent({
 // app/web/themes/@admin/components/config/header/index.tsx
 var import_react46 = __toESM(require_react());
 var import_jsx_runtime69 = __toESM(require_jsx_runtime());
+var isExternal = (url) => /^https?:\/\//i.test(url) || url.startsWith("//");
+var getSourceKey = (to) => {
+  const match = to.match(/^\/([^/]+)\//);
+  return match ? match[1] : null;
+};
+var getTag3 = (key) => key.charAt(0).toUpperCase() + key.slice(1);
+var tagColours = {
+  page: "rgba(124,58,237,0.1)",
+  blog: "rgba(37,99,235,0.1)",
+  documents: "rgba(22,163,74,0.1)"
+};
+var tagText = {
+  page: "#7c3aed",
+  blog: "#2563eb",
+  documents: "#16a34a"
+};
+var PagePreview = ({ to, label }) => {
+  const [title, setTitle] = (0, import_react46.useState)(null);
+  const sourceKey = getSourceKey(to);
+  (0, import_react46.useEffect)(() => {
+    if (!to || isExternal(to)) return;
+    const parts = to.replace(/^\//, "").split("/");
+    if (parts.length < 2) return;
+    const [type, id] = parts;
+    fetch(getSafeUrl(`/content/${type}/${id}.json`)).then((r) => r.ok ? r.json() : null).then((record) => {
+      if (record) setTitle(record.pageTitle || record.projectTitle || null);
+    }).catch(() => {
+    });
+  }, [to]);
+  if (!sourceKey) return null;
+  return /* @__PURE__ */ (0, import_jsx_runtime69.jsxs)("div", { className: "cf-header-editor__page-preview", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
+      "span",
+      {
+        className: "cf-header-editor__page-tag",
+        style: {
+          background: tagColours[sourceKey] ?? "rgba(0,0,0,0.06)",
+          color: tagText[sourceKey] ?? "#64748b"
+        },
+        children: getTag3(sourceKey)
+      }
+    ),
+    /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("span", { className: "cf-header-editor__page-title", children: title ?? label ?? to }),
+    /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
+      "a",
+      {
+        href: to,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        className: "cf-header-editor__page-open",
+        title: "Open page",
+        onClick: (e) => e.stopPropagation(),
+        children: /* @__PURE__ */ (0, import_jsx_runtime69.jsxs)("svg", { width: "11", height: "11", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.5", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" }),
+          /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("polyline", { points: "15 3 21 3 21 9" }),
+          /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("line", { x1: "10", y1: "14", x2: "21", y2: "3" })
+        ] })
+      }
+    )
+  ] });
+};
 var HeaderConfigEditor = ({ data }) => {
   const cfgKey = "header";
   const [isSearching, setIsSearching] = (0, import_react46.useState)(false);
@@ -27635,33 +27696,25 @@ var HeaderConfigEditor = ({ data }) => {
   };
   const [links, setLinks] = (0, import_react46.useState)(getInitialLinks);
   (0, import_react46.useEffect)(() => {
-    if (!initialised.current) {
-      initialised.current = true;
-    }
+    if (!initialised.current) initialised.current = true;
   }, []);
   const [draggingIndex, setDraggingIndex] = (0, import_react46.useState)(null);
   const [dragOverIndex, setDragOverIndex] = (0, import_react46.useState)(null);
   const draggingRef = (0, import_react46.useRef)(null);
   const dragOverRef = (0, import_react46.useRef)(null);
   const rowRefs = (0, import_react46.useRef)([]);
-  const addCustomLink = () => {
-    setLinks((prev) => [...prev, { to: "", label: "New Link", icon: "" }]);
-  };
+  const addCustomLink = () => setLinks((prev) => [...prev, { to: "", label: "New Link", icon: "" }]);
   const addPageLink = (page) => {
-    setLinks((prev) => [...prev, { to: `/page/${page.id}`, label: page.pageTitle, icon: "" }]);
+    setLinks((prev) => [...prev, { to: page.href, label: page.pageTitle, icon: "" }]);
     setIsSearching(false);
   };
-  const removeLink = (index) => {
-    setLinks((prev) => [...prev.slice(0, index), ...prev.slice(index + 1)]);
-  };
+  const removeLink = (index) => setLinks((prev) => [...prev.slice(0, index), ...prev.slice(index + 1)]);
   const getIndexFromY = (clientY) => {
-    let closest = 0;
-    let closestDist = Infinity;
+    let closest = 0, closestDist = Infinity;
     rowRefs.current.forEach((el, i) => {
       if (!el) return;
       const rect = el.getBoundingClientRect();
-      const midY = rect.top + rect.height / 2;
-      const dist = Math.abs(clientY - midY);
+      const dist = Math.abs(clientY - (rect.top + rect.height / 2));
       if (dist < closestDist) {
         closestDist = dist;
         closest = i;
@@ -27675,22 +27728,21 @@ var HeaderConfigEditor = ({ data }) => {
     dragOverRef.current = index;
     setDraggingIndex(index);
     setDragOverIndex(index);
-    const onMouseMove = (moveEvent) => {
-      const overIndex = getIndexFromY(moveEvent.clientY);
-      if (overIndex !== dragOverRef.current) {
-        dragOverRef.current = overIndex;
-        setDragOverIndex(overIndex);
+    const onMouseMove = (mv) => {
+      const over = getIndexFromY(mv.clientY);
+      if (over !== dragOverRef.current) {
+        dragOverRef.current = over;
+        setDragOverIndex(over);
       }
     };
     const onMouseUp = () => {
-      const from = draggingRef.current;
-      const to = dragOverRef.current;
+      const from = draggingRef.current, to = dragOverRef.current;
       if (from !== null && to !== null && from !== to) {
         setLinks((prev) => {
-          const updated = [...prev];
-          const [moved] = updated.splice(from, 1);
-          updated.splice(to, 0, moved);
-          return updated;
+          const u = [...prev];
+          const [moved] = u.splice(from, 1);
+          u.splice(to, 0, moved);
+          return u;
         });
       }
       draggingRef.current = null;
@@ -27742,76 +27794,84 @@ var HeaderConfigEditor = ({ data }) => {
         ] })
       ] }),
       isSearching && /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("div", { className: "cf-header-editor__search-container", children: /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(PageSearchPicker, { onSelect: addPageLink }) }),
-      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime69.jsxs)(
-        "div",
-        {
-          ref: (el) => {
-            rowRefs.current[index] = el;
-          },
-          className: [
-            "cf-header-editor__link-row",
-            draggingIndex === index ? "cf-header-editor__link-row--dragging" : "",
-            dragOverIndex === index && draggingIndex !== index ? "cf-header-editor__link-row--drag-over" : ""
-          ].filter(Boolean).join(" "),
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
-              "div",
-              {
-                className: "cf-header-editor__drag-handle",
-                title: "Drag to reorder",
-                onMouseDown: (e) => handleHandleMouseDown(e, index),
-                children: /* @__PURE__ */ (0, import_jsx_runtime69.jsxs)("svg", { width: "12", height: "18", viewBox: "0 0 12 18", fill: "currentColor", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("circle", { cx: "3", cy: "3", r: "1.5" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("circle", { cx: "9", cy: "3", r: "1.5" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("circle", { cx: "3", cy: "9", r: "1.5" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("circle", { cx: "9", cy: "9", r: "1.5" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("circle", { cx: "3", cy: "15", r: "1.5" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("circle", { cx: "9", cy: "15", r: "1.5" })
+      links.map((link, index) => {
+        const internal = link.to && !isExternal(link.to);
+        return /* @__PURE__ */ (0, import_jsx_runtime69.jsxs)(
+          "div",
+          {
+            ref: (el) => {
+              rowRefs.current[index] = el;
+            },
+            className: [
+              "cf-header-editor__link-row",
+              draggingIndex === index ? "cf-header-editor__link-row--dragging" : "",
+              dragOverIndex === index && draggingIndex !== index ? "cf-header-editor__link-row--drag-over" : ""
+            ].filter(Boolean).join(" "),
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
+                "div",
+                {
+                  className: "cf-header-editor__drag-handle",
+                  title: "Drag to reorder",
+                  onMouseDown: (e) => handleHandleMouseDown(e, index),
+                  children: /* @__PURE__ */ (0, import_jsx_runtime69.jsxs)("svg", { width: "12", height: "18", viewBox: "0 0 12 18", fill: "currentColor", children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("circle", { cx: "3", cy: "3", r: "1.5" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("circle", { cx: "9", cy: "3", r: "1.5" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("circle", { cx: "3", cy: "9", r: "1.5" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("circle", { cx: "9", cy: "9", r: "1.5" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("circle", { cx: "3", cy: "15", r: "1.5" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("circle", { cx: "9", cy: "15", r: "1.5" })
+                  ] })
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime69.jsxs)("div", { className: "cf-header-editor__link-body", children: [
+                internal && link.to && /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(PagePreview, { to: link.to, label: link.label }),
+                /* @__PURE__ */ (0, import_jsx_runtime69.jsxs)("div", { className: "cf-header-editor__link-fields", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
+                    Field,
+                    {
+                      name: `${cfgKey}[links][${index}][to]`,
+                      kind: "input",
+                      label: "URL / Path",
+                      defaultValue: link.to,
+                      required: true
+                    }
+                  ) }),
+                  /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
+                    Field,
+                    {
+                      name: `${cfgKey}[links][${index}][label]`,
+                      kind: "input",
+                      label: "Label",
+                      defaultValue: link.label || ""
+                    }
+                  ) }),
+                  /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
+                    Field,
+                    {
+                      name: `${cfgKey}[links][${index}][icon]`,
+                      kind: "input",
+                      label: "Icon Class",
+                      defaultValue: link.icon || "",
+                      placeholder: "fab fa-github"
+                    }
+                  ) })
                 ] })
-              }
-            ),
-            /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
-              Field,
-              {
-                name: `${cfgKey}[links][${index}][to]`,
-                kind: "input",
-                label: "URL / Path",
-                defaultValue: link.to,
-                required: true
-              }
-            ) }),
-            /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
-              Field,
-              {
-                name: `${cfgKey}[links][${index}][label]`,
-                kind: "input",
-                label: "Label",
-                defaultValue: link.label || ""
-              }
-            ) }),
-            /* @__PURE__ */ (0, import_jsx_runtime69.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
-              Field,
-              {
-                name: `${cfgKey}[links][${index}][icon]`,
-                kind: "input",
-                label: "Icon Class",
-                defaultValue: link.icon || "",
-                placeholder: "fab fa-github"
-              }
-            ) }),
-            /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
-              "button",
-              {
-                type: "button",
-                className: "cf-header-editor__remove-btn",
-                onClick: () => removeLink(index),
-                children: "\xD7"
-              }
-            )
-          ]
-        },
-        link.to + link.label + index
-      ))
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
+                "button",
+                {
+                  type: "button",
+                  className: "cf-header-editor__remove-btn",
+                  onClick: () => removeLink(index),
+                  children: "\xD7"
+                }
+              )
+            ]
+          },
+          link.to + link.label + index
+        );
+      })
     ] })
   ] });
 };
@@ -27846,7 +27906,7 @@ var resolveHref = async (href) => {
     return null;
   }
 };
-var getTag3 = (sourceKey) => sourceKey.charAt(0).toUpperCase() + sourceKey.slice(1);
+var getTag4 = (sourceKey) => sourceKey.charAt(0).toUpperCase() + sourceKey.slice(1);
 var HomepageEditor = ({ data }) => {
   const cfgKey = "homepage";
   const [currentValue, setCurrentValue] = (0, import_react47.useState)(data.homepage ?? "");
@@ -27875,7 +27935,7 @@ var HomepageEditor = ({ data }) => {
           /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("span", { className: "cf-page-picker-input__selected-label", children: "Loading\u2026" })
         ] }),
         !resolving && selected && /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: "cf-page-picker-input__selected", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("span", { className: `cf-page-picker__tag cf-page-picker__tag--${selected.sourceKey}`, children: getTag3(selected.sourceKey) }),
+          /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("span", { className: `cf-page-picker__tag cf-page-picker__tag--${selected.sourceKey}`, children: getTag4(selected.sourceKey) }),
           /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("span", { className: "cf-page-picker-input__selected-label", children: selected.pageTitle }),
           /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(
             "button",
