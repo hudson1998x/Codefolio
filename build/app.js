@@ -26086,11 +26086,7 @@ var config_default4 = {
   config: {
     component: "Admin/Config/Footer",
     copyrightName: "My Portfolio",
-    socials: [
-      { label: "GitHub", href: "" },
-      { label: "LinkedIn", href: "" },
-      { label: "Twitter", href: "" }
-    ]
+    socialOrder: []
   }
 };
 
@@ -26098,7 +26094,12 @@ var config_default4 = {
 var import_jsx_runtime53 = __toESM(require_jsx_runtime());
 var Footer = () => {
   const config = useModuleConfig(config_default4.key, config_default4.config);
-  const visibleSocials = config.socials.filter((s) => s.href.trim() !== "");
+  const socialLinks = useModuleConfig("social-links", {});
+  const visibleSocials = Object.keys(socialLinks).filter((key) => key !== "component" && !!socialLinks[key]?.trim());
+  const orderedSocials = [
+    ...(config.socialOrder ?? []).filter((key) => visibleSocials.includes(key)),
+    ...visibleSocials.filter((key) => !(config.socialOrder ?? []).includes(key))
+  ];
   return /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("footer", { className: "theme-footer border-top mt-auto py-4 bg-light", children: /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("div", { className: "container", children: /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", { className: "footer-content d-flex flex-column flex-md-row justify-content-between align-items-center", children: [
     /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("p", { className: "mb-0 text-muted", children: [
       "\xA9 ",
@@ -26107,16 +26108,16 @@ var Footer = () => {
       " ",
       /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("span", { className: "fw-semibold", children: config.copyrightName })
     ] }),
-    visibleSocials.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("div", { className: "footer-socials d-flex gap-3 mt-3 mt-md-0", children: visibleSocials.map((social) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(
+    orderedSocials.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime53.jsx)("div", { className: "footer-socials d-flex gap-3 mt-3 mt-md-0", children: orderedSocials.map((key) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(
       "a",
       {
-        href: social.href,
+        href: socialLinks[key],
         className: "text-decoration-none text-secondary",
         target: "_blank",
         rel: "noopener noreferrer",
-        children: social.label
+        children: key.charAt(0).toUpperCase() + key.slice(1)
       },
-      social.label
+      key
     )) })
   ] }) }) });
 };
@@ -27141,12 +27142,88 @@ registerComponent({
 // app/web/themes/@admin/components/config/footer/index.tsx
 var import_react44 = __toESM(require_react());
 var import_jsx_runtime67 = __toESM(require_jsx_runtime());
+var SOCIAL_LABELS = {
+  github: "GitHub",
+  stackoverflow: "Stack Overflow",
+  reddit: "Reddit",
+  linkedin: "LinkedIn",
+  discord: "Discord",
+  dev: "Dev.to",
+  hackernews: "Hacker News"
+};
+var SOCIAL_ICONS = {
+  github: "fab fa-github",
+  stackoverflow: "fab fa-stack-overflow",
+  reddit: "fab fa-reddit",
+  linkedin: "fab fa-linkedin",
+  discord: "fab fa-discord",
+  dev: "fab fa-dev",
+  hackernews: "fab fa-y-combinator"
+};
 var FooterConfigEditor = ({ data }) => {
   const cfgKey = "footer";
-  const initialSocials = data.socials ? Array.isArray(data.socials) ? data.socials : Object.values(data.socials) : [];
-  const [socials, setSocials] = (0, import_react44.useState)(initialSocials);
-  const addSocial = () => setSocials([...socials, { label: "", href: "" }]);
-  const removeSocial = (index) => setSocials(socials.filter((_, i) => i !== index));
+  const socialLinks = useModuleConfig("social-links", {});
+  const allKeys = Object.keys(socialLinks).filter((k) => k !== "component");
+  const getInitialOrder = () => {
+    const saved = Array.isArray(data.socialOrder) ? data.socialOrder : [];
+    const rest = allKeys.filter((k) => !saved.includes(k));
+    return [...saved.filter((k) => allKeys.includes(k)), ...rest];
+  };
+  const [order, setOrder] = (0, import_react44.useState)(getInitialOrder);
+  const draggingRef = (0, import_react44.useRef)(null);
+  const dragOverRef = (0, import_react44.useRef)(null);
+  const [draggingIndex, setDraggingIndex] = (0, import_react44.useState)(null);
+  const [dragOverIndex, setDragOverIndex] = (0, import_react44.useState)(null);
+  const rowRefs = (0, import_react44.useRef)([]);
+  const getIndexFromY = (clientY) => {
+    let closest = 0;
+    let closestDist = Infinity;
+    rowRefs.current.forEach((el, i) => {
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const midY = rect.top + rect.height / 2;
+      const dist = Math.abs(clientY - midY);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closest = i;
+      }
+    });
+    return closest;
+  };
+  const handleMouseDown = (e, index) => {
+    e.preventDefault();
+    draggingRef.current = index;
+    dragOverRef.current = index;
+    setDraggingIndex(index);
+    setDragOverIndex(index);
+    const onMouseMove = (ev) => {
+      const over = getIndexFromY(ev.clientY);
+      if (over !== dragOverRef.current) {
+        dragOverRef.current = over;
+        setDragOverIndex(over);
+      }
+    };
+    const onMouseUp = () => {
+      const from = draggingRef.current;
+      const to = dragOverRef.current;
+      if (from !== null && to !== null && from !== to) {
+        setOrder((prev) => {
+          const updated = [...prev];
+          const [moved] = updated.splice(from, 1);
+          updated.splice(to, 0, moved);
+          return updated;
+        });
+      }
+      draggingRef.current = null;
+      dragOverRef.current = null;
+      setDraggingIndex(null);
+      setDragOverIndex(null);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+  };
   return /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)("div", { className: "cf-footer-editor", children: [
     /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Footer" }),
     /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: "cf-footer-editor__group", children: /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(
@@ -27159,23 +27236,63 @@ var FooterConfigEditor = ({ data }) => {
         required: true
       }
     ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: "cf-footer-editor__divider" }),
-    /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)("div", { className: "cf-footer-editor__socials", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)("div", { className: "cf-footer-editor__socials-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("label", { className: "cf-footer-editor__label", children: "Social Media" }),
-        /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("button", { type: "button", className: "cf-footer-editor__add-btn", onClick: addSocial, children: "+ Add Social" })
-      ] }),
-      socials.map((social, index) => /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)("div", { className: "cf-footer-editor__social-row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(Field, { name: `${cfgKey}[socials][${index}][label]`, kind: "input", label: "Platform", defaultValue: social.label }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: "cf-footer-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(Field, { name: `${cfgKey}[socials][${index}][href]`, kind: "input", label: "URL", defaultValue: social.href }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("button", { type: "button", className: "cf-footer-editor__remove-btn", onClick: () => removeSocial(index), children: "\xD7" })
-      ] }, index))
+    allKeys.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)(import_jsx_runtime67.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: "cf-footer-editor__divider" }),
+      /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)("div", { className: "cf-footer-editor__socials", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)("div", { className: "cf-footer-editor__socials-header", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("label", { className: "cf-footer-editor__label", children: "Social Link Order" }),
+          /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("span", { className: "cf-footer-editor__hint", children: "Drag to reorder \u2014 links without a URL will not appear" })
+        ] }),
+        order.map((key, i) => /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("input", { type: "hidden", name: `${cfgKey}[socialOrder][${i}]`, value: key }, key)),
+        order.map((key, index) => {
+          const hasValue = !!socialLinks[key]?.trim();
+          return /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)(
+            "div",
+            {
+              ref: (el) => {
+                rowRefs.current[index] = el;
+              },
+              className: [
+                "cf-footer-editor__social-row",
+                !hasValue ? "cf-footer-editor__social-row--null" : "",
+                draggingIndex === index ? "cf-footer-editor__social-row--dragging" : "",
+                dragOverIndex === index && draggingIndex !== index ? "cf-footer-editor__social-row--drag-over" : ""
+              ].filter(Boolean).join(" "),
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(
+                  "div",
+                  {
+                    className: "cf-footer-editor__drag-handle",
+                    onMouseDown: (e) => handleMouseDown(e, index),
+                    title: "Drag to reorder",
+                    children: /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)("svg", { width: "12", height: "18", viewBox: "0 0 12 18", fill: "currentColor", children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("circle", { cx: "3", cy: "3", r: "1.5" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("circle", { cx: "9", cy: "3", r: "1.5" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("circle", { cx: "3", cy: "9", r: "1.5" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("circle", { cx: "9", cy: "9", r: "1.5" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("circle", { cx: "3", cy: "15", r: "1.5" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("circle", { cx: "9", cy: "15", r: "1.5" })
+                    ] })
+                  }
+                ),
+                /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("i", { className: `cf-footer-editor__social-icon ${SOCIAL_ICONS[key] ?? "fas fa-link"}` }),
+                /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("span", { className: "cf-footer-editor__social-label", children: SOCIAL_LABELS[key] ?? key }),
+                !hasValue && /* @__PURE__ */ (0, import_jsx_runtime67.jsxs)("span", { className: "cf-footer-editor__social-null", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("i", { className: "fas fa-eye-slash" }),
+                  " No URL set"
+                ] })
+              ]
+            },
+            key
+          );
+        })
+      ] })
     ] })
   ] });
 };
 registerComponent({
   name: "Admin/Config/Footer",
-  defaults: { component: "Admin/Config/Footer", copyrightName: "", socials: [] },
+  defaults: { component: "Admin/Config/Footer", copyrightName: "", socialOrder: [] },
   component: FooterConfigEditor
 });
 

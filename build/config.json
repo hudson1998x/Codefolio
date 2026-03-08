@@ -2,19 +2,14 @@
   "footer": {
     "component": "Admin/Config/Footer",
     "copyrightName": "CodeFolio",
-    "socials": [
-      {
-        "label": "GitHub",
-        "href": "https://github.com/hudson1998x/Codefolio"
-      },
-      {
-        "label": "LinkedIn",
-        "href": ""
-      },
-      {
-        "label": "Twitter",
-        "href": ""
-      }
+    "socialOrder": [
+      "github",
+      "stackoverflow",
+      "reddit",
+      "linkedin",
+      "discord",
+      "dev",
+      "hackernews"
     ]
   },
   "header": {
@@ -49,17 +44,17 @@
   },
   "social-links": {
     "component": "Admin/Config/SocialLinkEditor",
-    "github": null,
-    "stackoverflow": null,
-    "reddit": null,
-    "linkedin": null,
-    "discord": null,
-    "dev": null,
-    "hackernews": null
+    "github": "https://github.com/hudson1998x/Codefolio",
+    "stackoverflow": "",
+    "reddit": "",
+    "linkedin": "",
+    "discord": "",
+    "dev": "",
+    "hackernews": ""
   },
   "theme": {
-    "component": "Admin/Config/ThemeSelector",
-    "theme": "default"
+    "theme": "default",
+    "component": "Admin/Config/ThemeSelector"
   },
   "website": {
     "title": "Codefolio",

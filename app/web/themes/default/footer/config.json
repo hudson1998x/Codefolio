@@ -3,10 +3,6 @@
   "config": {
     "component": "Admin/Config/Footer",
     "copyrightName": "My Portfolio",
-    "socials": [
-      { "label": "GitHub",   "href": "" },
-      { "label": "LinkedIn", "href": "" },
-      { "label": "Twitter",  "href": "" }
-    ]
+    "socialOrder": []
   }
 }
