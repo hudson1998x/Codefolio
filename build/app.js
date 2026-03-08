@@ -21938,12 +21938,16 @@ var getPageType = (url) => {
 var import_react4 = __toESM(require_react());
 var import_jsx_runtime3 = __toESM(require_jsx_runtime());
 var WsListener = ({ children }) => {
+  const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+  const [disconnected, setDisconnected] = (0, import_react4.useState)(false);
   (0, import_react4.useEffect)(() => {
+    if (!isLocalhost) return;
     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
     const wsUrl = `${protocol}://${window.location.host}/ws`;
     const ws = new WebSocket(wsUrl);
     ws.onopen = () => {
       console.log("\u{1F7E2} WebSocket connected for live reload");
+      setDisconnected(false);
     };
     ws.onmessage = (event) => {
       try {
@@ -21961,10 +21965,34 @@ var WsListener = ({ children }) => {
     };
     ws.onclose = () => {
       console.warn("\u{1F534} WebSocket disconnected, live reload will stop");
+      setDisconnected(true);
     };
     return () => ws.close();
   }, []);
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, { children });
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
+    children,
+    isLocalhost && disconnected && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { style: {
+      position: "fixed",
+      bottom: "1.25rem",
+      left: "50%",
+      transform: "translateX(-50%)",
+      background: "#1e293b",
+      color: "#f8fafc",
+      padding: "0.65rem 1.25rem",
+      borderRadius: "8px",
+      fontSize: "0.8rem",
+      fontFamily: "system-ui, sans-serif",
+      boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+      display: "flex",
+      alignItems: "center",
+      gap: "0.6rem",
+      zIndex: 99999,
+      pointerEvents: "none"
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { style: { color: "#ef4444", fontSize: "0.65rem" }, children: "\u25CF" }),
+      "WebSocket disconnected \u2014 please restart the server."
+    ] })
+  ] });
 };
 
 // app/web/thirdparty/theme.tsx

@@ -100,9 +100,9 @@ class AdminDashboardController
      * @returns `{ success: true }` on completion, or `{ success: false, message }` on failure.
      */
     @Get("update")
-    public async runUpdate(): Promise<{ success: boolean; message: string }>
+    public async runUpdate(): Promise<void>
     {
-        return new Promise((resolve) => {
+        await new Promise((resolve) => {
             exec("npm run codefolio:update", { cwd: process.cwd() }, (error, stdout, stderr) => {
                 if (error) {
                     resolve({
@@ -117,5 +117,7 @@ class AdminDashboardController
                 }
             });
         });
+        console.log('[UPDATE] - Update completed, please re-run the application');
+        process.exit();
     }
 }

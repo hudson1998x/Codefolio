@@ -1,9 +1,13 @@
-import { FC, PropsWithChildren, useEffect } from "react";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
 
 /**
  * `WsListener` is a transparent layout component that opens a WebSocket
  * connection for the lifetime of the tree it wraps, enabling live-reload
  * and cache-key synchronisation without adding any DOM nodes of its own.
+ *
+ * **Localhost only** — the WebSocket connection is only attempted when the
+ * page is served from `localhost` or `127.0.0.1`. On any other host the
+ * component renders its children immediately with no side-effects.
  *
  * **Connection URL** — derived at runtime from `window.location`:
  * - `https:` pages connect via `wss://`
@@ -17,6 +21,7 @@ import { FC, PropsWithChildren, useEffect } from "react";
  *   up freshly built assets during development.
  *
  * The socket is closed automatically when the component unmounts.
+ * A disconnect banner is shown if the socket drops while on localhost.
  *
  * @example
  * ```tsx
@@ -27,18 +32,19 @@ import { FC, PropsWithChildren, useEffect } from "react";
  * ```
  */
 export const WsListener: FC<PropsWithChildren> = ({ children }) => {
-  /**
-   * Opens the WebSocket connection on mount and registers all event handlers.
-   * Runs once — the empty dependency array ensures it is never re-executed.
-   * The returned cleanup function closes the socket on unmount.
-   */
+  const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+  const [disconnected, setDisconnected] = useState(false);
+
   useEffect(() => {
+    if (!isLocalhost) return;
+
     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
     const wsUrl = `${protocol}://${window.location.host}/ws`;
     const ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {
       console.log("🟢 WebSocket connected for live reload");
+      setDisconnected(false);
     };
 
     ws.onmessage = (event) => {
@@ -60,10 +66,38 @@ export const WsListener: FC<PropsWithChildren> = ({ children }) => {
 
     ws.onclose = () => {
       console.warn("🔴 WebSocket disconnected, live reload will stop");
+      setDisconnected(true);
     };
 
     return () => ws.close();
   }, []);
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      {isLocalhost && disconnected && (
+        <div style={{
+          position:     "fixed",
+          bottom:       "1.25rem",
+          left:         "50%",
+          transform:    "translateX(-50%)",
+          background:   "#1e293b",
+          color:        "#f8fafc",
+          padding:      "0.65rem 1.25rem",
+          borderRadius: "8px",
+          fontSize:     "0.8rem",
+          fontFamily:   "system-ui, sans-serif",
+          boxShadow:    "0 4px 12px rgba(0,0,0,0.25)",
+          display:      "flex",
+          alignItems:   "center",
+          gap:          "0.6rem",
+          zIndex:       99999,
+          pointerEvents: "none",
+        }}>
+          <span style={{ color: "#ef4444", fontSize: "0.65rem" }}>●</span>
+          WebSocket disconnected — please restart the server.
+        </div>
+      )}
+    </>
+  );
 };
