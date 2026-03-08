@@ -27185,21 +27185,80 @@ var import_jsx_runtime68 = __toESM(require_jsx_runtime());
 var HeaderConfigEditor = ({ data }) => {
   const cfgKey = "header";
   const [isSearching, setIsSearching] = (0, import_react45.useState)(false);
-  const initialLinks = data.links ? Array.isArray(data.links) ? data.links : Object.values(data.links) : [];
-  const [links, setLinks] = (0, import_react45.useState)(initialLinks);
+  const initialised = (0, import_react45.useRef)(false);
+  const getInitialLinks = () => {
+    if (!data.links) return [];
+    return Array.isArray(data.links) ? data.links : Object.values(data.links);
+  };
+  const [links, setLinks] = (0, import_react45.useState)(getInitialLinks);
+  (0, import_react45.useEffect)(() => {
+    if (!initialised.current) {
+      initialised.current = true;
+    }
+  }, []);
+  const [draggingIndex, setDraggingIndex] = (0, import_react45.useState)(null);
+  const [dragOverIndex, setDragOverIndex] = (0, import_react45.useState)(null);
+  const draggingRef = (0, import_react45.useRef)(null);
+  const dragOverRef = (0, import_react45.useRef)(null);
+  const rowRefs = (0, import_react45.useRef)([]);
   const addCustomLink = () => {
-    setLinks([...links, { to: "", label: "New Link", icon: "" }]);
+    setLinks((prev) => [...prev, { to: "", label: "New Link", icon: "" }]);
   };
   const addPageLink = (page) => {
-    setLinks([...links, {
-      to: `/page/${page.id}`,
-      label: page.pageTitle,
-      icon: ""
-    }]);
+    setLinks((prev) => [...prev, { to: `/page/${page.id}`, label: page.pageTitle, icon: "" }]);
     setIsSearching(false);
   };
   const removeLink = (index) => {
     setLinks((prev) => [...prev.slice(0, index), ...prev.slice(index + 1)]);
+  };
+  const getIndexFromY = (clientY) => {
+    let closest = 0;
+    let closestDist = Infinity;
+    rowRefs.current.forEach((el, i) => {
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const midY = rect.top + rect.height / 2;
+      const dist = Math.abs(clientY - midY);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closest = i;
+      }
+    });
+    return closest;
+  };
+  const handleHandleMouseDown = (e, index) => {
+    e.preventDefault();
+    draggingRef.current = index;
+    dragOverRef.current = index;
+    setDraggingIndex(index);
+    setDragOverIndex(index);
+    const onMouseMove = (moveEvent) => {
+      const overIndex = getIndexFromY(moveEvent.clientY);
+      if (overIndex !== dragOverRef.current) {
+        dragOverRef.current = overIndex;
+        setDragOverIndex(overIndex);
+      }
+    };
+    const onMouseUp = () => {
+      const from = draggingRef.current;
+      const to = dragOverRef.current;
+      if (from !== null && to !== null && from !== to) {
+        setLinks((prev) => {
+          const updated = [...prev];
+          const [moved] = updated.splice(from, 1);
+          updated.splice(to, 0, moved);
+          return updated;
+        });
+      }
+      draggingRef.current = null;
+      dragOverRef.current = null;
+      setDraggingIndex(null);
+      setDragOverIndex(null);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
   };
   return /* @__PURE__ */ (0, import_jsx_runtime68.jsxs)("div", { className: "cf-header-editor", children: [
     /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("input", { type: "hidden", name: `${cfgKey}[component]`, value: "Admin/Config/Header" }),
@@ -27240,46 +27299,76 @@ var HeaderConfigEditor = ({ data }) => {
         ] })
       ] }),
       isSearching && /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("div", { className: "cf-header-editor__search-container", children: /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(PageSearchPicker, { onSelect: addPageLink }) }),
-      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime68.jsxs)("div", { className: "cf-header-editor__link-row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(
-          Field,
-          {
-            name: `${cfgKey}[links][${index}][to]`,
-            kind: "input",
-            label: "URL / Path",
-            defaultValue: link.to,
-            required: true
-          }
-        ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(
-          Field,
-          {
-            name: `${cfgKey}[links][${index}][label]`,
-            kind: "input",
-            label: "Label",
-            defaultValue: link.label || ""
-          }
-        ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(
-          Field,
-          {
-            name: `${cfgKey}[links][${index}][icon]`,
-            kind: "input",
-            label: "Icon Class",
-            defaultValue: link.icon || "",
-            placeholder: "fab fa-github"
-          }
-        ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(
-          "button",
-          {
-            type: "button",
-            className: "cf-header-editor__remove-btn",
-            onClick: () => removeLink(index),
-            children: "\xD7"
-          }
-        )
-      ] }, Math.random()))
+      links.map((link, index) => /* @__PURE__ */ (0, import_jsx_runtime68.jsxs)(
+        "div",
+        {
+          ref: (el) => {
+            rowRefs.current[index] = el;
+          },
+          className: [
+            "cf-header-editor__link-row",
+            draggingIndex === index ? "cf-header-editor__link-row--dragging" : "",
+            dragOverIndex === index && draggingIndex !== index ? "cf-header-editor__link-row--drag-over" : ""
+          ].filter(Boolean).join(" "),
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(
+              "div",
+              {
+                className: "cf-header-editor__drag-handle",
+                title: "Drag to reorder",
+                onMouseDown: (e) => handleHandleMouseDown(e, index),
+                children: /* @__PURE__ */ (0, import_jsx_runtime68.jsxs)("svg", { width: "12", height: "18", viewBox: "0 0 12 18", fill: "currentColor", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("circle", { cx: "3", cy: "3", r: "1.5" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("circle", { cx: "9", cy: "3", r: "1.5" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("circle", { cx: "3", cy: "9", r: "1.5" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("circle", { cx: "9", cy: "9", r: "1.5" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("circle", { cx: "3", cy: "15", r: "1.5" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("circle", { cx: "9", cy: "15", r: "1.5" })
+                ] })
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(
+              Field,
+              {
+                name: `${cfgKey}[links][${index}][to]`,
+                kind: "input",
+                label: "URL / Path",
+                defaultValue: link.to,
+                required: true
+              }
+            ) }),
+            /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(
+              Field,
+              {
+                name: `${cfgKey}[links][${index}][label]`,
+                kind: "input",
+                label: "Label",
+                defaultValue: link.label || ""
+              }
+            ) }),
+            /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("div", { className: "cf-header-editor__col", children: /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(
+              Field,
+              {
+                name: `${cfgKey}[links][${index}][icon]`,
+                kind: "input",
+                label: "Icon Class",
+                defaultValue: link.icon || "",
+                placeholder: "fab fa-github"
+              }
+            ) }),
+            /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(
+              "button",
+              {
+                type: "button",
+                className: "cf-header-editor__remove-btn",
+                onClick: () => removeLink(index),
+                children: "\xD7"
+              }
+            )
+          ]
+        },
+        link.to + link.label + index
+      ))
     ] })
   ] });
 };
