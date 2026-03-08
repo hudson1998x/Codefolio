@@ -1,113 +1,179 @@
-// Variables for easy tweaking
-$bg-color: #ffffff;
-$input-bg: #f9fafb;
-$border-color: #e5e7eb;
-$text-main: #111827;
-$text-muted: #6b7280;
-$radius: 8px;
+// ─────────────────────────────────────────────
+// DESIGN TOKENS
+// ─────────────────────────────────────────────
 
-.codefolio-default-admin {
-  .cf-section__content {
-    max-width: 500px; 
-  }
+// Header — OLED black, unchanged
+$h-bg:            #000000;
+$h-border:        #1c1c1c;
+$h-text:          #ededed;
+$h-text-dim:      #555;
+$h-border-mid:    #262626;
+$accent:          #0072f5;
 
-  .cf-section__content {
-    padding: 2rem;
-    background: $bg-color;
-    border-radius: 12px;
-    font-family: 'Inter', system-ui, sans-serif;
+// Sidebar — warm luxury light
+$s-bg:            #f7f6f3;          // warm off-white, not clinical
+$s-bg-deep:       #f0ede8;          // slightly deeper warm for header block
+$s-border:        rgba(0,0,0,0.08);
+$s-ink:           #1a1815;          // near-black with warmth
+$s-ink-mid:       #5c574f;          // mid-tone for secondary items
+$s-ink-dim:       #b0a89e;          // labels, placeholders
+$s-hover-bg:      rgba(0,0,0,0.04);
+$s-active-bg:     rgba(0,0,0,0.07);
+$s-active-pip:    #1a1815;
+$s-divider:       rgba(0,0,0,0.07);
+$s-guide:         rgba(0,0,0,0.06);
 
-    span:not(.canvas-editor span) {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: $text-main;
-      margin-bottom: 1.5rem;
-    }
-  }
+// Layout
+$sidebar-w:       256px;
+$header-h:        52px;
+$snap:            cubic-bezier(0.22, 1, 0.36, 1);
 
-  .cf-btn span {
-    font-size: inherit !important;
-    font-weight: normal !important;
-    color: #fff !important;
-    margin-bottom: 0 !important;
-  }
+// ─────────────────────────────────────────────
+// HEADER  (dark — no changes to structure)
+// ─────────────────────────────────────────────
 
-  .cf-form {
+.platform-header {
+  height: $header-h;
+  background: $h-bg;
+  border-bottom: 1px solid $h-border;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  color: $h-text;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+
+  .header-left {
     display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+    align-items: center;
+    gap: 10px;
 
-    .cf-field {
+    .menu-toggle {
+      width: 30px;
+      height: 30px;
       display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .cf-label {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: $text-muted;
-    }
-
-    .cf-input {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      background-color: $input-bg;
-      border: 1px solid $border-color;
-      border-radius: $radius;
-      color: $text-main;
-      font-size: 1rem;
-      box-sizing: border-box; // Ensures padding doesn't break width
-
-      &::placeholder {
-        color: #9ca3af;
-      }
-
-      &:focus {
-        outline: none;
-        background-color: #fff;
-      }
-    }
-
-    .cf-textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    .cf-btn {
-      span {
-          font-size: 0.9rem;
-          font-weight: 600;
-          color: #fff; 
-          margin-bottom: unset;;
-      }
-    }
-
-    .cf-btn--primary {
-      cursor: pointer;
-      color: white;
-      padding: 0.75rem 1.5rem;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
       border: none;
-      border-radius: $radius;
-      font-weight: 600;
-      font-size: 0.875rem;
-      margin-top: 0.5rem;
+      border-radius: 5px;
+      color: #666;
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s;
 
-      &:hover {
-        transform: translateY(-1px);
+      &:hover { color: $h-text; background: #111; }
+      i { font-size: 13px; }
+    }
+
+    .workspace-switcher {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 5px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background 0.15s, border-color 0.15s;
+      &:hover { background: #0d0d0d; border-color: $h-border; }
+
+      .logo-box {
+        width: 22px; height: 22px;
+        background: $h-text; color: $h-bg;
+        border-radius: 4px;
+        font-size: 9px; font-weight: 900;
+        display: flex; align-items: center; justify-content: center;
+        letter-spacing: -0.02em;
+        flex-shrink: 0;
       }
 
-      &:active {
-        transform: translateY(0);
+      .label-group {
+        display: flex; flex-direction: column; gap: 2px;
+        .title  { font-size: 12px; font-weight: 600; color: $h-text; letter-spacing: -0.01em; }
+        .status { font-size: 9px; color: $h-text-dim; text-transform: uppercase; letter-spacing: 0.06em; }
       }
     }
   }
 
-  .form-title > span {
-      margin-bottom:20px;
-      display: block;
-      margin-top:-10px;
+  .header-center {
+    position: absolute;
+    left: 50%; transform: translateX(-50%);
+
+    .command-search {
+      background: #0a0a0a;
+      border: 1px solid $h-border;
+      height: 30px; width: 260px;
+      border-radius: 6px;
+      display: flex; align-items: center;
+      padding: 0 10px; gap: 7px;
+      transition: border-color 0.15s, background 0.15s;
+
+      &:focus-within { border-color: #333; background: #0d0d0d; }
+
+      .search-icon { color: $h-text-dim; font-size: 12px; flex-shrink: 0; }
+
+      input {
+        background: transparent; border: none; outline: none;
+        color: $h-text; font-size: 12px; font-family: inherit; width: 100%;
+        &::placeholder { color: $h-text-dim; }
+      }
+
+      kbd {
+        font-size: 9px; background: #131313; color: $h-text-dim;
+        padding: 2px 5px; border-radius: 3px;
+        border: 1px solid $h-border-mid;
+        flex-shrink: 0; font-family: inherit;
+      }
+    }
   }
 
-}
+  .header-right {
+    display: flex; align-items: center; gap: 12px;
 
+    .system-indicators {
+      display: flex; align-items: center; gap: 10px;
+
+      .save-status {
+        display: flex; align-items: center; gap: 5px;
+        font-size: 11px; color: $h-text-dim;
+
+        &::before {
+          content: ''; width: 5px; height: 5px;
+          background: #2a2a2a; border-radius: 50%;
+          flex-shrink: 0; transition: background 0.3s;
+        }
+
+        &.is-saving {
+          color: $accent;
+          &::before { background: $accent; animation: pulse 1.2s ease-in-out infinite; }
+        }
+      }
+
+      .git-ref {
+        display: flex; align-items: center; gap: 5px;
+        color: $h-text-dim; font-family: inherit; font-size: 11px;
+        background: #0d0d0d; padding: 3px 8px;
+        border-radius: 4px; border: 1px solid $h-border;
+      }
+    }
+
+    .deploy-btn {
+      background: $h-text; color: $h-bg;
+      border: none; font-size: 11px; font-weight: 700;
+      padding: 6px 12px; border-radius: 5px;
+      cursor: pointer; font-family: inherit;
+      transition: background 0.15s, transform 0.1s;
+      &:hover  { background: #ccc; }
+      &:active { transform: scale(0.97); }
+    }
+
+    .profile-pill img {
+      width: 26px; height: 26px;
+      border-radius: 50%; border: 1px solid $h-border-mid;
+      cursor: pointer; display: block;
+      transition: border-color 0.15s;
+      &:hover { border-color: #444; }
+    }
+  }
+}

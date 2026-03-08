@@ -1,52 +1,90 @@
-// --- OLED Dark Palette ---
-$black: #000000;
-$near-black: #0a0a0a;
-$border: #1a1a1a;
-$border-bright: #262626;
-$text-primary: #ededed;
-$text-secondary: #a1a1a1;
-$text-dim: #666666;
-$accent-blue: #0072f5;
+// ─────────────────────────────────────────────
+// PREMIUM ARCTIC MONOCHROME TOKENS
+// ─────────────────────────────────────────────
+
+$h-bg:            #000000;
+$h-border:        #1c1c1c;
+$h-text:          #ffffff;
+$h-text-dim:      #666666;
+$accent:          #0072f5;
+
+// Sidebar — Arctic Ice (Fixed to Side)
+$s-bg:            #f3f6f7;
+$s-border:        rgba(0, 0, 0, 0.08);
+$s-ink:           #0f1113;
+$s-ink-mid:       #4a5559;
+$s-ink-dim:       #8e9ba1;
+$s-active-bg:     #ffffff;
+$s-active-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+
+$sidebar-w:       260px;
+$header-h:        52px;
+$snap:            cubic-bezier(0.19, 1, 0.22, 1);
+
+// ─────────────────────────────────────────────
+// RESET & BASE
+// ─────────────────────────────────────────────
+
+.nav-item-wrapper {
+  list-style: none;
+}
+
+// ─────────────────────────────────────────────
+// HEADER (FULL LOGIC INTEGRATED)
+// ─────────────────────────────────────────────
 
 .platform-header {
-  height: 52px;
-  background: $black;
-  border-bottom: 1px solid $border;
+  height: $header-h;
+  background: $h-bg;
+  border-bottom: 1px solid $h-border;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-  color: $text-primary;
-  font-family: 'Inter', system-ui, sans-serif;
+  color: $h-text;
+  font-family: 'Inter', sans-serif;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 200;
 
-  // --- Left Side ---
   .header-left {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 12px;
+
+    .menu-toggle {
+      background: transparent;
+      border: 1px solid #333;
+      color: #888;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: #fff;
+        border-color: #444;
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
 
     .workspace-switcher {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 4px 8px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.2s;
-
-      &:hover { background: #111; }
 
       .logo-box {
         width: 22px;
         height: 22px;
-        background: $text-primary;
-        color: $black;
+        background: #fff;
+        color: #000;
         border-radius: 4px;
-        font-size: 10px;
         font-weight: 900;
+        font-size: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -55,139 +93,23 @@ $accent-blue: #0072f5;
       .label-group {
         display: flex;
         flex-direction: column;
-        .title  { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
-        .status { font-size: 10px; color: $text-dim; text-transform: uppercase; letter-spacing: 0.05em; }
-      }
-    }
+        line-height: 1.2;
 
-    .dynamic-nav {
-      .nav-list {
-        display: flex;
-        flex-direction: row;
-        gap: 2px;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      .nav-item-wrapper {
-        position: relative;
-
-        &:hover > .nav-dropdown {
-          display: block;
-        }
-      }
-
-      .nav-link {
-        font-size: 13px;
-        color: $text-secondary;
-        padding: 6px 10px;
-        border-radius: 5px;
-        text-decoration: none;
-        transition: color 0.2s, background 0.2s;
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        white-space: nowrap;
-        cursor: pointer;
-
-        &:hover { color: white; background: #111; }
-      }
-
-      .chevron {
-        font-size: 10px;
-        color: $text-dim;
-        line-height: 1;
-      }
-
-      .nav-dropdown {
-        display: none;
-        position: absolute;
-        top: calc(100% - 4px);
-        left: 0;
-        min-width: 180px;
-        background: #0d0d0d;
-        border: 1px solid $border-bright;
-        border-radius: 6px;
-        padding: 4px;
-        z-index: 100;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-
-        .nav-list {
-          flex-direction: column;
-          gap: 0;
+        .title {
+          font-size: 12px;
+          font-weight: 600;
         }
 
-        .nav-item-wrapper {
-          width: 100%;
-
-          &:hover > .nav-dropdown {
-            display: block;
-          }
+        .status {
+          font-size: 9px;
+          color: $h-text-dim;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
-
-        .nav-link {
-          width: 100%;
-          border-radius: 4px;
-          padding: 7px 10px;
-          box-sizing: border-box;
-        }
-
-        // Nested dropdowns open to the right
-        .nav-dropdown {
-          top: 0;
-          left: calc(100% + 4px);
-        }
-      }
-
-      .nav-skeleton {
-        width: 120px;
-        height: 14px;
-        background: #111;
-        border-radius: 4px;
       }
     }
   }
 
-  // --- Center (Search) ---
-  .header-center {
-    .command-search {
-      background: $near-black;
-      border: 1px solid $border;
-      height: 32px;
-      width: 280px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      padding: 0 8px;
-      gap: 8px;
-
-      &:focus-within { border-color: $border-bright; background: #0f0f0f; }
-
-      .search-icon { color: $text-dim; font-size: 14px; }
-
-      input {
-        background: transparent;
-        border: none;
-        outline: none;
-        color: white;
-        font-size: 12px;
-        width: 100%;
-        &::placeholder { color: $text-dim; }
-      }
-
-      kbd {
-        font-size: 9px;
-        background: #1a1a1a;
-        color: $text-dim;
-        padding: 2px 5px;
-        border-radius: 3px;
-        border: 1px solid $border;
-      }
-    }
-  }
-
-  // --- Right Side ---
   .header-right {
     display: flex;
     align-items: center;
@@ -195,67 +117,195 @@ $accent-blue: #0072f5;
 
     .system-indicators {
       display: flex;
+      align-items: center;
       gap: 12px;
-      font-size: 12px;
-      color: $text-secondary;
 
       .save-status {
+        font-size: 11px;
+        color: #555;
         display: flex;
         align-items: center;
         gap: 6px;
 
         &::before {
           content: '';
-          width: 5px;
-          height: 5px;
+          width: 6px;
+          height: 6px;
           background: #333;
           border-radius: 50%;
         }
 
         &.is-saving {
-          color: $accent-blue;
-          &::before { background: $accent-blue; animation: pulse 1s infinite; }
+          color: $accent;
+          &::before {
+            background: $accent;
+            animation: pulse 1.5s infinite;
+          }
         }
       }
+    }
 
-      .git-ref {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        color: $text-dim;
-        font-family: 'JetBrains Mono', monospace;
-        background: #0d0d0d;
-        padding: 2px 8px;
-        border-radius: 4px;
-        border: 1px solid $border;
+    .profile-pill {
+      img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid #222;
+        object-fit: cover;
       }
-    }
-
-    .deploy-btn {
-      background: white;
-      color: black;
-      border: none;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.2s;
-      &:hover { background: #ccc; }
-    }
-
-    .profile-pill img {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      border: 1px solid $border;
-      cursor: pointer;
     }
   }
 }
 
+// ─────────────────────────────────────────────
+// SIDEBAR (FIXED ARCTIC STYLE)
+// ─────────────────────────────────────────────
+
+aside.user-nav {
+  position: fixed;
+  top: $header-h;
+  left: 0;
+  bottom: 0;
+  width: $sidebar-w;
+  background: $s-bg;
+  border-right: 1px solid $s-border;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s $snap;
+
+  nav.dynamic-nav {
+    flex: 1;
+    padding: 16px 8px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+    }
+  }
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: $s-ink-mid;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.6);
+    color: $s-ink;
+  }
+
+  &.is-active {
+    background: $s-active-bg;
+    color: black;
+    box-shadow: $s-active-shadow;
+    font-weight: 600;
+  }
+
+  .chevron {
+    font-size: 10px;
+    opacity: 0.3;
+    transition: transform 0.3s $snap;
+    
+    &.rotated {
+      transform: rotate(180deg);
+      opacity: 0.8;
+    }
+  }
+}
+
+// ─── ACCORDION LOGIC ───
+.nav-dropdown {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s $snap, opacity 0.3s ease;
+  opacity: 0;
+  overflow: hidden;
+
+  &.is-open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+
+  .nav-list {
+    min-height: 0;
+    padding-left: 12px;
+    margin-left: 12px;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
+
+// Skeleton State
+.nav-skeleton {
+  height: 32px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+  margin: 8px 12px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 2s infinite;
+  }
+}
+
+// ─────────────────────────────────────────────
+// ANIMATIONS & LAYOUT SHIFTS
+// ─────────────────────────────────────────────
+
 @keyframes pulse {
-  0%   { opacity: 0.4; }
-  50%  { opacity: 1; }
-  100% { opacity: 0.4; }
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+// Global Layout Logic based on Body Attribute
+body[admin-nav-open='true'] {
+  main {
+    margin-left: $sidebar-w;
+    transition: margin-left 0.4s $snap;
+  }
+}
+
+body[admin-nav-open='false'] {
+  main {
+    margin-left: 0;
+    transition: margin-left 0.4s $snap;
+  }
+  aside.user-nav {
+    transform: translateX(-$sidebar-w);
+  }
 }

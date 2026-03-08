@@ -26879,9 +26879,40 @@ var GitCommitAndPush = () => {
 
 // app/web/themes/@admin/header/index.tsx
 var import_jsx_runtime59 = __toESM(require_jsx_runtime());
+var NavItem = ({ item, noBack }) => {
+  const [isOpen, setIsOpen] = (0, import_react41.useState)(false);
+  const hasChildren = !!item.children?.length;
+  const handleClick = (e) => {
+    if (hasChildren) {
+      e.preventDefault();
+      setIsOpen(!isOpen);
+    }
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("li", { className: "nav-item-wrapper", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)(
+      "a",
+      {
+        href: item.href || "#",
+        className: `nav-link ${isOpen ? "is-active" : ""}`,
+        onClick: handleClick,
+        children: [
+          item.label,
+          hasChildren && /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("i", { className: `fas fa-${isOpen ? "chevron-up" : "chevron-down"}` })
+        ]
+      }
+    ),
+    hasChildren && /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: `nav-dropdown ${isOpen ? "is-open" : ""}`, children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(RenderNavItems, { items: item.children, noBack: true }) })
+  ] });
+};
+var RenderNavItems = ({ items, noBack }) => /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("ul", { className: "nav-list", children: [
+  !noBack ? /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("a", { href: getSafeUrl("/"), className: "nav-link", target: "_blank", children: "Visit Website" }) }) : null,
+  items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(NavItem, { item, noBack }, index))
+] });
 var AdminHeader = () => {
   const [isSaving, setIsSaving] = (0, import_react41.useState)(false);
   const [navigation2, setNavigation] = (0, import_react41.useState)([]);
+  const [navOpen, setNavOpen] = (0, import_react41.useState)(false);
+  document.body.setAttribute("admin-nav-open", String(navOpen));
   (0, import_react41.useEffect)(() => {
     const fetchNav = async () => {
       try {
@@ -26902,36 +26933,29 @@ var AdminHeader = () => {
     };
     return () => ws.close();
   }, []);
-  const RenderNavItems = ({ items, noBack }) => /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("ul", { className: "nav-list", children: [
-    !noBack ? /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("li", { className: "nav-item-wrapper", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("a", { href: getSafeUrl("/"), className: "nav-link", target: "_blank", children: "Visit Website" }) }) : null,
-    items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("li", { className: "nav-item-wrapper", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("a", { href: item.href || "#", className: "nav-link", children: [
-        item.label,
-        item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("span", { className: "chevron", children: "\u25BE" }) : null
-      ] }),
-      item.children?.length ? /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: "nav-dropdown", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(RenderNavItems, { items: item.children, noBack: true }) }) : null
-    ] }, index))
-  ] });
-  return /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("header", { className: "platform-header", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("div", { className: "header-left", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("div", { className: "workspace-switcher", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: "logo-box", children: "CF" }),
-        /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("div", { className: "label-group", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("span", { className: "title", children: "CodeFolio" }),
-          /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("span", { className: "status", children: "Dev Mode" })
+  return /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)(import_jsx_runtime59.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("header", { className: "platform-header", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("div", { className: "header-left", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("button", { className: "menu-toggle", onClick: () => setNavOpen((current2) => !current2), children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("i", { className: "fas fa-bars" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("div", { className: "workspace-switcher", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: "logo-box", children: "CF" }),
+          /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("div", { className: "label-group", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("span", { className: "title", children: "CodeFolio" }),
+            /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("span", { className: "status", children: "Dev Mode" })
+          ] })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("nav", { className: "dynamic-nav", children: navigation2.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(RenderNavItems, { items: navigation2 }) : /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: "nav-skeleton" }) })
+      /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: "header-center", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(CommandSearch, { navigation: navigation2 }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("div", { className: "header-right", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("div", { className: "system-indicators", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: `save-status ${isSaving ? "is-saving" : ""}`, children: isSaving ? "Syncing..." : "Synced" }),
+          /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(VcsStatusBar, {})
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(GitCommitAndPush, {}),
+        /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: "profile-pill", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("img", { src: "https://api.dicebear.com/7.x/shapes/svg?seed=noir", alt: "User" }) })
+      ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: "header-center", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(CommandSearch, { navigation: navigation2 }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("div", { className: "header-right", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("div", { className: "system-indicators", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: `save-status ${isSaving ? "is-saving" : ""}`, children: isSaving ? "Syncing..." : "Synced" }),
-        /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(VcsStatusBar, {})
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(GitCommitAndPush, {}),
-      /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: "profile-pill", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("img", { src: "https://api.dicebear.com/7.x/shapes/svg?seed=noir", alt: "User" }) })
-    ] })
+    navOpen && /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("aside", { className: "user-nav", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("nav", { className: "dynamic-nav", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(RenderNavItems, { items: navigation2 }) }) })
   ] });
 };
 

@@ -4724,48 +4724,59 @@
 }
 
 /* app/web/themes/@admin/header/style.scss */
+.nav-item-wrapper {
+  list-style: none;
+}
 .platform-header {
   height: 52px;
   background: #000000;
-  border-bottom: 1px solid #1a1a1a;
+  border-bottom: 1px solid #1c1c1c;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-  color: #ededed;
-  font-family:
-    "Inter",
-    system-ui,
-    sans-serif;
+  color: #ffffff;
+  font-family: "Inter", sans-serif;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 200;
 }
 .platform-header .header-left {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
+}
+.platform-header .header-left .menu-toggle {
+  background: transparent;
+  border: 1px solid #333;
+  color: #888;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.platform-header .header-left .menu-toggle:hover {
+  color: #fff;
+  border-color: #444;
+  background: rgba(255, 255, 255, 0.05);
 }
 .platform-header .header-left .workspace-switcher {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 4px 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.platform-header .header-left .workspace-switcher:hover {
-  background: #111;
 }
 .platform-header .header-left .workspace-switcher .logo-box {
   width: 22px;
   height: 22px;
-  background: #ededed;
-  color: #000000;
+  background: #fff;
+  color: #000;
   border-radius: 4px;
-  font-size: 10px;
   font-weight: 900;
+  font-size: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4773,130 +4784,17 @@
 .platform-header .header-left .workspace-switcher .label-group {
   display: flex;
   flex-direction: column;
+  line-height: 1.2;
 }
 .platform-header .header-left .workspace-switcher .label-group .title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: -0.01em;
 }
 .platform-header .header-left .workspace-switcher .label-group .status {
-  font-size: 10px;
+  font-size: 9px;
   color: #666666;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-}
-.platform-header .header-left .dynamic-nav .nav-list {
-  display: flex;
-  flex-direction: row;
-  gap: 2px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.platform-header .header-left .dynamic-nav .nav-item-wrapper {
-  position: relative;
-}
-.platform-header .header-left .dynamic-nav .nav-item-wrapper:hover > .nav-dropdown {
-  display: block;
-}
-.platform-header .header-left .dynamic-nav .nav-link {
-  font-size: 13px;
-  color: #a1a1a1;
-  padding: 6px 10px;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: color 0.2s, background 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  white-space: nowrap;
-  cursor: pointer;
-}
-.platform-header .header-left .dynamic-nav .nav-link:hover {
-  color: white;
-  background: #111;
-}
-.platform-header .header-left .dynamic-nav .chevron {
-  font-size: 10px;
-  color: #666666;
-  line-height: 1;
-}
-.platform-header .header-left .dynamic-nav .nav-dropdown {
-  display: none;
-  position: absolute;
-  top: calc(100% - 4px);
-  left: 0;
-  min-width: 180px;
-  background: #0d0d0d;
-  border: 1px solid #262626;
-  border-radius: 6px;
-  padding: 4px;
-  z-index: 100;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-}
-.platform-header .header-left .dynamic-nav .nav-dropdown .nav-list {
-  flex-direction: column;
-  gap: 0;
-}
-.platform-header .header-left .dynamic-nav .nav-dropdown .nav-item-wrapper {
-  width: 100%;
-}
-.platform-header .header-left .dynamic-nav .nav-dropdown .nav-item-wrapper:hover > .nav-dropdown {
-  display: block;
-}
-.platform-header .header-left .dynamic-nav .nav-dropdown .nav-link {
-  width: 100%;
-  border-radius: 4px;
-  padding: 7px 10px;
-  box-sizing: border-box;
-}
-.platform-header .header-left .dynamic-nav .nav-dropdown .nav-dropdown {
-  top: 0;
-  left: calc(100% + 4px);
-}
-.platform-header .header-left .dynamic-nav .nav-skeleton {
-  width: 120px;
-  height: 14px;
-  background: #111;
-  border-radius: 4px;
-}
-.platform-header .header-center .command-search {
-  background: #0a0a0a;
-  border: 1px solid #1a1a1a;
-  height: 32px;
-  width: 280px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  padding: 0 8px;
-  gap: 8px;
-}
-.platform-header .header-center .command-search:focus-within {
-  border-color: #262626;
-  background: #0f0f0f;
-}
-.platform-header .header-center .command-search .search-icon {
-  color: #666666;
-  font-size: 14px;
-}
-.platform-header .header-center .command-search input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: white;
-  font-size: 12px;
-  width: 100%;
-}
-.platform-header .header-center .command-search input::placeholder {
-  color: #666666;
-}
-.platform-header .header-center .command-search kbd {
-  font-size: 9px;
-  background: #1a1a1a;
-  color: #666666;
-  padding: 2px 5px;
-  border-radius: 3px;
-  border: 1px solid #1a1a1a;
 }
 .platform-header .header-right {
   display: flex;
@@ -4905,19 +4803,20 @@
 }
 .platform-header .header-right .system-indicators {
   display: flex;
+  align-items: center;
   gap: 12px;
-  font-size: 12px;
-  color: #a1a1a1;
 }
 .platform-header .header-right .system-indicators .save-status {
+  font-size: 11px;
+  color: #555;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 .platform-header .header-right .system-indicators .save-status::before {
   content: "";
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   background: #333;
   border-radius: 50%;
 }
@@ -4926,50 +4825,150 @@
 }
 .platform-header .header-right .system-indicators .save-status.is-saving::before {
   background: #0072f5;
-  animation: pulse 1s infinite;
-}
-.platform-header .header-right .system-indicators .git-ref {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #666666;
-  font-family: "JetBrains Mono", monospace;
-  background: #0d0d0d;
-  padding: 2px 8px;
-  border-radius: 4px;
-  border: 1px solid #1a1a1a;
-}
-.platform-header .header-right .deploy-btn {
-  background: white;
-  color: black;
-  border: none;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.platform-header .header-right .deploy-btn:hover {
-  background: #ccc;
+  animation: pulse 1.5s infinite;
 }
 .platform-header .header-right .profile-pill img {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  border: 1px solid #1a1a1a;
+  border: 1px solid #222;
+  object-fit: cover;
+}
+aside.user-nav {
+  position: fixed;
+  top: 52px;
+  left: 0;
+  bottom: 0;
+  width: 260px;
+  background: #f3f6f7;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+aside.user-nav nav.dynamic-nav {
+  flex: 1;
+  padding: 16px 8px;
+  overflow-y: auto;
+}
+aside.user-nav nav.dynamic-nav::-webkit-scrollbar {
+  width: 4px;
+}
+aside.user-nav nav.dynamic-nav::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #4a5559;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: all 0.2s ease;
   cursor: pointer;
+  user-select: none;
+}
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.6);
+  color: #0f1113;
+}
+.nav-link.is-active {
+  background: #ffffff;
+  color: black;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  font-weight: 600;
+}
+.nav-link .chevron {
+  font-size: 10px;
+  opacity: 0.3;
+  transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.nav-link .chevron.rotated {
+  transform: rotate(180deg);
+  opacity: 0.8;
+}
+.nav-dropdown {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.3s ease;
+  opacity: 0;
+  overflow: hidden;
+}
+.nav-dropdown.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+.nav-dropdown .nav-list {
+  min-height: 0;
+  padding-left: 12px;
+  margin-left: 12px;
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+}
+.nav-skeleton {
+  height: 32px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+  margin: 8px 12px;
+  position: relative;
+  overflow: hidden;
+}
+.nav-skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent);
+  animation: shimmer 2s infinite;
 }
 @keyframes pulse {
   0% {
-    opacity: 0.4;
-  }
-  50% {
     opacity: 1;
   }
-  100% {
+  50% {
     opacity: 0.4;
   }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+body[admin-nav-open=true] main {
+  margin-left: 260px;
+  transition: margin-left 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+body[admin-nav-open=false] main {
+  margin-left: 0;
+  transition: margin-left 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+body[admin-nav-open=false] aside.user-nav {
+  transform: translateX(-260px);
 }
 
 /* app/web/themes/@admin/components/vcs-status/style.scss */
@@ -7195,91 +7194,210 @@
 }
 
 /* app/web/themes/@admin/style.scss */
-.codefolio-default-admin .cf-section__content {
-  max-width: 500px;
-}
-.codefolio-default-admin .cf-section__content {
-  padding: 2rem;
-  background: #ffffff;
-  border-radius: 12px;
-  font-family:
-    "Inter",
-    system-ui,
-    sans-serif;
-}
-.codefolio-default-admin .cf-section__content span:not(.canvas-editor span) {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 1.5rem;
-}
-.codefolio-default-admin .cf-btn span {
-  font-size: inherit !important;
-  font-weight: normal !important;
-  color: #fff !important;
-  margin-bottom: 0 !important;
-}
-.codefolio-default-admin .cf-form {
+.platform-header {
+  height: 52px;
+  background: #000000;
+  border-bottom: 1px solid #1c1c1c;
   display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  color: #ededed;
+  position: sticky;
+  top: 0;
+  z-index: 200;
 }
-.codefolio-default-admin .cf-form .cf-field {
+.platform-header .header-left {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 10px;
 }
-.codefolio-default-admin .cf-form .cf-label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #6b7280;
-}
-.codefolio-default-admin .cf-form .cf-input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background-color: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  color: #111827;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-.codefolio-default-admin .cf-form .cf-input::placeholder {
-  color: #9ca3af;
-}
-.codefolio-default-admin .cf-form .cf-input:focus {
-  outline: none;
-  background-color: #fff;
-}
-.codefolio-default-admin .cf-form .cf-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-.codefolio-default-admin .cf-form .cf-btn span {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #fff;
-  margin-bottom: unset;
-}
-.codefolio-default-admin .cf-form .cf-btn--primary {
-  cursor: pointer;
-  color: white;
-  padding: 0.75rem 1.5rem;
+.platform-header .header-left .menu-toggle {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+.platform-header .header-left .menu-toggle:hover {
+  color: #ededed;
+  background: #111;
+}
+.platform-header .header-left .menu-toggle i {
+  font-size: 13px;
+}
+.platform-header .header-left .workspace-switcher {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+.platform-header .header-left .workspace-switcher:hover {
+  background: #0d0d0d;
+  border-color: #1c1c1c;
+}
+.platform-header .header-left .workspace-switcher .logo-box {
+  width: 22px;
+  height: 22px;
+  background: #ededed;
+  color: #000000;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+.platform-header .header-left .workspace-switcher .label-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.platform-header .header-left .workspace-switcher .label-group .title {
+  font-size: 12px;
   font-weight: 600;
-  font-size: 0.875rem;
-  margin-top: 0.5rem;
+  color: #ededed;
+  letter-spacing: -0.01em;
 }
-.codefolio-default-admin .cf-form .cf-btn--primary:hover {
-  transform: translateY(-1px);
+.platform-header .header-left .workspace-switcher .label-group .status {
+  font-size: 9px;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
-.codefolio-default-admin .cf-form .cf-btn--primary:active {
-  transform: translateY(0);
+.platform-header .header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
-.codefolio-default-admin .form-title > span {
-  margin-bottom: 20px;
+.platform-header .header-center .command-search {
+  background: #0a0a0a;
+  border: 1px solid #1c1c1c;
+  height: 30px;
+  width: 260px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 7px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.platform-header .header-center .command-search:focus-within {
+  border-color: #333;
+  background: #0d0d0d;
+}
+.platform-header .header-center .command-search .search-icon {
+  color: #555;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.platform-header .header-center .command-search input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ededed;
+  font-size: 12px;
+  font-family: inherit;
+  width: 100%;
+}
+.platform-header .header-center .command-search input::placeholder {
+  color: #555;
+}
+.platform-header .header-center .command-search kbd {
+  font-size: 9px;
+  background: #131313;
+  color: #555;
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid #262626;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+.platform-header .header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.platform-header .header-right .system-indicators {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.platform-header .header-right .system-indicators .save-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #555;
+}
+.platform-header .header-right .system-indicators .save-status::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background: #2a2a2a;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+.platform-header .header-right .system-indicators .save-status.is-saving {
+  color: #0072f5;
+}
+.platform-header .header-right .system-indicators .save-status.is-saving::before {
+  background: #0072f5;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.platform-header .header-right .system-indicators .git-ref {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #555;
+  font-family: inherit;
+  font-size: 11px;
+  background: #0d0d0d;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid #1c1c1c;
+}
+.platform-header .header-right .deploy-btn {
+  background: #ededed;
+  color: #000000;
+  border: none;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, transform 0.1s;
+}
+.platform-header .header-right .deploy-btn:hover {
+  background: #ccc;
+}
+.platform-header .header-right .deploy-btn:active {
+  transform: scale(0.97);
+}
+.platform-header .header-right .profile-pill img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid #262626;
+  cursor: pointer;
   display: block;
-  margin-top: -10px;
+  transition: border-color 0.15s;
+}
+.platform-header .header-right .profile-pill img:hover {
+  border-color: #444;
 }
 /*# sourceMappingURL=app.css.map */

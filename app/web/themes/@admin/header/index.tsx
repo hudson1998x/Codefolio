@@ -15,9 +15,56 @@ interface NavConfig {
   children?: NavConfig[];
 }
 
+/** Individual Nav Item with local collapse state */
+const NavItem = ({ item, noBack }: { item: NavConfig, noBack?: boolean }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const hasChildren = !!item.children?.length;
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (hasChildren) {
+      e.preventDefault();
+      setIsOpen(!isOpen);
+    }
+  };
+
+  return (
+    <li className="nav-item-wrapper">
+      <a 
+        href={item.href || '#'} 
+        className={`nav-link ${isOpen ? 'is-active' : ''}`} 
+        onClick={handleClick}
+      >
+        {item.label}
+        {hasChildren && <i className={`fas fa-${isOpen ? 'chevron-up' : 'chevron-down'}`}/>}
+      </a>
+      {hasChildren && (
+        <div className={`nav-dropdown ${isOpen ? 'is-open' : ''}`}>
+          <RenderNavItems items={item.children!} noBack={true} />
+        </div>
+      )}
+    </li>
+  );
+};
+
+const RenderNavItems = ({ items, noBack }: { items: NavConfig[], noBack?: boolean }) => (
+  <ul className="nav-list">
+    {!noBack ? (
+      <li className='nav-item-wrapper'>
+        <a href={getSafeUrl('/')} className="nav-link" target='_blank'>Visit Website</a>
+      </li>
+    ) : null}
+    {items.map((item, index) => (
+      <NavItem key={index} item={item} noBack={noBack} />
+    ))}
+  </ul>
+);
+
 export const AdminHeader = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [navigation, setNavigation] = useState<NavConfig[]>([]);
+  const [navOpen, setNavOpen] = useState<boolean>(false);
+
+  document.body.setAttribute("admin-nav-open", String(navOpen));
 
   // Fetch Nav Logic
   useEffect(() => {
@@ -43,54 +90,47 @@ export const AdminHeader = () => {
     return () => ws.close();
   }, []);
 
-  const RenderNavItems = ({ items, noBack }: { items: NavConfig[], noBack?: boolean }) => (
-    <ul className="nav-list">
-      {!noBack ? <li className='nav-item-wrapper'><a href={getSafeUrl('/')} className="nav-link" target='_blank'>Visit Website</a></li> : null}
-      {items.map((item, index) => (
-        <li key={index} className="nav-item-wrapper">
-          <a href={item.href || '#'} className="nav-link">
-            {item.label}
-            {item.children?.length ? <span className="chevron">▾</span> : null}
-          </a>
-          {item.children?.length ? (
-            <div className="nav-dropdown"><RenderNavItems items={item.children} noBack={true}/></div>
-          ) : null}
-        </li>
-      ))}
-    </ul>
-  );
-
   return (
-    <header className="platform-header">
-      <div className="header-left">
-        <div className="workspace-switcher">
-          <div className="logo-box">CF</div>
-          <div className="label-group">
-            <span className="title">CodeFolio</span>
-            <span className="status">Dev Mode</span>
+    <>
+      <header className="platform-header">
+        <div className="header-left">
+          <button className='menu-toggle' onClick={() => setNavOpen((current) => !current)}>
+            <i className='fas fa-bars'/>
+          </button>
+          <div className="workspace-switcher">
+            <div className="logo-box">CF</div>
+            <div className="label-group">
+              <span className="title">CodeFolio</span>
+              <span className="status">Dev Mode</span>
+            </div>
           </div>
         </div>
-        <nav className="dynamic-nav">
-          {navigation.length > 0 ? <RenderNavItems items={navigation} /> : <div className="nav-skeleton" />}
-        </nav>
-      </div>
 
-      <div className="header-center">
-        <CommandSearch navigation={navigation} />
-      </div>
+        <div className="header-center">
+          <CommandSearch navigation={navigation} />
+        </div>
 
-      <div className="header-right">
-        <div className="system-indicators">
-          <div className={`save-status ${isSaving ? 'is-saving' : ''}`}>
-            {isSaving ? 'Syncing...' : 'Synced'}
+        <div className="header-right">
+          <div className="system-indicators">
+            <div className={`save-status ${isSaving ? 'is-saving' : ''}`}>
+              {isSaving ? 'Syncing...' : 'Synced'}
+            </div>
+            <VcsStatusBar />
           </div>
-          <VcsStatusBar />
+          <GitCommitAndPush />
+          <div className="profile-pill">
+            <img src="https://api.dicebear.com/7.x/shapes/svg?seed=noir" alt="User" />
+          </div>
         </div>
-        <GitCommitAndPush />
-        <div className="profile-pill">
-          <img src="https://api.dicebear.com/7.x/shapes/svg?seed=noir" alt="User" />
-        </div>
-      </div>
-    </header>
+      </header>
+      
+      {navOpen && (
+        <aside className='user-nav'>
+          <nav className="dynamic-nav">
+            <RenderNavItems items={navigation} />
+          </nav>
+        </aside>
+      )}
+    </>
   );
 };
