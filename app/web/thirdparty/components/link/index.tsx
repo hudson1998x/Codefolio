@@ -1,6 +1,7 @@
 import React from "react";
 import { registerComponent, CodefolioProps } from "../registry";
 import './style.scss'
+import { getSafeUrl } from "../../utils/safe-url";
 
 export interface AnchorData {
   url: string;
@@ -21,7 +22,7 @@ export const Anchor: React.FC<AnchorData & { children?: React.ReactNode }> = ({
 
   return (
     <a 
-      href={url} 
+      href={isExternal ? url : getSafeUrl(url)} 
       className={classes} 
       target={target}
       rel={isExternal || target === '_blank' ? "noopener noreferrer" : undefined}

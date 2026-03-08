@@ -24851,7 +24851,7 @@ var Anchor = ({
   return /* @__PURE__ */ (0, import_jsx_runtime44.jsx)(
     "a",
     {
-      href: url,
+      href: isExternal ? url : getSafeUrl(url),
       className: classes,
       target,
       rel: isExternal || target === "_blank" ? "noopener noreferrer" : void 0,

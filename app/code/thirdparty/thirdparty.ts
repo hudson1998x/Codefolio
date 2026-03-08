@@ -7,6 +7,7 @@ import './dev'
 import './Prefab'
 import './Blog'
 import './Documents'
+import './health'
 
 // =================
 // Module imports
@@ -68,7 +69,16 @@ async function start() {
 
   console.log(`Found ${services.length} services`);
 
-  await Container.initializeServices(services);
+  await Container.initializeServices(services, (service: Function) => {
+    if (service.constructor == HttpService)
+    {
+        if (process.argv.indexOf("--expose-routes") > -1)
+        {
+          console.log('Route expose mode enabled');
+          (service as HttpService).exposeRoutesInConsole();
+        }
+    }
+  });
 
   console.log("✅ All services initialized");
 

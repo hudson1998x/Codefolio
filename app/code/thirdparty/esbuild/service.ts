@@ -3,6 +3,7 @@ import { Container } from "app/code/thirdparty/decorators/di-container";
 import { HttpService } from "../http/service";
 import { context, Plugin } from "esbuild";
 import { sassPlugin } from "esbuild-sass-plugin";
+import { WebsiteHealthService } from "../health/service";
 
 /**
  * Service responsible for managing the esbuild bundler lifecycle.
@@ -60,6 +61,8 @@ export class EsbuildService {
       },
     };
 
+    const health: WebsiteHealthService = Container.resolve(WebsiteHealthService)
+
     const ctx = await context({
       entryPoints: ["./app/web/index.tsx"],
       bundle: true,
@@ -79,8 +82,21 @@ export class EsbuildService {
         "@utils":      "./app/code/utils",
       },
       plugins: [
-        sassPlugin({ type: "css" }),
-        onRebuildPlugin,
+        // TODO: Future "Health" endpoint that doesn't pollute the console. 
+        sassPlugin({
+          type: "css",
+          quietDeps: true,
+          logger: {
+            warn(message, options) {
+              health.addHealthWarning({
+                message: message,
+                file: options?.span?.url?.pathname ?? "unknown",
+                line: String(options?.span?.start?.line ?? "0"),
+              });
+            }
+          }
+        }),
+        onRebuildPlugin
       ],
       loader: {
         ".ts":   "tsx",

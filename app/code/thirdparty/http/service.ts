@@ -40,6 +40,7 @@ export class HttpService {
   private port = 3000;
   private server!: http.Server;
   private wss!: WebSocketServer;
+  private exposeRoutesToLog: boolean = false;
 
   /**
    * Unique cache-busting token generated at server start. Appended as a query
@@ -58,6 +59,12 @@ export class HttpService {
    */
   constructor() {
     this.cacheKey = Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
+  }
+
+  exposeRoutesInConsole(): HttpService
+  {
+    this.exposeRoutesToLog = true;
+    return this;
   }
 
   addCustomNavEntry(navItem: NavConfig)
@@ -230,7 +237,10 @@ export class HttpService {
           });
         }
 
-        console.log(`✔ ${route.method.toUpperCase()} ${fullPath}`);
+        if (this.exposeRoutesToLog)
+        {
+          console.log(`✔ ${route.method.toUpperCase()} ${fullPath}`);
+        }
       });
     });
 

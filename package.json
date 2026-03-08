@@ -14,7 +14,8 @@
   "scripts": {
     "start": "tsx --tsconfig app/code/tsconfig.json ./app.ts",
     "codefolio:update": "node app/scripts/thirdparty/update.js",
-    "codefolio:factoryreset": "node app/scripts/thirdparty/factory-reset.js"
+    "codefolio:factoryreset": "node app/scripts/thirdparty/factory-reset.js",
+    "codefolio:debugroutes": "tsx --tsconfig app/code/tsconfig.json ./app.ts --expose-routes"
   },
   "dependencies": {
     "express": "^5.2.1",

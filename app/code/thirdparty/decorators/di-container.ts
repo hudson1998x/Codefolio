@@ -116,10 +116,12 @@ export class Container {
    * ]);
    * ```
    */
-  static async initializeServices(services: any[]) {
+  static async initializeServices(services: any[], onCreate?: Function) {
     for (const ServiceClass of services) {
       const instance = this.resolve(ServiceClass);
-
+      
+      onCreate?.(instance);
+      
       if (typeof (instance as OnInit).onInit === "function") {
         await (instance as OnInit).onInit();
       }
