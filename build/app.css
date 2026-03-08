@@ -911,9 +911,6 @@
 .blueprint-island .island-header .type-badge-preview {
   font-size: 0.7rem;
   display: inline-block;
-  position: relative;
-  top: 13px;
-  left: 5px;
 }
 .blueprint-island .island-header .delete-trigger {
   background: transparent;
@@ -6597,11 +6594,17 @@
     system-ui,
     sans-serif;
 }
-.codefolio-default-admin .cf-section__content span {
+.codefolio-default-admin .cf-section__content span:not(.canvas-editor span) {
   font-size: 1.25rem;
   font-weight: 600;
   color: #111827;
   margin-bottom: 1.5rem;
+}
+.codefolio-default-admin .cf-btn span {
+  font-size: inherit !important;
+  font-weight: normal !important;
+  color: #fff !important;
+  margin-bottom: 0 !important;
 }
 .codefolio-default-admin .cf-form {
   display: flex;

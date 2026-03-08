@@ -17,12 +17,19 @@ $radius: 8px;
     border-radius: 12px;
     font-family: 'Inter', system-ui, sans-serif;
 
-    span {
+    span:not(.canvas-editor span) {
       font-size: 1.25rem;
       font-weight: 600;
       color: $text-main;
       margin-bottom: 1.5rem;
     }
+  }
+
+  .cf-btn span {
+    font-size: inherit !important;
+    font-weight: normal !important;
+    color: #fff !important;
+    margin-bottom: 0 !important;
   }
 
   .cf-form {
