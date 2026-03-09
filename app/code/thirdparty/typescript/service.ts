@@ -21,7 +21,7 @@ const TS_TYPE_MAP: Record<string, string> = {
 };
 
 const toTsType = (type: any): string =>
-    TS_TYPE_MAP[type?.name] ?? 'unknown';
+    TS_TYPE_MAP[type?.name] ?? 'any';
 
 const toPascalCase = (str: string): string =>
     str.charAt(0).toUpperCase() + str.slice(1);
@@ -29,6 +29,8 @@ const toPascalCase = (str: string): string =>
 const toCamelCase = (str: string): string =>
     str.charAt(0).toLowerCase() + str.slice(1);
 
+// emission data for fields is limited on non primitive types. 
+// we fallback to any.
 const generateInterface = (entityName: string, fields: FieldMetadata[]): string => {
     const lines = fields
         .filter(f => !BASE_FIELDS.has(f.key))

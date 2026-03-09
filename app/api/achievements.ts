@@ -5,12 +5,12 @@ export interface Achievements {
     creator?: string;
     created?: string;
     updated?: string;
-    achievementTitle?: unknown;
-    issuer?: unknown;
-    achievementType?: unknown;
-    awardDate?: unknown;
-    url?: unknown;
-    description?: unknown;
+    achievementTitle?: any;
+    issuer?: any;
+    achievementType?: any;
+    awardDate?: any;
+    url?: any;
+    description?: any;
 }
 
 const ENTITY = 'achievements';

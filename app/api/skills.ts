@@ -5,11 +5,11 @@ export interface Skills {
     creator?: string;
     created?: string;
     updated?: string;
-    skillName?: unknown;
-    skillCategory?: unknown;
-    skillProficiency?: unknown;
-    yearsOfExperience?: unknown;
-    lastUsed?: unknown;
+    skillName?: any;
+    skillCategory?: any;
+    skillProficiency?: any;
+    yearsOfExperience?: any;
+    lastUsed?: any;
 }
 
 const ENTITY = 'skills';

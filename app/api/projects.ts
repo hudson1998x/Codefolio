@@ -5,14 +5,14 @@ export interface Projects {
     creator?: string;
     created?: string;
     updated?: string;
-    projectTitle?: unknown;
-    projectDescription?: unknown;
-    repositoryUrl?: unknown;
-    publishedUrl?: unknown;
-    tags?: unknown;
-    category?: unknown;
-    skillIds?: unknown;
-    documentationUrl?: unknown;
+    projectTitle?: any;
+    projectDescription?: any;
+    repositoryUrl?: any;
+    publishedUrl?: any;
+    tags?: any;
+    category?: any;
+    skillIds?: any;
+    documentationUrl?: any;
 }
 
 const ENTITY = 'projects';

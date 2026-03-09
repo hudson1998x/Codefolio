@@ -5,9 +5,9 @@ export interface Page {
     creator?: string;
     created?: string;
     updated?: string;
-    pageTitle?: unknown;
-    pageDescription?: unknown;
-    content?: unknown;
+    pageTitle?: any;
+    pageDescription?: any;
+    content?: any;
 }
 
 const ENTITY = 'page';

@@ -5,20 +5,20 @@ export interface Employment {
     creator?: string;
     created?: string;
     updated?: string;
-    company?: unknown;
-    companyUrl?: unknown;
-    industry?: unknown;
-    companySize?: unknown;
-    roleTitle?: unknown;
-    roleType?: unknown;
-    department?: unknown;
-    location?: unknown;
-    startDate?: unknown;
-    endDate?: unknown;
-    summary?: unknown;
-    achievements?: unknown;
-    responsibilities?: unknown;
-    skillsUsed?: unknown;
+    company?: any;
+    companyUrl?: any;
+    industry?: any;
+    companySize?: any;
+    roleTitle?: any;
+    roleType?: any;
+    department?: any;
+    location?: any;
+    startDate?: any;
+    endDate?: any;
+    summary?: any;
+    achievements?: any;
+    responsibilities?: any;
+    skillsUsed?: any;
 }
 
 const ENTITY = 'employment';

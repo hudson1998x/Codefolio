@@ -5,12 +5,12 @@ export interface Blog {
     creator?: string;
     created?: string;
     updated?: string;
-    pageTitle?: unknown;
-    content?: unknown;
-    keywords?: unknown;
-    pageDescription?: unknown;
-    category?: unknown;
-    tags?: unknown;
+    pageTitle?: any;
+    content?: any;
+    keywords?: any;
+    pageDescription?: any;
+    category?: any;
+    tags?: any;
 }
 
 const ENTITY = 'blog';

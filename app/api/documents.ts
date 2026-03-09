@@ -5,12 +5,12 @@ export interface Documents {
     creator?: string;
     created?: string;
     updated?: string;
-    pageTitle?: unknown;
-    pageDescription?: unknown;
-    content?: unknown;
-    parentPage?: unknown;
-    keywords?: unknown;
-    tags?: unknown;
+    pageTitle?: any;
+    pageDescription?: any;
+    content?: any;
+    parentPage?: any;
+    keywords?: any;
+    tags?: any;
 }
 
 const ENTITY = 'documents';

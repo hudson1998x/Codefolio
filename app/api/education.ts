@@ -5,18 +5,18 @@ export interface Education {
     creator?: string;
     created?: string;
     updated?: string;
-    institution?: unknown;
-    institutionUrl?: unknown;
-    qualificationType?: unknown;
-    fieldOfStudy?: unknown;
-    status?: unknown;
-    startDate?: unknown;
-    endDate?: unknown;
-    grade?: unknown;
-    description?: unknown;
-    modules?: unknown;
-    achievements?: unknown;
-    skillIds?: unknown;
+    institution?: any;
+    institutionUrl?: any;
+    qualificationType?: any;
+    fieldOfStudy?: any;
+    status?: any;
+    startDate?: any;
+    endDate?: any;
+    grade?: any;
+    description?: any;
+    modules?: any;
+    achievements?: any;
+    skillIds?: any;
 }
 
 const ENTITY = 'education';

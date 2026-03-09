@@ -5,13 +5,13 @@ export interface Certification {
     creator?: string;
     created?: string;
     updated?: string;
-    certificationName?: unknown;
-    issuer?: unknown;
-    issueDate?: unknown;
-    expiryDate?: unknown;
-    credentialUrl?: unknown;
-    credentialId?: unknown;
-    skillIds?: unknown;
+    certificationName?: any;
+    issuer?: any;
+    issueDate?: any;
+    expiryDate?: any;
+    credentialUrl?: any;
+    credentialId?: any;
+    skillIds?: any;
 }
 
 const ENTITY = 'certification';

@@ -5,9 +5,9 @@ export interface Prefab {
     creator?: string;
     created?: string;
     updated?: string;
-    prefabName?: unknown;
-    prefabJson?: unknown;
-    category?: unknown;
+    prefabName?: any;
+    prefabJson?: any;
+    category?: any;
 }
 
 const ENTITY = 'prefab';
