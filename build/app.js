@@ -23090,14 +23090,14 @@ var CanvasEditor = ({ data, onChange }) => {
   }, [activeCategory, cmsComponents, search2]);
   const activeNode = (0, import_react15.useMemo)(() => {
     if (!selectedId) return null;
-    const find5 = (list) => {
+    const find7 = (list) => {
       for (const n of list) {
         if (n.id === selectedId) return n;
-        const found = find5(n.children);
+        const found = find7(n.children);
         if (found) return found;
       }
     };
-    return find5(nodes) ?? null;
+    return find7(nodes) ?? null;
   }, [nodes, selectedId]);
   const activeDef = (0, import_react15.useMemo)(
     () => activeNode ? getComponent(activeNode.component) : null,
@@ -26247,6 +26247,20 @@ var find4 = function(query, limit) {
   return search(ENTITY4, query, SEARCHABLE4, limit);
 };
 
+// app/api/projects.ts
+var ENTITY5 = "projects";
+var SEARCHABLE5 = ["projectTitle", "projectDescription", "tags"];
+var find5 = function(query, limit) {
+  return search(ENTITY5, query, SEARCHABLE5, limit);
+};
+
+// app/api/achievements.ts
+var ENTITY6 = "achievements";
+var SEARCHABLE6 = ["achievementTitle", "issuer", "description"];
+var find6 = function(query, limit) {
+  return search(ENTITY6, query, SEARCHABLE6, limit);
+};
+
 // app/web/thirdparty/pages/cv-preview/index.tsx
 var import_jsx_runtime51 = __toESM(require_jsx_runtime());
 var CvPreviewer = () => {
@@ -26281,6 +26295,8 @@ var CvPreviewer = () => {
   const [employment] = useApi(() => find2("", 500), []);
   const [education] = useApi(() => find3("", 500), []);
   const [certifications] = useApi(() => find4("", 500), []);
+  const [projects] = useApi(() => find5("", 500), []);
+  const [standaloneAchievements] = useApi(() => find6("", 500), []);
   return /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "cv-canvas", children: [
     /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "toolbar no-print", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("button", { className: "premium-btn", onClick: () => window.print(), children: "Generate PDF" }) }),
     /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "cv-sheet", children: [
@@ -26298,12 +26314,12 @@ var CvPreviewer = () => {
             /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("label", { children: "Direct" }),
             /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("p", { children: personalInformation.email }),
             /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("p", { children: personalInformation.phone }),
-            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("p", { className: "web-url", children: personalInformation.website })
+            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("a", { href: personalInformation.website, className: "web-url", children: personalInformation.website })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "info-block", children: [
             /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("label", { children: "Social Ecosystem" }),
             /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "social-links-container", children: Object.entries(socialLinks).filter(([key, val]) => val && key !== "component").map(([key, val]) => /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("a", { href: String(val), target: "_blank", rel: "noreferrer", className: "social-item", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "platform", children: key.replace("hackernews", "hacker news") }),
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "platform", children: key }),
               /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "address", children: String(val).replace(/^https?:\/\//, "") })
             ] }, key)) })
           ] })
@@ -26312,7 +26328,7 @@ var CvPreviewer = () => {
       /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("section", { className: "premium-summary", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("p", { children: personalInformation.summary }) }),
       /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("main", { className: "premium-grid", children: [
         /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "main-col", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("h2", { className: "col-title", children: "Selected Experience" }),
+          /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("h2", { className: "col-title", children: "Professional Experience" }),
           employment?.map((job) => /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "experience-card", children: [
             /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "card-header", children: [
               /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("h3", { children: job.roleTitle }),
@@ -26322,19 +26338,38 @@ var CvPreviewer = () => {
                 job.endDate || "Present"
               ] })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("p", { className: "company-link", children: [
-              job.company,
-              " ",
-              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "sep", children: "/" }),
-              " ",
-              job.location
+            /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "sub-header", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "company", children: job.company }),
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "industry", children: job.industry }),
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "location", children: job.location })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("ul", { className: "role-tasks", children: job.responsibilities.map((res, i) => /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("li", { children: res }, i)) })
-          ] }, job.id))
+            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("p", { className: "job-summary", children: job.summary }),
+            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("ul", { className: "role-tasks", children: job.responsibilities?.map((res, i) => /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("li", { children: res }, i)) }),
+            job.achievements?.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "inline-achievements", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("label", { children: "Key Impact" }),
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("ul", { children: job.achievements.map((ach, i) => /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("li", { children: ach }, i)) })
+            ] })
+          ] }, job.id)),
+          /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("h2", { className: "col-title", children: "Notable Projects" }),
+          /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "projects-grid", children: projects?.map((proj) => /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "project-card", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "project-head", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("h4", { children: proj.projectTitle }),
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "cat", children: proj.category })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("p", { children: proj.projectDescription }),
+            /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "project-links", children: [
+              proj.publishedUrl && /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("a", { href: proj.publishedUrl, children: "Live Demo" }),
+              proj.repositoryUrl && /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("a", { href: proj.repositoryUrl, children: "Source" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "project-tags", children: proj.tags?.map((tag) => /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("span", { children: [
+              "#",
+              tag
+            ] }, tag)) })
+          ] }, proj.id)) })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("aside", { className: "side-col", children: [
           /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "side-section", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("h2", { className: "col-title", children: "Tech Stack" }),
+            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("h2", { className: "col-title", children: "Expertise" }),
             /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "skill-meter-grid", children: skills?.map((s) => /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "skill-meter", children: [
               /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "skill-info", children: [
                 /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { children: s.skillName }),
@@ -26343,22 +26378,38 @@ var CvPreviewer = () => {
                   "Y"
                 ] })
               ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "meter-bar", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: `fill ${s.skillProficiency.toLowerCase()}` }) })
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: "meter-bar", children: /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("div", { className: `fill ${s.skillProficiency?.toLowerCase()}` }) })
             ] }, s.id)) })
+          ] }),
+          standaloneAchievements && standaloneAchievements?.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "side-section", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("h2", { className: "col-title", children: "Awards" }),
+            standaloneAchievements.map((ach) => /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "award-item", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("strong", { children: ach.achievementTitle }),
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("p", { children: [
+                ach.issuer,
+                " \u2022 ",
+                ach.awardDate
+              ] })
+            ] }, ach.id))
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "side-section", children: [
             /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("h2", { className: "col-title", children: "Education" }),
             education?.map((edu) => /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "edu-card", children: [
               /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("strong", { children: edu.qualificationType }),
               /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("p", { children: edu.fieldOfStudy }),
-              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "inst", children: edu.institution })
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "inst", children: edu.institution }),
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("span", { className: "grade", children: edu.grade })
             ] }, edu.id))
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "side-section", children: [
             /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("h2", { className: "col-title", children: "Certifications" }),
             certifications?.map((cert) => /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: "cert-card", children: [
               /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("strong", { children: cert.certificationName }),
-              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("p", { children: cert.issuer })
+              /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("p", { children: cert.issuer }),
+              cert.credentialId && /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("span", { className: "cred-id", children: [
+                "ID: ",
+                cert.credentialId
+              ] })
             ] }, cert.id))
           ] })
         ] })

@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;700;900&display=swap');
 
+// Variables
 $accent: #3b82f6;
 $text-main: #111827;
 $text-muted: #6b7280;
 $border: #e5e7eb;
+$bg-light: #f9fafb;
 
 .cv-canvas {
-  background: transparent; // No more gray background
+  background: transparent;
   min-height: 100vh;
   padding: 4rem 2rem;
   font-family: 'Outfit', sans-serif;
@@ -40,6 +42,7 @@ $border: #e5e7eb;
   color: $text-main;
   box-shadow: 0 40px 100px -20px rgba(0,0,0,0.1);
 
+  // --- HEADER SECTION ---
   .premium-header {
     display: flex;
     justify-content: space-between;
@@ -93,6 +96,7 @@ $border: #e5e7eb;
 
   .col-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; color: $text-muted; margin-bottom: 2rem; }
 
+  // --- EXPERIENCE & PROJECTS ---
   .experience-card {
     margin-bottom: 3.5rem;
     .card-header {
@@ -100,48 +104,78 @@ $border: #e5e7eb;
       h3 { margin: 0; font-size: 1.4rem; font-weight: 700; }
       .duration { font-size: 0.8rem; color: $text-muted; }
     }
-    .company-link { font-weight: 700; color: $accent; margin: 0.5rem 0; .sep { color: $border; font-weight: 200; } }
+    
+    .sub-header {
+      display: flex; gap: 1rem; font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+      margin: 0.5rem 0 1rem; color: $accent;
+      .company { color: $text-main; }
+      .industry, .location { color: $text-muted; }
+      span:not(:last-child):after { content: '/'; margin-left: 1rem; color: $border; }
+    }
+
+    .job-summary { font-size: 0.9rem; line-height: 1.6; color: #4b5563; margin-bottom: 1rem; }
     .role-tasks { padding-left: 1.2rem; li { margin-bottom: 0.7rem; color: #374151; line-height: 1.6; } }
+
+    .inline-achievements {
+      margin-top: 1.5rem; background: $bg-light; padding: 1.2rem; border-left: 3px solid $accent;
+      label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: $accent; display: block; margin-bottom: 0.5rem; }
+      ul { margin: 0; padding-left: 1rem; li { font-size: 0.85rem; font-weight: 600; list-style-type: '→ '; margin-bottom: 0.4rem; } }
+    }
   }
 
+  .projects-grid {
+    display: grid; grid-template-columns: 1fr; gap: 2rem;
+    .project-card {
+      border: 1px solid $border; padding: 1.5rem;
+      .project-head {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;
+        h4 { margin: 0; font-size: 1.1rem; font-weight: 700; }
+        .cat { font-size: 0.6rem; font-weight: 900; background: #000; color: #fff; padding: 2px 8px; text-transform: uppercase; }
+      }
+      p { font-size: 0.85rem; color: $text-muted; margin-bottom: 1rem; }
+      .project-links {
+        display: flex; gap: 1rem; margin-bottom: 1rem;
+        a { font-size: 0.75rem; font-weight: 700; color: $accent; text-decoration: none; &:hover { text-decoration: underline; } }
+      }
+      .project-tags {
+        display: flex; gap: 0.6rem; flex-wrap: wrap;
+        span { font-size: 0.7rem; color: $text-muted; font-family: monospace; }
+      }
+    }
+  }
+
+  // --- SIDEBAR SECTIONS ---
   .skill-meter-grid .skill-meter {
     margin-bottom: 1.5rem;
     .skill-info { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.4rem; }
     .meter-bar { height: 2px; background: $border; .fill { height: 100%; background: #000; &.expert { width: 100%; background: $accent; } &.advanced { width: 80%; } } }
   }
 
-  .edu-card, .cert-card {
+  .award-item, .edu-card, .cert-card {
     margin-bottom: 2rem;
-    strong { font-size: 0.9rem; display: block; }
-    p { margin: 0.2rem 0; font-size: 0.85rem; color: $text-muted; }
-    .inst { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+    strong { font-size: 0.9rem; display: block; line-height: 1.3; }
+    p { margin: 0.3rem 0; font-size: 0.8rem; color: $text-muted; }
+    .inst, .cred-id { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+    .grade { font-size: 0.7rem; font-weight: 800; color: $text-main; background: $bg-light; padding: 1px 4px; margin-top: 0.4rem; display: inline-block; }
   }
 }
 
-// ==========================================
-// PRINT MODE NUKER
-// ==========================================
+// --- PRINT ENGINE ---
 @media print {
-  // 1. Force remove any external theme elements
   .theme-header, .theme-footer, .no-print, nav, footer, 
   [class*="header"]:not(.premium-header), [class*="footer"] {
     display: none !important;
   }
 
-  // 2. Clear canvas styling
-  .cv-canvas {
-    padding: 0 !important;
-    background: transparent !important;
+  .cv-canvas { padding: 0 !important; background: transparent !important; }
+
+  .cv-sheet {
+    box-shadow: none !important; margin: 0 !important;
+    padding: 1.5cm !important; width: 100% !important; max-width: none !important;
   }
 
-  // 3. Normalize the sheet for A4/Letter
-  .cv-sheet {
-    box-shadow: none !important;
-    margin: 0 !important;
-    padding: 1.5cm !important; 
-    width: 100% !important;
-    max-width: none !important;
-  }
+  .project-card, .experience-card { break-inside: avoid; }
+  .inline-achievements { background: transparent !important; border-left: 1px solid #ddd; }
 
   body {
     background: #fff !important;
