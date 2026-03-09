@@ -11,10 +11,32 @@ export class Certification extends Content
     @Field({ searchable: true, required: true })
     public issuer: string | undefined;
 
-    @Field()
+    @Field({ 
+        module: {
+            component: 'Input',
+            data: {
+                kind: 'text',
+                type: 'date',
+                label: 'Date issued',
+                name: 'issueDate'
+            },
+            children: []
+        }
+    })
     public issueDate: string | undefined;
 
-    @Field()
+    @Field({ 
+        module: {
+            component: 'Input',
+            data: {
+                kind: 'text',
+                type: 'date',
+                label: 'Expires',
+                name: 'expiryDate'
+            },
+            children: []
+        }
+    })
     public expiryDate: string | undefined;     // null = no expiry
 
     @Field()

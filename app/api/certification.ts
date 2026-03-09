@@ -18,13 +18,16 @@ const ENTITY = 'certification';
 const SEARCHABLE = ['certificationName', 'issuer'];
 
 /** Load a single Certification by ID */
-export const load = (id: number): Promise<Certification> =>
-    get<Certification>(ENTITY, id);
+export const load = function(id: number): Promise<Certification> {
+    return get<Certification>(ENTITY, id);
+};
 
 /** Load multiple Certification records by ID in parallel */
-export const loadAll = (ids: number[]): Promise<Certification[]> =>
-    loadMany<Certification>(ENTITY, ids);
+export const loadAll = function(ids: number[]): Promise<Certification[]> {
+    return loadMany<Certification>(ENTITY, ids);
+};
 
 /** Search Certification records across: 'certificationName', 'issuer' */
-export const find = (query: string, limit?: number): Promise<Certification[]> =>
-    search<Certification>(ENTITY, query, SEARCHABLE, limit);
+export const find = function(query: string, limit?: number): Promise<Certification[]> {
+    return search<Certification>(ENTITY, query, SEARCHABLE, limit);
+};

@@ -33,6 +33,7 @@ const generateInterface = (entityName: string, fields: FieldMetadata[]): string 
     const lines = fields
         .filter(f => !BASE_FIELDS.has(f.key))
         .map(f => `    ${toCamelCase(f.key)}?: ${toTsType(f.type)};`);
+
     return [
         `export interface ${toPascalCase(entityName)} {`,
         `    id: number;`,
@@ -47,18 +48,19 @@ const generateInterface = (entityName: string, fields: FieldMetadata[]): string 
 const generateBase = (): string => [
     `import { fetchContent } from './../web/thirdparty/utils/fetch-content'`,
     ``,
-    `export const get = async <T>(entity: string, id: number): Promise<T> => {`,
+    `export async function get<T>(entity: string, id: number): Promise<T> {`,
     `    const res = await fetchContent(\`/content/\${entity}/\${id}.json\`);`,
     `    if (!res.ok) throw new Error(\`Failed to load \${entity}#\${id}: \${res.status}\`);`,
     `    return res.json() as Promise<T>;`,
-    `};`,
+    `}`,
     ``,
-    `export const search = async <T>(`,
+    `export async function search<T>(`,
     `    entity: string,`,
     `    query: string,`,
     `    fields: string[],`,
-    `    limit = 10`,
-    `): Promise<T[]> => {`,
+    `    limit: number = 10`,
+    `): Promise<T[]> {`,
+    ``,
     `    const results: T[] = [];`,
     `    const q = query.toLowerCase();`,
     ``,
@@ -82,7 +84,7 @@ const generateBase = (): string => [
     `            if (!trimmed) continue;`,
     `            try {`,
     `                const record = JSON.parse(trimmed);`,
-    `                const matches = fields.some(field => {`,
+    `                const matches = fields.some(function(field) {`,
     `                    const val = record[field];`,
     `                    return val && String(val).toLowerCase().includes(q);`,
     `                });`,
@@ -90,22 +92,27 @@ const generateBase = (): string => [
     `                    results.push(record as T);`,
     `                    if (results.length >= limit) break outer;`,
     `                }`,
-    `            } catch { /* malformed line */ }`,
+    `            } catch {}`,
     `        }`,
     `    }`,
     ``,
     `    return results;`,
-    `};`,
+    `}`,
     ``,
-    `export const loadMany = async <T>(entity: string, ids: number[]): Promise<T[]> =>`,
-    `    Promise.all(ids.map(id => get<T>(entity, id)));`,
+    `export async function loadMany<T>(entity: string, ids: number[]): Promise<T[]> {`,
+    `    return Promise.all(ids.map(function(id) {`,
+    `        return get<T>(entity, id);`,
+    `    }));`,
+    `}`,
 ].join('\n');
 
 const generateApi = (entityName: string, fields: FieldMetadata[]): string => {
     const pascalName = toPascalCase(entityName);
+
     const searchableFields = fields
         .filter(f => f.searchable && !BASE_FIELDS.has(f.key))
         .map(f => `'${toCamelCase(f.key)}'`);
+
     const searchableList = `[${searchableFields.join(', ')}]`;
 
     return [
@@ -117,16 +124,19 @@ const generateApi = (entityName: string, fields: FieldMetadata[]): string => {
         `const SEARCHABLE = ${searchableList};`,
         ``,
         `/** Load a single ${pascalName} by ID */`,
-        `export const load = (id: number): Promise<${pascalName}> =>`,
-        `    get<${pascalName}>(ENTITY, id);`,
+        `export const load = function(id: number): Promise<${pascalName}> {`,
+        `    return get<${pascalName}>(ENTITY, id);`,
+        `};`,
         ``,
         `/** Load multiple ${pascalName} records by ID in parallel */`,
-        `export const loadAll = (ids: number[]): Promise<${pascalName}[]> =>`,
-        `    loadMany<${pascalName}>(ENTITY, ids);`,
+        `export const loadAll = function(ids: number[]): Promise<${pascalName}[]> {`,
+        `    return loadMany<${pascalName}>(ENTITY, ids);`,
+        `};`,
         ``,
         `/** Search ${pascalName} records across: ${searchableFields.join(', ') || 'none'} */`,
-        `export const find = (query: string, limit?: number): Promise<${pascalName}[]> =>`,
-        `    search<${pascalName}>(ENTITY, query, SEARCHABLE, limit);`,
+        `export const find = function(query: string, limit?: number): Promise<${pascalName}[]> {`,
+        `    return search<${pascalName}>(ENTITY, query, SEARCHABLE, limit);`,
+        `};`,
     ].join('\n');
 };
 
@@ -149,7 +159,7 @@ const registerTsAlias = (): void => {
     tsconfig.compilerOptions.paths ??= {};
 
     const alias = '@api/*';
-    const target = ['../../app/api/*'];
+    const target = ['app/api/*'];
 
     const existing = tsconfig.compilerOptions.paths[alias];
     if (JSON.stringify(existing) === JSON.stringify(target)) return;
@@ -171,7 +181,7 @@ export class TypeScriptService
 
             const entityServices: ContentService<Content>[] = [];
 
-            services.forEach((service: unknown) => {
+            services.forEach(function(service: unknown) {
                 if ((service as ContentService<Content>).isEntityService) {
                     entityServices.push(service as ContentService<Content>);
                 }

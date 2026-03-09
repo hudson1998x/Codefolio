@@ -41,8 +41,8 @@ export class Education extends Content
             data: {
                 kind: 'text',
                 type: 'date',
-                label: 'End date',
-                name: 'endDate'
+                label: 'Start date',
+                name: 'startDate'
             },
             children: []
         }

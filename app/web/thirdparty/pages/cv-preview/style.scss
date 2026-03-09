@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;700;900&display=swap');
+
+$accent: #3b82f6;
+$text-main: #111827;
+$text-muted: #6b7280;
+$border: #e5e7eb;
+
+.cv-canvas {
+  background: transparent; // No more gray background
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  font-family: 'Outfit', sans-serif;
+
+  .toolbar {
+    max-width: 1000px;
+    margin: 0 auto 2rem;
+    display: flex;
+    justify-content: flex-end;
+    
+    .premium-btn {
+      background: #000;
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      &:hover { opacity: 0.8; }
+    }
+  }
+}
+
+.cv-sheet {
+  background: #fff;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 5rem;
+  color: $text-main;
+  box-shadow: 0 40px 100px -20px rgba(0,0,0,0.1);
+
+  .premium-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+
+    .name-brand {
+      h1 {
+        font-size: 3.5rem; margin: 0; line-height: 1; text-transform: uppercase;
+        .light { font-weight: 200; display: block; }
+        strong { font-weight: 900; display: block; letter-spacing: -2px; }
+      }
+      .accent-bar { width: 60px; height: 6px; background: $accent; margin: 1.5rem 0; }
+      .headline { font-size: 1.2rem; color: $text-muted; letter-spacing: 3px; text-transform: uppercase; }
+    }
+
+    .contact-grid {
+      text-align: right;
+      .info-block {
+        margin-bottom: 2rem;
+        label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: $accent; letter-spacing: 1px; }
+        p, .web-url { margin: 0.3rem 0; font-weight: 400; font-size: 0.95rem; }
+        .web-url { color: $accent; font-weight: 700; text-decoration: none; display: block; }
+        
+        .social-links-container {
+          display: flex;
+          flex-direction: column;
+          gap: 0.8rem;
+          margin-top: 0.6rem;
+          
+          .social-item {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            .platform { font-size: 0.6rem; font-weight: 900; color: $text-muted; text-transform: uppercase; }
+            .address { font-size: 0.85rem; color: $text-main; }
+            &:hover .address { color: $accent; }
+          }
+        }
+      }
+    }
+  }
+
+  .premium-summary {
+    font-size: 1.5rem; font-weight: 200; line-height: 1.4; margin-bottom: 4rem; max-width: 85%;
+  }
+
+  .premium-grid {
+    display: grid; grid-template-columns: 1fr 300px; gap: 4rem;
+    border-top: 1px solid $border; padding-top: 3rem;
+  }
+
+  .col-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; color: $text-muted; margin-bottom: 2rem; }
+
+  .experience-card {
+    margin-bottom: 3.5rem;
+    .card-header {
+      display: flex; justify-content: space-between;
+      h3 { margin: 0; font-size: 1.4rem; font-weight: 700; }
+      .duration { font-size: 0.8rem; color: $text-muted; }
+    }
+    .company-link { font-weight: 700; color: $accent; margin: 0.5rem 0; .sep { color: $border; font-weight: 200; } }
+    .role-tasks { padding-left: 1.2rem; li { margin-bottom: 0.7rem; color: #374151; line-height: 1.6; } }
+  }
+
+  .skill-meter-grid .skill-meter {
+    margin-bottom: 1.5rem;
+    .skill-info { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .meter-bar { height: 2px; background: $border; .fill { height: 100%; background: #000; &.expert { width: 100%; background: $accent; } &.advanced { width: 80%; } } }
+  }
+
+  .edu-card, .cert-card {
+    margin-bottom: 2rem;
+    strong { font-size: 0.9rem; display: block; }
+    p { margin: 0.2rem 0; font-size: 0.85rem; color: $text-muted; }
+    .inst { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+  }
+}
+
+// ==========================================
+// PRINT MODE NUKER
+// ==========================================
+@media print {
+  // 1. Force remove any external theme elements
+  .theme-header, .theme-footer, .no-print, nav, footer, 
+  [class*="header"]:not(.premium-header), [class*="footer"] {
+    display: none !important;
+  }
+
+  // 2. Clear canvas styling
+  .cv-canvas {
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  // 3. Normalize the sheet for A4/Letter
+  .cv-sheet {
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 1.5cm !important; 
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page { margin: 0; }
+}

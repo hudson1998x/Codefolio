@@ -16,13 +16,16 @@ const ENTITY = 'skills';
 const SEARCHABLE = ['skillName', 'skillCategory'];
 
 /** Load a single Skills by ID */
-export const load = (id: number): Promise<Skills> =>
-    get<Skills>(ENTITY, id);
+export const load = function(id: number): Promise<Skills> {
+    return get<Skills>(ENTITY, id);
+};
 
 /** Load multiple Skills records by ID in parallel */
-export const loadAll = (ids: number[]): Promise<Skills[]> =>
-    loadMany<Skills>(ENTITY, ids);
+export const loadAll = function(ids: number[]): Promise<Skills[]> {
+    return loadMany<Skills>(ENTITY, ids);
+};
 
 /** Search Skills records across: 'skillName', 'skillCategory' */
-export const find = (query: string, limit?: number): Promise<Skills[]> =>
-    search<Skills>(ENTITY, query, SEARCHABLE, limit);
+export const find = function(query: string, limit?: number): Promise<Skills[]> {
+    return search<Skills>(ENTITY, query, SEARCHABLE, limit);
+};

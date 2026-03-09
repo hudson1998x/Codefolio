@@ -9,6 +9,7 @@ import './autocontent/loader'
 import './cms/blog-page'
 import './pages/documentation'
 import './pages/projects'
+import './pages/cv-preview'
 
 /**
  * `Page` is the application root — it composes the full provider stack and

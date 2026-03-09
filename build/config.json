@@ -1,20 +1,20 @@
 {
   "personalInformation": {
     "component": "Admin/Config/PersonalInformationEditor",
-    "firstName": "",
-    "lastName": "",
-    "preferredName": "",
-    "headline": "",
-    "summary": "",
+    "firstName": "John",
+    "lastName": "Hudson",
+    "preferredName": "John",
+    "headline": "Senior Software Engineer",
+    "summary": "Senior Software Engineer",
     "avatar": "",
-    "email": "",
-    "phone": "",
-    "website": "",
-    "nationality": "",
-    "openToWork": "false",
-    "preferredRole": "",
-    "preferredLocation": "",
-    "remoteOnly": "false"
+    "email": "jhudson98new@gmail.com",
+    "phone": "07572557449",
+    "website": "https://hudson1998x.github.io/portfolio",
+    "nationality": "English",
+    "openToWork": "Yes",
+    "preferredRole": "Senior Software Engineer",
+    "preferredLocation": "Remote",
+    "remoteOnly": "Yes"
   },
   "platformConfig": {
     "component": "Admin/Config/Platform",
@@ -74,8 +74,8 @@
     "hackernews": ""
   },
   "theme": {
-    "component": "Admin/Config/ThemeSelector",
-    "theme": "default"
+    "theme": "default",
+    "component": "Admin/Config/ThemeSelector"
   },
   "website": {
     "title": "Codefolio",

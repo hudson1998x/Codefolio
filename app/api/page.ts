@@ -14,13 +14,16 @@ const ENTITY = 'page';
 const SEARCHABLE = ['pageTitle'];
 
 /** Load a single Page by ID */
-export const load = (id: number): Promise<Page> =>
-    get<Page>(ENTITY, id);
+export const load = function(id: number): Promise<Page> {
+    return get<Page>(ENTITY, id);
+};
 
 /** Load multiple Page records by ID in parallel */
-export const loadAll = (ids: number[]): Promise<Page[]> =>
-    loadMany<Page>(ENTITY, ids);
+export const loadAll = function(ids: number[]): Promise<Page[]> {
+    return loadMany<Page>(ENTITY, ids);
+};
 
 /** Search Page records across: 'pageTitle' */
-export const find = (query: string, limit?: number): Promise<Page[]> =>
-    search<Page>(ENTITY, query, SEARCHABLE, limit);
+export const find = function(query: string, limit?: number): Promise<Page[]> {
+    return search<Page>(ENTITY, query, SEARCHABLE, limit);
+};

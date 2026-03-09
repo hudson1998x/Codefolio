@@ -1,17 +1,18 @@
 import { fetchContent } from './../web/thirdparty/utils/fetch-content'
 
-export const get = async <T>(entity: string, id: number): Promise<T> => {
+export async function get<T>(entity: string, id: number): Promise<T> {
     const res = await fetchContent(`/content/${entity}/${id}.json`);
     if (!res.ok) throw new Error(`Failed to load ${entity}#${id}: ${res.status}`);
     return res.json() as Promise<T>;
-};
+}
 
-export const search = async <T>(
+export async function search<T>(
     entity: string,
     query: string,
     fields: string[],
-    limit = 10
-): Promise<T[]> => {
+    limit: number = 10
+): Promise<T[]> {
+
     const results: T[] = [];
     const q = query.toLowerCase();
 
@@ -35,7 +36,7 @@ export const search = async <T>(
             if (!trimmed) continue;
             try {
                 const record = JSON.parse(trimmed);
-                const matches = fields.some(field => {
+                const matches = fields.some(function(field) {
                     const val = record[field];
                     return val && String(val).toLowerCase().includes(q);
                 });
@@ -43,12 +44,15 @@ export const search = async <T>(
                     results.push(record as T);
                     if (results.length >= limit) break outer;
                 }
-            } catch { /* malformed line */ }
+            } catch {}
         }
     }
 
     return results;
-};
+}
 
-export const loadMany = async <T>(entity: string, ids: number[]): Promise<T[]> =>
-    Promise.all(ids.map(id => get<T>(entity, id)));
+export async function loadMany<T>(entity: string, ids: number[]): Promise<T[]> {
+    return Promise.all(ids.map(function(id) {
+        return get<T>(entity, id);
+    }));
+}

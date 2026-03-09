@@ -23,7 +23,7 @@
                 "app/web/thirdparty/providers/configuration.tsx"
             ],
             "@api/*": [
-                "../../app/api/*"
+                "app/api/*"
             ]
         }
     },

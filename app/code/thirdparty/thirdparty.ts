@@ -15,6 +15,7 @@ import './Education'
 import './Certification'
 import './Achievement'
 import './typescript/service'
+import './cv'
 
 // =================
 // Module imports

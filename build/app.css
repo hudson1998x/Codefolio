@@ -1,4 +1,5 @@
 @import "https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;500;600;700;800&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;700;900&display=swap";
 @import "https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css";
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css";
 
@@ -4214,6 +4215,253 @@
   }
   100% {
     background-position: -200% 0;
+  }
+}
+
+/* app/web/thirdparty/pages/cv-preview/style.scss */
+.cv-canvas {
+  background: transparent;
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  font-family: "Outfit", sans-serif;
+}
+.cv-canvas .toolbar {
+  max-width: 1000px;
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.cv-canvas .toolbar .premium-btn {
+  background: #000;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+.cv-canvas .toolbar .premium-btn:hover {
+  opacity: 0.8;
+}
+.cv-sheet {
+  background: #fff;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 5rem;
+  color: #111827;
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.1);
+}
+.cv-sheet .premium-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+}
+.cv-sheet .premium-header .name-brand h1 {
+  font-size: 3.5rem;
+  margin: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.cv-sheet .premium-header .name-brand h1 .light {
+  font-weight: 200;
+  display: block;
+}
+.cv-sheet .premium-header .name-brand h1 strong {
+  font-weight: 900;
+  display: block;
+  letter-spacing: -2px;
+}
+.cv-sheet .premium-header .name-brand .accent-bar {
+  width: 60px;
+  height: 6px;
+  background: #3b82f6;
+  margin: 1.5rem 0;
+}
+.cv-sheet .premium-header .name-brand .headline {
+  font-size: 1.2rem;
+  color: #6b7280;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.cv-sheet .premium-header .contact-grid {
+  text-align: right;
+}
+.cv-sheet .premium-header .contact-grid .info-block {
+  margin-bottom: 2rem;
+}
+.cv-sheet .premium-header .contact-grid .info-block label {
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #3b82f6;
+  letter-spacing: 1px;
+}
+.cv-sheet .premium-header .contact-grid .info-block p,
+.cv-sheet .premium-header .contact-grid .info-block .web-url {
+  margin: 0.3rem 0;
+  font-weight: 400;
+  font-size: 0.95rem;
+}
+.cv-sheet .premium-header .contact-grid .info-block .web-url {
+  color: #3b82f6;
+  font-weight: 700;
+  text-decoration: none;
+  display: block;
+}
+.cv-sheet .premium-header .contact-grid .info-block .social-links-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 0.6rem;
+}
+.cv-sheet .premium-header .contact-grid .info-block .social-links-container .social-item {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
+.cv-sheet .premium-header .contact-grid .info-block .social-links-container .social-item .platform {
+  font-size: 0.6rem;
+  font-weight: 900;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+.cv-sheet .premium-header .contact-grid .info-block .social-links-container .social-item .address {
+  font-size: 0.85rem;
+  color: #111827;
+}
+.cv-sheet .premium-header .contact-grid .info-block .social-links-container .social-item:hover .address {
+  color: #3b82f6;
+}
+.cv-sheet .premium-summary {
+  font-size: 1.5rem;
+  font-weight: 200;
+  line-height: 1.4;
+  margin-bottom: 4rem;
+  max-width: 85%;
+}
+.cv-sheet .premium-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 4rem;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 3rem;
+}
+.cv-sheet .col-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+.cv-sheet .experience-card {
+  margin-bottom: 3.5rem;
+}
+.cv-sheet .experience-card .card-header {
+  display: flex;
+  justify-content: space-between;
+}
+.cv-sheet .experience-card .card-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.cv-sheet .experience-card .card-header .duration {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+.cv-sheet .experience-card .company-link {
+  font-weight: 700;
+  color: #3b82f6;
+  margin: 0.5rem 0;
+}
+.cv-sheet .experience-card .company-link .sep {
+  color: #e5e7eb;
+  font-weight: 200;
+}
+.cv-sheet .experience-card .role-tasks {
+  padding-left: 1.2rem;
+}
+.cv-sheet .experience-card .role-tasks li {
+  margin-bottom: 0.7rem;
+  color: #374151;
+  line-height: 1.6;
+}
+.cv-sheet .skill-meter-grid .skill-meter {
+  margin-bottom: 1.5rem;
+}
+.cv-sheet .skill-meter-grid .skill-meter .skill-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.cv-sheet .skill-meter-grid .skill-meter .meter-bar {
+  height: 2px;
+  background: #e5e7eb;
+}
+.cv-sheet .skill-meter-grid .skill-meter .meter-bar .fill {
+  height: 100%;
+  background: #000;
+}
+.cv-sheet .skill-meter-grid .skill-meter .meter-bar .fill.expert {
+  width: 100%;
+  background: #3b82f6;
+}
+.cv-sheet .skill-meter-grid .skill-meter .meter-bar .fill.advanced {
+  width: 80%;
+}
+.cv-sheet .edu-card,
+.cv-sheet .cert-card {
+  margin-bottom: 2rem;
+}
+.cv-sheet .edu-card strong,
+.cv-sheet .cert-card strong {
+  font-size: 0.9rem;
+  display: block;
+}
+.cv-sheet .edu-card p,
+.cv-sheet .cert-card p {
+  margin: 0.2rem 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+.cv-sheet .edu-card .inst,
+.cv-sheet .cert-card .inst {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+@media print {
+  .theme-header,
+  .theme-footer,
+  .no-print,
+  nav,
+  footer,
+  [class*=header]:not(.premium-header),
+  [class*=footer] {
+    display: none !important;
+  }
+  .cv-canvas {
+    padding: 0 !important;
+    background: transparent !important;
+  }
+  .cv-sheet {
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 1.5cm !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+  body {
+    background: #fff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  @page {
+    margin: 0;
   }
 }
 

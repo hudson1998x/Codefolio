@@ -17,13 +17,16 @@ const ENTITY = 'achievements';
 const SEARCHABLE = ['achievementTitle', 'issuer', 'description'];
 
 /** Load a single Achievements by ID */
-export const load = (id: number): Promise<Achievements> =>
-    get<Achievements>(ENTITY, id);
+export const load = function(id: number): Promise<Achievements> {
+    return get<Achievements>(ENTITY, id);
+};
 
 /** Load multiple Achievements records by ID in parallel */
-export const loadAll = (ids: number[]): Promise<Achievements[]> =>
-    loadMany<Achievements>(ENTITY, ids);
+export const loadAll = function(ids: number[]): Promise<Achievements[]> {
+    return loadMany<Achievements>(ENTITY, ids);
+};
 
 /** Search Achievements records across: 'achievementTitle', 'issuer', 'description' */
-export const find = (query: string, limit?: number): Promise<Achievements[]> =>
-    search<Achievements>(ENTITY, query, SEARCHABLE, limit);
+export const find = function(query: string, limit?: number): Promise<Achievements[]> {
+    return search<Achievements>(ENTITY, query, SEARCHABLE, limit);
+};
