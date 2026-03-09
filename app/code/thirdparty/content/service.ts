@@ -54,6 +54,16 @@ export abstract class ContentService<T extends { id?: number }> {
         await svc.add(navItem);
     }
 
+    public get isEntityService() : boolean
+    {
+        return true;
+    }
+
+    public get entityUrl(): string
+    {
+        return "/content/" + this.getCollectionName() + "/";
+    }
+
     // ── Lifecycle ────────────────────────────────────────────────────────────
 
     /**

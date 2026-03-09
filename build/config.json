@@ -74,8 +74,8 @@
     "hackernews": ""
   },
   "theme": {
-    "theme": "default",
-    "component": "Admin/Config/ThemeSelector"
+    "component": "Admin/Config/ThemeSelector",
+    "theme": "default"
   },
   "website": {
     "title": "Codefolio",

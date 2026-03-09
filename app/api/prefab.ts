@@ -1,0 +1,26 @@
+import { get, search, loadMany } from './core-funcs';
+
+export interface Prefab {
+    id: number;
+    creator?: string;
+    created?: string;
+    updated?: string;
+    prefabName?: unknown;
+    prefabJson?: unknown;
+    category?: unknown;
+}
+
+const ENTITY = 'prefab';
+const SEARCHABLE = ['prefabName', 'category'];
+
+/** Load a single Prefab by ID */
+export const load = (id: number): Promise<Prefab> =>
+    get<Prefab>(ENTITY, id);
+
+/** Load multiple Prefab records by ID in parallel */
+export const loadAll = (ids: number[]): Promise<Prefab[]> =>
+    loadMany<Prefab>(ENTITY, ids);
+
+/** Search Prefab records across: 'prefabName', 'category' */
+export const find = (query: string, limit?: number): Promise<Prefab[]> =>
+    search<Prefab>(ENTITY, query, SEARCHABLE, limit);

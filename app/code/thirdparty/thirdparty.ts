@@ -14,6 +14,7 @@ import './Employment'
 import './Education'
 import './Certification'
 import './Achievement'
+import './typescript/service'
 
 // =================
 // Module imports
@@ -50,6 +51,7 @@ import "./esbuild";
 import { getRegisteredServices } from "./decorators/service";
 import { Container } from "./decorators/di-container";
 import { HttpService } from "./http/service";
+import { publish } from "./eventing/events";
 
 /**
  * Bootstraps the Codefolio local development server.
@@ -88,7 +90,7 @@ async function start() {
 
   console.log("✅ All services initialized");
 
-  const httpService: HttpService = Container.resolve<any>(HttpService);
+  await publish('services-loaded', services);
 }
 
 start().catch((err) => {
