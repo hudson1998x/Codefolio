@@ -11,14 +11,14 @@
     "phone": "",
     "website": "",
     "nationality": "",
-    "openToWork": false,
+    "openToWork": "false",
     "preferredRole": "",
     "preferredLocation": "",
-    "remoteOnly": false
+    "remoteOnly": "false"
   },
   "platformConfig": {
     "component": "Admin/Config/Platform",
-    "mode": "portfolio"
+    "mode": "documentation"
   },
   "footer": {
     "component": "Admin/Config/Footer",
@@ -74,8 +74,8 @@
     "hackernews": ""
   },
   "theme": {
-    "component": "Admin/Config/ThemeSelector",
-    "theme": "default"
+    "theme": "default",
+    "component": "Admin/Config/ThemeSelector"
   },
   "website": {
     "title": "Codefolio",
