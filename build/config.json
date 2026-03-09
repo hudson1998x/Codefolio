@@ -1,4 +1,21 @@
 {
+  "personalInformation": {
+    "component": "Admin/Config/PersonalInformationEditor",
+    "firstName": "",
+    "lastName": "",
+    "preferredName": "",
+    "headline": "",
+    "summary": "",
+    "avatar": "",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "nationality": "",
+    "openToWork": false,
+    "preferredRole": "",
+    "preferredLocation": "",
+    "remoteOnly": false
+  },
   "platformConfig": {
     "component": "Admin/Config/Platform",
     "mode": "portfolio"

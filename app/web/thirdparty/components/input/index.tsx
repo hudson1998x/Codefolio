@@ -122,12 +122,18 @@ const runValidation = (
   return null;
 };
 
-const parseOptions = (raw: string[]): InputOption[] =>
-  raw.map(entry => {
+const parseOptions = (raw: string[]): InputOption[] =>{
+  if ((raw[0] as unknown as InputOption)?.label)
+  {
+    return raw as unknown as InputOption[];
+  }
+
+  return raw.map(entry => {
     const idx = entry.indexOf(":");
     if (idx === -1) return { value: entry, label: entry };
     return { value: entry.slice(0, idx), label: entry.slice(idx + 1) };
   });
+}
 
 const fieldDataToProps = (data: FieldData): FieldProps => {
   const base: BaseFieldProps = {

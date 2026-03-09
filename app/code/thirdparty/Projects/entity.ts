@@ -24,6 +24,15 @@ export class Projects extends Content
     @Field({ required: true })
     public category: string | undefined;
 
+    @Field({
+        module: {
+            component: "SkillSearch",
+            data: { label: "Tech Stack", name: "skillIds" },
+            children: []
+        }
+    })
+    public skillIds: number[] | undefined;
+
     @Field({ 
         required: true,
         module: {

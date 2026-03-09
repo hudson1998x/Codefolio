@@ -1,0 +1,206 @@
+.skill-search {
+  position: relative;
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 6px;
+    border: 1px solid var(--color-border, #ddd);
+    border-radius: 6px;
+    cursor: text;
+
+    &:focus-within {
+      border-color: var(--color-primary, #4f46e5);
+      box-shadow: 0 0 0 3px var(--color-primary-alpha, rgba(79, 70, 229, 0.15));
+    }
+  }
+
+  &__input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    min-width: 160px;
+
+    i {
+      color: var(--color-text-muted, #888);
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 13px;
+      color: var(--color-text, #222);
+      font-family: inherit;
+
+      &::placeholder {
+        color: var(--color-text-muted, #aaa);
+      }
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--color-bg, #fff);
+    border: 1px solid var(--color-border, #ddd);
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    margin: 0;
+    padding: 4px;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+
+  &__empty {
+    padding: 10px 12px;
+    font-size: 13px;
+    color: var(--color-text-muted, #888);
+    text-align: center;
+  }
+}
+
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px 4px 8px;
+  background: var(--color-bg-subtle, #f5f5f5);
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 4px;
+  font-size: 12px;
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__name {
+    font-weight: 500;
+    color: var(--color-text, #222);
+  }
+
+  &__category {
+    color: var(--color-text-muted, #888);
+    font-size: 11px;
+  }
+
+  &__years {
+    font-size: 11px;
+    color: var(--color-text-muted, #888);
+    border-left: 1px solid var(--color-border, #ddd);
+    padding-left: 6px;
+  }
+
+  &__pips {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+
+    .pip {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-border, #ddd);
+
+      &--filled {
+        background: var(--color-primary, #4f46e5);
+      }
+    }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    border: none;
+    border-radius: 3px;
+    background: transparent;
+    color: var(--color-text-muted, #aaa);
+    cursor: pointer;
+    font-family: inherit;
+
+    &:hover {
+      background: var(--color-danger-bg, #fef2f2);
+      color: var(--color-danger, #e53e3e);
+    }
+
+    i { font-size: 9px; pointer-events: none; }
+  }
+}
+
+.skill-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  gap: 8px;
+  transition: background 0.1s;
+
+  &:hover {
+    background: var(--color-bg-hover, #f5f5f5);
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text, #222);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__category {
+    font-size: 11px;
+    color: var(--color-text-muted, #888);
+    white-space: nowrap;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  &__years {
+    font-size: 11px;
+    color: var(--color-text-muted, #888);
+  }
+
+  &__level {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+
+    &--beginner     { background: #f0fdf4; color: #16a34a; }
+    &--intermediate { background: #eff6ff; color: #2563eb; }
+    &--advanced     { background: #faf5ff; color: #7c3aed; }
+    &--expert       { background: #fff7ed; color: #ea580c; }
+  }
+}

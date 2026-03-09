@@ -23378,11 +23378,16 @@ var runValidation = (value, rules = [], required) => {
   }
   return null;
 };
-var parseOptions = (raw) => raw.map((entry) => {
-  const idx = entry.indexOf(":");
-  if (idx === -1) return { value: entry, label: entry };
-  return { value: entry.slice(0, idx), label: entry.slice(idx + 1) };
-});
+var parseOptions = (raw) => {
+  if (raw[0]?.label) {
+    return raw;
+  }
+  return raw.map((entry) => {
+    const idx = entry.indexOf(":");
+    if (idx === -1) return { value: entry, label: entry };
+    return { value: entry.slice(0, idx), label: entry.slice(idx + 1) };
+  });
+};
 var fieldDataToProps = (data) => {
   const base = {
     name: data.name ?? "",
@@ -28172,14 +28177,319 @@ registerComponent({
   defaults: config_default5.config
 });
 
-// app/web/themes/@admin/components/config/themeselector/index.tsx
+// app/web/themes/@admin/components/skillsearch/index.tsx
 var import_react48 = __toESM(require_react());
 var import_jsx_runtime73 = __toESM(require_jsx_runtime());
-var ThemeSelector = ({ data }) => {
-  const [themes, setThemes] = (0, import_react48.useState)([]);
-  const [selected, setSelected] = (0, import_react48.useState)(data.theme || "default");
-  const [loading, setLoading] = (0, import_react48.useState)(true);
+var PROFICIENCY_ORDER = ["beginner", "intermediate", "advanced", "expert"];
+var fetchSkill = async (id) => {
+  try {
+    const res = await fetch(`/content/skills/${id}.json`);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+};
+var searchSkills = async (query, excludeIds, limit = 8) => {
+  const results = [];
+  const q = query.toLowerCase();
+  try {
+    const res = await fetch("/content/skills/index.ndjson");
+    if (!res.ok || !res.body) return [];
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    outer: while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split("\n");
+      buffer = lines.pop() ?? "";
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+        try {
+          const record = JSON.parse(trimmed);
+          if (excludeIds.includes(record.id)) continue;
+          const matches = ["skillName", "skillCategory"].some((field) => {
+            const val = record[field];
+            return val && String(val).toLowerCase().includes(q);
+          });
+          if (matches) {
+            results.push(record);
+            if (results.length >= limit) break outer;
+          }
+        } catch {
+        }
+      }
+    }
+  } catch (e) {
+    console.error("Skill search failed:", e);
+  }
+  return results;
+};
+var ProficiencyPip = ({ level }) => {
+  const idx = PROFICIENCY_ORDER.indexOf(level ?? "");
+  return /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("div", { className: "skill-tag__pips", "aria-label": level, children: PROFICIENCY_ORDER.map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("span", { className: `pip ${i <= idx ? "pip--filled" : ""}` }, i)) });
+};
+var SkillTag = ({ skill, onRemove }) => /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "skill-tag", children: [
+  /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "skill-tag__info", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("span", { className: "skill-tag__name", children: skill.skillName }),
+    skill.skillCategory && /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("span", { className: "skill-tag__category", children: skill.skillCategory })
+  ] }),
+  /* @__PURE__ */ (0, import_jsx_runtime73.jsx)(ProficiencyPip, { level: skill.skillProficiency }),
+  skill.yearsOfExperience && /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("span", { className: "skill-tag__years", children: [
+    skill.yearsOfExperience,
+    "y"
+  ] }),
+  /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("button", { type: "button", onClick: onRemove, "aria-label": `Remove ${skill.skillName}`, children: /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("i", { className: "fas fa-times" }) })
+] });
+var SkillResult = ({ skill, onAdd }) => /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("li", { className: "skill-result", onClick: onAdd, children: [
+  /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "skill-result__info", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("span", { className: "skill-result__name", children: skill.skillName }),
+    skill.skillCategory && /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("span", { className: "skill-result__category", children: skill.skillCategory })
+  ] }),
+  /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "skill-result__meta", children: [
+    skill.skillProficiency && /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("span", { className: `skill-result__level skill-result__level--${skill.skillProficiency}`, children: skill.skillProficiency }),
+    skill.yearsOfExperience && /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("span", { className: "skill-result__years", children: [
+      skill.yearsOfExperience,
+      "y exp"
+    ] })
+  ] })
+] });
+var SkillSearch = (props) => {
+  const { data } = props;
+  const { label, name, value } = data;
+  const [selectedIds, setSelectedIds] = (0, import_react48.useState)(() => value ?? []);
+  const [selectedSkills, setSelectedSkills] = (0, import_react48.useState)([]);
+  const [query, setQuery] = (0, import_react48.useState)("");
+  const [searchResults, setSearchResults] = (0, import_react48.useState)([]);
+  const [isSearching, setIsSearching] = (0, import_react48.useState)(false);
+  const [isOpen, setIsOpen] = (0, import_react48.useState)(false);
+  const containerRef = (0, import_react48.useRef)(null);
+  const inputRef = (0, import_react48.useRef)(null);
   (0, import_react48.useEffect)(() => {
+    if (!selectedIds.length) return;
+    Promise.all(selectedIds.map(fetchSkill)).then((results) => {
+      setSelectedSkills(results.filter(Boolean));
+    });
+  }, []);
+  (0, import_react48.useEffect)(() => {
+    const handler = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+  (0, import_react48.useEffect)(() => {
+    if (query.length < 2) {
+      setSearchResults([]);
+      setIsOpen(false);
+      return;
+    }
+    const handler = setTimeout(async () => {
+      setIsSearching(true);
+      const results = await searchSkills(query, selectedIds);
+      setSearchResults(results);
+      setIsSearching(false);
+      setIsOpen(true);
+    }, 300);
+    return () => clearTimeout(handler);
+  }, [query, selectedIds]);
+  const handleAdd = (skill) => {
+    setSelectedIds((prev) => [...prev, skill.id]);
+    setSelectedSkills((prev) => [...prev, skill]);
+    setQuery("");
+    setIsOpen(false);
+    inputRef.current?.focus();
+  };
+  const handleRemove = (id) => {
+    setSelectedIds((prev) => prev.filter((i) => i !== id));
+    setSelectedSkills((prev) => prev.filter((s) => s.id !== id));
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "cf-field", ref: containerRef, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("label", { children: label ?? "Skills" }),
+    selectedIds.map((id, idx) => /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("input", { type: "hidden", name: `${name}[${idx}]`, value: id }, id)),
+    /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "skill-search", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "skill-search__tags", children: [
+        selectedSkills.map((skill) => /* @__PURE__ */ (0, import_jsx_runtime73.jsx)(SkillTag, { skill, onRemove: () => handleRemove(skill.id) }, skill.id)),
+        /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "skill-search__input-wrap", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("i", { className: `fas fa-${isSearching ? "spinner fa-spin" : "search"}` }),
+          /* @__PURE__ */ (0, import_jsx_runtime73.jsx)(
+            "input",
+            {
+              ref: inputRef,
+              type: "text",
+              placeholder: selectedSkills.length ? "Add another skill..." : "Search skills...",
+              value: query,
+              onChange: (e) => setQuery(e.target.value)
+            }
+          )
+        ] })
+      ] }),
+      isOpen && /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("ul", { className: "skill-search__dropdown", children: searchResults.length > 0 ? searchResults.map((skill) => /* @__PURE__ */ (0, import_jsx_runtime73.jsx)(SkillResult, { skill, onAdd: () => handleAdd(skill) }, skill.id)) : !isSearching && /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("li", { className: "skill-search__empty", children: [
+        'No skills found for "',
+        query,
+        '"'
+      ] }) })
+    ] })
+  ] });
+};
+registerComponent({
+  name: "SkillSearch",
+  component: SkillSearch,
+  defaults: {}
+});
+
+// app/web/themes/@admin/components/config/personal-information/config.json
+var config_default6 = {
+  key: "personalInformation",
+  config: {
+    component: "Admin/Config/PersonalInformationEditor",
+    firstName: "",
+    lastName: "",
+    preferredName: "",
+    headline: "",
+    summary: "",
+    avatar: "",
+    email: "",
+    phone: "",
+    website: "",
+    nationality: "",
+    openToWork: false,
+    preferredRole: "",
+    preferredLocation: "",
+    remoteOnly: false
+  }
+};
+
+// app/web/themes/@admin/components/config/personal-information/index.tsx
+var import_jsx_runtime74 = (
+  // @ts-ignore TODO: Sort this out.
+  __toESM(require_jsx_runtime())
+);
+var AdminPersonalInformationEditor = ({ data }) => {
+  const platformConfig = useModuleConfig("platformConfig", {
+    mode: "portfolio"
+  });
+  if (platformConfig.mode !== "portfolio") {
+    return /* @__PURE__ */ (0, import_jsx_runtime74.jsx)(Alert, { data: { variant: "warning", title: "This feature is only available when the platform is in portfolio mode." } });
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("div", { className: "cf-personal-info-editor", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("input", { type: "hidden", name: "personalInformation[component]", value: "Admin/Config/PersonalInformationEditor" }),
+    Object.keys(config_default6.config).map((key) => /* @__PURE__ */ (0, import_jsx_runtime74.jsx)(
+      Field,
+      {
+        name: `personalInformation[${key}]`,
+        kind: "input",
+        label: key,
+        defaultValue: data[key] ?? ""
+      },
+      key
+    ))
+  ] });
+};
+registerComponent({
+  name: "Admin/Config/PersonalInformationEditor",
+  defaults: {
+    ...config_default6.config
+  },
+  component: AdminPersonalInformationEditor
+});
+
+// app/web/themes/@admin/components/string-list/index.tsx
+var import_react49 = __toESM(require_react());
+var import_jsx_runtime75 = __toESM(require_jsx_runtime());
+var StringList = (props) => {
+  const { data } = props;
+  const { label, value, name } = data;
+  const [listItems, setListItems] = (0, import_react49.useState)(() => value ?? []);
+  const handleChange = (idx, val) => {
+    setListItems((prev) => prev.map((item, i) => i === idx ? val : item));
+  };
+  const handleAdd = () => {
+    setListItems((prev) => [...prev, ""]);
+  };
+  const handleRemove = (idx) => {
+    setListItems((prev) => prev.filter((_, i) => i !== idx));
+  };
+  const handleReorder = (idx, direction) => {
+    setListItems((prev) => {
+      const next = [...prev];
+      const swapIdx = direction === "up" ? idx - 1 : idx + 1;
+      if (swapIdx < 0 || swapIdx >= next.length) return prev;
+      [next[idx], next[swapIdx]] = [next[swapIdx], next[idx]];
+      return next;
+    });
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime75.jsxs)("div", { className: "cf-field", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime75.jsx)("label", { children: label ?? "Unlabelled" }),
+    /* @__PURE__ */ (0, import_jsx_runtime75.jsx)("ul", { className: "cf-string-list", children: listItems.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime75.jsxs)("li", { className: "cf-string-list__item", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime75.jsx)(
+        "input",
+        {
+          type: "text",
+          name: `${name}[${idx}]`,
+          value: item,
+          onChange: (e) => handleChange(idx, e.target.value),
+          placeholder: "Enter value..."
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime75.jsxs)("div", { className: "cf-string-list__actions", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime75.jsx)(
+          "button",
+          {
+            type: "button",
+            onClick: () => handleReorder(idx, "up"),
+            disabled: idx === 0,
+            "aria-label": "Move up",
+            children: "\u2191"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime75.jsx)(
+          "button",
+          {
+            type: "button",
+            onClick: () => handleReorder(idx, "down"),
+            disabled: idx === listItems.length - 1,
+            "aria-label": "Move down",
+            children: "\u2193"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime75.jsx)(
+          "button",
+          {
+            type: "button",
+            onClick: () => handleRemove(idx),
+            "aria-label": "Remove item",
+            className: "cf-string-list__remove",
+            children: "X"
+          }
+        )
+      ] })
+    ] }, idx)) }),
+    /* @__PURE__ */ (0, import_jsx_runtime75.jsxs)("button", { type: "button", onClick: handleAdd, className: "cf-string-list__add", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime75.jsx)("i", { className: "fas fa-plus" }),
+      " Add item"
+    ] })
+  ] });
+};
+registerComponent({
+  name: "StringList",
+  component: StringList,
+  defaults: {}
+});
+
+// app/web/themes/@admin/components/config/themeselector/index.tsx
+var import_react50 = __toESM(require_react());
+var import_jsx_runtime76 = __toESM(require_jsx_runtime());
+var ThemeSelector = ({ data }) => {
+  const [themes, setThemes] = (0, import_react50.useState)([]);
+  const [selected, setSelected] = (0, import_react50.useState)(data.theme || "default");
+  const [loading, setLoading] = (0, import_react50.useState)(true);
+  (0, import_react50.useEffect)(() => {
     const fetchThemes = async () => {
       try {
         const res = await fetch("/content/en-admin/configuration/themes");
@@ -28201,18 +28511,18 @@ var ThemeSelector = ({ data }) => {
     );
     if (inputEl) inputEl.value = themeName;
   };
-  if (loading) return /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("p", { children: "Loading themes..." });
-  if (!themes.length) return /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("p", { children: "No themes found." });
-  return /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "cf-theme-selector", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("input", { type: "hidden", name: "theme[theme]", value: selected }),
-    /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("input", { type: "hidden", name: "theme[component]", value: "Admin/Config/ThemeSelector" }),
-    /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("div", { className: "cf-theme-selector__grid", children: themes.map((theme) => /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)(
+  if (loading) return /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("p", { children: "Loading themes..." });
+  if (!themes.length) return /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("p", { children: "No themes found." });
+  return /* @__PURE__ */ (0, import_jsx_runtime76.jsxs)("div", { className: "cf-theme-selector", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("input", { type: "hidden", name: "theme[theme]", value: selected }),
+    /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("input", { type: "hidden", name: "theme[component]", value: "Admin/Config/ThemeSelector" }),
+    /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("div", { className: "cf-theme-selector__grid", children: themes.map((theme) => /* @__PURE__ */ (0, import_jsx_runtime76.jsxs)(
       "div",
       {
         className: `cf-theme-selector__item ${selected === theme.key ? "selected" : ""}`,
         onClick: () => handleSelect(theme.name),
         children: [
-          theme.previewImage && /* @__PURE__ */ (0, import_jsx_runtime73.jsx)(
+          theme.previewImage && /* @__PURE__ */ (0, import_jsx_runtime76.jsx)(
             "img",
             {
               className: "cf-theme-selector__preview",
@@ -28220,10 +28530,10 @@ var ThemeSelector = ({ data }) => {
               alt: `${theme.name} preview`
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", { className: "cf-theme-selector__info", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("strong", { children: theme.name }),
-            /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("small", { children: theme.vendor }),
-            /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("span", { className: "cf-theme-selector__version", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime76.jsxs)("div", { className: "cf-theme-selector__info", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("strong", { children: theme.name }),
+            /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("small", { children: theme.vendor }),
+            /* @__PURE__ */ (0, import_jsx_runtime76.jsxs)("span", { className: "cf-theme-selector__version", children: [
               theme.version.major,
               ".",
               theme.version.minor,
@@ -28231,7 +28541,7 @@ var ThemeSelector = ({ data }) => {
               theme.version.patch
             ] })
           ] }),
-          selected === theme.name && /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("span", { className: "cf-theme-selector__selected-badge", children: "\u2714" })
+          selected === theme.name && /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("span", { className: "cf-theme-selector__selected-badge", children: "\u2714" })
         ]
       },
       theme.name
@@ -28248,19 +28558,19 @@ registerComponent({
 });
 
 // app/web/themes/@admin/components/documentation-selector/index.tsx
-var import_react49 = __toESM(require_react());
-var import_jsx_runtime74 = __toESM(require_jsx_runtime());
+var import_react51 = __toESM(require_react());
+var import_jsx_runtime77 = __toESM(require_jsx_runtime());
 var DocumentationSelector = (props) => {
   const { data } = props;
   const { label, name, value: initialValue } = data;
-  const [searchTerm, setSearchTerm] = (0, import_react49.useState)("");
-  const [results, setResults] = (0, import_react49.useState)([]);
-  const [selectedValue, setSelectedValue] = (0, import_react49.useState)(initialValue || "");
-  const [selectedParent, setSelectedParent] = (0, import_react49.useState)(null);
-  const [isOpen, setIsOpen] = (0, import_react49.useState)(false);
-  const [isLoading, setIsLoading] = (0, import_react49.useState)(false);
-  const wrapperRef = (0, import_react49.useRef)(null);
-  (0, import_react49.useEffect)(() => {
+  const [searchTerm, setSearchTerm] = (0, import_react51.useState)("");
+  const [results, setResults] = (0, import_react51.useState)([]);
+  const [selectedValue, setSelectedValue] = (0, import_react51.useState)(initialValue || "");
+  const [selectedParent, setSelectedParent] = (0, import_react51.useState)(null);
+  const [isOpen, setIsOpen] = (0, import_react51.useState)(false);
+  const [isLoading, setIsLoading] = (0, import_react51.useState)(false);
+  const wrapperRef = (0, import_react51.useRef)(null);
+  (0, import_react51.useEffect)(() => {
     const loadSelected = async () => {
       if (!selectedValue) return;
       setIsLoading(true);
@@ -28280,7 +28590,7 @@ var DocumentationSelector = (props) => {
     };
     loadSelected();
   }, [selectedValue]);
-  (0, import_react49.useEffect)(() => {
+  (0, import_react51.useEffect)(() => {
     const fetchDocs = async () => {
       if (!isOpen || !searchTerm) return;
       setIsLoading(true);
@@ -28298,7 +28608,7 @@ var DocumentationSelector = (props) => {
     const timeoutId = setTimeout(fetchDocs, 300);
     return () => clearTimeout(timeoutId);
   }, [searchTerm, isOpen]);
-  (0, import_react49.useEffect)(() => {
+  (0, import_react51.useEffect)(() => {
     const handleClickOutside = (event) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setIsOpen(false);
@@ -28318,17 +28628,17 @@ var DocumentationSelector = (props) => {
     setSelectedParent(null);
     setSearchTerm("");
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("div", { className: "documentation-selector-container", ref: wrapperRef, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("div", { className: "selector-header", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("label", { className: "selector-label", children: label }),
-      selectedParent && /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("span", { className: "selected-badge", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime77.jsxs)("div", { className: "documentation-selector-container", ref: wrapperRef, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime77.jsxs)("div", { className: "selector-header", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime77.jsx)("label", { className: "selector-label", children: label }),
+      selectedParent && /* @__PURE__ */ (0, import_jsx_runtime77.jsxs)("span", { className: "selected-badge", children: [
         "ID: ",
         selectedValue
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("div", { className: `selector-wrapper ${isOpen ? "is-open" : ""} ${isLoading ? "is-loading" : ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("div", { className: "input-group", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime74.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime77.jsxs)("div", { className: `selector-wrapper ${isOpen ? "is-open" : ""} ${isLoading ? "is-loading" : ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime77.jsxs)("div", { className: "input-group", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime77.jsx)(
           "input",
           {
             type: "text",
@@ -28339,25 +28649,25 @@ var DocumentationSelector = (props) => {
             onChange: (e) => setSearchTerm(e.target.value)
           }
         ),
-        searchTerm && /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("button", { type: "button", className: "clear-btn", onClick: clearSelection, children: "\xD7" })
+        searchTerm && /* @__PURE__ */ (0, import_jsx_runtime77.jsx)("button", { type: "button", className: "clear-btn", onClick: clearSelection, children: "\xD7" })
       ] }),
-      isOpen && /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("ul", { className: "results-dropdown", children: results.length > 0 ? results.map((doc) => /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)(
+      isOpen && /* @__PURE__ */ (0, import_jsx_runtime77.jsx)("ul", { className: "results-dropdown", children: results.length > 0 ? results.map((doc) => /* @__PURE__ */ (0, import_jsx_runtime77.jsxs)(
         "li",
         {
           onClick: () => handleSelect(doc),
           className: selectedValue === doc.id ? "is-selected" : "",
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)("span", { className: "doc-id", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime77.jsxs)("span", { className: "doc-id", children: [
               "#",
               doc.id
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("span", { className: "doc-text", children: doc.pageTitle || doc.title })
+            /* @__PURE__ */ (0, import_jsx_runtime77.jsx)("span", { className: "doc-text", children: doc.pageTitle || doc.title })
           ]
         },
         doc.id
-      )) : /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("li", { className: "no-results", children: isLoading ? "Searching..." : "No documents found" }) })
+      )) : /* @__PURE__ */ (0, import_jsx_runtime77.jsx)("li", { className: "no-results", children: isLoading ? "Searching..." : "No documents found" }) })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime74.jsx)("input", { type: "hidden", name, value: selectedValue })
+    /* @__PURE__ */ (0, import_jsx_runtime77.jsx)("input", { type: "hidden", name, value: selectedValue })
   ] });
 };
 registerComponent({
@@ -28370,19 +28680,19 @@ registerComponent({
 });
 
 // app/web/themes/@admin/index.tsx
-var import_jsx_runtime75 = __toESM(require_jsx_runtime());
+var import_jsx_runtime78 = __toESM(require_jsx_runtime());
 var AdminThemeWrapper = (props) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime75.jsxs)("div", { className: "codefolio-default-admin", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime75.jsx)(AdminHeader, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime75.jsx)("div", { className: "content", children: props.children })
+  return /* @__PURE__ */ (0, import_jsx_runtime78.jsxs)("div", { className: "codefolio-default-admin", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime78.jsx)(AdminHeader, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime78.jsx)("div", { className: "content", children: props.children })
   ] });
 };
 registerTheme("@admin", AdminThemeWrapper);
 
 // app/web/index.tsx
-var import_jsx_runtime76 = __toESM(require_jsx_runtime());
+var import_jsx_runtime79 = __toESM(require_jsx_runtime());
 var root = (0, import_client.createRoot)(document.getElementById("root"));
-root.render(/* @__PURE__ */ (0, import_jsx_runtime76.jsx)(Page, {}));
+root.render(/* @__PURE__ */ (0, import_jsx_runtime79.jsx)(Page, {}));
 /*! Bundled license information:
 
 scheduler/cjs/scheduler.development.js:

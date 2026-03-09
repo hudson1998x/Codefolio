@@ -9,6 +9,11 @@ import './Blog'
 import './Documents'
 import './health'
 import './Projects'
+import './Skills'
+import './Employment'
+import './Education'
+import './Certification'
+import './Achievement'
 
 // =================
 // Module imports

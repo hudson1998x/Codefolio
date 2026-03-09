@@ -22,7 +22,7 @@ export class ModuleGenerator implements OnInit
         const navService = Container.resolve(AdminNavService);
         await navService.add({
             label: "Module Generator",
-            href: "en-admin/dev/generator/add",
+            href: "/en-admin/dev/generator/add",
             key: "mod_gen",
             parent: "Dev Tools",
             sortOrder: 99999
