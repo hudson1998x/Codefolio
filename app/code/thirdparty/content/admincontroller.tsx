@@ -102,6 +102,7 @@ export abstract class AdminController<T extends Content> extends ContentControll
                         if (field.module) {
                             field.module.data.name = field.key;
                             field.module.data.value = (field as any).value || field.default;
+                            field.module.data.defaultValue = (field as any).value || field.default;
                             return <ui-Canvas>{field.module}</ui-Canvas>;
                         }
 
